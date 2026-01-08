@@ -1,0 +1,33 @@
+name: Daily Rank Snapshot
+
+on:
+  schedule:
+    # Run at 21:15 UTC (4:15 PM EST)
+    # This is 15 minutes after the market closes and the last data update runs
+    - cron: '15 21 * * 1-5'
+  
+  workflow_dispatch:
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Create Daily Snapshot
+        run: |
+          python save_daily_snapshot.py
+      
+      - name: Commit and push snapshot
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add yesterday_ranks.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "📸 Daily Snapshot: Update yesterday_ranks.json" && git push)

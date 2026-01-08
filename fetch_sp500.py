@@ -429,19 +429,17 @@ def main():
     
     print(f"📊 Total tickers: {len(SP500_TICKERS)}\n")
     
-    # Load previous data for rank comparison
-    previous_ranks = {}
+    # Load PREVIOUS DAY'S ranks for comparison
+    # (Do not use data.json for this, as data.json updates every 15 mins)
+    yesterday_ranks = {}
     try:
         import os
-        if os.path.exists('data.json'):
-            with open('data.json', 'r', encoding='utf-8') as f:
-                old_data = json.load(f)
-                for item in old_data:
-                    # Map ticker to its previous rank
-                    previous_ranks[item['ticker']] = item.get('rank', 9999) # Default to low rank if missing
-            print(f"✓ Loaded previous rankings for {len(previous_ranks)} tickers")
+        if os.path.exists('yesterday_ranks.json'):
+            with open('yesterday_ranks.json', 'r', encoding='utf-8') as f:
+                yesterday_ranks = json.load(f)
+            print(f"✓ Loaded yesterday's rankings for {len(yesterday_ranks)} tickers")
     except Exception as e:
-        print(f"⚠ Could not load previous data: {e}")
+        print(f"⚠ Could not load yesterday_ranks.json: {e}")
 
     results = []
     end_date = datetime.now()
@@ -483,6 +481,7 @@ def main():
     results.sort(key=lambda x: x['final_score'], reverse=True)
     total = len(results)
     
+    # 1. Calculate Overall Ranks & Changes
     for idx, item in enumerate(results):
         rank_pct = (idx + 1) / total
         if rank_pct <= 0.05: item['tier'] = 1
@@ -491,20 +490,45 @@ def main():
         elif rank_pct <= 0.80: item['tier'] = 4
         else: item['tier'] = 5
         
-        # Rank Logic
+        # Current Overall Rank
         current_rank = idx + 1
         item['rank'] = current_rank
         
-        # Calculate Rank Change (Old Rank - New Rank)
-        # e.g., Old 5, New 1 => Change +4 (Up 4 steps)
-        # e.g., Old 1, New 5 => Change -4 (Down 4 steps)
-        old_rank = previous_ranks.get(item['ticker'])
+        # Compare with Yesterday's Overall Rank
+        # snapshot format: "AAPL": {"rank": 5, "sector_rank": 1}
+        prev_info = yesterday_ranks.get(item['ticker'], {})
+        prev_rank = prev_info.get('rank')
         
-        if old_rank:
-            rank_change = old_rank - current_rank
-            item['rank_change'] = rank_change
+        if prev_rank:
+            item['rank_change'] = prev_rank - current_rank
         else:
-            item['rank_change'] = 0 # New entry or first run
+            item['rank_change'] = 0
+
+    # 2. Calculate Sector Ranks & Changes
+    # Group by sector first
+    by_sector = {}
+    for item in results:
+        sec = item.get('sector', 'Unknown')
+        if sec not in by_sector:
+            by_sector[sec] = []
+        by_sector[sec].append(item)
+    
+    # Sort within sector and assign rank
+    for sec, items in by_sector.items():
+        # Items are already sorted by final_score desc from main sort, but purely safe to rely on order?
+        # Yes, existing 'results' is sorted. When appending to 'by_sector', order is preserved.
+        for s_idx, item in enumerate(items):
+            current_sector_rank = s_idx + 1
+            item['sector_rank'] = current_sector_rank
+            
+            # Compare with Yesterday's Sector Rank
+            prev_info = yesterday_ranks.get(item['ticker'], {})
+            prev_sec_rank = prev_info.get('sector_rank')
+            
+            if prev_sec_rank:
+                item['sector_rank_change'] = prev_sec_rank - current_sector_rank
+            else:
+                 item['sector_rank_change'] = 0
     
     # Related peers
     sector_stocks = {}
