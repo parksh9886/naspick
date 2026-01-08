@@ -427,6 +427,22 @@ def main():
     print(f"⏰ Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"📊 Total tickers: {len(SP500_TICKERS)}\n")
     
+    print(f"📊 Total tickers: {len(SP500_TICKERS)}\n")
+    
+    # Load previous data for rank comparison
+    previous_ranks = {}
+    try:
+        import os
+        if os.path.exists('data.json'):
+            with open('data.json', 'r', encoding='utf-8') as f:
+                old_data = json.load(f)
+                for item in old_data:
+                    # Map ticker to its previous rank
+                    previous_ranks[item['ticker']] = item.get('rank', 9999) # Default to low rank if missing
+            print(f"✓ Loaded previous rankings for {len(previous_ranks)} tickers")
+    except Exception as e:
+        print(f"⚠ Could not load previous data: {e}")
+
     results = []
     end_date = datetime.now()
     start_date = end_date - timedelta(days=365)
@@ -474,7 +490,21 @@ def main():
         elif rank_pct <= 0.50: item['tier'] = 3
         elif rank_pct <= 0.80: item['tier'] = 4
         else: item['tier'] = 5
-        item['rank'] = idx + 1
+        
+        # Rank Logic
+        current_rank = idx + 1
+        item['rank'] = current_rank
+        
+        # Calculate Rank Change (Old Rank - New Rank)
+        # e.g., Old 5, New 1 => Change +4 (Up 4 steps)
+        # e.g., Old 1, New 5 => Change -4 (Down 4 steps)
+        old_rank = previous_ranks.get(item['ticker'])
+        
+        if old_rank:
+            rank_change = old_rank - current_rank
+            item['rank_change'] = rank_change
+        else:
+            item['rank_change'] = 0 # New entry or first run
     
     # Related peers
     sector_stocks = {}
