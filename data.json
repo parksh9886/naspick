@@ -1,0 +1,3593 @@
+[
+  {
+    "ticker": "VRTX",
+    "name": "버텍스",
+    "name_en": "Vertex Pharma",
+    "sector": "기술",
+    "current_price": 484.15,
+    "change_pct": 3.37,
+    "market_cap": 0,
+    "base_score": 100,
+    "bonus_score": 10.48,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 83,
+      "volume": 18,
+      "momentum": 100,
+      "impact": 86
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 464.45,
+      "r1": 475.21,
+      "r2": 482.04,
+      "s1": 457.62,
+      "s2": 446.86
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($457.62)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 1,
+    "rank": 1,
+    "related_peers": [
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      },
+      {
+        "ticker": "AMGN",
+        "change_pct": 3.47
+      }
+    ]
+  },
+  {
+    "ticker": "GOOGL",
+    "name": "알파벳 A",
+    "name_en": "Alphabet A",
+    "sector": "커뮤니케이션",
+    "current_price": 321.98,
+    "change_pct": 2.43,
+    "market_cap": 0,
+    "base_score": 100,
+    "bonus_score": 6.37,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 9,
+      "momentum": 50,
+      "impact": 54
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 315.69,
+      "r1": 319.59,
+      "r2": 324.85,
+      "s1": 310.43,
+      "s2": 306.53
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($310.43) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 1,
+    "rank": 2,
+    "related_peers": [
+      {
+        "ticker": "GOOG",
+        "change_pct": 2.51
+      },
+      {
+        "ticker": "META",
+        "change_pct": -1.81
+      }
+    ]
+  },
+  {
+    "ticker": "BAC",
+    "name": "뱅크오브아메리카",
+    "name_en": "Bank of America",
+    "sector": "기술",
+    "current_price": 55.64,
+    "change_pct": -2.81,
+    "market_cap": 0,
+    "base_score": 110,
+    "bonus_score": 1.88,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 18,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 57.14,
+      "r1": 57.52,
+      "r2": 57.8,
+      "s1": 56.86,
+      "s2": 56.48
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($56.86)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 2,
+    "rank": 3,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      },
+      {
+        "ticker": "AMGN",
+        "change_pct": 3.47
+      }
+    ]
+  },
+  {
+    "ticker": "MRK",
+    "name": "머크",
+    "name_en": "Merck",
+    "sector": "기술",
+    "current_price": 108.6,
+    "change_pct": -0.25,
+    "market_cap": 0,
+    "base_score": 100,
+    "bonus_score": 0.73,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 7,
+      "momentum": 50,
+      "impact": 0
+    },
+    "signals": [
+      "RSI_Extreme",
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 108.91,
+      "r1": 110.13,
+      "r2": 111.4,
+      "s1": 107.64,
+      "s2": 106.42
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($107.64) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 2,
+    "rank": 4,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "AMGN",
+        "change_pct": 3.47
+      }
+    ]
+  },
+  {
+    "ticker": "AMGN",
+    "name": "암젠",
+    "name_en": "Amgen",
+    "sector": "기술",
+    "current_price": 341.64,
+    "change_pct": 3.47,
+    "market_cap": 0,
+    "base_score": 110,
+    "bonus_score": 10.61,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 13,
+      "momentum": 100,
+      "impact": 92
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 326.65,
+      "r1": 334.46,
+      "r2": 338.76,
+      "s1": 322.35,
+      "s2": 314.54
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($322.35)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 2,
+    "rank": 5,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "DHR",
+    "name": "다나허",
+    "name_en": "Danaher",
+    "sector": "기술",
+    "current_price": 235.57,
+    "change_pct": -0.43,
+    "market_cap": 0,
+    "base_score": 110,
+    "bonus_score": 0.0,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 0,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 237.28,
+      "r1": 239.75,
+      "r2": 242.9,
+      "s1": 234.13,
+      "s2": 231.66
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($234.13)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 2,
+    "rank": 6,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "QCOM",
+    "name": "퀄컴",
+    "name_en": "Qualcomm",
+    "sector": "기술",
+    "current_price": 180.19,
+    "change_pct": -1.24,
+    "market_cap": 0,
+    "base_score": 110,
+    "bonus_score": 1.37,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 13,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 181.17,
+      "r1": 185.73,
+      "r2": 189.0,
+      "s1": 177.9,
+      "s2": 173.34
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($177.9)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 2,
+    "rank": 7,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "JPM",
+    "name": "제이피모건",
+    "name_en": "JPMorgan Chase",
+    "sector": "기술",
+    "current_price": 326.99,
+    "change_pct": -2.28,
+    "market_cap": 0,
+    "base_score": 110,
+    "bonus_score": 0.0,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 0,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 333.71,
+      "r1": 336.77,
+      "r2": 338.93,
+      "s1": 331.55,
+      "s2": 328.49
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($331.55)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 2,
+    "rank": 8,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "DIS",
+    "name": "월트 디즈니",
+    "name_en": "Disney",
+    "sector": "기술",
+    "current_price": 112.91,
+    "change_pct": -1.45,
+    "market_cap": 0,
+    "base_score": 110,
+    "bonus_score": 0.0,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 0,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 114.15,
+      "r1": 115.18,
+      "r2": 115.8,
+      "s1": 113.53,
+      "s2": 112.5
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($113.53)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 2,
+    "rank": 9,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "TXN",
+    "name": "텍사스 인스트루먼트",
+    "name_en": "Texas Instruments",
+    "sector": "기술",
+    "current_price": 185.71,
+    "change_pct": -3.33,
+    "market_cap": 0,
+    "base_score": 100,
+    "bonus_score": 1.39,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 83,
+      "volume": 13,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 188.37,
+      "r1": 196.65,
+      "r2": 201.2,
+      "s1": 183.82,
+      "s2": 175.54
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($183.82)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 2,
+    "rank": 10,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "V",
+    "name": "비자",
+    "name_en": "Visa",
+    "sector": "기술",
+    "current_price": 355.88,
+    "change_pct": -0.47,
+    "market_cap": 0,
+    "base_score": 110,
+    "bonus_score": 0.01,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 0,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 356.06,
+      "r1": 360.12,
+      "r2": 362.68,
+      "s1": 353.5,
+      "s2": 349.44
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($353.5)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 2,
+    "rank": 11,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "LLY",
+    "name": "LLY",
+    "name_en": "LLY",
+    "sector": "기술",
+    "current_price": 1108.09,
+    "change_pct": 4.14,
+    "market_cap": 0,
+    "base_score": 100,
+    "bonus_score": 10.66,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 26,
+      "momentum": 50,
+      "impact": 79
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 1058.27,
+      "r1": 1076.6,
+      "r2": 1089.17,
+      "s1": 1045.7,
+      "s2": 1027.37
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($1045.7) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 12,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "GOOG",
+    "name": "알파벳 C",
+    "name_en": "Alphabet C",
+    "sector": "커뮤니케이션",
+    "current_price": 322.43,
+    "change_pct": 2.51,
+    "market_cap": 0,
+    "base_score": 100,
+    "bonus_score": 7.1,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 14,
+      "momentum": 50,
+      "impact": 56
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 316.15,
+      "r1": 319.96,
+      "r2": 325.37,
+      "s1": 310.74,
+      "s2": 306.93
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($310.74) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 13,
+    "related_peers": [
+      {
+        "ticker": "GOOGL",
+        "change_pct": 2.43
+      },
+      {
+        "ticker": "META",
+        "change_pct": -1.81
+      }
+    ]
+  },
+  {
+    "ticker": "BKNG",
+    "name": "부킹 홀딩스",
+    "name_en": "Booking Holdings",
+    "sector": "기술",
+    "current_price": 5445.72,
+    "change_pct": 1.82,
+    "market_cap": 0,
+    "base_score": 100,
+    "bonus_score": 4.24,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 0,
+      "momentum": 50,
+      "impact": 42
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 5329.16,
+      "r1": 5387.3,
+      "r2": 5426.21,
+      "s1": 5290.25,
+      "s2": 5232.11
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($5290.25) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 14,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "TMO",
+    "name": "써모피셔",
+    "name_en": "Thermo Fisher",
+    "sector": "기술",
+    "current_price": 617.15,
+    "change_pct": -0.58,
+    "market_cap": 0,
+    "base_score": 105,
+    "bonus_score": 2.44,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 24,
+      "momentum": 75,
+      "impact": 0
+    },
+    "signals": [
+      "RSI_Overbought",
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 618.29,
+      "r1": 630.51,
+      "r2": 640.31,
+      "s1": 608.49,
+      "s2": 596.27
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($608.49)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 15,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "ISRG",
+    "name": "인튜이티브 서지컬",
+    "name_en": "Intuitive Surgical",
+    "sector": "기술",
+    "current_price": 592.27,
+    "change_pct": -0.1,
+    "market_cap": 0,
+    "base_score": 100,
+    "bonus_score": 0.84,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 83,
+      "volume": 8,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 583.94,
+      "r1": 603.53,
+      "r2": 614.21,
+      "s1": 573.26,
+      "s2": 553.67
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($573.26)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 16,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "MA",
+    "name": "마스터카드",
+    "name_en": "Mastercard",
+    "sector": "기술",
+    "current_price": 579.92,
+    "change_pct": -0.07,
+    "market_cap": 0,
+    "base_score": 110,
+    "bonus_score": 1.55,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 100,
+      "volume": 15,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 576.55,
+      "r1": 585.16,
+      "r2": 589.98,
+      "s1": 571.73,
+      "s2": 563.12
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($571.73)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 17,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "ABBV",
+    "name": "애브비",
+    "name_en": "AbbVie",
+    "sector": "기술",
+    "current_price": 233.42,
+    "change_pct": 4.24,
+    "market_cap": 0,
+    "base_score": 90,
+    "bonus_score": 13.77,
+    "final_score": 100.0,
+    "stats_bar": {
+      "trend": 83,
+      "volume": 37,
+      "momentum": 100,
+      "impact": 100
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 222.56,
+      "r1": 225.57,
+      "r2": 227.21,
+      "s1": 220.92,
+      "s2": 217.91
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($220.92)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 18,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "INTC",
+    "name": "인텔",
+    "name_en": "Intel",
+    "sector": "기술",
+    "current_price": 42.63,
+    "change_pct": 6.47,
+    "market_cap": 0,
+    "base_score": 85,
+    "bonus_score": 14.35,
+    "final_score": 99.3,
+    "stats_bar": {
+      "trend": 83,
+      "volume": 67,
+      "momentum": 75,
+      "impact": 76
+    },
+    "signals": [
+      "RSI_Overbought",
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 39.77,
+      "r1": 40.58,
+      "r2": 41.13,
+      "s1": 39.22,
+      "s2": 38.41
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "견조한 수급",
+        "text": "특이 사항 없이 꾸준한 거래량을 동반하며 추세를 뒷받침하고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($39.22)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 19,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "HON",
+    "name": "허니웰",
+    "name_en": "Honeywell",
+    "sector": "기술",
+    "current_price": 199.51,
+    "change_pct": -2.65,
+    "market_cap": 0,
+    "base_score": 90,
+    "bonus_score": 1.9,
+    "final_score": 91.9,
+    "stats_bar": {
+      "trend": 66,
+      "volume": 18,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 203.62,
+      "r1": 206.88,
+      "r2": 208.83,
+      "s1": 201.67,
+      "s2": 198.41
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($201.67)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 20,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "NVDA",
+    "name": "엔비디아",
+    "name_en": "NVIDIA",
+    "sector": "기술",
+    "current_price": 189.11,
+    "change_pct": 1.0,
+    "market_cap": 0,
+    "base_score": 90,
+    "bonus_score": 1.87,
+    "final_score": 91.9,
+    "stats_bar": {
+      "trend": 83,
+      "volume": 0,
+      "momentum": 100,
+      "impact": 18
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 188.74,
+      "r1": 190.67,
+      "r2": 194.09,
+      "s1": 185.32,
+      "s2": 183.39
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($185.32)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 21,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "CVX",
+    "name": "쉐브론",
+    "name_en": "Chevron",
+    "sector": "기술",
+    "current_price": 155.2,
+    "change_pct": -0.86,
+    "market_cap": 0,
+    "base_score": 90,
+    "bonus_score": 1.73,
+    "final_score": 91.7,
+    "stats_bar": {
+      "trend": 83,
+      "volume": 17,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 159.23,
+      "r1": 162.36,
+      "r2": 168.17,
+      "s1": 153.42,
+      "s2": 150.29
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($153.42)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 22,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "XOM",
+    "name": "XOM",
+    "name_en": "XOM",
+    "sector": "기술",
+    "current_price": 118.49,
+    "change_pct": -2.11,
+    "market_cap": 0,
+    "base_score": 90,
+    "bonus_score": 0.85,
+    "final_score": 90.9,
+    "stats_bar": {
+      "trend": 83,
+      "volume": 8,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 122.62,
+      "r1": 124.23,
+      "r2": 127.42,
+      "s1": 119.43,
+      "s2": 117.82
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($119.43)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 23,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "SBUX",
+    "name": "스타벅스",
+    "name_en": "Starbucks",
+    "sector": "기술",
+    "current_price": 86.69,
+    "change_pct": -3.1,
+    "market_cap": 0,
+    "base_score": 90,
+    "bonus_score": 0.3,
+    "final_score": 90.3,
+    "stats_bar": {
+      "trend": 66,
+      "volume": 2,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 88.82,
+      "r1": 91.28,
+      "r2": 93.1,
+      "s1": 87.0,
+      "s2": 84.54
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($87.0)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 24,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "AMZN",
+    "name": "아마존",
+    "name_en": "Amazon",
+    "sector": "임의소비재",
+    "current_price": 241.56,
+    "change_pct": 0.26,
+    "market_cap": 0,
+    "base_score": 85,
+    "bonus_score": 1.32,
+    "final_score": 86.3,
+    "stats_bar": {
+      "trend": 83,
+      "volume": 6,
+      "momentum": 75,
+      "impact": 6
+    },
+    "signals": [
+      "RSI_Overbought",
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 238.73,
+      "r1": 245.38,
+      "r2": 249.84,
+      "s1": 234.27,
+      "s2": 227.62
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($234.27)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 25,
+    "related_peers": [
+      {
+        "ticker": "TSLA",
+        "change_pct": -0.36
+      }
+    ]
+  },
+  {
+    "ticker": "GILD",
+    "name": "길리어드",
+    "name_en": "Gilead Sciences",
+    "sector": "기술",
+    "current_price": 124.35,
+    "change_pct": 2.46,
+    "market_cap": 0,
+    "base_score": 80,
+    "bonus_score": 5.36,
+    "final_score": 85.4,
+    "stats_bar": {
+      "trend": 83,
+      "volume": 0,
+      "momentum": 50,
+      "impact": 53
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 120.52,
+      "r1": 122.83,
+      "r2": 124.29,
+      "s1": 119.06,
+      "s2": 116.75
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($119.06) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 26,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "ACN",
+    "name": "엑센츄어",
+    "name_en": "Accenture",
+    "sector": "기술",
+    "current_price": 273.98,
+    "change_pct": -0.71,
+    "market_cap": 0,
+    "base_score": 80,
+    "bonus_score": 0.64,
+    "final_score": 80.6,
+    "stats_bar": {
+      "trend": 66,
+      "volume": 6,
+      "momentum": 50,
+      "impact": 0
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 271.34,
+      "r1": 280.58,
+      "r2": 285.24,
+      "s1": 266.68,
+      "s2": 257.44
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($266.68) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 27,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "JNJ",
+    "name": "존슨앤존슨",
+    "name_en": "Johnson & Johnson",
+    "sector": "기술",
+    "current_price": 207.49,
+    "change_pct": 1.32,
+    "market_cap": 0,
+    "base_score": 70,
+    "bonus_score": 3.7,
+    "final_score": 73.7,
+    "stats_bar": {
+      "trend": 83,
+      "volume": 0,
+      "momentum": 0,
+      "impact": 36
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 205.21,
+      "r1": 206.29,
+      "r2": 207.8,
+      "s1": 203.7,
+      "s2": 202.62
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 3,
+    "rank": 28,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "CMCSA",
+    "name": "컴캐스트",
+    "name_en": "Comcast",
+    "sector": "기술",
+    "current_price": 27.9,
+    "change_pct": 1.75,
+    "market_cap": 0,
+    "base_score": 70,
+    "bonus_score": 3.42,
+    "final_score": 73.4,
+    "stats_bar": {
+      "trend": 50,
+      "volume": 0,
+      "momentum": 50,
+      "impact": 34
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 27.49,
+      "r1": 27.87,
+      "r2": 28.33,
+      "s1": 27.03,
+      "s2": 26.65
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($27.03) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 29,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "PANW",
+    "name": "PANW",
+    "name_en": "PANW",
+    "sector": "기술",
+    "current_price": 193.9,
+    "change_pct": 4.33,
+    "market_cap": 0,
+    "base_score": 60,
+    "bonus_score": 11.38,
+    "final_score": 71.4,
+    "stats_bar": {
+      "trend": 50,
+      "volume": 17,
+      "momentum": 100,
+      "impact": 95
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 184.45,
+      "r1": 187.46,
+      "r2": 189.05,
+      "s1": 182.86,
+      "s2": 179.85
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($182.86)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 30,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "UNH",
+    "name": "UNH",
+    "name_en": "UNH",
+    "sector": "기술",
+    "current_price": 341.7,
+    "change_pct": -2.08,
+    "market_cap": 0,
+    "base_score": 70,
+    "bonus_score": 0.98,
+    "final_score": 71.0,
+    "stats_bar": {
+      "trend": 50,
+      "volume": 9,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 348.9,
+      "r1": 352.68,
+      "r2": 356.39,
+      "s1": 345.19,
+      "s2": 341.41
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($345.19)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 31,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "WMT",
+    "name": "월마트",
+    "name_en": "Walmart",
+    "sector": "기술",
+    "current_price": 112.72,
+    "change_pct": -1.42,
+    "market_cap": 0,
+    "base_score": 70,
+    "bonus_score": 1.02,
+    "final_score": 71.0,
+    "stats_bar": {
+      "trend": 83,
+      "volume": 10,
+      "momentum": 0,
+      "impact": 0
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 113.71,
+      "r1": 115.42,
+      "r2": 116.51,
+      "s1": 112.62,
+      "s2": 110.91
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "강력한 정배열",
+        "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+        "color_class": "text-blue-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 32,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "ABT",
+    "name": "애보트",
+    "name_en": "Abbott",
+    "sector": "기술",
+    "current_price": 127.04,
+    "change_pct": -0.58,
+    "market_cap": 0,
+    "base_score": 70,
+    "bonus_score": 0.52,
+    "final_score": 70.5,
+    "stats_bar": {
+      "trend": 50,
+      "volume": 5,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 127.93,
+      "r1": 129.31,
+      "r2": 130.84,
+      "s1": 126.4,
+      "s2": 125.02
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($126.4)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 33,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "PFE",
+    "name": "화이자",
+    "name_en": "Pfizer",
+    "sector": "기술",
+    "current_price": 25.28,
+    "change_pct": -0.59,
+    "market_cap": 0,
+    "base_score": 70,
+    "bonus_score": 0.42,
+    "final_score": 70.4,
+    "stats_bar": {
+      "trend": 66,
+      "volume": 4,
+      "momentum": 50,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 25.54,
+      "r1": 25.9,
+      "r2": 26.36,
+      "s1": 25.08,
+      "s2": 24.72
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($25.08) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 34,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "MSFT",
+    "name": "마이크로소프트",
+    "name_en": "Microsoft",
+    "sector": "기술",
+    "current_price": 483.47,
+    "change_pct": 1.04,
+    "market_cap": 0,
+    "base_score": 60,
+    "bonus_score": 4.03,
+    "final_score": 64.0,
+    "stats_bar": {
+      "trend": 50,
+      "volume": 6,
+      "momentum": 100,
+      "impact": 33
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 475.67,
+      "r1": 481.58,
+      "r2": 484.66,
+      "s1": 472.59,
+      "s2": 466.68
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($472.59)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 35,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "LIN",
+    "name": "린데",
+    "name_en": "Linde",
+    "sector": "기술",
+    "current_price": 434.14,
+    "change_pct": -0.69,
+    "market_cap": 0,
+    "base_score": 60,
+    "bonus_score": 0.0,
+    "final_score": 60.0,
+    "stats_bar": {
+      "trend": 33,
+      "volume": 0,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 436.54,
+      "r1": 439.62,
+      "r2": 442.08,
+      "s1": 434.08,
+      "s2": 431.0
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($434.08)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 36,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "AAPL",
+    "name": "애플",
+    "name_en": "Apple Inc.",
+    "sector": "기술",
+    "current_price": 260.33,
+    "change_pct": -0.77,
+    "market_cap": 0,
+    "base_score": 50,
+    "bonus_score": 0.78,
+    "final_score": 50.8,
+    "stats_bar": {
+      "trend": 66,
+      "volume": 7,
+      "momentum": 0,
+      "impact": 0
+    },
+    "signals": [
+      "RSI_Oversold"
+    ],
+    "levels": {
+      "pivot": 264.01,
+      "r1": 265.9,
+      "r2": 269.44,
+      "s1": 260.47,
+      "s2": 258.58
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 37,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "AMD",
+    "name": "AMD",
+    "name_en": "Advanced Micro Devices",
+    "sector": "기술",
+    "current_price": 210.02,
+    "change_pct": -2.02,
+    "market_cap": 0,
+    "base_score": 50,
+    "bonus_score": 0.41,
+    "final_score": 50.4,
+    "stats_bar": {
+      "trend": 50,
+      "volume": 4,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 216.17,
+      "r1": 221.1,
+      "r2": 227.84,
+      "s1": 209.43,
+      "s2": 204.5
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($209.43)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 38,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "CSCO",
+    "name": "시스코",
+    "name_en": "Cisco",
+    "sector": "기술",
+    "current_price": 74.72,
+    "change_pct": -0.68,
+    "market_cap": 0,
+    "base_score": 50,
+    "bonus_score": 0.0,
+    "final_score": 50.0,
+    "stats_bar": {
+      "trend": 66,
+      "volume": 0,
+      "momentum": 0,
+      "impact": 0
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 75.26,
+      "r1": 75.7,
+      "r2": 76.18,
+      "s1": 74.78,
+      "s2": 74.34
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 39,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "TSLA",
+    "name": "테슬라",
+    "name_en": "Tesla",
+    "sector": "임의소비재",
+    "current_price": 431.41,
+    "change_pct": -0.36,
+    "market_cap": 0,
+    "base_score": 50,
+    "bonus_score": 0.0,
+    "final_score": 50.0,
+    "stats_bar": {
+      "trend": 66,
+      "volume": 0,
+      "momentum": 0,
+      "impact": 0
+    },
+    "signals": [
+      "RSI_Oversold"
+    ],
+    "levels": {
+      "pivot": 436.66,
+      "r1": 444.55,
+      "r2": 456.13,
+      "s1": 425.08,
+      "s2": 417.19
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 40,
+    "related_peers": [
+      {
+        "ticker": "AMZN",
+        "change_pct": 0.26
+      }
+    ]
+  },
+  {
+    "ticker": "MCD",
+    "name": "MCD",
+    "name_en": "MCD",
+    "sector": "기술",
+    "current_price": 304.16,
+    "change_pct": 0.46,
+    "market_cap": 0,
+    "base_score": 40,
+    "bonus_score": 2.94,
+    "final_score": 42.9,
+    "stats_bar": {
+      "trend": 50,
+      "volume": 13,
+      "momentum": 0,
+      "impact": 16
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 301.77,
+      "r1": 305.22,
+      "r2": 307.66,
+      "s1": 299.33,
+      "s2": 295.88
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 41,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "BRK-B",
+    "name": "BRK-B",
+    "name_en": "BRK-B",
+    "sector": "기술",
+    "current_price": 496.12,
+    "change_pct": -0.59,
+    "market_cap": 0,
+    "base_score": 40,
+    "bonus_score": 0.0,
+    "final_score": 40.0,
+    "stats_bar": {
+      "trend": 50,
+      "volume": 0,
+      "momentum": 0,
+      "impact": 0
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 498.59,
+      "r1": 501.13,
+      "r2": 503.2,
+      "s1": 496.52,
+      "s2": 493.98
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "추세 전환 시도",
+        "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+        "color_class": "text-[#00bba3]"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 42,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "COST",
+    "name": "코스트코",
+    "name_en": "Costco",
+    "sector": "기술",
+    "current_price": 882.58,
+    "change_pct": -0.73,
+    "market_cap": 0,
+    "base_score": 40,
+    "bonus_score": 0.0,
+    "final_score": 40.0,
+    "stats_bar": {
+      "trend": 16,
+      "volume": 0,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 884.83,
+      "r1": 898.35,
+      "r2": 907.61,
+      "s1": 875.57,
+      "s2": 862.05
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($875.57)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 43,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "ADP",
+    "name": "ADP",
+    "name_en": "Automatic Data Processing",
+    "sector": "기술",
+    "current_price": 261.26,
+    "change_pct": 0.05,
+    "market_cap": 0,
+    "base_score": 30,
+    "bonus_score": 0.17,
+    "final_score": 30.2,
+    "stats_bar": {
+      "trend": 16,
+      "volume": 0,
+      "momentum": 50,
+      "impact": 1
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 259.56,
+      "r1": 263.66,
+      "r2": 266.19,
+      "s1": 257.03,
+      "s2": 252.93
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($257.03) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 44,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "AVGO",
+    "name": "브로드컴",
+    "name_en": "Broadcom",
+    "sector": "기술",
+    "current_price": 343.5,
+    "change_pct": -0.08,
+    "market_cap": 0,
+    "base_score": 30,
+    "bonus_score": 0.0,
+    "final_score": 30.0,
+    "stats_bar": {
+      "trend": 33,
+      "volume": 0,
+      "momentum": 50,
+      "impact": 0
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 343.61,
+      "r1": 349.21,
+      "r2": 354.66,
+      "s1": 338.16,
+      "s2": 332.56
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($338.16) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 4,
+    "rank": 45,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "ORCL",
+    "name": "오라클",
+    "name_en": "Oracle",
+    "sector": "기술",
+    "current_price": 192.84,
+    "change_pct": -0.47,
+    "market_cap": 0,
+    "base_score": 30,
+    "bonus_score": 0.0,
+    "final_score": 30.0,
+    "stats_bar": {
+      "trend": 16,
+      "volume": 0,
+      "momentum": 100,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 193.11,
+      "r1": 195.52,
+      "r2": 197.29,
+      "s1": 191.34,
+      "s2": 188.93
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "과열 주의",
+        "text": "단기 과열 구간 진입. 신규 진입자는 눌림목($191.34)을 기다리는 것이 유리함.",
+        "color_class": "text-rose-400"
+      }
+    ],
+    "tier": 5,
+    "rank": 46,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "ADBE",
+    "name": "어도비",
+    "name_en": "Adobe",
+    "sector": "기술",
+    "current_price": 338.1,
+    "change_pct": 0.63,
+    "market_cap": 0,
+    "base_score": 20,
+    "bonus_score": 1.2,
+    "final_score": 21.2,
+    "stats_bar": {
+      "trend": 16,
+      "volume": 0,
+      "momentum": 0,
+      "impact": 11
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 333.96,
+      "r1": 338.43,
+      "r2": 340.86,
+      "s1": 331.53,
+      "s2": 327.06
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 5,
+    "rank": 47,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "VZ",
+    "name": "버라이즌",
+    "name_en": "Verizon",
+    "sector": "기술",
+    "current_price": 40.13,
+    "change_pct": -0.42,
+    "market_cap": 0,
+    "base_score": 20,
+    "bonus_score": 0.26,
+    "final_score": 20.3,
+    "stats_bar": {
+      "trend": 16,
+      "volume": 2,
+      "momentum": 0,
+      "impact": 0
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 40.25,
+      "r1": 40.51,
+      "r2": 40.72,
+      "s1": 40.04,
+      "s2": 39.78
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 5,
+    "rank": 48,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "NFLX",
+    "name": "넷플릭스",
+    "name_en": "Netflix",
+    "sector": "기술",
+    "current_price": 90.73,
+    "change_pct": 0.09,
+    "market_cap": 0,
+    "base_score": 20,
+    "bonus_score": 0.19,
+    "final_score": 20.2,
+    "stats_bar": {
+      "trend": 16,
+      "volume": 0,
+      "momentum": 50,
+      "impact": 1
+    },
+    "signals": [
+      "RSI_Oversold",
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 90.68,
+      "r1": 91.61,
+      "r2": 92.58,
+      "s1": 89.71,
+      "s2": 88.78
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($89.71) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 5,
+    "rank": 49,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "KO",
+    "name": "코카콜라",
+    "name_en": "Coca-Cola",
+    "sector": "기술",
+    "current_price": 67.54,
+    "change_pct": -0.44,
+    "market_cap": 0,
+    "base_score": 10,
+    "bonus_score": 1.31,
+    "final_score": 11.3,
+    "stats_bar": {
+      "trend": 16,
+      "volume": 13,
+      "momentum": 0,
+      "impact": 0
+    },
+    "signals": [
+      "RSI_Oversold"
+    ],
+    "levels": {
+      "pivot": 67.89,
+      "r1": 68.2,
+      "r2": 68.55,
+      "s1": 67.54,
+      "s2": 67.23
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 5,
+    "rank": 50,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "PEP",
+    "name": "펩시코",
+    "name_en": "PepsiCo",
+    "sector": "기술",
+    "current_price": 137.01,
+    "change_pct": -1.4,
+    "market_cap": 0,
+    "base_score": 10,
+    "bonus_score": 0.11,
+    "final_score": 10.1,
+    "stats_bar": {
+      "trend": 16,
+      "volume": 1,
+      "momentum": 0,
+      "impact": 0
+    },
+    "signals": [
+      "RSI_Oversold"
+    ],
+    "levels": {
+      "pivot": 139.2,
+      "r1": 139.82,
+      "r2": 140.69,
+      "s1": 138.33,
+      "s2": 137.71
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 5,
+    "rank": 51,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "HD",
+    "name": "홈디포",
+    "name_en": "Home Depot",
+    "sector": "기술",
+    "current_price": 349.06,
+    "change_pct": -0.07,
+    "market_cap": 0,
+    "base_score": 10,
+    "bonus_score": 0.05,
+    "final_score": 10.1,
+    "stats_bar": {
+      "trend": 0,
+      "volume": 0,
+      "momentum": 50,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 345.89,
+      "r1": 354.08,
+      "r2": 358.86,
+      "s1": 341.11,
+      "s2": 332.92
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($341.11) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 5,
+    "rank": 52,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "TMUS",
+    "name": "티모바일",
+    "name_en": "T-Mobile",
+    "sector": "기술",
+    "current_price": 197.29,
+    "change_pct": -0.66,
+    "market_cap": 0,
+    "base_score": 10,
+    "bonus_score": 0.0,
+    "final_score": 10.0,
+    "stats_bar": {
+      "trend": 0,
+      "volume": 0,
+      "momentum": 50,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 198.9,
+      "r1": 200.64,
+      "r2": 202.68,
+      "s1": 196.86,
+      "s2": 195.12
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($196.86) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 5,
+    "rank": 53,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "NKE",
+    "name": "나이키",
+    "name_en": "Nike",
+    "sector": "기술",
+    "current_price": 63.22,
+    "change_pct": -3.26,
+    "market_cap": 0,
+    "base_score": 10,
+    "bonus_score": 0.0,
+    "final_score": 10.0,
+    "stats_bar": {
+      "trend": 0,
+      "volume": 0,
+      "momentum": 50,
+      "impact": 0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 64.73,
+      "r1": 66.05,
+      "r2": 66.75,
+      "s1": 64.03,
+      "s2": 62.71
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "홀딩 전략",
+        "text": "현재 추세가 유효하므로 1차 지지선($64.03) 이탈 전까지는 추세 추종 전략 권장.",
+        "color_class": "text-gray-400"
+      }
+    ],
+    "tier": 5,
+    "rank": 54,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "META",
+    "name": "메타",
+    "name_en": "Meta Platforms",
+    "sector": "커뮤니케이션",
+    "current_price": 648.69,
+    "change_pct": -1.81,
+    "market_cap": 0,
+    "base_score": 10,
+    "bonus_score": 0.0,
+    "final_score": 10.0,
+    "stats_bar": {
+      "trend": 16,
+      "volume": 0,
+      "momentum": 0,
+      "impact": 0
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 659.35,
+      "r1": 666.79,
+      "r2": 672.97,
+      "s1": 653.17,
+      "s2": 645.73
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 5,
+    "rank": 55,
+    "related_peers": [
+      {
+        "ticker": "GOOGL",
+        "change_pct": 2.43
+      },
+      {
+        "ticker": "GOOG",
+        "change_pct": 2.51
+      }
+    ]
+  },
+  {
+    "ticker": "PG",
+    "name": "P&G",
+    "name_en": "Procter & Gamble",
+    "sector": "기술",
+    "current_price": 138.04,
+    "change_pct": -1.34,
+    "market_cap": 0,
+    "base_score": 0,
+    "bonus_score": 1.97,
+    "final_score": 2.0,
+    "stats_bar": {
+      "trend": 0,
+      "volume": 19,
+      "momentum": 0,
+      "impact": 0
+    },
+    "signals": [
+      "RSI_Oversold"
+    ],
+    "levels": {
+      "pivot": 140.28,
+      "r1": 141.05,
+      "r2": 142.19,
+      "s1": 139.14,
+      "s2": 138.37
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 5,
+    "rank": 56,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  },
+  {
+    "ticker": "MDLZ",
+    "name": "몬델리즈",
+    "name_en": "Mondelez",
+    "sector": "기술",
+    "current_price": 51.51,
+    "change_pct": -2.31,
+    "market_cap": 0,
+    "base_score": 0,
+    "bonus_score": 0.35,
+    "final_score": 0.3,
+    "stats_bar": {
+      "trend": 0,
+      "volume": 3,
+      "momentum": 0,
+      "impact": 0
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 53.03,
+      "r1": 53.35,
+      "r2": 53.98,
+      "s1": 52.4,
+      "s2": 52.08
+    },
+    "ai_briefing": [
+      {
+        "id": 1,
+        "title": "조정 국면",
+        "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 2,
+        "title": "거래량 소강",
+        "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+        "color_class": "text-gray-400"
+      },
+      {
+        "id": 3,
+        "title": "기술적 반등 기대",
+        "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+        "color_class": "text-blue-400"
+      }
+    ],
+    "tier": 5,
+    "rank": 57,
+    "related_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": 3.37
+      },
+      {
+        "ticker": "BAC",
+        "change_pct": -2.81
+      },
+      {
+        "ticker": "MRK",
+        "change_pct": -0.25
+      }
+    ]
+  }
+]

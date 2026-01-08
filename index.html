@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naspick - 11 Sectors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-[#1c1c1f] text-white min-h-screen flex flex-col">
+
+    <header class="bg-[#5383e8] py-5 border-b border-[#3e63b0] shadow-lg z-20">
+        <div class="container mx-auto px-4 flex flex-col md:grid md:grid-cols-3 items-center gap-4 py-2 md:py-0">
+            <div class="flex justify-center md:justify-start w-full">
+                <div class="text-3xl font-black italic tracking-tighter text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)] cursor-pointer hover:opacity-90 transition"
+                    onclick="location.href='index.html'">NASPICK</div>
+            </div>
+
+            <div class="relative w-full max-w-sm flex justify-center md:justify-center md:ml-32">
+                <input type="text" id="searchInput" placeholder="티커 또는 종목명 검색..."
+                    class="w-full bg-[#3e63b0] text-white placeholder-blue-200/50 px-5 py-3 rounded-full border border-blue-400 focus:outline-none focus:ring-2 focus:ring-white transition shadow-inner font-bold">
+                <div id="searchResults"
+                    class="absolute top-full left-0 right-0 mt-2 bg-[#282830] rounded-lg shadow-xl border border-gray-700 hidden z-50 max-h-64 overflow-y-auto">
+                </div>
+            </div>
+
+            <div class="hidden md:block"></div> <!-- Spacer for centering -->
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-6 flex gap-6 items-start flex-1 h-[calc(100vh-100px)]">
+
+        <!-- Left Sidebar: Watchlist (Sort by Market Cap) -->
+        <aside
+            class="w-[260px] shrink-0 bg-[#282830] rounded-lg p-4 shadow-lg h-full hidden lg:flex flex-col border border-gray-800">
+            <h2 class="text-gray-400 text-xs font-bold mb-4">MARKET CAP WATCHLIST</h2>
+            <div id="watchlistGrid" class="grid grid-cols-2 gap-2 overflow-y-auto pr-1">
+                <!-- Watchlist Items injected here -->
+            </div>
+        </aside>
+
+        <section class="flex-1 w-full min-w-0 h-full flex flex-col">
+
+            <!-- Filter Nav -->
+            <div class="relative mb-4 group">
+                <div
+                    class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#1c1c1f] to-transparent z-10 pointer-events-none">
+                </div>
+                <nav id="categoryNav" class="flex gap-2 overflow-x-auto no-scrollbar pb-2 items-center pr-4">
+                    <button data-cat="all"
+                        class="px-4 py-2 bg-[#5383e8] text-white font-bold text-xs rounded-full border border-[#5383e8] whitespace-nowrap shadow-lg shadow-blue-500/20 hover:bg-[#426dc6] transition flex-shrink-0 active-cat">
+                        🔥 전체 랭킹
+                    </button>
+                    <!-- Categories injected here -->
+                </nav>
+            </div>
+
+            <div class="flex justify-between items-center mb-3 px-2">
+                <span class="text-xs text-gray-500">※ 실시간 데이터 (매 15분)</span>
+            </div>
+
+            <!-- Ranking Table -->
+            <div class="bg-[#282830] rounded-lg shadow-xl overflow-hidden flex-1 flex flex-col border border-gray-800">
+                <div
+                    class="grid grid-cols-12 gap-2 p-3 text-xs text-gray-400 border-b border-gray-700 font-bold bg-[#23232a] sticky top-0 z-20">
+                    <div class="col-span-1 text-center">순위</div>
+                    <div class="col-span-4 text-left pl-4">종목명</div>
+                    <div class="col-span-1 text-center">티어</div>
+                    <div class="col-span-1 text-center">Score</div>
+                    <div class="col-span-1 text-center">등락률</div>
+                    <div class="col-span-1 text-center">섹터</div>
+                    <div class="col-span-3 text-center">관련주 (Top Picks)</div>
+                </div>
+
+                <div id="rankingList" class="overflow-y-auto flex-1 h-full">
+                    <!-- List Items injected here -->
+                    <div class="p-10 text-center text-gray-500 text-sm">데이터를 불러오는 중입니다...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let allData = [];
+        const SECTORS = [
+            "기술", "커뮤니케이션", "임의소비재", "필수소비재", "에너지",
+            "금융", "헬스케어", "산업재", "소재", "부동산", "유틸리티"
+        ];
+
+        async function loadData() {
+            try {
+                const res = await fetch('data.json?t=' + new Date().getTime());
+                allData = await res.json();
+
+                renderWatchlist();
+                renderFilters();
+                renderList(allData);
+                initSearch();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('rankingList').innerHTML = '<div class="p-10 text-center text-red-500">데이터 로드 실패. scorer.py가 실행되었는지 확인하세요.</div>';
+            }
+        }
+
+        function renderWatchlist() {
+            // Sort by Market Cap desc
+            const sortedByCap = [...allData].sort((a, b) => (b.market_cap || 0) - (a.market_cap || 0)).slice(0, 20);
+            const container = document.getElementById('watchlistGrid');
+            container.innerHTML = sortedByCap.map((item, idx) => `
+                <div onclick="location.href='page.html?ticker=${item.ticker}'" 
+                    class="aspect-square bg-[#31313c] rounded border border-gray-700 flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition hover:bg-[#3a3a45] p-1">
+                    <img src="https://ui-avatars.com/api/?name=${item.ticker}&background=random&color=fff&size=32" class="w-6 h-6 rounded mb-1 object-cover">
+                    <div class="text-[10px] font-bold text-gray-300">${item.ticker}</div>
+                    <div class="text-[9px] ${item.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'}">
+                        ${item.change_pct > 0 ? '+' : ''}${item.change_pct}%
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFilters() {
+            const nav = document.getElementById('categoryNav');
+            // Keep the 'All' button, add others
+            const allBtn = nav.firstElementChild;
+            nav.innerHTML = '';
+            nav.appendChild(allBtn);
+
+            SECTORS.forEach(sec => {
+                const btn = document.createElement('button');
+                btn.className = "px-3 py-2 bg-[#282830] text-gray-400 font-medium text-xs rounded-full border border-gray-700 whitespace-nowrap hover:bg-gray-700 hover:text-white hover:border-gray-500 transition flex-shrink-0";
+                btn.textContent = sec;
+                btn.onclick = () => {
+                    document.querySelectorAll('nav button').forEach(b => {
+                        b.classList.remove('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
+                        b.classList.add('bg-[#282830]', 'text-gray-400', 'border-gray-700');
+                    });
+                    btn.classList.remove('bg-[#282830]', 'text-gray-400', 'border-gray-700');
+                    btn.classList.add('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
+
+                    const filtered = allData.filter(d => d.sector === sec);
+                    renderList(filtered);
+                };
+                nav.appendChild(btn);
+            });
+
+            // Re-bind All
+            allBtn.onclick = () => {
+                document.querySelectorAll('nav button').forEach(b => {
+                    b.classList.remove('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
+                    b.classList.add('bg-[#282830]', 'text-gray-400', 'border-gray-700');
+                });
+                allBtn.classList.remove('bg-[#282830]', 'text-gray-400', 'border-gray-700');
+                allBtn.classList.add('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
+                renderList(allData);
+            }
+        }
+
+        function renderList(data) {
+            const list = document.getElementById('rankingList');
+            if (data.length === 0) {
+                list.innerHTML = '<div class="p-10 text-center text-gray-500">해당 종목이 없습니다.</div>';
+                return;
+            }
+
+            list.innerHTML = data.map((item, idx) => {
+                const changeColor = item.change_pct >= 0 ? 'text-red-400' : 'text-blue-400';
+
+                let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
+                if (item.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
+                else if (item.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
+                else if (item.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
+                else if (item.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
+                else if (item.tier === 5) tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
+
+                return `
+                <div onclick="location.href='page.html?ticker=${item.ticker}'" 
+                     class="grid grid-cols-12 gap-2 p-3 items-center border-b border-gray-700 hover:bg-[#31313c] transition cursor-pointer group h-16">
+                    <div class="col-span-1 text-center font-bold text-lg italic text-[#5383e8]">${idx + 1}</div>
+                    <div class="col-span-4 flex items-center gap-3 text-left pl-2 overflow-hidden">
+                        <div class="w-9 h-9 bg-white rounded flex items-center justify-center p-0.5 shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=${item.ticker}&background=random&color=fff&size=64" class="w-full h-full object-contain">
+                        </div>
+                        <div class="min-w-0">
+                            <div class="font-bold text-gray-100 text-sm truncate">${item.name}</div>
+                            <div class="text-[10px] text-gray-500">${item.ticker}</div>
+                        </div>
+                    </div>
+                    <div class="col-span-1 text-center">
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded border ${tierClass}">${item.tier} Tier</span>
+                    </div>
+                    <div class="col-span-1 text-center text-[#5383e8] font-bold text-sm">${item.final_score}</div>
+                    <div class="col-span-1 text-center ${changeColor} font-bold text-sm">${item.change_pct > 0 ? '+' : ''}${item.change_pct}%</div>
+                    <div class="col-span-1 text-center text-[10px] text-gray-400 truncate">${item.sector}</div>
+                    <div class="col-span-3 flex justify-center -space-x-2">
+                        ${(item.related_peers || []).map(p => `
+                            <div onclick="event.stopPropagation(); location.href='page.html?ticker=${p.ticker}'" 
+                                 class="w-8 h-8 rounded-full bg-[#1c1c1f] border border-gray-600 relative group cursor-pointer hover:z-20 hover:scale-110 transition overflow-hidden">
+                                <img src="https://ui-avatars.com/api/?name=${p.ticker}&background=random&color=fff&size=64" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span class="text-[7px] font-bold text-white tracking-tighter">${p.ticker}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function initSearch() {
+            const input = document.getElementById('searchInput');
+            const resultsDiv = document.getElementById('searchResults');
+
+            input.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                if (!term) {
+                    resultsDiv.classList.add('hidden');
+                    return;
+                }
+
+                const matches = allData.filter(d =>
+                    d.ticker.toLowerCase().includes(term) ||
+                    (d.name && d.name.toLowerCase().includes(term)) ||
+                    (d.name_en && d.name_en.toLowerCase().includes(term))
+                ).slice(0, 10);
+
+                if (matches.length > 0) {
+                    resultsDiv.innerHTML = matches.map(d => `
+                        <div onclick="location.href='page.html?ticker=${d.ticker}'" class="p-3 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                     <span class="font-bold text-sm text-white">${d.ticker}</span>
+                                     <span class="text-xs text-gray-300">${d.name}</span>
+                                </div>
+                                <span class="text-[10px] text-gray-500">${d.name_en || ''}</span>
+                            </div>
+                            <span class="text-[#5383e8] text-xs font-bold">${d.final_score}점</span>
+                        </div>
+                    `).join('');
+                    resultsDiv.classList.remove('hidden');
+                } else {
+                    resultsDiv.innerHTML = '<div class="p-3 text-gray-500 text-xs">검색 결과가 없습니다.</div>';
+                    resultsDiv.classList.remove('hidden');
+                }
+            });
+
+            // Close search when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!input.contains(e.target) && !resultsDiv.contains(e.target)) {
+                    resultsDiv.classList.add('hidden');
+                }
+            });
+        }
+
+        loadData();
+    </script>
+</body>
+
+</html>
