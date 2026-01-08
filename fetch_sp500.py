@@ -12,45 +12,80 @@ from datetime import datetime, timedelta
 import warnings
 warnings.filterwarnings('ignore')
 
-# S&P 500 Tickers (top 100 for now)
-SP500_TICKERS = [
-    "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "META", "TSLA", "BRK.B", "UNH", "XOM",
-    "JNJ", "JPM", "V", "PG", "MA", "HD", "CVX", "MRK", "ABBV", "PEP",
-    "COST", "AVGO", "KO", "ADBE", "WMT", "MCD", "CRM", "CSCO", "ACN", "LIN",
-    "TMO", "NFLX", "ABT", "NKE", "PFE", "DHR", "ORCL", "VZ", "DIS", "CMCSA",
-    "TXN", "AMD", "INTC", "PM", "WFC", "NEE", "QCOM", "UPS", "RTX", "INTU",
-    "HON", "IBM", "AMGN", "LOW", "SBUX", "SPGI", "GS", "ELV", "BA", "AMAT",
-    "BKNG", "AXP", "CAT", "ISRG", "DE", "NOW", "PLD", "ADI", "GILD", "LMT",
-    "SYK", "TJX", "VRTX", "ADP", "MDLZ", "MMC", "BX", "REGN", "CVS", "ZTS",
-    "CI", "MO", "SCHW", "PGR", "CB", "ETN", "C", "LRCX", "SLB", "SO",
-    "BSX", "DUK", "EOG", "GE", "EQIX", "KLAC", "ITW", "APH", "MU", "HUM"
-]
+# Get S&P 500 list dynamically
+def get_sp500_tickers():
+    """Fetch latest S&P 500 list from FinanceDataReader"""
+    try:
+        sp500 = fdr.StockListing('SP500')
+        return sp500['Symbol'].tolist()
+    except:
+        # Fallback to basic list if API fails
+        return [
+            "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "META", "TSLA", "BRK.B", "UNH", "XOM",
+            "JNJ", "JPM", "V", "PG", "MA", "HD", "CVX", "MRK", "ABBV", "PEP"
+        ]
 
-# Stock names mapping (Korean names)
-STOCK_NAMES = {
-    "AAPL": "애플", "MSFT": "마이크로소프트", "GOOGL": "알파벳 A", "AMZN": "아마존",
-    "NVDA": "엔비디아", "META": "메타", "TSLA": "테슬라", "BRK.B": "버크셔 해서웨이",
-    "UNH": "유나이티드헬스", "XOM": "엑손모빌", "JNJ": "존슨앤존슨", "JPM": "제이피모건",
-    "V": "비자", "PG": "P&G", "MA": "마스터카드", "HD": "홈디포", "CVX": "셰브론",
-    "MRK": "머크", "ABBV": "애브비", "PEP": "펩시코", "COST": "코스트코",
-    "AVGO": "브로드컴", "KO": "코카콜라", "ADBE": "어도비", "WMT": "월마트",
-    "MCD": "맥도날드", "CRM": "세일즈포스", "CSCO": "시스코", "ACN": "액센츄어",
-    "LIN": "린데", "TMO": "써모피셔", "NFLX": "넷플릭스", "ABT": "애벗",
-    "NKE": "나이키", "PFE": "화이자", "DHR": "다나허", "ORCL": "오라클",
-    "VZ": "버라이즌", "DIS": "디즈니", "CMCSA": "컴캐스트", "TXN": "텍사스인스트루먼트",
-    "AMD": "AMD", "INTC": "인텔", "PM": "필립모리스", "WFC": "웰스파고",
-    "NEE": "넥스트에라", "QCOM": "퀄컴", "UPS": "UPS", "RTX": "레이시온",
-    "INTU": "인튜잇", "HON": "허니웰", "IBM": "IBM", "AMGN": "암젠",
-    "LOW": "로우스", "SBUX": "스타벅스", "SPGI": "S&P글로벌", "GS": "골드만삭스",
+SP500_TICKERS = get_sp500_tickers()
+
+# Ensure dual class shares and handle dot notation
+REQUIRED_TICKERS = ['BRK.B', 'BF.B', 'GOOGL', 'GOOG', 'FOXA', 'FOX', 'NWSA', 'NWS']
+for t in REQUIRED_TICKERS:
+    # Remove hyphenated versions if present to standardise on dot
+    t_hyphen = t.replace('.', '-')
+    if t_hyphen in SP500_TICKERS:
+        SP500_TICKERS.remove(t_hyphen)
+    if t not in SP500_TICKERS:
+        SP500_TICKERS.append(t)
+
+# Remove duplicates
+SP500_TICKERS = list(set(SP500_TICKERS))
+
+# Map for fetching (Yahoo uses hyphen)
+FETCH_MAP = {
+    'BRK.B': 'BRK-B',
+    'BF.B': 'BF-B'
 }
+
+print(f"✓ Loaded {len(SP500_TICKERS)} S&P 500 tickers (Adjusted for dual classes)")
+
+# Import Korean names
+from sp500_korean_names import SP500_KOREAN_NAMES
+STOCK_NAMES = SP500_KOREAN_NAMES
 
 SECTOR_MAP = {
-    "Technology": "기술", "Communication Services": "커뮤니케이션",
-    "Consumer Cyclical": "임의소비재", "Consumer Defensive": "필수소비재",
-    "Energy": "에너지", "Financial Services": "금융", "Financial": "금융",
-    "Healthcare": "헬스케어", "Industrials": "산업재",
-    "Basic Materials": "소재", "Real Estate": "부동산", "Utilities": "유틸리티"
+    "Technology": "기술", 
+    "Information Technology": "기술",
+    "Communication Services": "커뮤니케이션",
+    "Consumer Cyclical": "임의소비재", 
+    "Consumer Discretionary": "임의소비재",
+    "Consumer Defensive": "필수소비재",
+    "Consumer Staples": "필수소비재",
+    "Energy": "에너지", 
+    "Financial Services": "금융", 
+    "Financials": "금융",
+    "Financial": "금융",
+    "Healthcare": "헬스케어", 
+    "Health Care": "헬스케어",
+    "Industrials": "산업재",
+    "Basic Materials": "소재", 
+    "Materials": "소재",
+    "Real Estate": "부동산", 
+    "Utilities": "유틸리티"
 }
+
+# Fetch accurate sector data
+def get_sector_data():
+    try:
+        sp500 = fdr.StockListing('SP500')
+        sectors = dict(zip(sp500['Symbol'], sp500['Sector']))
+        # Manual overrides
+        sectors['BRK.B'] = 'Financials'
+        sectors['BF.B'] = 'Consumer Staples'
+        return sectors
+    except:
+        return {}
+
+REAL_SECTORS = get_sector_data()
 
 # Default sector assignments
 TICKER_SECTORS = {
@@ -66,7 +101,35 @@ TICKER_SECTORS = {
     "VZ": "Communication Services", "AMD": "Technology", "INTC": "Technology",
     "NVDA": "Technology", "AVGO": "Technology", "CSCO": "Technology", "ORCL": "Technology",
     "ADBE": "Technology", "CRM": "Technology", "QCOM": "Technology", "TXN": "Technology",
+    "ADBE": "Technology", "CRM": "Technology", "QCOM": "Technology", "TXN": "Technology",
 }
+
+# Fetch exchange data
+def get_exchange_data():
+    print("  - Fetching exchange listings (NASDAQ, NYSE, AMEX)...")
+    try:
+        exchanges = {}
+        # NASDAQ
+        nasdaq = fdr.StockListing('NASDAQ')
+        for t in nasdaq['Symbol']: exchanges[t] = 'NASDAQ'
+        # NYSE
+        nyse = fdr.StockListing('NYSE')
+        for t in nyse['Symbol']: exchanges[t] = 'NYSE'
+        # AMEX
+        amex = fdr.StockListing('AMEX')
+        for t in amex['Symbol']: exchanges[t] = 'AMEX'
+        
+        # Manual overrides
+        exchanges['BRK.B'] = 'NYSE'
+        exchanges['BF.B'] = 'NYSE'
+        exchanges['DAY'] = 'NYSE' # Ensure DAY is correct
+        
+        return exchanges
+    except Exception as e:
+        print(f"  ⚠ Exchange fetch failed: {e}")
+        return {}
+
+REAL_EXCHANGES = get_exchange_data()
 
 def calculate_pivot_points(high, low, close):
     """Calculate pivot points"""
@@ -90,48 +153,83 @@ def calculate_rsi(data, period=14):
     rsi = 100 - (100 / (1 + rs))
     return rsi.iloc[-1] if len(rsi) > 0 else 50
 
-def generate_ai_briefing(stats, levels, current_price):
-    """Generate AI briefing"""
+def generate_ai_briefing(stats, levels, current_price, context):
+    """Generate AI briefing with advanced logic"""
     briefing = []
     
-    if stats['trend'] >= 80:
-        briefing.append({"id": 1, "title": "강력한 정배열",
-            "text": "모든 이동평균선(20, 60, 100) 위에 주가가 위치하며 이상적인 상승 추세를 그리고 있음.",
+    # 1. Trend Analysis (MACD & Moving Averages)
+    if context.get('macd_golden'):
+        briefing.append({"id": 1, "title": "MACD 골든크로스",
+            "text": "MACD 골든크로스가 발생하여 단기적인 상승 추세로의 전환 신호가 포착되었습니다.",
             "color_class": "text-blue-400"})
+    elif context.get('macd_dead'):
+        briefing.append({"id": 1, "title": "MACD 데드크로스",
+            "text": "MACD 데드크로스 발생, 단기 조정 압력이 거세질 수 있어 리스크 관리가 필요합니다.",
+            "color_class": "text-rose-400"})
+    elif context.get('candle_hammer'):
+         briefing.append({"id": 1, "title": "바닥권 매수세",
+            "text": "하락세 끝에서 저점 매수세가 유입되는 '망치형' 캔들이 발생했습니다. 바닥 다지기를 시도 중입니다.",
+            "color_class": "text-blue-400"})
+    elif stats['trend'] >= 80:
+        if stats['momentum'] >= 75: # Context: Strong but Overbought
+             briefing.append({"id": 1, "title": "강력한 상승세",
+            "text": "파죽지세의 상승세를 보이고 있으나, RSI 과열권에 진입하여 건전한 '숨고르기' 조정을 염두에 둬야 합니다.",
+            "color_class": "text-blue-400"})
+        else:
+            briefing.append({"id": 1, "title": "이상적 정배열",
+                "text": "주가가 모든 이동평균선(20, 60, 100) 상단에 위치하며, 가장 이상적이고 강력한 상승 추세를 유지하고 있습니다.",
+                "color_class": "text-blue-400"})
     elif stats['trend'] >= 50:
         briefing.append({"id": 1, "title": "추세 전환 시도",
-            "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널 발생.",
+            "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널이 발생했습니다.",
             "color_class": "text-[#00bba3]"})
     else:
         briefing.append({"id": 1, "title": "조정 국면",
-            "text": "주요 지지선을 이탈하여 약세가 지속 중. 보수적인 접근이 필요함.",
+            "text": "주요 지지선을 이탈하여 약세가 지속 중입니다. 섣부른 진입보다는 지지선 확인이 필요한 보수적 구간입니다.",
             "color_class": "text-gray-400"})
     
-    if stats['volume'] >= 80:
+    # 2. Volume & Volatility (Bollinger & Volume)
+    if context.get('bb_breakout'):
+        briefing.append({"id": 2, "title": "볼린저 밴드 돌파",
+            "text": "볼린저 밴드 상단을 강하게 돌파하며 시세가 분출되고 있습니다. 강력한 모멘텀이 발생했습니다.",
+            "color_class": "text-blue-400"})
+    elif context.get('bb_squeeze'):
+        briefing.append({"id": 2, "title": "변동성 축소 (Squeeze)",
+            "text": "변동성이 극도로 축소된 '스퀴즈' 구간입니다. 조만간 큰 방향성(급등 또는 급락)이 결정될 것입니다.",
+            "color_class": "text-[#00bba3]"})
+    elif stats['volume'] >= 80:
         briefing.append({"id": 2, "title": "수급 집중",
-            "text": "평소 대비 2배 이상의 거래량이 터지며 메이저 주체(기관/외인)의 개입이 강력하게 의심됨.",
+            "text": "평소 대비 2배 이상의 대량 거래량이 터지며 메이저 주체(기관/외인)의 강력한 개입이 의심됩니다.",
             "color_class": "text-[#00bba3]"})
     elif stats['volume'] <= 40:
         briefing.append({"id": 2, "title": "거래량 소강",
-            "text": "상승 탄력이 둔화되며 거래량이 감소 중. 방향성 탐색 구간.",
+            "text": "상승 탄력이 둔화되며 거래량이 감소하고 있습니다. 시장의 관심에서 멀어진 방향성 탐색 구간입니다.",
             "color_class": "text-gray-400"})
     else:
         briefing.append({"id": 2, "title": "견조한 수급",
-            "text": "특이 사항 없이 꾸준한 거래량을 동반하며 추세를 뒷받침하고 있음.",
+            "text": "특이 사항 없이 꾸준한 거래량을 동반하며 현재의 추세를 안정적으로 뒷받침하고 있습니다.",
             "color_class": "text-blue-400"})
     
-    simulated_rsi = stats['momentum']
-    if simulated_rsi >= 75:
-        briefing.append({"id": 3, "title": "과열 주의",
-            "text": f"단기 과열 구간 진입. 신규 진입자는 눌림목(${levels['s1']})을 기다리는 것이 유리함.",
+    # 3. Strategy (Candle Patterns & Support/Resistance)
+    if context.get('candle_shooting'):
+        briefing.append({"id": 3, "title": "고점 경계 (유성형)",
+            "text": "상승 추세 고점에서 긴 윗꼬리를 단 '유성형' 캔들이 관측됩니다. 차익실현 매물을 주의해야 합니다.",
             "color_class": "text-rose-400"})
-    elif simulated_rsi <= 25:
+    elif context.get('support_defense'):
+        briefing.append({"id": 3, "title": "지지선 방어 성공",
+            "text": f"주요 지지선인 ${levels['s1']} 가격대를 장중 터치했으나 지켜내며 저가 매수세가 살아있음을 증명했습니다.",
+            "color_class": "text-blue-400"})
+    elif stats['momentum'] >= 75:
+        briefing.append({"id": 3, "title": "과열권 진입",
+            "text": f"RSI 과열권에 진입했습니다. 추격 매수보다는 눌림목(${levels['s1']}) 지지를 확인할 때까지 기다리는 것이 유리합니다.",
+            "color_class": "text-rose-400"})
+    elif stats['momentum'] <= 25:
         briefing.append({"id": 3, "title": "기술적 반등 기대",
-            "text": "침체권 진입. 단기 낙폭 과대로 인한 기술적 반등이 기대되는 구간.",
+            "text": "과매도(침체) 구간에 진입했습니다. 단기 낙폭 과대로 인한 기술적 반등(Dead Cat Bounce)이 기대되는 위치입니다.",
             "color_class": "text-blue-400"})
     else:
         briefing.append({"id": 3, "title": "홀딩 전략",
-            "text": f"현재 추세가 유효하므로 1차 지지선(${levels['s1']}) 이탈 전까지는 추세 추종 전략 권장.",
+            "text": f"현재 추세가 유효하므로 1차 지지선(${levels['s1']})을 이탈하지 않는 한 추세 추종(Trend Following) 전략을 권장합니다.",
             "color_class": "text-gray-400"})
     
     return briefing
@@ -156,6 +254,17 @@ def calculate_naspick_score(ticker, hist):
         sma60 = hist['Close'].rolling(window=60).mean().iloc[-1]
         sma100 = hist['Close'].rolling(window=100).mean().iloc[-1]
         
+        # Bollinger Bands (20, 2)
+        sma20_series = hist['Close'].rolling(window=20).mean()
+        std20_series = hist['Close'].rolling(window=20).std()
+        upper_band = (sma20_series + (std20_series * 2)).iloc[-1]
+        lower_band = (sma20_series - (std20_series * 2)).iloc[-1]
+        bandwidth = (upper_band - lower_band) / sma20_series.iloc[-1]
+        
+        # Bandwidth history for squeeze (last 20 days)
+        past_bandwidth = ((sma20_series + (std20_series * 2)) - (sma20_series - (std20_series * 2))) / sma20_series
+        is_squeeze = bandwidth <= past_bandwidth.rolling(window=20).min().iloc[-1]
+
         # RSI
         rsi = calculate_rsi(hist)
         
@@ -167,10 +276,45 @@ def calculate_naspick_score(ticker, hist):
         macd_val = macd.iloc[-1]
         signal_val = signal.iloc[-1]
         
+        # MACD Cross Check (Today or Yesterday)
+        macd_prev = macd.iloc[-2]
+        signal_prev = signal.iloc[-2]
+        
+        macd_golden = (macd_prev < signal_prev) and (macd_val > signal_val)
+        macd_dead = (macd_prev > signal_prev) and (macd_val < signal_val)
+        
         # Volume
         vol_20_avg = hist['Volume'].rolling(window=20).mean().iloc[-1]
         curr_vol = hist['Volume'].iloc[-1]
         
+        # Candlestick Patterns
+        open_p = hist['Open'].iloc[-1]
+        close_p = hist['Close'].iloc[-1]
+        high_p = hist['High'].iloc[-1]
+        low_p = hist['Low'].iloc[-1]
+        body = abs(close_p - open_p)
+        upper_shadow = high_p - max(open_p, close_p)
+        lower_shadow = min(open_p, close_p) - low_p
+        
+        # Hammer: Downtrend + Long Lower Shadow
+        is_hammer = (current_price < sma20) and (lower_shadow > body * 2) and (upper_shadow < body * 0.5)
+        # Shooting Star: Uptrend + Long Upper Shadow
+        is_shooting = (current_price > sma20) and (upper_shadow > body * 2) and (lower_shadow < body * 0.5)
+        
+        # Support Defense: Low touched S1 but Close > S1
+        is_support_defense = (low_p <= levels['s1']) and (close_p > levels['s1'])
+
+        # Context for AI Briefing
+        context = {
+            "macd_golden": macd_golden,
+            "macd_dead": macd_dead,
+            "bb_breakout": (current_price > upper_band) and (rsi < 75),
+            "bb_squeeze": is_squeeze,
+            "candle_hammer": is_hammer,
+            "candle_shooting": is_shooting,
+            "support_defense": is_support_defense
+        }
+
         # Base score
         base_score = 0
         signals = []
@@ -234,19 +378,34 @@ def calculate_naspick_score(ticker, hist):
             "impact": min(100, stats_impact)
         }
         
-        ai_briefing = generate_ai_briefing(stats_bar, levels, current_price)
+        ai_briefing = generate_ai_briefing(stats_bar, levels, current_price, context)
         change_pct = ((current_price - prev_close) / prev_close) * 100
         
         # Get sector
-        sector_en = TICKER_SECTORS.get(ticker, "Technology")
-        sector_kr = SECTOR_MAP.get(sector_en, sector_en)
+        # Try to get from real data first, then fallback to manual map
+        raw_sector = REAL_SECTORS.get(ticker)
+        if not raw_sector:
+             # Try hyphenated for lookup if needed
+             raw_sector = REAL_SECTORS.get(ticker.replace('.', '-'))
+             
+        if not raw_sector:
+             raw_sector = TICKER_SECTORS.get(ticker, "Technology")
+             
+        sector_kr = SECTOR_MAP.get(raw_sector, raw_sector)
         
         name = STOCK_NAMES.get(ticker, ticker)
+        
+        # Get exchange
+        # Try exact match, then hyphenated
+        exchange = REAL_EXCHANGES.get(ticker)
+        if not exchange:
+            exchange = REAL_EXCHANGES.get(ticker.replace('.', '-'), "NASDAQ")
         
         return {
             "ticker": ticker,
             "name": name,
             "name_en": ticker,
+            "exchange": exchange,
             "sector": sector_kr,
             "current_price": round(current_price, 2),
             "change_pct": round(change_pct, 2),
@@ -277,7 +436,8 @@ def main():
             print(f"[{idx}/{len(SP500_TICKERS)}] Fetching {ticker}...", end=" ")
             
             # Fetch data using FinanceDataReader
-            hist = fdr.DataReader(ticker, start_date, end_date)
+            fetch_ticker = FETCH_MAP.get(ticker, ticker)
+            hist = fdr.DataReader(fetch_ticker, start_date, end_date)
             
             if hist.empty or len(hist) < 100:
                 print(f"⚠ Insufficient data ({len(hist)} days)")

@@ -141,7 +141,7 @@
             const html = `
                 <section class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
                     <div class="flex items-center gap-4">
-                        <img src="https://ui-avatars.com/api/?name=${data.ticker}&background=random&color=fff&size=128" class="w-16 h-16 bg-[#31313c] rounded-lg shadow-lg object-contain">
+                        <img src="https://financialmodelingprep.com/image-stock/${data.ticker.replace('.', '-')}.png" onerror="this.src='https://ui-avatars.com/api/?name=${data.ticker}&background=5383e8&color=fff&size=256'" style="filter: invert(1) hue-rotate(180deg);" class="w-16 h-16 rounded-lg shadow-lg object-contain">
                         <div>
                             <div class="flex items-center gap-2 mb-1 flex-wrap">
                                 <h1 class="text-3xl md:text-4xl font-extrabold text-gray-100">${data.name || data.ticker}</h1>
@@ -338,8 +338,8 @@
                     return `
                                     <div onclick="location.href='page.html?ticker=${p.ticker}'" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 bg-white rounded flex items-center justify-center p-0.5 shrink-0">
-                                                <img src="https://ui-avatars.com/api/?name=${p.ticker}&background=random&color=fff&size=64" class="w-full h-full object-contain">
+                                            <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
+                                                <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
                                             </div>
                                             <div>
                                                 <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">${peerData.name}</div>
@@ -364,7 +364,7 @@
             if (window.TradingView) {
                 new TradingView.widget({
                     "autosize": true,
-                    "symbol": data.ticker,
+                    "symbol": (data.exchange ? data.exchange + ":" : "") + data.ticker,
                     "interval": "D",
                     "timezone": "Etc/UTC",
                     "theme": "dark",

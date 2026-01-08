@@ -126,7 +126,7 @@
             container.innerHTML = sortedByCap.map((item, idx) => `
                 <div onclick="location.href='page.html?ticker=${item.ticker}'" 
                     class="aspect-square bg-[#31313c] rounded border border-gray-700 flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition hover:bg-[#3a3a45] p-1">
-                    <img src="https://ui-avatars.com/api/?name=${item.ticker}&background=random&color=fff&size=32" class="w-6 h-6 rounded mb-1 object-cover">
+                    <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=64'" style="filter: invert(1) hue-rotate(180deg);" class="w-6 h-6 rounded mb-1 object-contain p-0.5">
                     <div class="text-[10px] font-bold text-gray-300">${item.ticker}</div>
                     <div class="text-[9px] ${item.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'}">
                         ${item.change_pct > 0 ? '+' : ''}${item.change_pct}%
@@ -194,8 +194,8 @@
                      class="grid grid-cols-12 gap-2 p-3 items-center border-b border-gray-700 hover:bg-[#31313c] transition cursor-pointer group h-16">
                     <div class="col-span-1 text-center font-bold text-lg italic text-[#5383e8]">${idx + 1}</div>
                     <div class="col-span-4 flex items-center gap-3 text-left pl-2 overflow-hidden">
-                        <div class="w-9 h-9 bg-white rounded flex items-center justify-center p-0.5 shrink-0">
-                            <img src="https://ui-avatars.com/api/?name=${item.ticker}&background=random&color=fff&size=64" class="w-full h-full object-contain">
+                        <div class="w-9 h-9 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden bg-[#31313c]">
+                            <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=128'" style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
                         </div>
                         <div class="min-w-0">
                             <div class="font-bold text-gray-100 text-sm truncate">${item.name}</div>
@@ -212,7 +212,7 @@
                         ${(item.related_peers || []).map(p => `
                             <div onclick="event.stopPropagation(); location.href='page.html?ticker=${p.ticker}'" 
                                  class="w-8 h-8 rounded-full bg-[#1c1c1f] border border-gray-600 relative group cursor-pointer hover:z-20 hover:scale-110 transition overflow-hidden">
-                                <img src="https://ui-avatars.com/api/?name=${p.ticker}&background=random&color=fff&size=64" class="w-full h-full object-cover">
+                                <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
                                 <div class="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <span class="text-[7px] font-bold text-white tracking-tighter">${p.ticker}</span>
                                 </div>
