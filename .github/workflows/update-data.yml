@@ -1,0 +1,40 @@
+name: Update Stock Data
+
+on:
+  schedule:
+    # Run every 15 minutes during market hours (9:30 AM - 4:00 PM EST)
+    # Cron runs in UTC, so EST = UTC-5 (14:30-21:00 UTC)
+    - cron: '30,45 14-20 * * 1-5'  # Every 15 min from 9:30 AM EST
+    - cron: '0,15 15-20 * * 1-5'   # Continue in each hour
+    - cron: '0 21 * * 1-5'          # Until 4:00 PM EST
+  
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install finance-datareader pandas
+      
+      - name: Fetch stock data
+        run: |
+          python fetch_sp500.py
+      
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-update: Stock data $(date +'%Y-%m-%d %H:%M:%S')" && git push)
