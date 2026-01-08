@@ -208,7 +208,7 @@
                     <div class="col-span-2 md:col-span-1 text-center text-[#5383e8] font-bold text-xs md:text-sm">${item.final_score}</div>
                     <div class="col-span-2 md:col-span-1 text-center ${changeColor} font-bold text-xs md:text-sm">${item.change_pct > 0 ? '+' : ''}${item.change_pct}%</div>
                     <div class="hidden md:block md:col-span-1 text-center text-[10px] text-gray-400 truncate">${item.sector}</div>
-                    <div class="hidden md:block md:col-span-3 flex justify-center -space-x-2">
+                    <div class="hidden md:flex md:col-span-3 justify-center -space-x-2">
                         ${(item.related_peers || []).map(p => `
                             <div onclick="event.stopPropagation(); location.href='page.html?ticker=${p.ticker}'" 
                                  class="w-8 h-8 rounded-full bg-[#1c1c1f] border border-gray-600 relative group cursor-pointer hover:z-20 hover:scale-110 transition overflow-hidden">
