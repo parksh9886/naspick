@@ -235,7 +235,7 @@
                         </div>
                     </div>
                     <div class="col-span-2 md:col-span-1 text-center">
-                        <span class="px-1.5 py-0.5 text-[9px] md:text-[10px] font-bold rounded border ${tierClass}">${item.tier} Tier</span>
+                        <span class="px-1.5 py-0.5 text-[9px] md:text-[10px] font-bold rounded border ${tierClass}">${item.tier === 'OP' ? 'OP' : item.tier + ' Tier'}</span>
                     </div>
                     <div class="hidden md:block md:col-span-1 text-center text-[#5383e8] font-bold text-xs md:text-sm">${item.final_score}</div>
                     <div class="col-span-2 md:col-span-1 text-center ${changeColor} font-bold text-xs md:text-sm">${item.change_pct > 0 ? '+' : ''}${item.change_pct}%</div>
