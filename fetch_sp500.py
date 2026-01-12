@@ -445,42 +445,47 @@ def analyze_single_stock_context(ticker, hist, final_score_row):
 
 def get_market_caps_bulk(tickers):
     """
-    Fetch market cap for all tickers using yfinance .info (threaded).
-    Fallback to FinanceDataReader/0 if fails.
+    Fetch market cap for all tickers using FinanceDataReader.
     Returns: Dict {ticker: market_cap}
     """
-    print(f"💰 Fetching Market Caps for {len(tickers)} tickers via yfinance...")
+    print(f"💰 Fetching Market Caps for {len(tickers)} tickers via FinanceDataReader...")
     mcaps = {}
     
-    import concurrent.futures
-    import yfinance as yf
+    try:
+        # Fetch broad US market data which contains Market Cap
+        # print("  - Fetching NASDAQ...")
+        df_nasdaq = fdr.StockListing('NASDAQ')
+        # print("  - Fetching NYSE...")
+        df_nyse = fdr.StockListing('NYSE')
+        # print("  - Fetching AMEX...")
+        df_amex = fdr.StockListing('AMEX')
+        
+        combined = pd.concat([df_nasdaq, df_nyse, df_amex])
+        
+        # Create lookup
+        col = 'MarCap' if 'MarCap' in combined.columns else 'MarketCap'
+        if col in combined.columns:
+            mc_lookup = dict(zip(combined['Symbol'], combined[col]))
+            
+            for t in tickers:
+                mc = mc_lookup.get(t)
+                if not mc:
+                    # Try hyphenated for lookup
+                    mc = mc_lookup.get(t.replace('.', '-'))
+                
+                if mc:
+                    mcaps[t] = int(mc)
+                else:
+                    mcaps[t] = 0
+        else:
+            # If column missing, just return 0s
+            pass
 
-    def fetch_mcap(t):
-        try:
-            # Fix ticker format for yfinance (BRK.B -> BRK-B)
-            yf_t = t.replace('.', '-')
-            if t == 'BRK.B': yf_t = 'BRK-B'
+    except Exception as e:
+        print(f"❌ Error fetching market cap data: {e}")
+        return {}
             
-            # Use .info as it was verified to work locally
-            # fast_info was returning None in tests
-            info = yf.Ticker(yf_t).info
-            mcap = info.get('marketCap', 0)
-            return t, mcap
-        except:
-            return t, 0
-
-    # Threaded fetch
-    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
-        futures = {executor.submit(fetch_mcap, t): t for t in tickers}
-        for i, future in enumerate(concurrent.futures.as_completed(futures)):
-            t, mcap = future.result()
-            mcaps[t] = mcap
-            
-            # Progress feedback
-            if i % 20 == 0:
-                print(f"   Getting Market Caps... [{i}/{len(tickers)}] (Found: {mcap > 0})", end='\r')
-            
-    print(f"\n✓ Market Cap fetch complete via yfinance.")
+    print(f"✓ Market Cap fetch complete. Found {len(mcaps)}/{len(tickers)}")
     return mcaps
 
 def main():
