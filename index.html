@@ -50,7 +50,7 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-6 flex gap-6 items-start flex-1 h-[calc(100vh-100px)]">
+    <main class="container mx-auto px-4 py-6 flex gap-6 items-start flex-1 h-auto md:h-[calc(100vh-100px)]">
 
         <!-- Left Sidebar: Watchlist (Sort by Market Cap) -->
         <aside
@@ -61,7 +61,7 @@
             </div>
         </aside>
 
-        <section class="flex-1 w-full min-w-0 h-full flex flex-col">
+        <section class="flex-1 w-full min-w-0 h-auto md:h-full flex flex-col">
 
             <!-- Performance Chart Card -->
             <div class="bg-[#282830] rounded-xl border border-gray-800 p-4 md:p-6 mb-4 shadow-2xl relative overflow-hidden group transition-all duration-300"
@@ -144,7 +144,8 @@
             </div>
 
             <!-- Ranking Table -->
-            <div class="bg-[#282830] rounded-lg shadow-xl overflow-hidden flex-1 flex flex-col border border-gray-800">
+            <div
+                class="bg-[#282830] rounded-lg shadow-xl overflow-hidden h-[70vh] md:h-full md:flex-1 flex flex-col border border-gray-800">
                 <div
                     class="grid grid-cols-12 gap-2 p-3 text-xs text-gray-400 border-b border-gray-700 font-bold bg-[#23232a] sticky top-0 z-20">
                     <div class="col-span-2 md:col-span-1 text-center text-[10px] md:text-xs">순위</div>
