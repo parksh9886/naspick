@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naspick Detail</title>
+    <title>종목 상세페이지:나스픽</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" as="style" crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
@@ -250,8 +250,8 @@
                             </div>
                             
                             <h2 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-4 border-b border-gray-700 pb-2 flex justify-between">
-                                <span>Naspick Score</span>
-                                <span class="text-white opacity-50">Realtime</span>
+                                <span>Naspick Score Breakdown</span>
+                                <span class="text-white opacity-50">v1.1</span>
                             </h2>
                             
                             <div class="flex items-end gap-2 mb-6">
@@ -260,9 +260,10 @@
                             </div>
 
                             <div class="space-y-5">
+                                <!-- Fundamentals (Growth + Profit) -->
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
-                                        <span class="text-gray-300 font-bold">Trend (추세)</span>
+                                        <span class="text-gray-300 font-bold">Fundamentals (실적/성장)</span>
                                         <span class="text-blue-400 font-bold">${stats.trend}%</span>
                                     </div>
                                     <div class="w-full bg-gray-700 h-2.5 rounded-full overflow-hidden">
@@ -270,19 +271,21 @@
                                     </div>
                                 </div>
                                 
+                                <!-- Value (Valuation) -->
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
-                                        <span class="text-gray-300 font-bold">Volume (수급)</span>
-                                        <span class="text-green-400 font-bold">${stats.volume}%</span>
+                                        <span class="text-gray-300 font-bold">Value (가치평가)</span>
+                                        <span class="text-amber-400 font-bold">${stats.impact}%</span>
                                     </div>
                                     <div class="w-full bg-gray-700 h-2.5 rounded-full overflow-hidden">
-                                        <div class="stat-bar bg-gradient-to-r from-green-600 to-green-400 h-full shadow-[0_0_10px_rgba(34,197,94,0.5)]" style="--width: ${stats.volume}%"></div>
+                                        <div class="stat-bar bg-gradient-to-r from-amber-600 to-amber-400 h-full shadow-[0_0_10px_rgba(245,158,11,0.5)]" style="--width: ${stats.impact}%"></div>
                                     </div>
                                 </div>
 
+                                <!-- Momentum (Price Trend) -->
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
-                                        <span class="text-gray-300 font-bold">Momentum (추진력)</span>
+                                        <span class="text-gray-300 font-bold">Momentum (상승탄력)</span>
                                         <span class="text-rose-400 font-bold">${stats.momentum}%</span>
                                     </div>
                                     <div class="w-full bg-gray-700 h-2.5 rounded-full overflow-hidden">
@@ -290,13 +293,14 @@
                                     </div>
                                 </div>
 
+                                <!-- Sentiment (Volume) -->
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
-                                        <span class="text-gray-300 font-bold">Impact (영향력)</span>
-                                        <span class="text-amber-400 font-bold">${stats.impact}%</span>
+                                        <span class="text-gray-300 font-bold">Sentiment (수급/심리)</span>
+                                        <span class="text-green-400 font-bold">${stats.volume}%</span>
                                     </div>
                                     <div class="w-full bg-gray-700 h-2.5 rounded-full overflow-hidden">
-                                        <div class="stat-bar bg-gradient-to-r from-amber-600 to-amber-400 h-full shadow-[0_0_10px_rgba(245,158,11,0.5)]" style="--width: ${stats.impact}%"></div>
+                                        <div class="stat-bar bg-gradient-to-r from-green-600 to-green-400 h-full shadow-[0_0_10px_rgba(34,197,94,0.5)]" style="--width: ${stats.volume}%"></div>
                                     </div>
                                 </div>
                             </div>
