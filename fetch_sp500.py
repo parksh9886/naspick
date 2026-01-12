@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
 S&P 500 Stock Data Fetcher using FinanceDataReader
-More stable and reliable than yfinance
+Updated: v1.1 Sector Relative Scoring
 """
 
 import FinanceDataReader as fdr
 import pandas as pd
+import numpy as np
 import json
 import time
+import os
 from datetime import datetime, timedelta
 import warnings
 warnings.filterwarnings('ignore')
@@ -49,8 +51,12 @@ FETCH_MAP = {
 print(f"✓ Loaded {len(SP500_TICKERS)} S&P 500 tickers (Adjusted for dual classes)")
 
 # Import Korean names
-from sp500_korean_names import SP500_KOREAN_NAMES
-STOCK_NAMES = SP500_KOREAN_NAMES
+# Try-catch to handle if file missing (though likely present)
+try:
+    from sp500_korean_names import SP500_KOREAN_NAMES
+    STOCK_NAMES = SP500_KOREAN_NAMES
+except ImportError:
+    STOCK_NAMES = {}
 
 SECTOR_MAP = {
     "Technology": "기술", 
@@ -106,18 +112,26 @@ TICKER_SECTORS = {
 
 # Fetch exchange data
 def get_exchange_data():
-    print("  - Fetching exchange listings (NASDAQ, NYSE, AMEX)...")
+    # print("  - Fetching exchange listings (NASDAQ, NYSE, AMEX)...")
     try:
         exchanges = {}
         # NASDAQ
-        nasdaq = fdr.StockListing('NASDAQ')
-        for t in nasdaq['Symbol']: exchanges[t] = 'NASDAQ'
+        try:
+            nasdaq = fdr.StockListing('NASDAQ')
+            for t in nasdaq['Symbol']: exchanges[t] = 'NASDAQ'
+        except: pass
+        
         # NYSE
-        nyse = fdr.StockListing('NYSE')
-        for t in nyse['Symbol']: exchanges[t] = 'NYSE'
+        try:
+            nyse = fdr.StockListing('NYSE')
+            for t in nyse['Symbol']: exchanges[t] = 'NYSE'
+        except: pass
+
         # AMEX
-        amex = fdr.StockListing('AMEX')
-        for t in amex['Symbol']: exchanges[t] = 'AMEX'
+        try:
+            amex = fdr.StockListing('AMEX')
+            for t in amex['Symbol']: exchanges[t] = 'AMEX'
+        except: pass
         
         # Manual overrides
         exchanges['BRK.B'] = 'NYSE'
@@ -126,7 +140,7 @@ def get_exchange_data():
         
         return exchanges
     except Exception as e:
-        print(f"  ⚠ Exchange fetch failed: {e}")
+        # print(f"  ⚠ Exchange fetch failed: {e}")
         return {}
 
 REAL_EXCHANGES = get_exchange_data()
@@ -234,12 +248,102 @@ def generate_ai_briefing(stats, levels, current_price, context):
     
     return briefing
 
-def calculate_naspick_score(ticker, hist):
-    """Calculate Naspick score"""
-    try:
-        if hist.empty or len(hist) < 100:
-            return None
+
+# --------------------------------------------------------------------------------
+# NEW SCORING ENGINE (v1.1 - Sector Relative + Financials)
+# --------------------------------------------------------------------------------
+
+def calculate_technical_factors_bulk(df):
+    """Bulk calculation of technical factors for all tickers"""
+    print("📈 Calculating Technical Factors (Momentum & Vol)...")
+    
+    # Ensure sorted
+    df = df.sort_values(['Ticker', 'Date'])
+    
+    # Returns (Momentum)
+    # Using 'fill_method=None' to avoid future warnings
+    df['Return_12M'] = df.groupby('Ticker')['Close'].pct_change(periods=252, fill_method=None)
+    df['Return_6M'] = df.groupby('Ticker')['Close'].pct_change(periods=126, fill_method=None)
+    df['Return_3M'] = df.groupby('Ticker')['Close'].pct_change(periods=63, fill_method=None)
+    
+    # Volume Spike: Current Vol / 3M Avg Vol
+    df['Vol_3M_Avg'] = df.groupby('Ticker')['Volume'].transform(lambda x: x.rolling(window=63).mean())
+    df['Vol_Spike'] = df['Volume'] / df['Vol_3M_Avg']
+    
+    return df
+
+def apply_masks_and_score_bulk(daily_df, financial_map):
+    """
+    Apply Sector Relative Scoring (The Core Logic)
+    """
+    # Merge financials
+    merged = daily_df.merge(financial_map, on='Ticker', how='left')
+    
+    # Filter unknown sectors
+    merged = merged.dropna(subset=['Sector'])
+    
+    # 1. Mask Negative Valuations (Give them NaN so they rank poorly or handled later)
+    # Actually for "Low is Good", if we fillna with high number, it ranks bad.
+    # Logic in engine.py: mask negative to NaN.
+    val_cols = ['PER', 'PBR', 'EV_EBITDA', 'PSR']
+    for col in val_cols:
+        if col in merged.columns:
+            merged[col] = merged[col].apply(lambda x: x if x > 0 else np.nan)
+            
+    # 2. Sector Relative Ranking (0.0 to 1.0)
+    
+    # A. Value (25 pts) - Low is Good
+    # Note: NaN values in 'PER' (negatives) will be ranked?
+    # Pandas rank handles NaN: assigns NaN. We fillna(0) score later.
+    merged['Score_PER'] = (1 - merged.groupby('Sector')['PER'].rank(pct=True, ascending=True)) * 10
+    merged['Score_PBR'] = (1 - merged.groupby('Sector')['PBR'].rank(pct=True, ascending=True)) * 5
+    merged['Score_PSR'] = (1 - merged.groupby('Sector')['PSR'].rank(pct=True, ascending=True)) * 5
+    merged['Score_EVEB'] = (1 - merged.groupby('Sector')['EV_EBITDA'].rank(pct=True, ascending=True)) * 5
+    
+    # B. Growth (25 pts) - High is Good
+    merged['Score_RevG'] = merged.groupby('Sector')['Rev_Growth'].rank(pct=True, ascending=True) * 10
+    # Boost EPS weight as per engine logic
+    merged['Score_EPSG'] = merged.groupby('Sector')['EPS_Growth'].rank(pct=True, ascending=True) * 15
+    
+    # C. Profitability (20 pts) - High is Good
+    merged['Score_ROE'] = merged.groupby('Sector')['ROE'].rank(pct=True, ascending=True) * 10
+    # Map Profit_Margin/Oper_Margin if columns exist
+    if 'Profit_Margin' in merged.columns:
+        merged['Score_NM'] = merged.groupby('Sector')['Profit_Margin'].rank(pct=True, ascending=True) * 5
+    else:
+        merged['Score_NM'] = 0
         
+    if 'Oper_Margin' in merged.columns:
+        merged['Score_OM'] = merged.groupby('Sector')['Oper_Margin'].rank(pct=True, ascending=True) * 5
+    else:
+        merged['Score_OM'] = 0
+        
+    # D. Momentum (20 pts) - High is Good
+    merged['Score_Mom1Y'] = merged.groupby('Sector')['Return_12M'].rank(pct=True, ascending=True) * 10
+    merged['Score_Mom6M'] = merged.groupby('Sector')['Return_6M'].rank(pct=True, ascending=True) * 5
+    merged['Score_Mom3M'] = merged.groupby('Sector')['Return_3M'].rank(pct=True, ascending=True) * 5
+    
+    # E. Sentiment (10 pts) - High is Good (Volume Spike)
+    merged['Score_Vol'] = merged.groupby('Sector')['Vol_Spike'].rank(pct=True, ascending=True) * 10
+    
+    # 3. Fill NaNs with 0 (Penalty for missing/negative data)
+    score_cols = [c for c in merged.columns if c.startswith('Score_')]
+    merged[score_cols] = merged[score_cols].fillna(0)
+    
+    # 4. Total Score
+    merged['Total_Score'] = merged[score_cols].sum(axis=1)
+    
+    # Final Rank
+    merged['Rank'] = merged['Total_Score'].rank(ascending=False, method='min')
+    
+    return merged
+
+def analyze_single_stock_context(ticker, hist, final_score_row):
+    """
+    Generate Technical Context and Briefing for a single stock
+    (Used for the UI popup)
+    """
+    try:
         current_price = hist['Close'].iloc[-1]
         prev_close = hist['Close'].iloc[-2]
         
@@ -251,17 +355,15 @@ def calculate_naspick_score(ticker, hist):
         
         # Moving averages
         sma20 = hist['Close'].rolling(window=20).mean().iloc[-1]
-        sma60 = hist['Close'].rolling(window=60).mean().iloc[-1]
-        sma100 = hist['Close'].rolling(window=100).mean().iloc[-1]
         
-        # Bollinger Bands (20, 2)
+        # Bollinger Bands
         sma20_series = hist['Close'].rolling(window=20).mean()
         std20_series = hist['Close'].rolling(window=20).std()
         upper_band = (sma20_series + (std20_series * 2)).iloc[-1]
         lower_band = (sma20_series - (std20_series * 2)).iloc[-1]
-        bandwidth = (upper_band - lower_band) / sma20_series.iloc[-1]
         
-        # Bandwidth history for squeeze (last 20 days)
+        # Bandwidth squeeze
+        bandwidth = (upper_band - lower_band) / sma20_series.iloc[-1]
         past_bandwidth = ((sma20_series + (std20_series * 2)) - (sma20_series - (std20_series * 2))) / sma20_series
         is_squeeze = bandwidth <= past_bandwidth.rolling(window=20).min().iloc[-1]
 
@@ -276,18 +378,12 @@ def calculate_naspick_score(ticker, hist):
         macd_val = macd.iloc[-1]
         signal_val = signal.iloc[-1]
         
-        # MACD Cross Check (Today or Yesterday)
         macd_prev = macd.iloc[-2]
         signal_prev = signal.iloc[-2]
-        
         macd_golden = (macd_prev < signal_prev) and (macd_val > signal_val)
         macd_dead = (macd_prev > signal_prev) and (macd_val < signal_val)
         
-        # Volume
-        vol_20_avg = hist['Volume'].rolling(window=20).mean().iloc[-1]
-        curr_vol = hist['Volume'].iloc[-1]
-        
-        # Candlestick Patterns
+        # Candle Patterns
         open_p = hist['Open'].iloc[-1]
         close_p = hist['Close'].iloc[-1]
         high_p = hist['High'].iloc[-1]
@@ -296,15 +392,10 @@ def calculate_naspick_score(ticker, hist):
         upper_shadow = high_p - max(open_p, close_p)
         lower_shadow = min(open_p, close_p) - low_p
         
-        # Hammer: Downtrend + Long Lower Shadow
         is_hammer = (current_price < sma20) and (lower_shadow > body * 2) and (upper_shadow < body * 0.5)
-        # Shooting Star: Uptrend + Long Upper Shadow
         is_shooting = (current_price > sma20) and (upper_shadow > body * 2) and (lower_shadow < body * 0.5)
-        
-        # Support Defense: Low touched S1 but Close > S1
         is_support_defense = (low_p <= levels['s1']) and (close_p > levels['s1'])
 
-        # Context for AI Briefing
         context = {
             "macd_golden": macd_golden,
             "macd_dead": macd_dead,
@@ -314,243 +405,226 @@ def calculate_naspick_score(ticker, hist):
             "candle_shooting": is_shooting,
             "support_defense": is_support_defense
         }
-
-        # Base score
-        base_score = 0
+        
+        # Signals list for UI
         signals = []
+        if rsi > 70: signals.append("RSI_Overbought")
+        elif rsi < 30: signals.append("RSI_Oversold")
+        if macd_golden: signals.append("MACD_GoldenCross")
+        if is_squeeze: signals.append("Vol_Squeeze")
         
-        # Trend (60 points)
-        trend_score = 0
-        if current_price > sma20: trend_score += 10
-        if current_price > sma60: trend_score += 10
-        if sma20 > sma60: trend_score += 10
-        if current_price > sma100: trend_score += 10
-        if sma60 > sma100: trend_score += 10
-        if sma20 > sma100: trend_score += 10
-        base_score += trend_score
-        
-        # Momentum (20 points)
-        momentum_score = 0
-        if 50 <= rsi <= 75:
-            momentum_score += 10
-        elif 75 < rsi <= 85:
-            momentum_score += 5
-            signals.append("RSI_Overbought")
-        elif rsi > 85:
-            signals.append("RSI_Extreme")
-        elif rsi < 30:
-            signals.append("RSI_Oversold")
-        
-        if macd_val > signal_val:
-            momentum_score += 10
-            signals.append("MACD_GoldenCross")
-        
-        base_score += momentum_score
-        
-        # Bonus score (20 points)
-        bonus_score = 0
-        
-        # Volume
-        if vol_20_avg > 0:
-            rvol = curr_vol / vol_20_avg
-            rvol_score = (rvol - 1.0) * 5.0
-            rvol_score = max(0.0, min(10.0, rvol_score))
-            bonus_score += rvol_score
-        
-        # Price momentum
-        price_change = current_price - prev_close
-        if price_change > 0:
-            momentum_boost = min(10.0, abs(price_change / prev_close) * 100 * 2)
-            bonus_score += momentum_boost
-        
-        final_score = min(100.0, base_score + bonus_score)
-        
-        # Stats bars
-        stats_trend = int((trend_score / 60) * 100)
-        stats_volume = int((rvol_score / 10) * 100) if 'rvol_score' in locals() else 50
-        stats_momentum = int((momentum_score / 20) * 100)
-        stats_impact = int((bonus_score / 20) * 100)
+        # Create Stats Bar from Score (Normalized to 0-100)
+        # Value = PER + PBR + PSR + EVEB (Max 25)
+        val_score = final_score_row['Score_PER'] + final_score_row['Score_PBR'] + final_score_row['Score_PSR'] + final_score_row['Score_EVEB']
+        # Growth = Rev + EPS (Max 25)
+        growth_score = final_score_row['Score_RevG'] + final_score_row['Score_EPSG']
+        # Profit = ROE + NM + OM (Max 20)
+        prof_score = final_score_row['Score_ROE'] + final_score_row['Score_NM'] + final_score_row['Score_OM']
+        # Momentum = 1Y + 6M + 3M (Max 20)
+        mom_score = final_score_row['Score_Mom1Y'] + final_score_row['Score_Mom6M'] + final_score_row['Score_Mom3M']
         
         stats_bar = {
-            "trend": min(100, stats_trend),
-            "volume": min(100, stats_volume),
-            "momentum": min(100, stats_momentum),
-            "impact": min(100, stats_impact)
+            "trend": 0, # Placeholder or map from Growth?
+            "volume": int(final_score_row['Score_Vol'] * 10), # Vol Score is max 10, scale to 100?
+            "momentum": int(mom_score * 5),
+            "impact": int(val_score * 4) # Value score max 25 -> 100
         }
+        # Mapping "Trend" to Growth/Profit combination?
+        stats_bar['trend'] = int((growth_score + prof_score) / 45 * 100)
         
+        # Generate Briefing
         ai_briefing = generate_ai_briefing(stats_bar, levels, current_price, context)
-        change_pct = ((current_price - prev_close) / prev_close) * 100
-        
-        # Get sector
-        # Try to get from real data first, then fallback to manual map
-        raw_sector = REAL_SECTORS.get(ticker)
-        if not raw_sector:
-             # Try hyphenated for lookup if needed
-             raw_sector = REAL_SECTORS.get(ticker.replace('.', '-'))
-             
-        if not raw_sector:
-             raw_sector = TICKER_SECTORS.get(ticker, "Technology")
-             
-        sector_kr = SECTOR_MAP.get(raw_sector, raw_sector)
-        
-        name = STOCK_NAMES.get(ticker, ticker)
-        
-        # Get exchange
-        # Try exact match, then hyphenated
-        exchange = REAL_EXCHANGES.get(ticker)
-        if not exchange:
-            exchange = REAL_EXCHANGES.get(ticker.replace('.', '-'), "NASDAQ")
         
         return {
+            "stats_bar": stats_bar,
+            "signals": signals,
+            "levels": levels,
+            "ai_briefing": ai_briefing,
+            "current_price": current_price,
+            "change_pct": (current_price - prev_close)/prev_close * 100
+        }
+        
+    except Exception as e:
+        # print(f"Error context {ticker}: {e}")
+        # Return fallback
+        return None
+
+def main():
+    print("🚀 Fetching S&P 500 Stock Data (v1.1 Sector Relative Logic)")
+    print(f"⏰ Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    
+    # 1. Load Financials
+    print("📂 Loading Financial Data...")
+    try:
+        if not os.path.exists('data/financials.csv'):
+            print("❌ data/financials.csv not found! Please run mining script first.")
+            return
+        df_fin = pd.read_csv('data/financials.csv')
+        print(f"✓ Loaded {len(df_fin)} financial records")
+    except Exception as e:
+        print(f"❌ Error loading financials: {e}")
+        return
+
+    # 2. Fetch Price History (Bulk)
+    print(f"📊 Fetching Price Data for {len(SP500_TICKERS)} tickers...")
+    
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=400) # Need > 1 year for 12M Return
+    
+    all_hist_list = []
+    
+    # Using TQDM if available, else standard print
+    for idx, ticker in enumerate(SP500_TICKERS, 1):
+        try:
+            if idx % 50 == 0: print(f"   [{idx}/{len(SP500_TICKERS)}] Fetched...")
+            
+            fetch_ticker = FETCH_MAP.get(ticker, ticker)
+            hist = fdr.DataReader(fetch_ticker, start_date, end_date)
+            
+            if hist.empty or len(hist) < 260: # Need at least ~1 year
+                continue
+                
+            hist['Ticker'] = ticker
+            # Keep only necessary columns to save memory
+            hist = hist[['Ticker', 'Open', 'High', 'Low', 'Close', 'Volume']]
+            hist.index.name = 'Date'
+            hist = hist.reset_index()
+            
+            all_hist_list.append(hist)
+            
+        except Exception as e:
+            continue
+            
+    if not all_hist_list:
+        print("❌ No price data fetched.")
+        return
+        
+    df_all_price = pd.concat(all_hist_list)
+    print(f"✓ Fetched {len(df_all_price)} total rows.")
+    
+    # 3. Calculate Technicals (Bulk)
+    df_all_price = calculate_technical_factors_bulk(df_all_price)
+    
+    # 4. Score Logic (Sector Relative) - Only for Latest Date
+    print("🏆 calculating Scores (Sector Ranking)...")
+    latest_date = df_all_price['Date'].max()
+    # Find the max date that covers most stocks?
+    # Some stocks might have data for today, some yesterday.
+    # Safe bet: Take Max Date.
+    print(f"   Target Date: {latest_date.date()}")
+    
+    df_latest = df_all_price[df_all_price['Date'] == latest_date].copy()
+    
+    ranked_df = apply_masks_and_score_bulk(df_latest, df_fin)
+    
+    # 5. Generate Final JSON Output
+    print("📝 Generating Final JSON...")
+    
+    # Load Yesterday's ranks
+    yesterday_ranks = {}
+    if os.path.exists('yesterday_ranks.json'):
+         with open('yesterday_ranks.json', 'r', encoding='utf-8') as f:
+            yesterday_ranks = json.load(f)
+
+    final_results = []
+    
+    # Optimization: Create a dict of dataframes for fast history lookup
+    ticker_dfs = {x: y for x, y in df_all_price.groupby('Ticker')}
+    
+    for idx, row in ranked_df.iterrows():
+        ticker = row['Ticker']
+        hist = ticker_dfs.get(ticker)
+        
+        if hist is None: continue
+        
+        # Generate Context
+        ctx = analyze_single_stock_context(ticker, hist, row)
+        if not ctx: continue
+        
+        # Metadata
+        name = STOCK_NAMES.get(ticker, ticker)
+        
+        # Use Sector Map to get Korean Name
+        raw_sector = row['Sector']
+        sector_kr = SECTOR_MAP.get(raw_sector, raw_sector)
+        exchange = REAL_EXCHANGES.get(ticker, "NASDAQ")
+        
+        # Rank Changes
+        current_rank = int(row['Rank'])
+        prev_info = yesterday_ranks.get(ticker, {})
+        prev_rank = prev_info.get('rank', 0)
+        rank_change = (prev_rank - current_rank) if prev_rank else 0
+        
+        # Build Object
+        item = {
             "ticker": ticker,
             "name": name,
             "name_en": ticker,
             "exchange": exchange,
             "sector": sector_kr,
-            "current_price": round(current_price, 2),
-            "change_pct": round(change_pct, 2),
-            "market_cap": 0,
-            "base_score": base_score,
-            "bonus_score": round(bonus_score, 2),
-            "final_score": round(final_score, 1),
-            "stats_bar": stats_bar,
-            "signals": signals,
-            "levels": levels,
-            "ai_briefing": ai_briefing
+            "current_price": round(ctx['current_price'], 2),
+            "change_pct": round(ctx['change_pct'], 2),
+            "market_cap": 0, # Not in data yet
+            "base_score": 0, # Deprecated in v1.1, used placeholder
+            "bonus_score": 0, # Deprecated
+            "final_score": round(row['Total_Score'], 1),
+            "rank": current_rank,
+            "rank_change": rank_change,
+            "stats_bar": ctx['stats_bar'],
+            "signals": ctx['signals'],
+            "levels": ctx['levels'],
+            "ai_briefing": ctx['ai_briefing'],
+            "related_peers": [] # Fill later
         }
-    except Exception as e:
-        print(f"  ✗ Error for {ticker}: {e}")
-        return None
-
-def main():
-    print("🚀 Fetching S&P 500 Stock Data with FinanceDataReader")
-    print(f"⏰ Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"📊 Total tickers: {len(SP500_TICKERS)}\n")
-    
-    print(f"📊 Total tickers: {len(SP500_TICKERS)}\n")
-    
-    # Load PREVIOUS DAY'S ranks for comparison
-    # (Do not use data.json for this, as data.json updates every 15 mins)
-    yesterday_ranks = {}
-    try:
-        import os
-        if os.path.exists('yesterday_ranks.json'):
-            with open('yesterday_ranks.json', 'r', encoding='utf-8') as f:
-                yesterday_ranks = json.load(f)
-            print(f"✓ Loaded yesterday's rankings for {len(yesterday_ranks)} tickers")
-    except Exception as e:
-        print(f"⚠ Could not load yesterday_ranks.json: {e}")
-
-    results = []
-    end_date = datetime.now()
-    start_date = end_date - timedelta(days=365)
-    
-    for idx, ticker in enumerate(SP500_TICKERS, 1):
-        try:
-            print(f"[{idx}/{len(SP500_TICKERS)}] Fetching {ticker}...", end=" ")
-            
-            # Fetch data using FinanceDataReader
-            fetch_ticker = FETCH_MAP.get(ticker, ticker)
-            hist = fdr.DataReader(fetch_ticker, start_date, end_date)
-            
-            if hist.empty or len(hist) < 100:
-                print(f"⚠ Insufficient data ({len(hist)} days)")
-                continue
-            
-            # Calculate score
-            result = calculate_naspick_score(ticker, hist)
-            if result:
-                results.append(result)
-                print(f"✓ ${result['current_price']} → Score {result['final_score']}")
-            else:
-                print(f"✗ Failed")
-            
-            # Small delay
-            if idx % 10 == 0:
-                time.sleep(1)
-            
-        except Exception as e:
-            print(f"✗ Error: {str(e)[:50]}")
-            continue
-    
-    if not results:
-        print("\n❌ No data fetched!")
-        return
-    
-    # Sort and tier
-    results.sort(key=lambda x: x['final_score'], reverse=True)
-    total = len(results)
-    
-    # 1. Calculate Overall Ranks & Changes
-    for idx, item in enumerate(results):
-        rank_pct = (idx + 1) / total
-        if rank_pct <= 0.05: item['tier'] = 1
-        elif rank_pct <= 0.20: item['tier'] = 2
-        elif rank_pct <= 0.50: item['tier'] = 3
-        elif rank_pct <= 0.80: item['tier'] = 4
+        
+        # Tier logic
+        # Rank is 1-based.
+        total = len(ranked_df)
+        pct = current_rank / total
+        if pct <= 0.05: item['tier'] = 1
+        elif pct <= 0.20: item['tier'] = 2
+        elif pct <= 0.50: item['tier'] = 3
+        elif pct <= 0.80: item['tier'] = 4
         else: item['tier'] = 5
         
-        # Current Overall Rank
-        current_rank = idx + 1
-        item['rank'] = current_rank
+        final_results.append(item)
         
-        # Compare with Yesterday's Overall Rank
-        # snapshot format: "AAPL": {"rank": 5, "sector_rank": 1}
-        prev_info = yesterday_ranks.get(item['ticker'], {})
-        prev_rank = prev_info.get('rank')
-        
-        if prev_rank:
-            item['rank_change'] = prev_rank - current_rank
-        else:
-            item['rank_change'] = 0
-
-    # 2. Calculate Sector Ranks & Changes
-    # Group by sector first
+    # Sort by Rank
+    final_results.sort(key=lambda x: x['rank'])
+    
+    # 6. Sector Ranking & Peers
+    # Group by sector
     by_sector = {}
-    for item in results:
-        sec = item.get('sector', 'Unknown')
-        if sec not in by_sector:
-            by_sector[sec] = []
+    for item in final_results:
+        sec = item['sector']
+        if sec not in by_sector: by_sector[sec] = []
         by_sector[sec].append(item)
-    
-    # Sort within sector and assign rank
+        
     for sec, items in by_sector.items():
-        # Items are already sorted by final_score desc from main sort, but purely safe to rely on order?
-        # Yes, existing 'results' is sorted. When appending to 'by_sector', order is preserved.
+        # Items sorted by rank (since final_results was sorted)
         for s_idx, item in enumerate(items):
-            current_sector_rank = s_idx + 1
-            item['sector_rank'] = current_sector_rank
+            item['sector_rank'] = s_idx + 1
             
-            # Compare with Yesterday's Sector Rank
-            prev_info = yesterday_ranks.get(item['ticker'], {})
-            prev_sec_rank = prev_info.get('sector_rank')
+            # Related peers (Top 3 in same sector, excluding self)
+            peers = [p for p in items if p['ticker'] != item['ticker']][:3]
+            item['related_peers'] = [{"ticker": p['ticker'], "change_pct": p['change_pct']} for p in peers]
             
-            if prev_sec_rank:
-                item['sector_rank_change'] = prev_sec_rank - current_sector_rank
-            else:
-                 item['sector_rank_change'] = 0
-    
-    # Related peers
-    sector_stocks = {}
-    for item in results:
-        sec = item['sector']
-        if sec not in sector_stocks:
-            sector_stocks[sec] = []
-        sector_stocks[sec].append(item)
-    
-    for item in results:
-        sec = item['sector']
-        peers = [p for p in sector_stocks.get(sec, []) if p['ticker'] != item['ticker']][:3]
-        item['related_peers'] = [
-            {"ticker": p['ticker'], "change_pct": p['change_pct']} for p in peers
-        ]
-    
     # Save
     with open('data.json', 'w', encoding='utf-8') as f:
-        json.dump(results, f, indent=2, ensure_ascii=False)
-    
-    print(f"\n✅ Success! Saved {len(results)} stocks to data.json")
-    print(f"⏰ Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        json.dump(final_results, f, indent=2, ensure_ascii=False)
+        
+    print(f"\n✅ Success! Saved {len(final_results)} stocks to data.json")
+
+    # Save current ranks for tomorrow
+    # Create simple dict {ticker: {rank, sector_rank}}
+    snapshot = {}
+    for item in final_results:
+        snapshot[item['ticker']] = {
+            "rank": item['rank'],
+            "sector_rank": item.get('sector_rank', 0)
+        }
+    with open('yesterday_ranks.json', 'w', encoding='utf-8') as f:
+        json.dump(snapshot, f, indent=2)
 
 if __name__ == "__main__":
     main()
