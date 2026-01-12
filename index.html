@@ -9,6 +9,7 @@
         content="미국 주식 실시간 랭킹과 종목별 티어(Tier) 분석 정보를 제공합니다. 데이터 알고리즘이 선정한 오늘의 주도주와 투자 인사이트를 나스픽에서 확인하세요.">
 </head>
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="stylesheet" as="style" crossorigin
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
 <style>
@@ -61,6 +62,43 @@
 
         <section class="flex-1 w-full min-w-0 h-full flex flex-col">
 
+            <!-- Performance Chart Card -->
+            <div
+                class="bg-[#282830] rounded-xl border border-gray-800 p-4 md:p-6 mb-6 shadow-2xl relative overflow-hidden group">
+                <div
+                    class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-[300px] bg-gradient-to-b from-[#00ff9d]/5 to-transparent pointer-events-none rounded-full blur-3xl opacity-50 transition duration-1000 group-hover:opacity-80">
+                </div>
+
+                <div class="relative z-10">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-2">
+                        <div>
+                            <h2
+                                class="text-gray-400 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1 opacity-70">
+                                Market Outperformance</h2>
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="text-4xl md:text-5xl font-black text-[#00ff9d] drop-shadow-[0_0_15px_rgba(0,255,157,0.4)] tracking-tighter"
+                                    id="sb1Return">Loading...</span>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-[#00ff9d] leading-none">Naspick</span>
+                                    <span class="text-xs font-bold text-[#00ff9d] leading-none">Alpha</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="flex items-center gap-3 bg-[#1c1c1f] rounded-lg p-2 md:p-3 border border-gray-700/50 min-w-[120px] justify-between">
+                            <div class="text-[10px] text-gray-500 font-bold uppercase">S&P 500</div>
+                            <div class="text-lg md:text-xl font-bold text-gray-300 font-mono tracking-tight"
+                                id="spyReturn">...</div>
+                        </div>
+                    </div>
+
+                    <div class="h-[200px] md:h-[280px] w-full">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
             <!-- Filter Nav -->
             <div class="relative mb-4 group">
                 <div
@@ -109,17 +147,134 @@
 
         async function loadData() {
             try {
-                const res = await fetch('data.json?t=' + new Date().getTime());
-                allData = await res.json();
+                // Modify to fetch chart data as well
+                const [resData, resChart] = await Promise.all([
+                    fetch('data.json?t=' + new Date().getTime()),
+                    fetch('chart_data.json?t=' + new Date().getTime()).catch(e => null) // Optional fail-safe
+                ]);
+
+                allData = await resData.json();
 
                 renderWatchlist();
                 renderFilters();
                 renderList(allData);
                 initSearch();
+
+                if (resChart && resChart.ok) {
+                    const chartData = await resChart.json();
+                    renderChart(chartData);
+                }
+
             } catch (err) {
                 console.error(err);
                 document.getElementById('rankingList').innerHTML = '<div class="p-10 text-center text-red-500">데이터 로드 실패. scorer.py가 실행되었는지 확인하세요.</div>';
             }
+        }
+
+        function renderChart(data) {
+            if (!data || data.length === 0) return;
+
+            // Format Data
+            const dates = data.map(d => d.date);
+            const sb1 = data.map(d => d.sb1);
+            const spy = data.map(d => d.spy);
+
+            // Returns calculation
+            const sb1_ret = ((sb1[sb1.length - 1] - sb1[0]) / sb1[0] * 100).toFixed(1);
+            const spy_ret = ((spy[spy.length - 1] - spy[0]) / spy[0] * 100).toFixed(1);
+
+            document.getElementById('sb1Return').innerText = `+${sb1_ret}%`;
+            document.getElementById('spyReturn').innerText = `+${spy_ret}%`;
+
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+
+            // Gradient fill
+            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(0, 255, 157, 0.2)');
+            gradient.addColorStop(1, 'rgba(0, 255, 157, 0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [
+                        {
+                            label: 'Naspick Alpha',
+                            data: sb1,
+                            borderColor: '#00ff9d',
+                            backgroundColor: gradient,
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            pointHoverRadius: 4,
+                            pointBackgroundColor: '#00ff9d'
+                        },
+                        {
+                            label: 'S&P 500',
+                            data: spy,
+                            borderColor: '#6b7280',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            fill: false,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            pointHoverRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1c1c1f',
+                            titleColor: '#9ca3af',
+                            bodyColor: '#fff',
+                            borderColor: '#374151',
+                            borderWidth: 1,
+                            padding: 10,
+                            displayColors: true,
+                            titleFont: { family: 'Pretendard' },
+                            bodyFont: { family: 'Pretendard', weight: 'bold' },
+                            callbacks: {
+                                label: function (context) {
+                                    return ' ' + context.dataset.label + ': $' + parseInt(context.parsed.y).toLocaleString();
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false, drawBorder: false },
+                            ticks: {
+                                maxTicksLimit: 5,
+                                color: '#6b7280',
+                                font: { size: 10, family: 'Pretendard' }
+                            },
+                            border: { display: false }
+                        },
+                        y: {
+                            grid: {
+                                color: '#2d2d35',
+                                borderDash: [5, 5],
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#6b7280',
+                                font: { size: 10, family: 'Pretendard' },
+                                callback: function (value) { return '$' + value.toLocaleString(); }
+                            },
+                            border: { display: false }
+                        }
+                    }
+                }
+            });
         }
 
         function renderWatchlist() {

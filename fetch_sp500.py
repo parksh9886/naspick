@@ -660,5 +660,13 @@ def main():
     with open('yesterday_ranks.json', 'w', encoding='utf-8') as f:
         json.dump(snapshot, f, indent=2)
 
+    # Generate Chart Data
+    try:
+        import generate_chart_data
+        print("\n📊 Updating Strategy Chart Data...")
+        generate_chart_data.main()
+    except Exception as e:
+        print(f"❌ Failed to update chart data: {e}")
+
 if __name__ == "__main__":
     main()
