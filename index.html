@@ -450,7 +450,7 @@
                     </div>
                     <div class="hidden md:block md:col-span-1 text-center text-[#5383e8] font-bold text-xs md:text-sm">${item.final_score}</div>
                     <div class="col-span-2 md:col-span-1 text-center flex flex-col justify-center">
-                        <span class="text-white font-bold text-xs md:text-sm">$${(item.close || 0).toFixed(2)}</span>
+                        <span class="text-white font-bold text-xs md:text-sm">$${(item.current_price || 0).toFixed(2)}</span>
                         <span class="text-[10px] font-bold ${changeColor}">${item.change_pct > 0 ? '+' : ''}${item.change_pct}%</span>
                     </div>
                     <div class="col-span-2 md:col-span-1 text-center text-[10px] text-gray-400 truncate">${item.sector}</div>
