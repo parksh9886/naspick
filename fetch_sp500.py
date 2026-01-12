@@ -1,4 +1,5 @@
 import FinanceDataReader as fdr
+# v1.2 - Pure FDR (yfinance removed)
 import pandas as pd
 import numpy as np
 import json
