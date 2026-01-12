@@ -30,22 +30,23 @@
 
 <body class="bg-[#1c1c1f] text-white min-h-screen flex flex-col">
 
-    <header class="bg-[#5383e8] py-5 border-b border-[#3e63b0] shadow-lg z-20">
-        <div class="container mx-auto px-4 flex flex-col md:grid md:grid-cols-3 items-center gap-4 py-2 md:py-0">
-            <div class="flex justify-center md:justify-start w-full">
-                <div class="text-3xl font-black italic tracking-tighter text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)] cursor-pointer hover:opacity-90 transition"
+    <header class="bg-[#5383e8] py-3 md:py-5 border-b border-[#3e63b0] shadow-lg z-20">
+        <div
+            class="container mx-auto px-4 flex flex-row items-center justify-between md:grid md:grid-cols-3 gap-3 md:gap-4">
+            <div class="flex items-center shrink-0">
+                <div class="text-xl md:text-3xl font-black italic tracking-tighter text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)] cursor-pointer hover:opacity-90 transition"
                     onclick="location.href='index.html'">NASPICK</div>
             </div>
 
-            <div class="relative w-full max-w-sm flex justify-center md:justify-center md:ml-32">
-                <input type="text" id="searchInput" placeholder="티커 또는 종목명 검색..."
-                    class="w-full bg-[#3e63b0] text-white placeholder-blue-200/50 px-5 py-3 rounded-full border border-blue-400 focus:outline-none focus:ring-2 focus:ring-white transition shadow-inner font-bold">
+            <div class="relative flex-1 max-w-[200px] md:max-w-sm flex justify-end md:justify-center md:ml-32">
+                <input type="text" id="searchInput" placeholder="티커/종목명..."
+                    class="w-full bg-[#3e63b0] text-white placeholder-blue-200/50 px-3 py-2 md:px-5 md:py-3 text-sm md:text-base rounded-full border border-blue-400 focus:outline-none focus:ring-2 focus:ring-white transition shadow-inner font-bold">
                 <div id="searchResults"
                     class="absolute top-full left-0 right-0 mt-2 bg-[#282830] rounded-lg shadow-xl border border-gray-700 hidden z-50 max-h-64 overflow-y-auto">
                 </div>
             </div>
 
-            <div class="hidden md:block"></div> <!-- Spacer for centering -->
+            <div class="hidden md:block"></div>
         </div>
     </header>
 
@@ -221,10 +222,10 @@
 
             const ctx = document.getElementById('performanceChart').getContext('2d');
 
-            // Gradient fill (Red/Pink)
+            // Gradient fill (Sky Blue)
             const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-            gradient.addColorStop(0, 'rgba(244, 63, 94, 0.2)'); // Rose-500
-            gradient.addColorStop(1, 'rgba(244, 63, 94, 0)');
+            gradient.addColorStop(0, 'rgba(56, 189, 248, 0.2)');
+            gradient.addColorStop(1, 'rgba(56, 189, 248, 0)');
 
             new Chart(ctx, {
                 type: 'line',
@@ -234,14 +235,14 @@
                         {
                             label: 'Naspick Alpha',
                             data: sb1,
-                            borderColor: '#f43f5e',
+                            borderColor: '#38bdf8',
                             backgroundColor: gradient,
                             borderWidth: 2,
                             fill: true,
                             tension: 0.4,
                             pointRadius: 0,
                             pointHoverRadius: 4,
-                            pointBackgroundColor: '#f43f5e'
+                            pointBackgroundColor: '#38bdf8'
                         },
                         {
                             label: 'S&P 500',
