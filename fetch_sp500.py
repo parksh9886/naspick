@@ -452,28 +452,31 @@ def analyze_single_stock_context(ticker, hist, final_score_row):
 
 def get_market_caps_bulk(tickers):
     """
-    Fetch market cap for all tickers using yfinance fast_info.
+    Fetch market cap for all tickers using yfinance .info (threaded).
     Returns: Dict {ticker: market_cap}
     """
     print(f"💰 Fetching Market Caps for {len(tickers)} tickers via yfinance...")
     mcaps = {}
     
-    # Batch processing isn't really possible with fast_info cleanly without iterating
-    # But fast_info is efficient.
+    import concurrent.futures
     
-    for idx, t in enumerate(tickers):
-        if idx % 100 == 0:
-            print(f"   Getting Market Caps... [{idx}/{len(tickers)}]")
-            
+    def fetch_mcap(t):
         try:
-            # Fix ticker format for yfinance (BRK.B -> BRK-B)
             yf_t = t.replace('.', '-')
-            # Using fast_info to avoid scraping
-            mcaps[t] = yf.Ticker(yf_t).fast_info.get('market_cap', 0)
+            if t == 'BRK.B': yf_t = 'BRK-B'
+            return t, yf.Ticker(yf_t).info.get('marketCap', 0)
         except:
-            mcaps[t] = 0
+            return t, 0
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+        futures = {executor.submit(fetch_mcap, t): t for t in tickers}
+        for i, future in enumerate(concurrent.futures.as_completed(futures)):
+            t, mcap = future.result()
+            mcaps[t] = mcap
+            if i % 50 == 0:
+                print(f"   Getting Market Caps... [{i}/{len(tickers)}]", end='\r')
             
-    print("✓ Market Cap fetch complete.")
+    print("\n✓ Market Cap fetch complete.")
     return mcaps
 
 def main():

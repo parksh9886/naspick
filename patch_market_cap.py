@@ -33,13 +33,14 @@ def patch_market_caps():
             # specific fix for BRK.B
             if ticker == 'BRK.B': yf_t = 'BRK-B'
             
-            mcap = yf.Ticker(yf_t).fast_info.get('market_cap', 0)
+            # Use .info as fast_info is seemingly broken for market_cap on some versions
+            mcap = yf.Ticker(yf_t).info.get('marketCap', 0)
             return ticker, mcap
         except:
             return ticker, 0
 
     mcap_map = {}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
         futures = {executor.submit(fetch_mcap, t): t for t in tickers}
         for i, future in enumerate(concurrent.futures.as_completed(futures)):
             t, mcap = future.result()
