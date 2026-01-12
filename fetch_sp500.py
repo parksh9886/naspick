@@ -614,7 +614,8 @@ def main():
         # Rank is 1-based.
         total = len(ranked_df)
         pct = current_rank / total
-        if pct <= 0.05: item['tier'] = 1
+        if pct <= 0.01: item['tier'] = "OP"
+        elif pct <= 0.05: item['tier'] = 1
         elif pct <= 0.20: item['tier'] = 2
         elif pct <= 0.50: item['tier'] = 3
         elif pct <= 0.80: item['tier'] = 4

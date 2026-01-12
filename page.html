@@ -125,7 +125,8 @@
 
             // Tier Badge Logic
             let tierBadge = '';
-            if (data.tier === 1) tierBadge = `<span class="op-glow bg-[#0093ff] text-white text-sm font-extrabold px-3 py-1 rounded transform -skew-x-12 cursor-help" title="Top 5%">1 TIER (OP)</span>`;
+            if (data.tier === 'OP') tierBadge = `<span class="op-glow bg-[#f43f5e] text-white text-sm font-extrabold px-3 py-1 rounded transform -skew-x-12 cursor-help shadow-[0_0_15px_rgba(244,63,94,0.6)]" title="Top 1%">OP TIER</span>`;
+            else if (data.tier === 1) tierBadge = `<span class="bg-[#0093ff] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12 cursor-help" title="Top 5%">1 TIER</span>`;
             else if (data.tier === 2) tierBadge = `<span class="bg-[#00bba3] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">2 TIER</span>`;
             else if (data.tier === 3) tierBadge = `<span class="bg-[#ffb900] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">3 TIER</span>`;
             else if (data.tier === 4) tierBadge = `<span class="bg-[#9aa4af] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">4 TIER</span>`;

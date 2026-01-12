@@ -186,7 +186,8 @@
                 const changeColor = item.change_pct >= 0 ? 'text-red-400' : 'text-blue-400';
 
                 let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
-                if (item.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
+                if (item.tier === 'OP') tierClass = 'text-white border-[#f43f5e] bg-[#f43f5e] shadow-[0_0_8px_rgba(244,63,94,0.4)]';
+                else if (item.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
                 else if (item.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
                 else if (item.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
                 else if (item.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
