@@ -28,7 +28,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install finance-datareader pandas
+          pip install finance-datareader pandas yfinance
       
       - name: Fetch stock data
         run: |
