@@ -1,16 +1,9 @@
-#!/usr/bin/env python3
-"""
-S&P 500 Stock Data Fetcher using FinanceDataReader
-Updated: v1.1 Sector Relative Scoring
-"""
-
 import FinanceDataReader as fdr
 import pandas as pd
 import numpy as np
 import json
 import time
 import os
-import yfinance as yf
 from datetime import datetime, timedelta
 import warnings
 warnings.filterwarnings('ignore')
@@ -453,30 +446,41 @@ def analyze_single_stock_context(ticker, hist, final_score_row):
 def get_market_caps_bulk(tickers):
     """
     Fetch market cap for all tickers using yfinance .info (threaded).
+    Fallback to FinanceDataReader/0 if fails.
     Returns: Dict {ticker: market_cap}
     """
     print(f"💰 Fetching Market Caps for {len(tickers)} tickers via yfinance...")
     mcaps = {}
     
     import concurrent.futures
-    
+    import yfinance as yf
+
     def fetch_mcap(t):
         try:
+            # Fix ticker format for yfinance (BRK.B -> BRK-B)
             yf_t = t.replace('.', '-')
             if t == 'BRK.B': yf_t = 'BRK-B'
-            return t, yf.Ticker(yf_t).info.get('marketCap', 0)
+            
+            # Use .info as it was verified to work locally
+            # fast_info was returning None in tests
+            info = yf.Ticker(yf_t).info
+            mcap = info.get('marketCap', 0)
+            return t, mcap
         except:
             return t, 0
 
+    # Threaded fetch
     with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
         futures = {executor.submit(fetch_mcap, t): t for t in tickers}
         for i, future in enumerate(concurrent.futures.as_completed(futures)):
             t, mcap = future.result()
             mcaps[t] = mcap
-            if i % 50 == 0:
-                print(f"   Getting Market Caps... [{i}/{len(tickers)}]", end='\r')
             
-    print("\n✓ Market Cap fetch complete.")
+            # Progress feedback
+            if i % 20 == 0:
+                print(f"   Getting Market Caps... [{i}/{len(tickers)}] (Found: {mcap > 0})", end='\r')
+            
+    print(f"\n✓ Market Cap fetch complete via yfinance.")
     return mcaps
 
 def main():
