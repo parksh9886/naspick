@@ -10,6 +10,7 @@ import numpy as np
 import json
 import time
 import os
+import yfinance as yf
 from datetime import datetime, timedelta
 import warnings
 warnings.filterwarnings('ignore')
@@ -449,6 +450,32 @@ def analyze_single_stock_context(ticker, hist, final_score_row):
         # Return fallback
         return None
 
+def get_market_caps_bulk(tickers):
+    """
+    Fetch market cap for all tickers using yfinance fast_info.
+    Returns: Dict {ticker: market_cap}
+    """
+    print(f"💰 Fetching Market Caps for {len(tickers)} tickers via yfinance...")
+    mcaps = {}
+    
+    # Batch processing isn't really possible with fast_info cleanly without iterating
+    # But fast_info is efficient.
+    
+    for idx, t in enumerate(tickers):
+        if idx % 100 == 0:
+            print(f"   Getting Market Caps... [{idx}/{len(tickers)}]")
+            
+        try:
+            # Fix ticker format for yfinance (BRK.B -> BRK-B)
+            yf_t = t.replace('.', '-')
+            # Using fast_info to avoid scraping
+            mcaps[t] = yf.Ticker(yf_t).fast_info.get('market_cap', 0)
+        except:
+            mcaps[t] = 0
+            
+    print("✓ Market Cap fetch complete.")
+    return mcaps
+
 def main():
     print("🚀 Fetching S&P 500 Stock Data (v1.1 Sector Relative Logic)")
     print(f"⏰ Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -517,7 +544,10 @@ def main():
     
     ranked_df = apply_masks_and_score_bulk(df_latest, df_fin)
     
-    # 5. Generate Final JSON Output
+    # 5. Fetch Market Caps (New Step)
+    market_caps = get_market_caps_bulk(ranked_df['Ticker'].tolist())
+    
+    # 6. Generate Final JSON Output
     print("📝 Generating Final JSON...")
     
     # Load Yesterday's ranks
@@ -564,7 +594,7 @@ def main():
             "sector": sector_kr,
             "current_price": round(ctx['current_price'], 2),
             "change_pct": round(ctx['change_pct'], 2),
-            "market_cap": 0, # Not in data yet
+            "market_cap": market_caps.get(ticker, 0), # Populated from yfinance
             "base_score": 0, # Deprecated in v1.1, used placeholder
             "bonus_score": 0, # Deprecated
             "final_score": round(row['Total_Score'], 1),
@@ -592,7 +622,7 @@ def main():
     # Sort by Rank
     final_results.sort(key=lambda x: x['rank'])
     
-    # 6. Sector Ranking & Peers
+    # 7. Sector Ranking & Peers
     # Group by sector
     by_sector = {}
     for item in final_results:
