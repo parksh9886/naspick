@@ -51,33 +51,34 @@
 
 <body class="bg-[#1c1c1f] text-white min-h-screen flex flex-col">
 
-    <header
-        class="bg-[#282830] border-b border-gray-700 h-14 grid grid-cols-[auto_1fr] md:grid-cols-3 items-center px-4 sticky top-0 z-50 gap-2">
+    <header class="bg-[#5383e8] py-3 md:py-5 border-b border-[#3e63b0] shadow-lg z-20 sticky top-0">
+        <div
+            class="container mx-auto px-4 flex flex-row items-center justify-between md:grid md:grid-cols-3 gap-3 md:gap-4">
 
-        <!-- Left: Back & Logo -->
-        <div class="flex items-center gap-4">
-            <button onclick="location.href='index.html'" class="text-gray-400 hover:text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
-            </button>
-            <div class="text-xl font-black italic tracking-tighter text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)] cursor-pointer hover:opacity-90 transition"
-                onclick="location.href='index.html'">NASPICK</div>
-        </div>
+            <!-- Left: Back & Logo -->
+            <div class="flex items-center gap-3 shrink-0">
+                <button onclick="location.href='index.html'" class="text-blue-200 hover:text-white transition">
+                    <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                        </path>
+                    </svg>
+                </button>
+                <div class="text-xl md:text-3xl font-black italic tracking-tighter text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)] cursor-pointer hover:opacity-90 transition"
+                    onclick="location.href='index.html'">NASPICK</div>
+            </div>
 
-        <!-- Center: Search -->
-        <div class="flex justify-end md:justify-center w-full md:ml-32">
-            <div class="relative w-40 md:w-64">
-                <input type="text" id="headerSearch" placeholder="Search..."
-                    class="w-full bg-[#1c1c1f] text-gray-300 placeholder-gray-600 text-xs px-3 py-1.5 rounded-full border border-gray-600 focus:border-blue-500 focus:outline-none transition">
+            <!-- Center: Search -->
+            <div class="relative flex-1 max-w-[200px] md:max-w-sm flex justify-end md:justify-center md:ml-32">
+                <input type="text" id="headerSearch" placeholder="티커/종목명..."
+                    class="w-full bg-[#3e63b0] text-white placeholder-blue-200/50 px-3 py-2 md:px-5 md:py-3 text-sm md:text-base rounded-full border border-blue-400 focus:outline-none focus:ring-2 focus:ring-white transition shadow-inner font-bold">
                 <div id="headerSearchResults"
                     class="absolute top-full right-0 md:right-auto md:left-0 mt-2 w-64 bg-[#282830] rounded-lg shadow-xl border border-gray-700 hidden z-50 max-h-64 overflow-y-auto">
                 </div>
             </div>
-        </div>
 
-        <!-- Right: Spacer (Desktop only) -->
-        <div class="hidden md:block"></div>
+            <!-- Right: Spacer -->
+            <div class="hidden md:block"></div>
+        </div>
     </header>
 
     <main id="mainContent" class="container mx-auto px-4 py-6 max-w-7xl">
