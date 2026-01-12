@@ -70,26 +70,32 @@
                 </div>
 
                 <div class="relative z-10">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-4 gap-2">
-                        <div>
-                            <h2
-                                class="text-gray-400 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1 opacity-70">
-                                시장 초과 수익</h2>
-                            <div class="flex items-center gap-3">
-                                <span
-                                    class="text-4xl md:text-5xl font-black text-[#f43f5e] drop-shadow-[0_0_15px_rgba(244,63,94,0.4)] tracking-tighter"
-                                    id="sb1Return">Loading...</span>
-                                <div class="flex flex-col">
-                                    <span class="text-xs font-bold text-[#f43f5e] leading-none">Naspick</span>
-                                    <span class="text-xs font-bold text-[#f43f5e] leading-none">Alpha</span>
+                    <div class="mb-4">
+                        <h2
+                            class="text-gray-400 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-3 opacity-70">
+                            Market Outperformance</h2>
+
+                        <div class="flex justify-between items-end">
+                            <!-- Naspick Alpha -->
+                            <div>
+                                <div class="flex items-center gap-2 mb-0.5">
+                                    <span class="w-2 h-2 rounded-full bg-[#f43f5e] shadow-[0_0_8px_#f43f5e]"></span>
+                                    <span class="text-xs font-bold text-[#f43f5e] tracking-wider">NASPICK ALPHA</span>
                                 </div>
+                                <div class="text-4xl md:text-5xl font-black text-[#f43f5e] tracking-tighter drop-shadow-[0_0_15px_rgba(244,63,94,0.4)]"
+                                    id="sb1Return">Loading...</div>
                             </div>
-                        </div>
-                        <div
-                            class="flex items-center gap-3 bg-[#1c1c1f] rounded-lg p-2 md:p-3 border border-gray-700/50 min-w-[120px] justify-between">
-                            <div class="text-[10px] text-gray-500 font-bold uppercase">S&P 500</div>
-                            <div class="text-lg md:text-xl font-bold text-gray-300 font-mono tracking-tight"
-                                id="spyReturn">...</div>
+
+                            <!-- S&P 500 -->
+                            <div class="text-right pb-1">
+                                <div class="flex items-center justify-end gap-2 mb-1">
+                                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">S&P 500
+                                        (Market)</span>
+                                    <span class="w-3 h-0.5 bg-gray-500/50"></span>
+                                </div>
+                                <div class="text-xl md:text-2xl font-bold text-gray-400 font-mono tracking-tight"
+                                    id="spyReturn">...</div>
+                            </div>
                         </div>
                     </div>
 
