@@ -64,24 +64,24 @@
 
             <!-- Performance Chart Card -->
             <div
-                class="bg-[#282830] rounded-xl border border-gray-800 p-4 md:p-6 mb-6 shadow-2xl relative overflow-hidden group">
+                class="bg-[#282830] rounded-xl border border-gray-800 p-4 md:p-6 mb-4 shadow-2xl relative overflow-hidden group">
                 <div
-                    class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-[300px] bg-gradient-to-b from-[#00ff9d]/5 to-transparent pointer-events-none rounded-full blur-3xl opacity-50 transition duration-1000 group-hover:opacity-80">
+                    class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-[300px] bg-gradient-to-b from-[#f43f5e]/10 to-transparent pointer-events-none rounded-full blur-3xl opacity-50 transition duration-1000 group-hover:opacity-80">
                 </div>
 
                 <div class="relative z-10">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-2">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-4 gap-2">
                         <div>
                             <h2
                                 class="text-gray-400 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1 opacity-70">
-                                Market Outperformance</h2>
+                                시장 초과 수익</h2>
                             <div class="flex items-center gap-3">
                                 <span
-                                    class="text-4xl md:text-5xl font-black text-[#00ff9d] drop-shadow-[0_0_15px_rgba(0,255,157,0.4)] tracking-tighter"
+                                    class="text-4xl md:text-5xl font-black text-[#f43f5e] drop-shadow-[0_0_15px_rgba(244,63,94,0.4)] tracking-tighter"
                                     id="sb1Return">Loading...</span>
                                 <div class="flex flex-col">
-                                    <span class="text-xs font-bold text-[#00ff9d] leading-none">Naspick</span>
-                                    <span class="text-xs font-bold text-[#00ff9d] leading-none">Alpha</span>
+                                    <span class="text-xs font-bold text-[#f43f5e] leading-none">Naspick</span>
+                                    <span class="text-xs font-bold text-[#f43f5e] leading-none">Alpha</span>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                         </div>
                     </div>
 
-                    <div class="h-[200px] md:h-[280px] w-full">
+                    <div class="h-[160px] md:h-[280px] w-full">
                         <canvas id="performanceChart"></canvas>
                     </div>
                 </div>
@@ -174,24 +174,27 @@
         function renderChart(data) {
             if (!data || data.length === 0) return;
 
-            // Format Data
+            // Format Data & Convert to % Return
             const dates = data.map(d => d.date);
-            const sb1 = data.map(d => d.sb1);
-            const spy = data.map(d => d.spy);
+            const sb1_start = data[0].sb1;
+            const spy_start = data[0].spy;
+
+            const sb1 = data.map(d => ((d.sb1 - sb1_start) / sb1_start * 100));
+            const spy = data.map(d => ((d.spy - spy_start) / spy_start * 100));
 
             // Returns calculation
-            const sb1_ret = ((sb1[sb1.length - 1] - sb1[0]) / sb1[0] * 100).toFixed(1);
-            const spy_ret = ((spy[spy.length - 1] - spy[0]) / spy[0] * 100).toFixed(1);
+            const sb1_ret = sb1[sb1.length - 1].toFixed(1);
+            const spy_ret = spy[spy.length - 1].toFixed(1);
 
             document.getElementById('sb1Return').innerText = `+${sb1_ret}%`;
             document.getElementById('spyReturn').innerText = `+${spy_ret}%`;
 
             const ctx = document.getElementById('performanceChart').getContext('2d');
 
-            // Gradient fill
+            // Gradient fill (Red/Pink)
             const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-            gradient.addColorStop(0, 'rgba(0, 255, 157, 0.2)');
-            gradient.addColorStop(1, 'rgba(0, 255, 157, 0)');
+            gradient.addColorStop(0, 'rgba(244, 63, 94, 0.2)'); // Rose-500
+            gradient.addColorStop(1, 'rgba(244, 63, 94, 0)');
 
             new Chart(ctx, {
                 type: 'line',
@@ -201,14 +204,14 @@
                         {
                             label: 'Naspick Alpha',
                             data: sb1,
-                            borderColor: '#00ff9d',
+                            borderColor: '#f43f5e',
                             backgroundColor: gradient,
                             borderWidth: 2,
                             fill: true,
                             tension: 0.4,
                             pointRadius: 0,
                             pointHoverRadius: 4,
-                            pointBackgroundColor: '#00ff9d'
+                            pointBackgroundColor: '#f43f5e'
                         },
                         {
                             label: 'S&P 500',
@@ -244,7 +247,9 @@
                             bodyFont: { family: 'Pretendard', weight: 'bold' },
                             callbacks: {
                                 label: function (context) {
-                                    return ' ' + context.dataset.label + ': $' + parseInt(context.parsed.y).toLocaleString();
+                                    let val = context.parsed.y;
+                                    let sign = val >= 0 ? '+' : '';
+                                    return ' ' + context.dataset.label + ': ' + sign + val.toFixed(2) + '%';
                                 }
                             }
                         }
@@ -268,7 +273,7 @@
                             ticks: {
                                 color: '#6b7280',
                                 font: { size: 10, family: 'Pretendard' },
-                                callback: function (value) { return '$' + value.toLocaleString(); }
+                                callback: function (value) { return value + '%'; }
                             },
                             border: { display: false }
                         }
