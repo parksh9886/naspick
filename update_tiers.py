@@ -18,8 +18,7 @@ def update_tiers():
             rank = i + 1
             pct = rank / total
             
-            if pct <= 0.01: item['tier'] = "OP"
-            elif pct <= 0.05: item['tier'] = 1
+            if pct <= 0.05: item['tier'] = 1
             elif pct <= 0.20: item['tier'] = 2
             elif pct <= 0.50: item['tier'] = 3
             elif pct <= 0.80: item['tier'] = 4
@@ -28,7 +27,7 @@ def update_tiers():
         with open('data.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
             
-        print(f"✅ Updated {total} items. Top 1% is now OP Tier.")
+        print(f"✅ Updated {total} items. Top 5% is now 1 Tier.")
         
     except Exception as e:
         print(f"❌ Error: {e}")

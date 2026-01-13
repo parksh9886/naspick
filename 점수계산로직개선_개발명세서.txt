@@ -1,0 +1,60 @@
+📂 S&P 500 퀀트 스코어링 시스템 개발 명세서 (v1.0)1. 프로젝트 개요목표: S&P 500 구성 종목에 대해 5가지 핵심 팩터(Factor)를 분석하여 0~100점의 종합 점수를 산출하고 랭킹화한다.핵심 로직: Sector Relative Scoring (섹터 내 상대평가)모든 지표는 절대값이 아닌, **동일 섹터 내 백분위(Percentile)**로 변환하여 점수를 매긴다.기술 스택: Python, Pandas, yfinance (Data Source)2. 팩터 가중치 및 배점표 (Total: 100점)데이터의 중요도와 신뢰도를 고려하여 5개 영역에 가중치를 배분했습니다.팩터 (Factor)비중배점핵심 평가 의도구현 시 주의사항 (yfinance 기준)1. 가치 (Value)25%25점현재 주가가 실적 대비 싼가?섹터 평균 대비 낮을수록 고득점2. 성장 (Growth)25%25점매출과 이익이 늘어나고 있는가?YoY(전년 대비) 데이터 사용3. 수익성 (Profitability)20%20점회사가 돈을 효율적으로 버는가?적자 기업은 0점 처리4. 모멘텀 (Momentum)20%20점시장의 수급이 몰리고 있는가?단기보다는 중장기 추세 중시5. 심리 (Sentiment)10%10점거래량이 실리며 관심받는가?전문가 추정치(Revisions) 대체 지표3. 세부 지표 및 점수 산출 로직각 항목의 점수는 **해당 지표의 섹터 내 백분위(0~1) * 배점**으로 계산합니다.A. 가치 (Value) - 25점낮을수록 좋은 지표 (Inverse Ranking)지표 (Variable)배점설명PER (P/E Ratio)10점주가수익비율 (Trailing 12M)P/B Ratio5점주가순자산비율 (자산가치 평가)P/S Ratio5점주가매출비율 (매출가치 평가)EV/EBITDA5점기업가치/세전영업이익 (현금창출력)계산 예시: IT 섹터 내 애플의 PER이 상위 20%(저평가 순)라면 → $0.8 \times 10점 = 8점$B. 성장 (Growth) - 25점높을수록 좋은 지표지표 (Variable)배점설명Revenue Growth (YoY)10점전년 동기 대비 매출 성장률Net Income Growth (YoY)10점전년 동기 대비 순이익 성장률EPS Growth (YoY)5점전년 동기 대비 주당순이익 성장률C. 수익성 (Profitability) - 20점높을수록 좋은 지표지표 (Variable)배점설명ROE (Return on Equity)10점자기자본이익률 (가장 중요)Net Profit Margin5점순이익률Operating Margin5점영업이익률D. 모멘텀 (Momentum) - 20점높을수록 좋은 지표지표 (Variable)배점설명1년 수익률 (1Y Return)10점장기 추세 (가장 큰 가중치)6개월 수익률 (6M Return)5점중기 추세3개월 수익률 (3M Return)5점단기 추세E. 심리/수급 (Sentiment) - 10점무료 데이터 한계로 'Revisions' 대신 'Volume Trend' 사용지표 (Variable)배점설명Volume Spike10점(최근 10일 평균거래량 / 3개월 평균거래량)논리: 평소보다 거래량이 급증(1.0 이상)하면서 주가가 유지되면 매수세가 강한 것으로 판단.4. 알고리즘 구현 프로세스 (Step-by-Step)개발 시 아래 순서대로 함수를 작성하세요.Step 1. 데이터 수집 (Data Fetching)Wikipedia 등에서 S&P 500 티커 리스트와 **GICS Sector(섹터 정보)**를 가져온다.yfinance를 이용해 티커별 info (재무 데이터)와 history (주가 데이터)를 다운로드한다.DataFrame 하나에 모든 종목의 Raw Data를 합친다. (컬럼: Ticker, Sector, PER, ROE, Price_1Y_Change 등)Step 2. 결측치 처리 (Preprocessing)NaN 처리: 데이터가 없는 경우(예: 적자 기업의 PER), 섹터의 **중앙값(Median)**으로 채우거나 0점 처리한다. (중앙값 대체 추천)이상치 처리 (Optional): PER이 1000배가 넘는 등의 이상치는 상하위 1%를 윈저라이징(Winsorizing) 하거나, 랭킹 방식이므로 그대로 둬도 무방하다.Step 3. 섹터별 랭킹 산출 (Sector Relative Ranking) [핵심]Python Pandas의 groupby와 rank 함수를 사용한다.Python# 예시 로직 (Pseudo Code)
+# pct=True 옵션으로 0~1 사이의 백분위수 산출
+
+# 1. 오름차순(높을수록 좋은 것: ROE, 성장률, 모멘텀)
+df['Score_ROE'] = df.groupby('Sector')['ROE'].rank(pct=True)
+
+# 2. 내림차순(낮을수록 좋은 것: PER, P/B) -> (1 - 백분위) 적용
+df['Score_PER'] = 1 - df.groupby('Sector')['PER'].rank(pct=True)
+Step 4. 최종 점수 계산 (Final Calculation)각 지표의 백분위 점수(0~1)에 앞서 정한 배점을 곱하여 합산한다.$$\text{Total Score} = (\text{Score}_{PER} \times 10) + (\text{Score}_{ROE} \times 10) + \dots + (\text{Score}_{Vol} \times 10)$$Step 5. 결과 출력총점 기준 내림차순 정렬.Total Score 100점 만점으로 표기.5. 개발 팁 (Development Note)속도 이슈: 500개 종목의 yf.Ticker(symbol).info를 루프 돌리면 매우 느립니다. yf.download(..., group_by='ticker')를 사용하여 주가를 먼저 받고, 재무 정보는 배치(Batch) 처리가 어려우니 requests + threading(멀티스레딩)을 사용하거나, 시간 여유를 두고 수집하세요.주기적 갱신: 재무 데이터는 분기마다 바뀌므로 매일 돌릴 필요는 없으나, 모멘텀(주가)은 매일 변하므로 랭킹은 매일 바뀝니다.검증: 상위 랭킹 5개 종목을 시킹알파나 핀비즈(Finviz)에서 검색해보고, 실제로 "Strong Buy" 의견인지 비교해보면 로직의 정합성을 체크할 수 있습니다.
+
+# S&P 500 퀀트 스코어링 시스템 개발 명세서 (v1.1)
+
+## 0. 변경 이력 (Change Log)
+- v1.0: 기본 로직 (섹터 상대평가 + 백분위 점수)
+- v1.1: 밸류에이션 음수 처리(적자 기업 필터링) 및 NaN(결측치) 방어 로직 추가
+
+## 1. 프로젝트 개요
+- 목표: 수집된 S&P 500 데이터를 기반으로 5대 팩터를 분석하여 100점 만점의 랭킹 산출
+- 핵심 개선사항:
+  1) Logic Fix: PER, P/B 등이 음수(-)인 적자 기업이 저평가 우량주로 둔갑하는 오류 차단
+  2) Stability: 데이터가 비어있는(NaN) 종목이 총점 계산 시 누락되지 않도록 방어 (0점 처리)
+
+## 2. 팩터 가중치 및 배점표 (Constants)
+* 총점: 100점 만점
+* 모든 팩터는 섹터 내 상대평가(Percentile) 기준
+
+| 팩터 (Factor)       | 배점 (Weight) | 평가 방향 (Direction)      | 비고 |
+| :--- | :--- | :--- | :--- |
+| **Value (가치)** | 25점          | 낮을수록 좋음 (Low is Good) | 단, 양수(+)일 때만 평가 |
+| **Growth (성장)** | 25점          | 높을수록 좋음 (High is Good)| YoY 데이터 기준 |
+| **Profitability** | 20점          | 높을수록 좋음 (High is Good)| ROE, 영업이익률 등 |
+| **Momentum (모멘텀)**| 20점          | 높을수록 좋음 (High is Good)| 1년, 6개월 수익률 |
+| **Sentiment (수급)**| 10점          | 높을수록 좋음 (High is Good)| 거래량 급증 등 |
+
+## 3. 알고리즘 구현 프로세스 (Logic Flow)
+데이터프레임(`df`)이 준비된 상태에서 아래 순서대로 연산을 수행해야 함.
+
+### Step 1. 데이터 전처리 (Preprocessing) - [v1.1 핵심]
+점수 계산 전, 적자 기업의 밸류에이션 지표를 필터링합니다.
+
+1. **Valuation Masking (음수 제거)**
+   - 대상 컬럼: `PER`, `PBR`, `EV_EBITDA` 등 Value 관련 지표
+   - 로직: 값이 0 이하(음수)인 경우 `NaN`으로 치환
+   - 목적: 적자 기업(-10)이 흑자 기업(5)보다 수치가 작아 1등이 되는 현상 방지
+
+   ```python
+   # 예시 코드
+   cols_valuation = ['PER', 'PBR', 'EV_EBITDA']
+   for col in cols_valuation:
+       df[col] = df[col].apply(lambda x: x if x > 0 else np.nan)
+섹터 예외 처리섹터 정보가 없거나 종목 수가 너무 적은 그룹은 랭킹 계산에서 제외하거나 별도 처리Step 2. 섹터별 랭킹 및 점수 산출 (Scoring)각 지표에 대해 df.groupby('Sector') 적용 후 백분위 점수 산출.Case A. 값이 클수록 좋은 지표 (High is Good)대상: Growth, Profitability, Momentum, Sentiment로직: (내 순위 / 섹터 전체 수) * 배점구현: rank(pct=True) 사용Python# 예: ROE (20점 만점)
+# method='min': 동점자 보수적 처리
+# na_option='keep': NaN은 일단 유지 (Step 3에서 0점 처리)
+df['Score_ROE'] = df.groupby('Sector')['ROE'].rank(pct=True, method='min', na_option='keep') * 20
+Case B. 값이 작을수록 좋은 지표 (Low is Good)대상: Value (PER, PBR 등)로직: (1 - (내 순위 / 섹터 전체 수)) * 배점주의: Step 1에서 음수를 NaN으로 만들었으므로, 자동으로 흑자 기업끼리만 순위가 매겨짐.Python# 예: PER (10점 배점 가정)
+# (1 - 백분위)를 적용하여 낮은 PER이 높은 점수를 받도록 함
+df['Score_PER'] = (1 - df.groupby('Sector')['PER'].rank(pct=True)) * 10
+Step 3. 결측치(NaN) 최종 보정 (Final Handling)랭킹 계산 후 남은 NaN 점수를 0점으로 일괄 처리합니다.대상: 적자라서 Value 점수가 NaN인 기업, 데이터가 없어서 Growth 점수가 NaN인 기업처리: fillna(0)Pythonscore_columns = [col for col in df.columns if 'Score_' in col]
+df[score_columns] = df[score_columns].fillna(0)
+Step 4. 최종 종합 (Aggregation)모든 점수 컬럼을 합산하여 총점을 산출합니다.공식: Total Score = Sum(All Score Columns)4. 로직 요약표 (Cheat Sheet)구현 시 아래 규칙을 엄수할 것.구분대상 지표전처리 (Step 1)랭킹 방향 (Step 2)NaN 처리 (Step 3)Type A (High is Good)ROE, 성장률, 수익률그대로 둠rank(pct=True)0점 (데이터 없음)Type B (Low is Good)PER, PBR, EV/EBITDA0 이하는 NaN 치환1 - rank(pct=True)0점 (적자 기업)5. 검증 포인트 (Validation)구현 완료 후 다음 케이스를 확인하여 로직 정상 작동 여부 판단.적자 기업 확인: 순이익이 마이너스인 기업의 'PER 점수'가 0점으로 나오는지?우량주 확인: 애플, MS 같은 우량주의 'Profitability 점수'가 만점에 가깝게 나오는지?총점 확인: 모든 기업의 점수가 0~100점 사이로 정상 분포하는지?
