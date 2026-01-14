@@ -363,26 +363,87 @@
 
                         <div class="bg-[#282830] rounded-xl border border-gray-800 p-5">
                             <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4">
-                                <span class="relative flex h-2 w-2">
-                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                                </span>
-                                AI Analyst Briefing
+                                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                                기술적 분석
                             </h3>
                             <div class="space-y-4">
-                                ${(data.ai_briefing && data.ai_briefing.length > 0) ?
-                    data.ai_briefing.map(b => `
-                                            <div class="flex gap-3 items-start">
-                                                <div class="w-5 h-5 rounded bg-gray-800 flex items-center justify-center text-[10px] font-bold text-gray-400 shrink-0 mt-0.5">${b.id}</div>
-                                                <div>
-                                                    <div class="text-xs font-bold ${b.color_class} mb-0.5">${b.title}</div>
-                                                    <div class="text-xs text-gray-400 leading-relaxed">${b.text}</div>
+                                ${(() => {
+                    const ta = data.technical_analysis || {};
+                    let html = '';
+
+                    // 1. Candle Pattern
+                    const cp = ta.candle_pattern;
+                    if (cp) {
+                        const icon = cp.signal === 'bullish' ? '🟢' : '🔴';
+                        html += `
+                                            <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
+                                                <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">캔들 패턴</div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-lg">${icon}</span>
+                                                    <div>
+                                                        <div class="text-sm font-bold ${cp.signal === 'bullish' ? 'text-green-400' : 'text-red-400'}">${cp.name_kr}</div>
+                                                        <div class="text-[10px] text-gray-500">${cp.desc} (${cp.date})</div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        `).join('')
-                    :
-                    `<div class="text-xs text-gray-500">AI 브리핑 데이터를 불러오는 중입니다...</div>`
-                }
+                                        `;
+                    } else {
+                        html += `
+                                            <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
+                                                <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">캔들 패턴</div>
+                                                <div class="text-xs text-gray-500">최근 5일 내 특이 패턴 없음</div>
+                                            </div>
+                                        `;
+                    }
+
+                    // 2. RSI
+                    const rsi = ta.rsi || { value: 50, status: 'neutral' };
+                    const rsiColor = rsi.status === 'overbought' ? 'text-red-400' :
+                        rsi.status === 'oversold' ? 'text-green-400' :
+                            rsi.status === 'bullish' ? 'text-blue-400' : 'text-gray-400';
+                    const rsiLabel = rsi.status === 'overbought' ? '과매수' :
+                        rsi.status === 'oversold' ? '과매도' :
+                            rsi.status === 'bullish' ? '강세' : '약세';
+                    const rsiBarColor = rsi.status === 'overbought' ? 'bg-red-500' :
+                        rsi.status === 'oversold' ? 'bg-green-500' : 'bg-blue-500';
+
+                    html += `
+                                        <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
+                                            <div class="flex justify-between items-center mb-2">
+                                                <div class="text-[10px] text-gray-500 uppercase tracking-wider">RSI (14)</div>
+                                                <div class="${rsiColor} text-xs font-bold">${rsiLabel}</div>
+                                            </div>
+                                            <div class="flex items-center gap-3">
+                                                <div class="flex-1 bg-gray-700 h-2 rounded-full overflow-hidden">
+                                                    <div class="${rsiBarColor} h-full transition-all" style="width: ${rsi.value}%"></div>
+                                                </div>
+                                                <div class="text-sm font-bold text-white w-10 text-right">${rsi.value}</div>
+                                            </div>
+                                        </div>
+                                    `;
+
+                    // 3. Volume
+                    const vol = ta.volume || { pct_change: 0, status: 'normal' };
+                    const volIcon = vol.pct_change >= 0 ? '📈' : '📉';
+                    const volColor = vol.pct_change >= 50 ? 'text-green-400' :
+                        vol.pct_change >= 0 ? 'text-blue-400' :
+                            vol.pct_change >= -30 ? 'text-gray-400' : 'text-red-400';
+                    const volSign = vol.pct_change >= 0 ? '+' : '';
+
+                    html += `
+                                        <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
+                                            <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">거래량 <span class="normal-case">(전일)</span></div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-lg">${volIcon}</span>
+                                                <div class="${volColor} text-sm font-bold">평균 대비 ${volSign}${vol.pct_change}%</div>
+                                            </div>
+                                        </div>
+                                    `;
+
+                    return html;
+                })()}
                             </div>
                         </div>
 
@@ -434,7 +495,8 @@
                     "locale": "en",
                     "enable_publishing": false,
                     "allow_symbol_change": true,
-                    "container_id": "tv_chart_container"
+                    "container_id": "tv_chart_container",
+                    "studies": ["BB@tv-basicstudies"]
                 });
             }
         }

@@ -164,86 +164,141 @@ def calculate_rsi(data, period=14):
     rsi = 100 - (100 / (1 + rs))
     return rsi.iloc[-1] if len(rsi) > 0 else 50
 
-def generate_ai_briefing(stats, levels, current_price, context):
-    """Generate AI briefing with advanced logic"""
-    briefing = []
+def detect_candle_patterns(hist, lookback_days=5):
+    """
+    Detect 6 major candlestick patterns in the last N days.
+    Returns: {"pattern": str, "signal": str, "date": str, "name_kr": str} or None
+    """
+    if len(hist) < lookback_days + 2:
+        return None
     
-    # 1. Trend Analysis (MACD & Moving Averages)
-    if context.get('macd_golden'):
-        briefing.append({"id": 1, "title": "MACD 골든크로스",
-            "text": "MACD 골든크로스가 발생하여 단기적인 상승 추세로의 전환 신호가 포착되었습니다.",
-            "color_class": "text-blue-400"})
-    elif context.get('macd_dead'):
-        briefing.append({"id": 1, "title": "MACD 데드크로스",
-            "text": "MACD 데드크로스 발생, 단기 조정 압력이 거세질 수 있어 리스크 관리가 필요합니다.",
-            "color_class": "text-rose-400"})
-    elif context.get('candle_hammer'):
-         briefing.append({"id": 1, "title": "바닥권 매수세",
-            "text": "하락세 끝에서 저점 매수세가 유입되는 '망치형' 캔들이 발생했습니다. 바닥 다지기를 시도 중입니다.",
-            "color_class": "text-blue-400"})
-    elif stats['trend'] >= 80:
-        if stats['momentum'] >= 75: # Context: Strong but Overbought
-             briefing.append({"id": 1, "title": "강력한 상승세",
-            "text": "파죽지세의 상승세를 보이고 있으나, RSI 과열권에 진입하여 건전한 '숨고르기' 조정을 염두에 둬야 합니다.",
-            "color_class": "text-blue-400"})
-        else:
-            briefing.append({"id": 1, "title": "이상적 정배열",
-                "text": "주가가 모든 이동평균선(20, 60, 100) 상단에 위치하며, 가장 이상적이고 강력한 상승 추세를 유지하고 있습니다.",
-                "color_class": "text-blue-400"})
-    elif stats['trend'] >= 50:
-        briefing.append({"id": 1, "title": "추세 전환 시도",
-            "text": "단기 하락세를 멈추고 20일 이평선을 돌파하며 의미 있는 반등 시그널이 발생했습니다.",
-            "color_class": "text-[#00bba3]"})
+    patterns_found = []
+    
+    for i in range(-lookback_days, 0):
+        try:
+            # Current candle
+            o = hist['Open'].iloc[i]
+            h = hist['High'].iloc[i]
+            l = hist['Low'].iloc[i]
+            c = hist['Close'].iloc[i]
+            
+            # Previous candle
+            o_prev = hist['Open'].iloc[i-1]
+            c_prev = hist['Close'].iloc[i-1]
+            
+            # Two days ago (for 3-candle patterns)
+            o_prev2 = hist['Open'].iloc[i-2] if abs(i) < len(hist) - 2 else o_prev
+            c_prev2 = hist['Close'].iloc[i-2] if abs(i) < len(hist) - 2 else c_prev
+            
+            body = abs(c - o)
+            upper_shadow = h - max(o, c)
+            lower_shadow = min(o, c) - l
+            body_prev = abs(c_prev - o_prev)
+            
+            date_str = str(hist['Date'].iloc[i])[:10] if 'Date' in hist.columns else str(i)
+            
+            # 1. Hammer (하락 후 긴 아래꼬리)
+            if body > 0 and lower_shadow > body * 2 and upper_shadow < body * 0.5 and c_prev < o_prev:
+                patterns_found.append({
+                    "pattern": "hammer", "signal": "bullish", "date": date_str,
+                    "name_kr": "망치형", "desc": "하락 추세에서 바닥 반전 신호"
+                })
+            
+            # 2. Shooting Star (상승 후 긴 윗꼬리)
+            elif body > 0 and upper_shadow > body * 2 and lower_shadow < body * 0.5 and c_prev > o_prev:
+                patterns_found.append({
+                    "pattern": "shooting_star", "signal": "bearish", "date": date_str,
+                    "name_kr": "유성형", "desc": "상승 추세에서 고점 반전 신호"
+                })
+            
+            # 3. Bullish Engulfing
+            elif c > o and c_prev < o_prev and o <= c_prev and c >= o_prev and body > body_prev:
+                patterns_found.append({
+                    "pattern": "bullish_engulfing", "signal": "bullish", "date": date_str,
+                    "name_kr": "상승 장악형", "desc": "강력한 매수세로 추세 반전"
+                })
+            
+            # 4. Bearish Engulfing
+            elif c < o and c_prev > o_prev and o >= c_prev and c <= o_prev and body > body_prev:
+                patterns_found.append({
+                    "pattern": "bearish_engulfing", "signal": "bearish", "date": date_str,
+                    "name_kr": "하락 장악형", "desc": "강력한 매도세로 추세 반전"
+                })
+            
+            # 5. Morning Star (3봉 패턴)
+            elif (c_prev2 < o_prev2 and body_prev < abs(c_prev2 - o_prev2) * 0.3 and
+                  c > o and c > (o_prev2 + c_prev2) / 2):
+                patterns_found.append({
+                    "pattern": "morning_star", "signal": "bullish", "date": date_str,
+                    "name_kr": "샛별형", "desc": "강력한 바닥 반전 3봉 패턴"
+                })
+            
+            # 6. Evening Star (3봉 패턴)
+            elif (c_prev2 > o_prev2 and body_prev < abs(c_prev2 - o_prev2) * 0.3 and
+                  c < o and c < (o_prev2 + c_prev2) / 2):
+                patterns_found.append({
+                    "pattern": "evening_star", "signal": "bearish", "date": date_str,
+                    "name_kr": "석별형", "desc": "강력한 고점 반전 3봉 패턴"
+                })
+                
+        except Exception:
+            continue
+    
+    return patterns_found[-1] if patterns_found else None
+
+
+def analyze_volume(hist, period=20):
+    """Analyze volume compared to moving average (using previous day's closed data)."""
+    if len(hist) < period + 1:
+        return {"ratio": 1.0, "status": "normal", "pct_change": 0}
+    
+    # Use previous day's volume (fully closed candle) for accuracy during market hours
+    prev_day_vol = hist['Volume'].iloc[-2]
+    avg_vol = hist['Volume'].iloc[:-1].rolling(window=period).mean().iloc[-1]
+    
+    if avg_vol == 0:
+        return {"ratio": 1.0, "status": "normal", "pct_change": 0}
+    
+    ratio = prev_day_vol / avg_vol
+    pct_change = int((ratio - 1) * 100)
+    
+    if ratio >= 2.0:
+        status = "surge"
+    elif ratio >= 1.5:
+        status = "high"
+    elif ratio >= 1.0:
+        status = "above_avg"
+    elif ratio >= 0.5:
+        status = "below_avg"
     else:
-        briefing.append({"id": 1, "title": "조정 국면",
-            "text": "주요 지지선을 이탈하여 약세가 지속 중입니다. 섣부른 진입보다는 지지선 확인이 필요한 보수적 구간입니다.",
-            "color_class": "text-gray-400"})
+        status = "low"
     
-    # 2. Volume & Volatility (Bollinger & Volume)
-    if context.get('bb_breakout'):
-        briefing.append({"id": 2, "title": "볼린저 밴드 돌파",
-            "text": "볼린저 밴드 상단을 강하게 돌파하며 시세가 분출되고 있습니다. 강력한 모멘텀이 발생했습니다.",
-            "color_class": "text-blue-400"})
-    elif context.get('bb_squeeze'):
-        briefing.append({"id": 2, "title": "변동성 축소 (Squeeze)",
-            "text": "변동성이 극도로 축소된 '스퀴즈' 구간입니다. 조만간 큰 방향성(급등 또는 급락)이 결정될 것입니다.",
-            "color_class": "text-[#00bba3]"})
-    elif stats['volume'] >= 80:
-        briefing.append({"id": 2, "title": "수급 집중",
-            "text": "평소 대비 2배 이상의 대량 거래량이 터지며 메이저 주체(기관/외인)의 강력한 개입이 의심됩니다.",
-            "color_class": "text-[#00bba3]"})
-    elif stats['volume'] <= 40:
-        briefing.append({"id": 2, "title": "거래량 소강",
-            "text": "상승 탄력이 둔화되며 거래량이 감소하고 있습니다. 시장의 관심에서 멀어진 방향성 탐색 구간입니다.",
-            "color_class": "text-gray-400"})
+    return {"ratio": round(ratio, 2), "status": status, "pct_change": pct_change}
+
+
+def generate_technical_analysis(hist, rsi_value):
+    """Generate technical analysis data replacing AI briefing."""
+    candle_pattern = detect_candle_patterns(hist)
+    
+    if rsi_value >= 70:
+        rsi_status = "overbought"
+    elif rsi_value <= 30:
+        rsi_status = "oversold"
+    elif rsi_value >= 50:
+        rsi_status = "bullish"
     else:
-        briefing.append({"id": 2, "title": "견조한 수급",
-            "text": "특이 사항 없이 꾸준한 거래량을 동반하며 현재의 추세를 안정적으로 뒷받침하고 있습니다.",
-            "color_class": "text-blue-400"})
+        rsi_status = "bearish"
     
-    # 3. Strategy (Candle Patterns & Support/Resistance)
-    if context.get('candle_shooting'):
-        briefing.append({"id": 3, "title": "고점 경계 (유성형)",
-            "text": "상승 추세 고점에서 긴 윗꼬리를 단 '유성형' 캔들이 관측됩니다. 차익실현 매물을 주의해야 합니다.",
-            "color_class": "text-rose-400"})
-    elif context.get('support_defense'):
-        briefing.append({"id": 3, "title": "지지선 방어 성공",
-            "text": f"주요 지지선인 ${levels['s1']} 가격대를 장중 터치했으나 지켜내며 저가 매수세가 살아있음을 증명했습니다.",
-            "color_class": "text-blue-400"})
-    elif stats['momentum'] >= 75:
-        briefing.append({"id": 3, "title": "과열권 진입",
-            "text": f"RSI 과열권에 진입했습니다. 추격 매수보다는 눌림목(${levels['s1']}) 지지를 확인할 때까지 기다리는 것이 유리합니다.",
-            "color_class": "text-rose-400"})
-    elif stats['momentum'] <= 25:
-        briefing.append({"id": 3, "title": "기술적 반등 기대",
-            "text": "과매도(침체) 구간에 진입했습니다. 단기 낙폭 과대로 인한 기술적 반등(Dead Cat Bounce)이 기대되는 위치입니다.",
-            "color_class": "text-blue-400"})
-    else:
-        briefing.append({"id": 3, "title": "홀딩 전략",
-            "text": f"현재 추세가 유효하므로 1차 지지선(${levels['s1']})을 이탈하지 않는 한 추세 추종(Trend Following) 전략을 권장합니다.",
-            "color_class": "text-gray-400"})
+    rsi_data = {"value": round(rsi_value, 1), "status": rsi_status}
+    volume_data = analyze_volume(hist)
     
-    return briefing
+    return {
+        "candle_pattern": candle_pattern,
+        "rsi": rsi_data,
+        "volume": volume_data
+    }
+
+
 
 
 # --------------------------------------------------------------------------------
@@ -429,14 +484,14 @@ def analyze_single_stock_context(ticker, hist, final_score_row):
         # Mapping "Trend" to Growth/Profit combination?
         stats_bar['trend'] = int((growth_score + prof_score) / 45 * 100)
         
-        # Generate Briefing
-        ai_briefing = generate_ai_briefing(stats_bar, levels, current_price, context)
+        # Generate Technical Analysis (replaces AI Briefing)
+        technical_analysis = generate_technical_analysis(hist, rsi)
         
         return {
             "stats_bar": stats_bar,
             "signals": signals,
             "levels": levels,
-            "ai_briefing": ai_briefing,
+            "technical_analysis": technical_analysis,
             "current_price": current_price,
             "change_pct": (current_price - prev_close)/prev_close * 100
         }
@@ -618,7 +673,7 @@ def main():
             "stats_bar": ctx['stats_bar'],
             "signals": ctx['signals'],
             "levels": ctx['levels'],
-            "ai_briefing": ctx['ai_briefing'],
+            "technical_analysis": ctx['technical_analysis'],
             "related_peers": [] # Fill later
         }
         
