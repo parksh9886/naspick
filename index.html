@@ -98,9 +98,8 @@
                             </h2>
                             <button onclick="toggleChart()"
                                 class="text-gray-500 hover:text-white transition p-1 -mr-2 -mt-2">
-                                <svg id="chartToggleIcon"
-                                    class="w-5 h-5 transform transition-transform duration-300 rotate-180" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24">
+                                <svg id="chartToggleIcon" class="w-5 h-5 transform transition-transform duration-300"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 9l-7 7-7-7"></path>
                                 </svg>
@@ -132,7 +131,7 @@
                     </div>
 
                     <div id="chartBody"
-                        class="w-full overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out max-h-[500px] opacity-100">
+                        class="w-full overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out max-h-0 opacity-0">
                         <div class="h-[160px] md:h-[280px] w-full">
                             <canvas id="performanceChart"></canvas>
                         </div>
@@ -325,7 +324,7 @@
             });
         }
 
-        let isChartExpanded = true;
+        let isChartExpanded = false;
         function toggleChart() {
             const body = document.getElementById('chartBody');
             const icon = document.getElementById('chartToggleIcon');
