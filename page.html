@@ -290,7 +290,7 @@
                     return `
                                     <div class="flex justify-between items-end mb-6">
                                         <div>
-                                            <div class="text-gray-400 text-sm mb-1">Wall St. Consensus</div>
+                                            <div class="text-gray-400 text-sm mb-1">월스트리트 시장 예상치(전망치)</div>
                                             <div class="text-2xl font-bold text-white flex items-center gap-2">
                                                 ${status}
                                                 <span class="text-xs bg-blue-600 text-white px-2 py-0.5 rounded">${score} / 5.0</span>
@@ -302,7 +302,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="relative w-full h-16 mt-2 select-none">
+                                    <div class="relative w-full h-16 mt-6 select-none">
                                         
                                         <!-- Range Bar (Low to High) -->
                                         <div class="absolute top-4 h-2 bg-gray-700 rounded-full overflow-visible" style="left: ${p_low}%; width: ${p_high - p_low}%;"></div>
@@ -318,12 +318,12 @@
                                             <div class="text-[10px] text-gray-400">Target</div>
                                         </div>
 
-                                        <!-- Current Price (White Triangle) -->
-                                        <div class="absolute top-[10px] flex flex-col items-center z-20 transition-all duration-1000" style="left: ${p_current}%; transform: translateX(-50%);">
-                                            <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-white drop-shadow-md"></div>
-                                            <div class="mt-4 px-2 py-0.5 bg-gray-600 rounded text-xs text-white font-bold border border-gray-500 shadow-lg whitespace-nowrap">
+                                        <!-- Current Price (White Triangle) - Moved Above -->
+                                        <div class="absolute -top-6 flex flex-col items-center z-20 transition-all duration-1000" style="left: ${p_current}%; transform: translateX(-50%);">
+                                            <div class="mb-1 px-2 py-0.5 bg-gray-600 rounded text-xs text-white font-bold border border-gray-500 shadow-lg whitespace-nowrap">
                                                 Now $${current}
                                             </div>
+                                            <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-white drop-shadow-md"></div>
                                         </div>
 
                                     </div>
