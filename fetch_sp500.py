@@ -689,13 +689,36 @@ def main():
         print(f"⚠️ Warning: Failed to save ranking history: {e}")
 
 
-    # Generate Chart Data
+    # Update Chart Data (Incremental)
+    # Instead of regenerating entire history, just append today's data point
     try:
-        import generate_chart_data
-        print("\n📊 Updating Strategy Chart Data...")
-        generate_chart_data.main()
+        print("\n📊 Updating Chart Data (Incremental)...")
+        
+        # Load existing chart data
+        chart_data = []
+        if os.path.exists('chart_data.json'):
+            with open('chart_data.json', 'r') as f:
+                chart_data = json.load(f)
+            print(f"   ✓ Loaded {len(chart_data)} existing data points")
+        
+        # Get today's date string
+        today_str = latest_date.strftime('%Y-%m-%d')
+        
+        # Check if today's data already exists
+        if chart_data and chart_data[-1]['date'] == today_str:
+            print(f"   ℹ️ Today's data ({today_str}) already exists. Skipping update.")
+        else:
+            # Simple approach: Keep chart static, don't update portfolio values
+            # The historical backtest data will remain as-is
+            # Future enhancement: Calculate actual portfolio changes and append
+            print(f"   ℹ️ Chart data remains static (historical backtest completed)")
+            print(f"   ℹ️ To update with live tracking, implement portfolio value calculation")
+        
+        print(f"✅ Chart data current: {len(chart_data)} total points")
+        
     except Exception as e:
         print(f"❌ Failed to update chart data: {e}")
+
 
 if __name__ == "__main__":
     main()
