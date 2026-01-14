@@ -251,11 +251,11 @@
                 const p_current = getPos(current);
 
                 return `
+                    <div class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
+                        월스트리트 시장 예상치(전망치)
+                    </div>
                     <div class="flex justify-between items-end mb-6">
                         <div>
-                            <div class="text-sm font-bold text-gray-200 mb-4">
-                                월스트리트 시장 예상치(전망치)
-                            </div>
                             <div class="text-2xl font-bold text-white flex items-center gap-2">
                                 ${status}
                                 <span class="text-xs bg-blue-600 text-white px-2 py-0.5 rounded">${score} / 5.0</span>
@@ -399,7 +399,7 @@
                         </div>
 
                         <div class="bg-[#282830] rounded-xl border border-gray-800 p-5">
-                            <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4">
+                            <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
                                 <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
@@ -497,7 +497,7 @@
                         </div>
 
                         <div class="bg-[#23232a] rounded-xl border border-gray-800 p-5">
-                            <h4 class="text-sm font-bold text-gray-200 mb-4">관련주 TOP 3</h4>
+                            <h4 class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">관련주 TOP 3</h4>
                             <div class="space-y-3">
                                 ${(data.related_peers || []).map(p => {
                     const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker };
