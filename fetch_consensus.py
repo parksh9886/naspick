@@ -21,7 +21,9 @@ def fetch_all_consensus():
     # yfinance uses '-' (BRK-B), FDR uses '.' (BRK.B)
     # We need to ensure we query yfinance with hyphens, but save with dots to match fetch_sp500.py
     
-    consensus_map = {}
+    # Statistics
+    success_count = 0
+    fail_count = 0
     
     print(f"🚀 Starting Consensus Fetch for {len(tickers)} stocks...")
     print("⏳ This process will take time (approx 30 mins) to avoid rate limits.")
@@ -34,6 +36,8 @@ def fetch_all_consensus():
         
         try:
             stock = yf.Ticker(yf_ticker)
+            # Force a request to initialize? 
+            # Sometimes info is lazy properly, but accessing keys triggers it.
             info = stock.info
             
             # Check availability
@@ -69,11 +73,14 @@ def fetch_all_consensus():
                 
                 consensus_map[ticker] = consensus_data
                 print(f" ✅ {status} ({score})")
+                success_count += 1
             else:
-                print(f" ⚠️ No data")
+                print(f" ⚠️ No data (Info empty)")
+                fail_count += 1
                 
         except Exception as e:
             print(f" ❌ Error: {e}")
+            fail_count += 1
             
         # Rate Limiting: 2 seconds per stock
         time.sleep(2)
@@ -83,6 +90,7 @@ def fetch_all_consensus():
         json.dump(consensus_map, f, indent=2, ensure_ascii=False)
         
     print(f"\n💾 Saved consensus data for {len(consensus_map)} stocks to consensus_data.json")
+    print(f"📊 Summary: Success {success_count}, Fail {fail_count} (Total {len(tickers)})")
 
 if __name__ == "__main__":
     fetch_all_consensus()
