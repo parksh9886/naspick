@@ -777,7 +777,8 @@ def main():
         print(f"❌ Failed to update chart data: {e}")
 
 
-    if __name__ == "__main__":
-        main()
-        # [SEO] Generate Sitemap & Robots.txt after data update
-        generate_sitemap()
+if __name__ == "__main__":
+    main()
+    # [SEO] Generate Sitemap & Robots.txt after data update
+    generate_sitemap()
+
