@@ -310,7 +310,6 @@
                             
                             <h2 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-4 border-b border-gray-700 pb-2 flex justify-between">
                                 <span>Naspick Score Breakdown</span>
-                                <span class="text-white opacity-50">v1.1</span>
                             </h2>
                             
                             <div class="flex items-end gap-2 mb-6">
@@ -441,17 +440,14 @@
 
                     // 3. Volume
                     const vol = ta.volume || { pct_change: 0, status: 'normal' };
-                    const volIcon = vol.pct_change >= 0 ? '📈' : '📉';
-                    const volColor = vol.pct_change >= 50 ? 'text-green-400' :
-                        vol.pct_change >= 0 ? 'text-blue-400' :
-                            vol.pct_change >= -30 ? 'text-gray-400' : 'text-red-400';
+                    // Color logic: Rise=Red, Fall=Blue
+                    const volColor = vol.pct_change >= 0 ? 'text-red-400' : 'text-blue-400';
                     const volSign = vol.pct_change >= 0 ? '+' : '';
 
                     html += `
                                         <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
-                                            <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">거래량 <span class="normal-case">(전일)</span></div>
+                                            <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">거래량 <span class="normal-case">(전일)</span></div>
                                             <div class="flex items-center gap-2">
-                                                <span class="text-lg">${volIcon}</span>
                                                 <div class="${volColor} text-sm font-bold">평균 대비 ${volSign}${vol.pct_change}%</div>
                                             </div>
                                         </div>
