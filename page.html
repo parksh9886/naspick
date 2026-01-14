@@ -212,6 +212,89 @@
                 return s;
             }).join(', ');
 
+            // --- Extract Consensus HTML Generation Logic ---
+            const consensusHtml = (() => {
+                const cons = data.consensus;
+                if (!cons) {
+                    return `
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-gray-400 text-xs font-bold uppercase tracking-wider">Wall St. Consensus</div>
+                            <div class="text-xs text-gray-500">데이터 없음</div>
+                        </div>
+                        <div class="text-center text-gray-500 text-sm py-4">
+                            전문가 의견 데이터가 없습니다.
+                        </div>
+                    `;
+                }
+
+                const current = data.current_price;
+                const target = cons.target_price.mean;
+                const low = cons.target_price.low;
+                const high = cons.target_price.high;
+                const score = cons.recommendation.score;
+                const status = cons.recommendation.status;
+
+                const upside = ((target - current) / current * 100).toFixed(1);
+                const isUpsidePositive = upside >= 0;
+                const upsideColor = isUpsidePositive ? 'text-green-400' : 'text-red-400';
+                const upsideSign = isUpsidePositive ? '+' : '';
+
+                const valMin = Math.min(low, current, target) * 0.95;
+                const valMax = Math.max(high, current, target) * 1.05;
+                const fullRange = valMax - valMin;
+
+                const getPos = (val) => ((val - valMin) / fullRange * 100);
+
+                const p_low = getPos(low);
+                const p_high = getPos(high);
+                const p_target = getPos(target);
+                const p_current = getPos(current);
+
+                return `
+                    <div class="flex justify-between items-end mb-6">
+                        <div>
+                            <div class="text-sm font-bold text-gray-200 mb-4">
+                                월스트리트 시장 예상치(전망치)
+                            </div>
+                            <div class="text-2xl font-bold text-white flex items-center gap-2">
+                                ${status}
+                                <span class="text-xs bg-blue-600 text-white px-2 py-0.5 rounded">${score} / 5.0</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-gray-400 text-xs">상승 여력 (Upside)</div>
+                            <div class="text-xl font-bold ${upsideColor}">${upsideSign}${upside}%</div>
+                        </div>
+                    </div>
+
+                    <div class="relative w-full h-16 mt-6 select-none">
+                        
+                        <!-- Range Bar (Low to High) -->
+                        <div class="absolute top-4 h-2 bg-gray-700 rounded-full overflow-visible" style="left: ${p_low}%; width: ${p_high - p_low}%;"></div>
+
+                        <!-- Labels -->
+                        <div class="absolute top-8 text-xs text-gray-500 transform -translate-x-1/2" style="left: ${p_low}%">$${low}</div>
+                        <div class="absolute top-8 text-xs text-gray-500 transform -translate-x-1/2" style="left: ${p_high}%">$${high}</div>
+
+                        <!-- Target Price (Green Line) -->
+                        <div class="absolute top-2 flex flex-col items-center group cursor-pointer z-10 transition-all duration-1000" style="left: ${p_target}%; transform: translateX(-50%);">
+                            <div class="h-6 w-0.5 bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)]"></div>
+                            <div class="mt-1 text-xs text-green-400 font-bold">$${target}</div>
+                            <div class="text-[10px] text-gray-400">Target</div>
+                        </div>
+
+                        <!-- Current Price (White Triangle) - Moved Above -->
+                        <div class="absolute -top-6 flex flex-col items-center z-20 transition-all duration-1000" style="left: ${p_current}%; transform: translateX(-50%);">
+                            <div class="mb-1 px-2 py-0.5 bg-gray-600 rounded text-xs text-white font-bold border border-gray-500 shadow-lg whitespace-nowrap">
+                                Now $${current}
+                            </div>
+                            <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-white drop-shadow-md"></div>
+                        </div>
+
+                    </div>
+                `;
+            })();
+
             const html = `
                 <section class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
                     <div class="flex items-center gap-4">
@@ -242,95 +325,9 @@
                         
                         <div id="tv_chart_container" class="bg-[#282830] rounded-xl border border-gray-800 h-[500px] relative overflow-hidden group"></div>
 
-                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-6">
-                            ${(() => {
-                    const cons = data.consensus;
-                    if (!cons) {
-                        return `
-                                        <div class="flex items-center justify-between mb-4">
-                                            <div class="text-gray-400 text-xs font-bold uppercase tracking-wider">Wall St. Consensus</div>
-                                            <div class="text-xs text-gray-500">데이터 없음</div>
-                                        </div>
-                                        <div class="text-center text-gray-500 text-sm py-4">
-                                            전문가 의견 데이터가 없습니다.
-                                        </div>
-                                    `;
-                    }
-
-                    const current = data.current_price;
-                    const target = cons.target_price.mean;
-                    const low = cons.target_price.low;
-                    const high = cons.target_price.high;
-                    const score = cons.recommendation.score;
-                    const status = cons.recommendation.status;
-
-                    const upside = ((target - current) / current * 100).toFixed(1);
-                    const isUpsidePositive = upside >= 0;
-                    const upsideColor = isUpsidePositive ? 'text-green-400' : 'text-red-400';
-                    const upsideSign = isUpsidePositive ? '+' : '';
-
-                    // Gauge Calculation
-                    // Range: Low to High. Ensure Current/Target are within bounds visually extended if needed?
-                    // Let's stick to Low~High as the bar range as per example.
-                    // If Current is outside Low~High, clamp it? No, user said "white triangle vs green line".
-                    // Let's assume Low/High cover the range. If current is way off, maybe extend range?
-                    // For simplicity, let's use min(Low, Current, Target) and max(High, Current, Target) as display range?
-                    // But Finnhub's Low/High are usually Analyst Target Low/High. Current price can be outside.
-                    // Let's normalize to a range that includes Current and Target.
-
-                    const valMin = Math.min(low, current, target) * 0.95;
-                    const valMax = Math.max(high, current, target) * 1.05;
-                    const fullRange = valMax - valMin;
-
-                    const getPos = (val) => ((val - valMin) / fullRange * 100);
-
-                    const p_low = getPos(low);
-                    const p_high = getPos(high);
-                    const p_target = getPos(target);
-                    const p_current = getPos(current);
-
-                    return `
-                                    <div class="flex justify-between items-end mb-6">
-                                        <div>
-                                            <div class="text-gray-400 text-sm mb-1">월스트리트 시장 예상치(전망치)</div>
-                                            <div class="text-2xl font-bold text-white flex items-center gap-2">
-                                                ${status}
-                                                <span class="text-xs bg-blue-600 text-white px-2 py-0.5 rounded">${score} / 5.0</span>
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="text-gray-400 text-xs">상승 여력 (Upside)</div>
-                                            <div class="text-xl font-bold ${upsideColor}">${upsideSign}${upside}%</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="relative w-full h-16 mt-6 select-none">
-                                        
-                                        <!-- Range Bar (Low to High) -->
-                                        <div class="absolute top-4 h-2 bg-gray-700 rounded-full overflow-visible" style="left: ${p_low}%; width: ${p_high - p_low}%;"></div>
-
-                                        <!-- Labels -->
-                                        <div class="absolute top-8 text-xs text-gray-500 transform -translate-x-1/2" style="left: ${p_low}%">$${low}</div>
-                                        <div class="absolute top-8 text-xs text-gray-500 transform -translate-x-1/2" style="left: ${p_high}%">$${high}</div>
-
-                                        <!-- Target Price (Green Line) -->
-                                        <div class="absolute top-2 flex flex-col items-center group cursor-pointer z-10 transition-all duration-1000" style="left: ${p_target}%; transform: translateX(-50%);">
-                                            <div class="h-6 w-0.5 bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)]"></div>
-                                            <div class="mt-1 text-xs text-green-400 font-bold">$${target}</div>
-                                            <div class="text-[10px] text-gray-400">Target</div>
-                                        </div>
-
-                                        <!-- Current Price (White Triangle) - Moved Above -->
-                                        <div class="absolute -top-6 flex flex-col items-center z-20 transition-all duration-1000" style="left: ${p_current}%; transform: translateX(-50%);">
-                                            <div class="mb-1 px-2 py-0.5 bg-gray-600 rounded text-xs text-white font-bold border border-gray-500 shadow-lg whitespace-nowrap">
-                                                Now $${current}
-                                            </div>
-                                            <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-white drop-shadow-md"></div>
-                                        </div>
-
-                                    </div>
-                                `;
-                })()}
+                        <!-- Wall St. Consensus (Desktop Only) -->
+                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 hidden lg:block">
+                            ${consensusHtml}
                         </div>
 
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -344,7 +341,7 @@
                                 <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"></path></svg>
                             </div>
                             
-                            <h2 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-4 border-b border-gray-700 pb-2 flex justify-between">
+                            <h2 class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex justify-between">
                                 <span>Naspick Score Breakdown</span>
                             </h2>
                             
@@ -394,6 +391,11 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Wall St. Consensus (Mobile Only) -->
+                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 block lg:hidden">
+                            ${consensusHtml}
                         </div>
 
                         <div class="bg-[#282830] rounded-xl border border-gray-800 p-5">
@@ -491,36 +493,6 @@
 
                     return html;
                 })()}
-                            </div>
-                        </div>
-
-
-
-                        <div class="bg-[#23232a] rounded-xl border border-gray-800 p-5">
-                            <h4 class="text-gray-400 text-xs font-bold uppercase mb-4">관련주 TOP 3</h4>
-                            <div class="space-y-3">
-                                ${(data.related_peers || []).map(p => {
-                    const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker };
-                    // SEO 수정: onclick -> a href
-                    return `
-                                        <a href="/stock/${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
-                                            <div class="flex items-center gap-3">
-                                                <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
-                                                    <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" 
-                                                         alt="${p.ticker} 관련주"
-                                                         onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" 
-                                                         style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
-                                                </div>
-                                                <div>
-                                                    <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">${peerData.name}</div>
-                                                    <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
-                                                </div>
-                                            </div>
-                                            <span class="${p.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct > 0 ? '+' : ''}${p.change_pct}%</span>
-                                        </a>
-                                    `;
-                }).join('')}
-                                ${(data.related_peers || []).length === 0 ? '<div class="text-xs text-gray-600">No peers found</div>' : ''}
                             </div>
                         </div>
 

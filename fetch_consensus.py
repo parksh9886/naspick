@@ -24,7 +24,8 @@ def fetch_all_consensus():
     # Statistics
     success_count = 0
     fail_count = 0
-    
+    consensus_map = {}
+
     print(f"🚀 Starting Consensus Fetch for {len(tickers)} stocks...")
     print("⏳ This process will take time (approx 30 mins) to avoid rate limits.")
     
