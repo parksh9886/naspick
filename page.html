@@ -398,7 +398,7 @@
                                         `;
                     }
 
-                    // 2. RSI
+                    // 2. RSI (Gauge Chart Style)
                     const rsi = ta.rsi || { value: 50, status: 'neutral' };
                     const rsiColor = rsi.status === 'overbought' ? 'text-red-400' :
                         rsi.status === 'oversold' ? 'text-green-400' :
@@ -406,20 +406,41 @@
                     const rsiLabel = rsi.status === 'overbought' ? '과매수' :
                         rsi.status === 'oversold' ? '과매도' :
                             rsi.status === 'bullish' ? '강세' : '약세';
-                    const rsiBarColor = rsi.status === 'overbought' ? 'bg-red-500' :
-                        rsi.status === 'oversold' ? 'bg-green-500' : 'bg-blue-500';
+                    const rsiEmoji = rsi.status === 'overbought' ? '🔥' :
+                        rsi.status === 'oversold' ? '❄️' :
+                            rsi.status === 'bullish' ? '📈' : '📉';
 
                     html += `
                                         <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
-                                            <div class="flex justify-between items-center mb-2">
+                                            <div class="flex justify-between items-center mb-3">
                                                 <div class="text-[10px] text-gray-500 uppercase tracking-wider">RSI (14)</div>
-                                                <div class="${rsiColor} text-xs font-bold">${rsiLabel}</div>
-                                            </div>
-                                            <div class="flex items-center gap-3">
-                                                <div class="flex-1 bg-gray-700 h-2 rounded-full overflow-hidden">
-                                                    <div class="${rsiBarColor} h-full transition-all" style="width: ${rsi.value}%"></div>
+                                                <div class="flex items-center gap-1">
+                                                    <span>${rsiEmoji}</span>
+                                                    <span class="${rsiColor} text-xs font-bold">${rsiLabel}</span>
                                                 </div>
-                                                <div class="text-sm font-bold text-white w-10 text-right">${rsi.value}</div>
+                                            </div>
+                                            <div class="relative">
+                                                <!-- RSI Gauge Background with zones -->
+                                                <div class="h-3 rounded-full overflow-hidden flex">
+                                                    <div class="w-[30%] bg-gradient-to-r from-green-600 to-green-500"></div>
+                                                    <div class="w-[40%] bg-gradient-to-r from-green-500 via-gray-600 to-red-500"></div>
+                                                    <div class="w-[30%] bg-gradient-to-r from-red-500 to-red-600"></div>
+                                                </div>
+                                                <!-- RSI Marker -->
+                                                <div class="absolute top-0 h-3 flex items-center" style="left: ${rsi.value}%; transform: translateX(-50%);">
+                                                    <div class="w-1 h-5 bg-white rounded shadow-lg shadow-white/50"></div>
+                                                </div>
+                                                <!-- Zone Labels -->
+                                                <div class="flex justify-between text-[8px] text-gray-600 mt-1">
+                                                    <span>0</span>
+                                                    <span class="text-green-500">30</span>
+                                                    <span class="text-gray-400">50</span>
+                                                    <span class="text-red-500">70</span>
+                                                    <span>100</span>
+                                                </div>
+                                            </div>
+                                            <div class="text-center mt-2">
+                                                <span class="text-2xl font-bold ${rsiColor}">${rsi.value}</span>
                                             </div>
                                         </div>
                                     `;
