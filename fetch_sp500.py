@@ -669,6 +669,26 @@ def main():
     with open('yesterday_ranks.json', 'w', encoding='utf-8') as f:
         json.dump(snapshot, f, indent=2)
 
+    # Save ranking history for chart generation
+    print("\n📊 Saving ranking history for chart data...")
+    try:
+        # Ensure data directory exists
+        os.makedirs('data', exist_ok=True)
+        
+        # Create minimal ranking history needed for chart generation
+        # Include Date, Ticker, Sector, Close, Total_Score, Rank
+        chart_history = ranked_df[['Ticker', 'Sector', 'Close', 'Total_Score', 'Rank']].copy()
+        chart_history['Date'] = latest_date
+        
+        # Reorder columns to match expected format
+        chart_history = chart_history[['Date', 'Ticker', 'Sector', 'Close', 'Total_Score', 'Rank']]
+        
+        chart_history.to_csv('data/ranking_history.csv', index=False)
+        print(f"✓ Saved ranking snapshot for {len(chart_history)} stocks to data/ranking_history.csv")
+    except Exception as e:
+        print(f"⚠️ Warning: Failed to save ranking history: {e}")
+
+
     # Generate Chart Data
     try:
         import generate_chart_data
