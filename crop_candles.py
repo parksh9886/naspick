@@ -32,15 +32,16 @@ row_height = h // 2  # ~341
 # Text is below the candles
 
 # Manually tuned crop boxes (left, top, right, bottom) - CANDLES ONLY, NO TEXT
+# Adjusted to center the candles better within each crop
 patterns = {
-    # Row 1 (upper half: 0-341)
-    "hammer": (75, 25, 260, 200),           # Single candle, centered
-    "shooting_star": (360, 10, 560, 200),    # Single candle with star
-    "bullish_engulfing": (700, 25, 950, 200), # Two candles
-    # Row 2 (lower half: 341-682)  
-    "bearish_engulfing": (50, 310, 290, 510),
-    "morning_star": (340, 310, 610, 510),
-    "evening_star": (680, 310, 960, 510),
+    # Row 1 (upper half: 0-341) - adjusted for center alignment
+    "hammer": (85, 20, 215, 200),            # Single candle
+    "shooting_star": (380, 5, 530, 200),     # Single candle with star  
+    "bullish_engulfing": (720, 20, 930, 200), # Two candles
+    # Row 2 (lower half: 341-682) - adjusted for center alignment
+    "bearish_engulfing": (65, 300, 275, 510),
+    "morning_star": (355, 300, 595, 510),
+    "evening_star": (700, 300, 940, 510),
 }
 
 # Crop each pattern
