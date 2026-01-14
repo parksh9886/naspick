@@ -1,0 +1,44 @@
+{
+  "AAPL": {
+    "target_price": {
+      "low": 215.0,
+      "mean": 287.82877,
+      "high": 350.0
+    },
+    "recommendation": {
+      "score": 4.0,
+      "status": "Buy",
+      "yahoo_mean": 2.02041,
+      "key": "buy"
+    },
+    "last_updated": "2026-01-14 22:01:52"
+  },
+  "NVDA": {
+    "target_price": {
+      "low": 140.0,
+      "mean": 252.80772,
+      "high": 352.0
+    },
+    "recommendation": {
+      "score": 4.7,
+      "status": "Strong Buy",
+      "yahoo_mean": 1.33333,
+      "key": "strong_buy"
+    },
+    "last_updated": "2026-01-14 22:01:55"
+  },
+  "TSLA": {
+    "target_price": {
+      "low": 130.0,
+      "mean": 409.651,
+      "high": 600.0
+    },
+    "recommendation": {
+      "score": 3.5,
+      "status": "Buy",
+      "yahoo_mean": 2.54348,
+      "key": "hold"
+    },
+    "last_updated": "2026-01-14 22:01:57"
+  }
+}

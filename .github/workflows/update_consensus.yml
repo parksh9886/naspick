@@ -1,0 +1,36 @@
+name: Update Wall St Consensus
+
+on:
+  schedule:
+    # Run at 09:00 UTC (Market Open - 30m approx, or just daily update)
+    # Yahoo data updates slowly anyway. Once a day is fine.
+    - cron: '0 9 * * *' 
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-consensus:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install yfinance finance-datareader pandas requests
+
+    - name: Fetch Consensus Data (Yahoo Finance)
+      run: python fetch_consensus.py
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        git add consensus_data.json
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update Wall St. Consensus data" && git push)
