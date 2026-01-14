@@ -9,7 +9,6 @@ from datetime import datetime, timedelta
 # [SEO] Import Sitemap Generator
 from generate_sitemap import generate_sitemap
 import warnings
-import warnings
 import requests
 warnings.filterwarnings('ignore')
 
