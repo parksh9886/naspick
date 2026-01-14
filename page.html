@@ -400,24 +400,18 @@
 
                     // 2. RSI (Gauge Chart Style)
                     const rsi = ta.rsi || { value: 50, status: 'neutral' };
+                    // Color logic: Overbought=Red, Oversold=Blue, Others=Gray
                     const rsiColor = rsi.status === 'overbought' ? 'text-red-400' :
-                        rsi.status === 'oversold' ? 'text-green-400' :
-                            rsi.status === 'bullish' ? 'text-blue-400' : 'text-gray-400';
+                        rsi.status === 'oversold' ? 'text-blue-400' : 'text-gray-400';
                     const rsiLabel = rsi.status === 'overbought' ? '과매수' :
                         rsi.status === 'oversold' ? '과매도' :
                             rsi.status === 'bullish' ? '강세' : '약세';
-                    const rsiEmoji = rsi.status === 'overbought' ? '🔥' :
-                        rsi.status === 'oversold' ? '❄️' :
-                            rsi.status === 'bullish' ? '📈' : '📉';
 
                     html += `
                                         <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
                                             <div class="flex justify-between items-center mb-3">
                                                 <div class="text-[10px] text-gray-500 uppercase tracking-wider">RSI (14)</div>
-                                                <div class="flex items-center gap-1">
-                                                    <span>${rsiEmoji}</span>
-                                                    <span class="${rsiColor} text-xs font-bold">${rsiLabel}</span>
-                                                </div>
+                                                <div class="${rsiColor} text-xs font-bold">${rsiLabel}</div>
                                             </div>
                                             <div class="relative">
                                                 <!-- RSI Gauge Background with zones -->
