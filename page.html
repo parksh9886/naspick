@@ -496,6 +496,34 @@
                             </div>
                         </div>
 
+                        <div class="bg-[#23232a] rounded-xl border border-gray-800 p-5">
+                            <h4 class="text-sm font-bold text-gray-200 mb-4">관련주 TOP 3</h4>
+                            <div class="space-y-3">
+                                ${(data.related_peers || []).map(p => {
+                    const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker };
+                    // SEO 수정: onclick -> a href
+                    return `
+                                        <a href="/stock/${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
+                                                    <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" 
+                                                         alt="${p.ticker} 관련주"
+                                                         onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" 
+                                                         style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">${peerData.name}</div>
+                                                    <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
+                                                </div>
+                                            </div>
+                                            <span class="${p.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct > 0 ? '+' : ''}${p.change_pct}%</span>
+                                        </a>
+                                    `;
+                }).join('')}
+                                ${(data.related_peers || []).length === 0 ? '<div class="text-xs text-gray-600">No peers found</div>' : ''}
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             `;
