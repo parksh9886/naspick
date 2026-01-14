@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>종목 상세페이지:나스픽</title>
+    <meta name="description" content="미국 주식 실시간 티어 분석 정보">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" as="style" crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
@@ -36,7 +37,6 @@
         <div
             class="container mx-auto px-4 flex flex-row items-center justify-between md:grid md:grid-cols-3 gap-3 md:gap-4">
 
-            <!-- Left: Back & Logo -->
             <div class="flex items-center gap-3 shrink-0">
                 <button onclick="location.href='index.html'" class="text-blue-200 hover:text-white transition">
                     <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -44,11 +44,12 @@
                         </path>
                     </svg>
                 </button>
-                <div class="text-xl md:text-3xl font-black italic tracking-tighter text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)] cursor-pointer hover:opacity-90 transition"
-                    onclick="location.href='index.html'">NASPICK</div>
+                <a href="index.html"
+                    class="text-xl md:text-3xl font-black italic tracking-tighter text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)] cursor-pointer hover:opacity-90 transition block">
+                    NASPICK
+                </a>
             </div>
 
-            <!-- Center: Search -->
             <div class="relative flex-1 max-w-[200px] md:max-w-sm flex justify-end md:justify-center md:ml-32">
                 <input type="text" id="headerSearch" placeholder="티커/종목명..."
                     class="w-full bg-[#3e63b0] text-white placeholder-blue-200/50 px-3 py-2 md:px-5 md:py-3 text-sm md:text-base rounded-full border border-blue-400 focus:outline-none focus:ring-2 focus:ring-white transition shadow-inner font-bold">
@@ -57,7 +58,6 @@
                 </div>
             </div>
 
-            <!-- Right: Spacer -->
             <div class="hidden md:block"></div>
         </div>
     </header>
@@ -91,6 +91,17 @@
                     return;
                 }
 
+                // --- SEO 핵심 추가: 동적 타이틀 및 메타태그 변경 ---
+                document.title = `${stockData.name} (${stockData.ticker}) 주가 및 티어 분석 | 나스픽`;
+
+                const metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) {
+                    metaDesc.setAttribute('content',
+                        `${stockData.name}(${stockData.ticker})의 현재 주가는 $${stockData.current_price}입니다. 나스픽 AI 점수 ${stockData.final_score}점, 티어 ${stockData.tier}등급. 실시간 지지/저항 라인과 수급 분석을 확인하세요.`
+                    );
+                }
+                // ----------------------------------------------------
+
                 renderPage(stockData);
                 initHeaderSearch();
 
@@ -122,7 +133,10 @@
             const html = `
                 <section class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
                     <div class="flex items-center gap-4">
-                        <img src="https://financialmodelingprep.com/image-stock/${data.ticker.replace('.', '-')}.png" onerror="this.src='https://ui-avatars.com/api/?name=${data.ticker}&background=5383e8&color=fff&size=256'" style="filter: invert(1) hue-rotate(180deg);" class="w-16 h-16 rounded-lg shadow-lg object-contain">
+                        <img src="https://financialmodelingprep.com/image-stock/${data.ticker.replace('.', '-')}.png" 
+                             alt="${data.name} 로고"
+                             onerror="this.src='https://ui-avatars.com/api/?name=${data.ticker}&background=5383e8&color=fff&size=256'" 
+                             style="filter: invert(1) hue-rotate(180deg);" class="w-16 h-16 rounded-lg shadow-lg object-contain">
                         <div>
                             <div class="flex items-center gap-2 mb-1 flex-wrap">
                                 <h1 class="text-3xl md:text-4xl font-extrabold text-gray-100">${data.name || data.ticker}</h1>
@@ -142,13 +156,10 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
-                    <!-- Left Column: Chart & Info -->
                     <div class="lg:col-span-2 flex flex-col gap-6">
                         
-                        <!-- Chart Area -->
                         <div id="tv_chart_container" class="bg-[#282830] rounded-xl border border-gray-800 h-[500px] relative overflow-hidden group"></div>
 
-                        <!-- Trading Guide (Support & Resistance) - New Layout -->
                         <div class="bg-[#282830] rounded-xl border border-gray-800 p-6">
                             ${(() => {
                     const r2 = data.levels?.r2 || 0;
@@ -166,47 +177,37 @@
 
                     return `
                                 <div class="relative w-full h-4 bg-gray-800 rounded-full mb-10 mt-8 overflow-visible flex items-center">
-                                    <!-- Zone 1: S2 to S1 (Blue) -->
                                     <div class="absolute left-0 h-full bg-[#00bba3]/30 border-r border-gray-600 box-border rounded-l-full" style="width: ${p_s1}%;"></div>
                                     <div class="absolute text-[9px] text-gray-500 font-bold -bottom-5 transform -translate-x-1/2" style="left: ${p_s1}%">1차지지</div>
                                     
-                                    <!-- Zone 2: S1 to R1 (Gray/Neutral) -->
                                     <div class="absolute h-full bg-gray-600/20 box-border" style="left: ${p_s1}%; width: ${p_r1 - p_s1}%;"></div>
                                     
-                                    <!-- Zone 3: R1 to R2 (Red) -->
                                     <div class="absolute h-full bg-[#ef4444]/30 border-l border-gray-600 box-border rounded-r-full" style="left: ${p_r1}%; width: ${100 - p_r1}%;"></div>
                                     <div class="absolute text-[9px] text-gray-500 font-bold -bottom-5 transform -translate-x-1/2" style="left: ${p_r1}%">1차저항</div>
 
-                                    <!-- Bottom Labels for S2/R2 -->
                                     <div class="absolute text-[9px] text-gray-500 font-bold -bottom-5 left-0">2차지지</div>
                                     <div class="absolute text-[9px] text-gray-500 font-bold -bottom-5 right-0">2차저항</div>
 
-                                    <!-- Floating Current Price Label -->
                                     <div class="absolute -top-7 text-xs font-bold text-white whitespace-nowrap z-30 transition-all duration-500" style="left: ${pos}%; transform: translateX(-50%);">
                                         현재가: $${current.toFixed(2)}
                                     </div>
 
-                                    <!-- Current Price Marker -->
                                     <div class="absolute h-6 w-1.5 bg-white shadow-[0_0_10px_rgba(255,255,255,1)] z-20 transition-all duration-500" style="left: ${pos}%; transform: translateX(-50%);"></div>
                                 </div>
 
                                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                     <!-- S2 -->
-                                    <div class="order-2 md:order-1 bg-[#1e1e24] rounded-lg p-4 border border-gray-700 text-center flex flex-col justify-center">
+                                     <div class="order-2 md:order-1 bg-[#1e1e24] rounded-lg p-4 border border-gray-700 text-center flex flex-col justify-center">
                                         <div class="text-[11px] text-gray-500 mb-1 uppercase tracking-wider">2차 지지</div>
                                         <div class="text-blue-500 font-bold text-xl">$${s2.toFixed(2)}</div>
                                     </div>
-                                    <!-- S1 -->
                                     <div class="order-1 md:order-2 bg-[#1a202e] rounded-lg p-4 border border-blue-500/30 text-center flex flex-col justify-center shadow-[0_0_10px_rgba(59,130,246,0.1)]">
                                         <div class="text-[11px] text-blue-400 mb-1 uppercase tracking-wider font-bold">● 1차 지지</div>
                                         <div class="text-blue-300 font-bold text-xl">$${(data.levels?.s1 || 0).toFixed(2)}</div>
                                     </div>
-                                    <!-- R1 -->
                                     <div class="order-3 bg-[#2e1a1a] rounded-lg p-4 border border-red-500/30 text-center flex flex-col justify-center shadow-[0_0_10px_rgba(239,68,68,0.1)]">
                                         <div class="text-[11px] text-red-400 mb-1 uppercase tracking-wider font-bold">● 1차 저항</div>
                                         <div class="text-red-300 font-bold text-xl">$${(data.levels?.r1 || 0).toFixed(2)}</div>
                                     </div>
-                                    <!-- R2 -->
                                     <div class="order-4 bg-[#1e1e24] rounded-lg p-4 border border-gray-700 text-center flex flex-col justify-center">
                                         <div class="text-[11px] text-gray-500 mb-1 uppercase tracking-wider">2차 저항</div>
                                         <div class="text-red-500 font-bold text-xl">$${r2.toFixed(2)}</div>
@@ -216,13 +217,10 @@
                 })()}
                         </div>
 
-                        <!-- Analysis Stats -->
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                           <!-- Simple Stat Cards can go here if needed -->
-                        </div>
+                           </div>
                     </div>
 
-                    <!-- Right Column: Naspick Score & Pulse -->
                     <div class="flex flex-col gap-4">
                         
                         <div class="bg-[#282830] rounded-xl border border-gray-700 p-6 relative overflow-hidden shadow-2xl">
@@ -241,7 +239,6 @@
                             </div>
 
                             <div class="space-y-5">
-                                <!-- Fundamentals (Growth + Profit) -->
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
                                         <span class="text-gray-300 font-bold">Fundamentals (실적/성장)</span>
@@ -252,7 +249,6 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Value (Valuation) -->
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
                                         <span class="text-gray-300 font-bold">Value (가치평가)</span>
@@ -263,7 +259,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Momentum (Price Trend) -->
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
                                         <span class="text-gray-300 font-bold">Momentum (상승탄력)</span>
@@ -274,7 +269,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Sentiment (Volume) -->
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
                                         <span class="text-gray-300 font-bold">Sentiment (수급/심리)</span>
@@ -298,14 +292,14 @@
                             <div class="space-y-4">
                                 ${(data.ai_briefing && data.ai_briefing.length > 0) ?
                     data.ai_briefing.map(b => `
-                                        <div class="flex gap-3 items-start">
-                                            <div class="w-5 h-5 rounded bg-gray-800 flex items-center justify-center text-[10px] font-bold text-gray-400 shrink-0 mt-0.5">${b.id}</div>
-                                            <div>
-                                                <div class="text-xs font-bold ${b.color_class} mb-0.5">${b.title}</div>
-                                                <div class="text-xs text-gray-400 leading-relaxed">${b.text}</div>
+                                            <div class="flex gap-3 items-start">
+                                                <div class="w-5 h-5 rounded bg-gray-800 flex items-center justify-center text-[10px] font-bold text-gray-400 shrink-0 mt-0.5">${b.id}</div>
+                                                <div>
+                                                    <div class="text-xs font-bold ${b.color_class} mb-0.5">${b.title}</div>
+                                                    <div class="text-xs text-gray-400 leading-relaxed">${b.text}</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    `).join('')
+                                        `).join('')
                     :
                     `<div class="text-xs text-gray-500">AI 브리핑 데이터를 불러오는 중입니다...</div>`
                 }
@@ -314,25 +308,28 @@
 
 
 
-                        <!-- Related Peers -->
                         <div class="bg-[#23232a] rounded-xl border border-gray-800 p-5">
                             <h4 class="text-gray-400 text-xs font-bold uppercase mb-4">관련주 TOP 3</h4>
                             <div class="space-y-3">
                                 ${(data.related_peers || []).map(p => {
                     const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker };
+                    // SEO 수정: onclick -> a href
                     return `
-                                    <div onclick="location.href='page.html?ticker=${p.ticker}'" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
-                                                <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
+                                        <a href="page.html?ticker=${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
+                                                    <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" 
+                                                         alt="${p.ticker} 관련주"
+                                                         onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" 
+                                                         style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">${peerData.name}</div>
+                                                    <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">${peerData.name}</div>
-                                                <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
-                                            </div>
-                                        </div>
-                                        <span class="${p.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct > 0 ? '+' : ''}${p.change_pct}%</span>
-                                    </div>
+                                            <span class="${p.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct > 0 ? '+' : ''}${p.change_pct}%</span>
+                                        </a>
                                     `;
                 }).join('')}
                                 ${(data.related_peers || []).length === 0 ? '<div class="text-xs text-gray-600">No peers found</div>' : ''}
@@ -380,14 +377,15 @@
                 ).slice(0, 5);
 
                 if (matches.length > 0) {
+                    // SEO 수정: div onclick -> a href
                     resultsDiv.innerHTML = matches.map(d => `
-                        <div onclick="location.href='page.html?ticker=${d.ticker}'" class="p-2 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center">
+                        <a href="page.html?ticker=${d.ticker}" class="p-2 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
                             <div>
                                 <span class="font-bold text-xs text-white">${d.ticker}</span>
                                 <span class="text-[10px] text-gray-400 ml-1">${d.name}</span>
                             </div>
                             <span class="text-[#5383e8] text-[10px] font-bold">${d.final_score}</span>
-                        </div>
+                        </a>
                     `).join('');
                     resultsDiv.classList.remove('hidden');
                 } else {

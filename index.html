@@ -7,35 +7,37 @@
     <title>미국 주식 실시간 티어:나스픽</title>
     <meta name="description"
         content="미국 주식 실시간 랭킹과 종목별 티어(Tier) 분석 정보를 제공합니다. 데이터 알고리즘이 선정한 오늘의 주도주와 투자 인사이트를 나스픽에서 확인하세요.">
-</head>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" as="style" crossorigin
-    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
-<style>
-    body {
-        font-family: 'Pretendard', sans-serif;
-    }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
 
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
 
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-</style>
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
 
 <body class="bg-[#1c1c1f] text-white min-h-screen flex flex-col">
+    <h1 class="sr-only">나스픽 - 미국 주식 실시간 티어 및 AI 데이터 분석 플랫폼</h1>
 
     <header class="bg-[#5383e8] py-3 md:py-5 border-b border-[#3e63b0] shadow-lg z-20">
         <div
             class="container mx-auto px-4 flex flex-row items-center justify-between md:grid md:grid-cols-3 gap-3 md:gap-4">
             <div class="flex items-center shrink-0">
-                <div class="text-xl md:text-3xl font-black italic tracking-tighter text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)] cursor-pointer hover:opacity-90 transition"
-                    onclick="location.href='index.html'">NASPICK</div>
+                <a href="index.html"
+                    class="text-xl md:text-3xl font-black italic tracking-tighter text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)] cursor-pointer hover:opacity-90 transition block">
+                    NASPICK
+                </a>
             </div>
 
             <div class="relative flex-1 max-w-[200px] md:max-w-sm flex justify-end md:justify-center md:ml-32">
@@ -52,21 +54,17 @@
 
     <main class="container mx-auto px-4 py-6 flex gap-6 items-start flex-1 h-auto md:h-[calc(100vh-100px)]">
 
-        <!-- Left Sidebar: Watchlist (Sort by Market Cap) -->
         <aside
             class="w-[260px] shrink-0 bg-[#282830] rounded-lg p-4 shadow-lg h-full hidden lg:flex flex-col border border-gray-800">
             <h2 class="text-gray-400 text-xs font-bold mb-4">MARKET CAP WATCHLIST</h2>
             <div id="watchlistGrid" class="grid grid-cols-2 gap-2 overflow-y-auto pr-1">
-                <!-- Watchlist Items injected here -->
             </div>
         </aside>
 
         <section class="flex-1 w-full min-w-0 h-auto md:h-full flex flex-col">
 
-            <!-- Performance Chart Card -->
             <div class="bg-[#282830] rounded-xl border border-gray-800 p-4 md:p-6 mb-4 shadow-2xl relative overflow-hidden group transition-all duration-300"
                 id="chartCard">
-                <!-- Background Gradient -->
                 <div
                     class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-[300px] bg-gradient-to-b from-[#38bdf8]/10 to-transparent pointer-events-none rounded-full blur-3xl opacity-50 transition duration-1000 group-hover:opacity-80">
                 </div>
@@ -92,7 +90,6 @@
                         </div>
 
                         <div class="flex justify-between items-end cursor-pointer" onclick="toggleChart()">
-                            <!-- Naspick Alpha -->
                             <div>
                                 <div class="flex items-center gap-2 mb-0.5">
                                     <span class="w-2 h-2 rounded-full bg-[#38bdf8] shadow-[0_0_8px_#38bdf8]"></span>
@@ -103,10 +100,10 @@
                                     id="sb1Return">Loading...</div>
                             </div>
 
-                            <!-- S&P 500 -->
                             <div class="text-right pb-1">
                                 <div class="flex items-center justify-end gap-2 mb-1">
-                                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">S&P 500
+                                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">S&P
+                                        500
                                         (Market)</span>
                                     <span class="w-3 h-0.5 bg-gray-500/50"></span>
                                 </div>
@@ -116,7 +113,6 @@
                         </div>
                     </div>
 
-                    <!-- Collapsible Canvas Area -->
                     <div id="chartBody"
                         class="w-full overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out max-h-[500px] opacity-100">
                         <div class="h-[160px] md:h-[280px] w-full">
@@ -126,7 +122,6 @@
                 </div>
             </div>
 
-            <!-- Filter Nav -->
             <div class="relative mb-4 group">
                 <div
                     class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#1c1c1f] to-transparent z-10 pointer-events-none">
@@ -136,7 +131,6 @@
                         class="px-4 py-2 bg-[#5383e8] text-white font-bold text-xs rounded-full border border-[#5383e8] whitespace-nowrap shadow-lg shadow-blue-500/20 hover:bg-[#426dc6] transition flex-shrink-0 active-cat">
                         전체 랭킹
                     </button>
-                    <!-- Categories injected here -->
                 </nav>
             </div>
 
@@ -144,7 +138,6 @@
                 <span class="text-xs text-gray-500">※ 실시간 데이터 (매 15분)</span>
             </div>
 
-            <!-- Ranking Table -->
             <div
                 class="bg-[#282830] rounded-lg shadow-xl overflow-hidden h-[70vh] md:h-full md:flex-1 flex flex-col border border-gray-800 border-b-[12px] border-b-[#23232a]">
                 <div
@@ -159,8 +152,7 @@
                 </div>
 
                 <div id="rankingList" class="overflow-y-auto flex-1 h-full">
-                    <!-- List Items injected here -->
-                    <div class="p-10 text-center text-gray-500 text-sm">데이터를 불러오는 중입니다...</div>
+                    <div class="p-10 text-center text-gray-500">데이터를 불러오는 중입니다...</div>
                 </div>
             </div>
         </section>
@@ -337,15 +329,19 @@
             // Sort by Market Cap desc
             const sortedByCap = [...allData].sort((a, b) => (b.market_cap || 0) - (a.market_cap || 0)).slice(0, 20);
             const container = document.getElementById('watchlistGrid');
+            // SEO 수정: div onclick -> a href (block 클래스 추가하여 레이아웃 유지)
             container.innerHTML = sortedByCap.map((item, idx) => `
-                <div onclick="location.href='page.html?ticker=${item.ticker}'" 
-                    class="aspect-square bg-[#31313c] rounded border border-gray-700 flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition hover:bg-[#3a3a45] p-1">
-                    <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=64'" style="filter: invert(1) hue-rotate(180deg);" class="w-6 h-6 rounded mb-1 object-contain p-0.5">
+                <a href="page.html?ticker=${item.ticker}" 
+                   class="aspect-square bg-[#31313c] rounded border border-gray-700 flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition hover:bg-[#3a3a45] p-1 block text-inherit hover:no-underline">
+                    <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" 
+                         alt="${item.ticker} 로고"
+                         onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=64'" 
+                         style="filter: invert(1) hue-rotate(180deg);" class="w-6 h-6 rounded mb-1 object-contain p-0.5">
                     <div class="text-[10px] font-bold text-gray-300">${item.ticker}</div>
                     <div class="text-[9px] ${item.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'}">
                         ${item.change_pct > 0 ? '+' : ''}${item.change_pct}%
                     </div>
-                </div>
+                </a>
             `).join('');
         }
 
@@ -421,7 +417,6 @@
                      class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center border-b border-gray-700 hover:bg-[#31313c] transition cursor-pointer group h-14 md:h-16">
                     <div class="col-span-2 md:col-span-1 flex items-center justify-center gap-1 md:gap-2">
                         <div class="font-bold text-sm md:text-lg italic text-[#5383e8] w-9 md:w-8 text-right tracking-tighter">${displayRank}</div>
-                        <!-- Rank Change Indicator -->
                         <div class="text-[9px] md:text-[10px] font-bold flex items-center justify-start w-6 md:w-8">
                             ${(() => {
                         const change = displayChange || 0;
@@ -435,15 +430,20 @@
                     })()}
                         </div>
                     </div>
-                    <div class="col-span-4 md:col-span-4 flex items-center justify-center gap-2 overflow-hidden">
+                    
+                    <a href="page.html?ticker=${item.ticker}" onclick="event.stopPropagation()" class="col-span-4 md:col-span-4 flex items-center justify-center gap-2 overflow-hidden block text-inherit hover:no-underline">
                         <div class="w-6 h-6 md:w-9 md:h-9 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden bg-[#31313c]">
-                            <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=128'" style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
+                            <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" 
+                                 alt="${item.name} 로고"
+                                 onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=128'" 
+                                 style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
                         </div>
-                        <div class="min-w-0">
+                        <div class="min-w-0 text-left">
                             <div class="font-bold text-gray-100 text-xs md:text-sm truncate">${item.name}</div>
                             <div class="text-[9px] md:text-[10px] text-gray-500">${item.ticker}</div>
                         </div>
-                    </div>
+                    </a>
+
                     <div class="col-span-2 md:col-span-1 text-center">
                         <span class="px-1.5 py-0.5 text-[9px] md:text-[10px] font-bold rounded border ${tierClass}">${item.tier + ' Tier'}</span>
                     </div>
@@ -457,7 +457,10 @@
                         ${(item.related_peers || []).map(p => `
                             <div onclick="event.stopPropagation(); location.href='page.html?ticker=${p.ticker}'" 
                                  class="w-8 h-8 rounded-full bg-[#1c1c1f] border border-gray-600 relative group cursor-pointer hover:z-20 hover:scale-110 transition overflow-hidden">
-                                <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
+                                <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" 
+                                     alt="${p.ticker} 관련주"
+                                     onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" 
+                                     style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
                                 <div class="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <span class="text-[7px] font-bold text-white tracking-tighter">${p.ticker}</span>
                                 </div>
@@ -486,8 +489,9 @@
                 ).slice(0, 10);
 
                 if (matches.length > 0) {
+                    // SEO 수정: div onclick -> a href
                     resultsDiv.innerHTML = matches.map(d => `
-                        <div onclick="location.href='page.html?ticker=${d.ticker}'" class="p-3 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center">
+                        <a href="page.html?ticker=${d.ticker}" class="p-3 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
                             <div>
                                 <div class="flex items-center gap-2">
                                      <span class="font-bold text-sm text-white">${d.ticker}</span>
@@ -496,7 +500,7 @@
                                 <span class="text-[10px] text-gray-500">${d.name_en || ''}</span>
                             </div>
                             <span class="text-[#5383e8] text-xs font-bold">${d.final_score}점</span>
-                        </div>
+                        </a>
                     `).join('');
                     resultsDiv.classList.remove('hidden');
                 } else {
