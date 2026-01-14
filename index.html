@@ -331,7 +331,7 @@
             const container = document.getElementById('watchlistGrid');
             // SEO 수정: div onclick -> a href (block 클래스 추가하여 레이아웃 유지)
             container.innerHTML = sortedByCap.map((item, idx) => `
-                <a href="page.html?ticker=${item.ticker}" 
+                <a href="/stock/${item.ticker}" 
                    class="aspect-square bg-[#31313c] rounded border border-gray-700 flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition hover:bg-[#3a3a45] p-1 block text-inherit hover:no-underline">
                     <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" 
                          alt="${item.ticker} 로고"
@@ -413,7 +413,7 @@
                 if (!displayRank) displayRank = idx + 1;
 
                 return `
-                <div onclick="location.href='page.html?ticker=${item.ticker}'" 
+                <div onclick="location.href='/stock/${item.ticker}'" 
                      class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center border-b border-gray-700 hover:bg-[#31313c] transition cursor-pointer group h-14 md:h-16">
                     <div class="col-span-2 md:col-span-1 flex items-center justify-center gap-1 md:gap-2">
                         <div class="font-bold text-sm md:text-lg italic text-[#5383e8] w-9 md:w-8 text-right tracking-tighter">${displayRank}</div>
@@ -431,7 +431,7 @@
                         </div>
                     </div>
                     
-                    <a href="page.html?ticker=${item.ticker}" onclick="event.stopPropagation()" class="col-span-4 md:col-span-4 flex items-center justify-center gap-2 overflow-hidden block text-inherit hover:no-underline">
+                    <a href="/stock/${item.ticker}" onclick="event.stopPropagation()" class="col-span-4 md:col-span-4 flex items-center justify-center gap-2 overflow-hidden block text-inherit hover:no-underline">
                         <div class="w-6 h-6 md:w-9 md:h-9 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden bg-[#31313c]">
                             <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" 
                                  alt="${item.name} 로고"
@@ -455,7 +455,7 @@
                     <div class="col-span-2 md:col-span-1 text-center text-[10px] text-gray-400 truncate">${item.sector}</div>
                     <div class="hidden md:flex md:col-span-3 justify-center -space-x-2">
                         ${(item.related_peers || []).map(p => `
-                            <div onclick="event.stopPropagation(); location.href='page.html?ticker=${p.ticker}'" 
+                            <div onclick="event.stopPropagation(); location.href='/stock/${p.ticker}'" 
                                  class="w-8 h-8 rounded-full bg-[#1c1c1f] border border-gray-600 relative group cursor-pointer hover:z-20 hover:scale-110 transition overflow-hidden">
                                 <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" 
                                      alt="${p.ticker} 관련주"
@@ -491,7 +491,7 @@
                 if (matches.length > 0) {
                     // SEO 수정: div onclick -> a href
                     resultsDiv.innerHTML = matches.map(d => `
-                        <a href="page.html?ticker=${d.ticker}" class="p-3 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
+                        <a href="/stock/${d.ticker}" class="p-3 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
                             <div>
                                 <div class="flex items-center gap-2">
                                      <span class="font-bold text-sm text-white">${d.ticker}</span>

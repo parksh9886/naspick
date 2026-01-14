@@ -6,6 +6,8 @@ import json
 import time
 import os
 from datetime import datetime, timedelta
+# [SEO] Import Sitemap Generator
+from generate_sitemap import generate_sitemap
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -720,5 +722,7 @@ def main():
         print(f"❌ Failed to update chart data: {e}")
 
 
-if __name__ == "__main__":
-    main()
+    if __name__ == "__main__":
+        main()
+        # [SEO] Generate Sitemap & Robots.txt after data update
+        generate_sitemap()

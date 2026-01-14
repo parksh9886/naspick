@@ -71,17 +71,36 @@
 
         async function init() {
             try {
-                // Get Ticker from URL
+                // [변경] 경로(Path) 방식: "/stock/TSLA" 에서 "TSLA" 추출
+                const pathSegments = window.location.pathname.split('/');
+                let ticker = pathSegments[pathSegments.length - 1];
+
+                // 혹시 주소가 "/stock/TSLA/" 처럼 끝에 슬래시가 붙을 경우 대비
+                if (!ticker) ticker = pathSegments[pathSegments.length - 2];
+
+                // URL 파라미터가 있다면 (기존 방식 하위 호환)
                 const params = new URLSearchParams(window.location.search);
-                const ticker = params.get('ticker');
+                if (!ticker || ticker === 'page.html') {
+                    ticker = params.get('ticker');
+                }
+
+                if (ticker) ticker = ticker.toUpperCase();
+
+                if (!ticker || ticker === 'STOCK' || ticker === 'PAGE.HTML') {
+                    // 티커가 없는 경우 홈으로 리다이렉트 하지 않고 대기 (또는 에러 표시)
+                    // alert('잘못된 접근입니다.');
+                    // location.href = 'index.html';
+                    // return;
+                }
 
                 if (!ticker) {
-                    alert('잘못된 접근입니다.');
+                    alert('종목을 찾을 수 없습니다.');
                     location.href = 'index.html';
                     return;
                 }
 
-                const res = await fetch('data.json?t=' + new Date().getTime());
+                // data.json 경로 주의 (루트 기준)
+                const res = await fetch('/data.json?t=' + new Date().getTime());
                 allData = await res.json();
 
                 const stockData = allData.find(d => d.ticker === ticker);
@@ -91,15 +110,31 @@
                     return;
                 }
 
-                // --- SEO 핵심 추가: 동적 타이틀 및 메타태그 변경 ---
-                document.title = `${stockData.name} (${stockData.ticker}) 주가 및 티어 분석 | 나스픽`;
+                // --- SEO 핵심 추가: 동적 타이틀, 메타설명, Canonical Tag ---
+                const today = new Date();
+                const month = today.getMonth() + 1;
+                const date = today.getDate();
+                const dateString = `${month}월 ${date}일`;
 
+                // 1. Title 업데이트
+                document.title = `${dateString} ${stockData.name}(${stockData.ticker}) 실시간 티어 & 주가 분석 | 나스픽`;
+
+                // 2. Meta Description 업데이트
                 const metaDesc = document.querySelector('meta[name="description"]');
                 if (metaDesc) {
                     metaDesc.setAttribute('content',
-                        `${stockData.name}(${stockData.ticker})의 현재 주가는 $${stockData.current_price}입니다. 나스픽 AI 점수 ${stockData.final_score}점, 티어 ${stockData.tier}등급. 실시간 지지/저항 라인과 수급 분석을 확인하세요.`
+                        `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 나스픽 점수 ${stockData.final_score}점(${stockData.tier}티어). 기관 수급 포착 및 상승 모멘텀 발생. 1차 지지 라인 확인하기.`
                     );
                 }
+
+                // 3. Canonical Tag 설정
+                let canonicalLink = document.querySelector('link[rel="canonical"]');
+                if (!canonicalLink) {
+                    canonicalLink = document.createElement('link');
+                    canonicalLink.rel = 'canonical';
+                    document.head.appendChild(canonicalLink);
+                }
+                canonicalLink.href = `https://naspick.com/stock/${stockData.ticker}`;
                 // ----------------------------------------------------
 
                 renderPage(stockData);
@@ -315,7 +350,7 @@
                     const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker };
                     // SEO 수정: onclick -> a href
                     return `
-                                        <a href="page.html?ticker=${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
+                                        <a href="/stock/${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
                                             <div class="flex items-center gap-3">
                                                 <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
                                                     <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" 
@@ -379,7 +414,7 @@
                 if (matches.length > 0) {
                     // SEO 수정: div onclick -> a href
                     resultsDiv.innerHTML = matches.map(d => `
-                        <a href="page.html?ticker=${d.ticker}" class="p-2 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
+                        <a href="/stock/${d.ticker}" class="p-2 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
                             <div>
                                 <span class="font-bold text-xs text-white">${d.ticker}</span>
                                 <span class="text-[10px] text-gray-400 ml-1">${d.name}</span>
