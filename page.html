@@ -8,7 +8,19 @@
     <meta name="description" content="미국 주식 실시간 티어 분석 정보">
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- Open Graph (기본값, JS에서 동적 업데이트) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="나스픽">
+    <meta property="og:title" content="종목 상세페이지 | 나스픽">
+    <meta property="og:description" content="미국 주식 실시간 티어 분석 정보">
+    <meta property="og:url" content="https://naspick.com/">
     <meta property="og:image" content="https://naspick.com/og-image.png">
+
+    <!-- Twitter Card (기본값, JS에서 동적 업데이트) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="종목 상세페이지 | 나스픽">
+    <meta name="twitter:description" content="미국 주식 실시간 티어 분석 정보">
     <meta name="twitter:image" content="https://naspick.com/og-image.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -152,6 +164,22 @@
                 if (twitterImage) {
                     twitterImage.setAttribute('content', `https://financialmodelingprep.com/image-stock/${stockData.ticker.replace('.', '-')}.png`);
                 }
+
+                // 5. OG/Twitter Title, Description, URL 동적 업데이트
+                const ogTitle = document.querySelector('meta[property="og:title"]');
+                if (ogTitle) ogTitle.setAttribute('content', `${dateString} ${stockData.name}(${stockData.ticker}) 실시간 티어 & 주가 분석 | 나스픽`);
+
+                const ogDesc = document.querySelector('meta[property="og:description"]');
+                if (ogDesc) ogDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 나스픽 점수 ${stockData.final_score}점(${stockData.tier}티어).`);
+
+                const ogUrl = document.querySelector('meta[property="og:url"]');
+                if (ogUrl) ogUrl.setAttribute('content', `https://naspick.com/stock/${stockData.ticker}`);
+
+                const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+                if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.name}(${stockData.ticker}) 실시간 티어 & 주가 분석 | 나스픽`);
+
+                const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 점수 ${stockData.final_score}점.`);
                 // ----------------------------------------------------
 
                 renderPage(stockData);
