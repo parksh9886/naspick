@@ -376,12 +376,12 @@
                     // 1. Candle Pattern
                     const cp = ta.candle_pattern;
                     if (cp) {
-                        const icon = cp.signal === 'bullish' ? '🟢' : '🔴';
+                        const imgPath = '/images/candle_patterns/' + cp.pattern + '.png';
                         html += `
                                             <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
-                                                <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">캔들 패턴</div>
-                                                <div class="flex items-center gap-2">
-                                                    <span class="text-lg">${icon}</span>
+                                                <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">캔들 패턴</div>
+                                                <div class="flex items-center gap-3">
+                                                    <img src="${imgPath}" alt="${cp.name_kr}" class="w-12 h-12 object-contain" onerror="this.style.display='none'">
                                                     <div>
                                                         <div class="text-sm font-bold ${cp.signal === 'bullish' ? 'text-green-400' : 'text-red-400'}">${cp.name_kr}</div>
                                                         <div class="text-[10px] text-gray-500">${cp.desc} (${cp.date})</div>
