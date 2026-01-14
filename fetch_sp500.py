@@ -9,7 +9,13 @@ from datetime import datetime, timedelta
 # [SEO] Import Sitemap Generator
 from generate_sitemap import generate_sitemap
 import warnings
+import warnings
+import requests
 warnings.filterwarnings('ignore')
+
+# Finnhub Configuration
+FINNHUB_API_KEY = "d5joti1r01qjaedqu460d5joti1r01qjaedqu46g"  # Provided by user
+FINNHUB_BASE_URL = "https://finnhub.io/api/v1"
 
 # Get S&P 500 list dynamically
 def get_sp500_tickers():
@@ -247,33 +253,104 @@ def detect_candle_patterns(hist, lookback_days=5):
     return patterns_found[-1] if patterns_found else None
 
 
-def analyze_volume(hist, period=20):
-    """Analyze volume compared to moving average (using previous day's closed data)."""
-    if len(hist) < period + 1:
-        return {"ratio": 1.0, "status": "normal", "pct_change": 0}
-    
-    # Use previous day's volume (fully closed candle) for accuracy during market hours
+def analyze_volume(hist):
+    """
+    Analyze Volume vs 20-day Average
+    Returns: {pct_change: +45, status: 'above_avg'}
+    """
+    if len(hist) < 21:
+        return None
+        
+    # Use previous day (completed candle)
     prev_day_vol = hist['Volume'].iloc[-2]
-    avg_vol = hist['Volume'].iloc[:-1].rolling(window=period).mean().iloc[-1]
+    avg_vol_20 = hist['Volume'].iloc[-22:-2].mean()
     
-    if avg_vol == 0:
-        return {"ratio": 1.0, "status": "normal", "pct_change": 0}
+    if avg_vol_20 == 0:
+        return float(0)
+
+    ratio = (prev_day_vol / avg_vol_20) - 1 # e.g. 0.45 for +45%
+    pct_change = round(ratio * 100)
     
-    ratio = prev_day_vol / avg_vol
-    pct_change = int((ratio - 1) * 100)
-    
-    if ratio >= 2.0:
-        status = "surge"
-    elif ratio >= 1.5:
-        status = "high"
-    elif ratio >= 1.0:
-        status = "above_avg"
-    elif ratio >= 0.5:
-        status = "below_avg"
-    else:
-        status = "low"
-    
-    return {"ratio": round(ratio, 2), "status": status, "pct_change": pct_change}
+    return {
+        "pct_change": pct_change,
+        "status": "above_avg" if pct_change > 0 else "below_avg"
+    }
+
+def fetch_consensus_data(ticker):
+    """
+    Fetch Price Target and Recommendation from Finnhub
+    """
+    if not FINNHUB_API_KEY:
+        return None
+        
+    try:
+        # A. Price Target
+        target_url = f"{FINNHUB_BASE_URL}/stock/price-target?symbol={ticker}&token={FINNHUB_API_KEY}"
+        r_target = requests.get(target_url)
+        target_data = r_target.json()
+        
+        # B. Recommendation
+        rec_url = f"{FINNHUB_BASE_URL}/stock/recommendation?symbol={ticker}&token={FINNHUB_API_KEY}"
+        r_rec = requests.get(rec_url)
+        rec_data = r_rec.json()
+        
+        # Process Price Target
+        # Finnhub returns {targetHigh, targetLow, targetMean, ...}
+        if not target_data or 'targetMean' not in target_data or target_data['targetMean'] == 0:
+            return None
+            
+        target_price = {
+            "low": target_data.get('targetLow'),
+            "mean": target_data.get('targetMean'),
+            "high": target_data.get('targetHigh')
+        }
+        
+        # Process Recommendation
+        # Finnhub returns list of historical recommendations. We need the latest one.
+        # Format: [{period: '2024-01-01', buy: 12, hold: 5, ...}, ...]
+        if not rec_data:
+            return None
+            
+        latest_rec = rec_data[0] # Usually sorted by date desc, but let's check
+        # Sometimes finnhub returns unsorted? API docs say "latest first" usually.
+        # Let's assume index 0 is latest.
+        
+        # Calculate Score
+        # Strong Buy(5), Buy(4), Hold(3), Sell(2), Strong Sell(1)
+        sb = latest_rec.get('strongBuy', 0)
+        b = latest_rec.get('buy', 0)
+        h = latest_rec.get('hold', 0)
+        s = latest_rec.get('sell', 0)
+        ss = latest_rec.get('strongSell', 0)
+        
+        total = sb + b + h + s + ss
+        
+        if total == 0:
+            score = 3.0 # Default Neutral
+            status = "Neutral"
+        else:
+            weighted_sum = (sb * 5) + (b * 4) + (h * 3) + (s * 2) + (ss * 1)
+            score = round(weighted_sum / total, 1)
+            
+            if score >= 4.5: status = "Strong Buy"
+            elif score >= 3.5: status = "Buy"
+            elif score >= 2.5: status = "Hold"
+            elif score >= 1.5: status = "Sell"
+            else: status = "Strong Sell"
+            
+        return {
+            "target_price": target_price,
+            "recommendation": {
+                "score": score,
+                "status": status,
+                "counts": {"strongBuy": sb, "buy": b, "hold": h, "sell": s, "strongSell": ss},
+                "total": total
+            }
+        }
+        
+    except Exception as e:
+        print(f"Error fetching Finnhub data for {ticker}: {e}")
+        return None
 
 
 def generate_technical_analysis(hist, rsi_value):
@@ -487,7 +564,7 @@ def analyze_single_stock_context(ticker, hist, final_score_row):
         # Generate Technical Analysis (replaces AI Briefing)
         technical_analysis = generate_technical_analysis(hist, rsi)
         
-        return {
+        context = {
             "stats_bar": stats_bar,
             "signals": signals,
             "levels": levels,
@@ -495,6 +572,26 @@ def analyze_single_stock_context(ticker, hist, final_score_row):
             "current_price": current_price,
             "change_pct": (current_price - prev_close)/prev_close * 100
         }
+
+        # Volume Analysis
+        context['volume'] = analyze_volume(hist)
+        
+        # [NEW] Wall Street Consensus (Finnhub)
+        try:
+            consensus = fetch_consensus_data(ticker)
+            if consensus:
+                context['consensus'] = consensus
+                print(f"      + Consensus: Price Target ${consensus['target_price']['mean']}, Score {consensus['recommendation']['score']}")
+            else:
+                print(f"      - Consensus: No data")
+        except Exception as e:
+            print(f"      ! Consensus Error: {e}")
+            context['consensus'] = None
+        
+        # Rate limiting for Finnhub (20 calls/min = 3s delay)
+        time.sleep(3.1) 
+        
+        return context
         
     except Exception as e:
         # print(f"Error context {ticker}: {e}")
@@ -673,7 +770,8 @@ def main():
             "stats_bar": ctx['stats_bar'],
             "signals": ctx['signals'],
             "levels": ctx['levels'],
-            "technical_analysis": ctx['technical_analysis'],
+            "technical_analysis": ctx.get('technical_analysis', {}),
+            "consensus": ctx.get('consensus', None), # [NEW] Consensus Data
             "related_peers": [] # Fill later
         }
         
