@@ -11,10 +11,11 @@ on:
   # Allow manual trigger
   workflow_dispatch:
   
-  # Trigger on push to main (for immediate update)
-  push:
-    branches:
-      - main
+  # Trigger after Consensus Update completes
+  workflow_run:
+    workflows: ["Update Wall St Consensus"]
+    types:
+      - completed
 
 jobs:
   update-data:
