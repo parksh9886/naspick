@@ -43,13 +43,13 @@
             class="container mx-auto px-4 flex flex-row items-center justify-between md:grid md:grid-cols-3 gap-3 md:gap-4">
 
             <div class="flex items-center gap-3 shrink-0">
-                <button onclick="location.href='index.html'" class="text-blue-200 hover:text-white transition">
+                <button onclick="location.href='/index.html'" class="text-blue-200 hover:text-white transition">
                     <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
                         </path>
                     </svg>
                 </button>
-                <a href="index.html"
+                <a href="/index.html"
                     class="text-xl md:text-3xl font-black italic tracking-tighter text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)] cursor-pointer hover:opacity-90 transition block">
                     NASPICK
                 </a>
@@ -100,7 +100,7 @@
 
                 if (!ticker) {
                     alert('종목을 찾을 수 없습니다.');
-                    location.href = 'index.html';
+                    location.href = '/index.html';
                     return;
                 }
 
