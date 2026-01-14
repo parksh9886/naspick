@@ -10,10 +10,12 @@ def main():
     # 1. Load Data
     df = load_data()
     if df is None: return
+    print(f"   Debug: Loaded df with {len(df)} rows, {len(df['Date'].unique())} dates")
 
     # 2. Run SB1 Simulation (Full History)
     print("   Running SB1 Simulation...")
     res_sb1, _ = run_strategy_simulation(df, 'SB1', STRATEGIES['SB1'], fee_rate=0.0)
+    print(f"   Debug: Simulation Result: {len(res_sb1)} rows")
     
     # 3. Get Benchmark (SPY)
     print("   Fetching S&P 500 Benchmark...")
