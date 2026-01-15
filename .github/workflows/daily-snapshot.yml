@@ -31,5 +31,5 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add yesterday_ranks.json
+          git add data/yesterday_ranks.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "📸 Daily Snapshot: Update yesterday_ranks.json" && (git pull --rebase origin main || git pull origin main) && git push)
