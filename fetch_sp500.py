@@ -703,6 +703,7 @@ def main():
             "levels": ctx['levels'],
             "technical_analysis": ctx.get('technical_analysis', {}),
             "consensus": ctx.get('consensus', None), # [NEW] Consensus Data
+            "financial_health": CONSENSUS_DATA.get(ticker, {}).get('financial_health', None), # [NEW] Financial Health
             "related_peers": [] # Fill later
         }
         
