@@ -13,7 +13,7 @@ print("\nFirst 20 tickers:")
 print(tickers[:20])
 
 # Save to file
-with open('sp500_tickers.txt', 'w') as f:
+with open('data/sp500_tickers.txt', 'w') as f:
     for ticker in tickers:
         f.write(f'"{ticker}",\n')
 
