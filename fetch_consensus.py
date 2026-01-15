@@ -89,15 +89,25 @@ def fetch_all_consensus():
                 print(f" ✅ {status} ({score}) + Financials")
                 success_count += 1
             else:
-                # Even without consensus, save financial health if available
-                if any(v != 0 for v in financial_health.values()):
+                # Even without consensus, save financial health and target price if available
+                target_mean = info.get('targetMeanPrice')
+                has_financial = any(v != 0 for v in financial_health.values())
+                
+                if target_mean or has_financial:
                     consensus_map[ticker] = {
-                        "target_price": None,
+                        "target_price": {
+                            "low": info.get('targetLowPrice'),
+                            "mean": target_mean,
+                            "high": info.get('targetHighPrice')
+                        } if target_mean else None,
                         "recommendation": None,
-                        "financial_health": financial_health,
+                        "financial_health": financial_health if has_financial else None,
                         "last_updated": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                     }
-                    print(f" ⚠️ No consensus, but saved financials")
+                    if target_mean:
+                        print(f" ⚠️ No rating, but saved target price ${target_mean}")
+                    else:
+                        print(f" ⚠️ No consensus, but saved financials")
                     success_count += 1
                 else:
                     print(f" ⚠️ No data (Info empty)")
