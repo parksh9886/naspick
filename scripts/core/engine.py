@@ -200,6 +200,13 @@ class NaspickEngine:
         print(f"\n✅ Success! Saved {len(final_results)} stocks to {out_path}")
         
 
+        # Save History
+        self.save_history(ranked_df, latest_date)
+        
+        # Sitemap
+        print("Running Sitemap generator...")
+        generate_sitemap()
+
     def save_snapshot(self):
         """Save current results as yesterday_ranks.json (For Daily Snapshot)"""
         ranks_path = self.paths['RANKS_JSON']
@@ -218,14 +225,6 @@ class NaspickEngine:
             json.dump(snapshot, f, indent=2)
             
         print(f"📸 Saved Daily Snapshot to {ranks_path}")
-
-            
-        # Save History
-        self.save_history(ranked_df, latest_date)
-        
-        # Sitemap
-        print("Running Sitemap generator...")
-        generate_sitemap()
 
     def save_history(self, ranked_df, date):
         """Save Ranking History for charts"""
