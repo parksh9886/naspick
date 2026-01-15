@@ -196,8 +196,8 @@
             try {
                 // Modify to fetch chart data as well
                 const [resData, resChart] = await Promise.all([
-                    fetch('data.json?t=' + new Date().getTime()),
-                    fetch('chart_data.json?t=' + new Date().getTime()).catch(e => null) // Optional fail-safe
+                    fetch('data/data.json?t=' + new Date().getTime()),
+                    fetch('data/chart_data.json?t=' + new Date().getTime()).catch(e => null) // Optional fail-safe
                 ]);
 
                 allData = await resData.json();

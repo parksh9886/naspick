@@ -127,7 +127,8 @@
                 }
 
                 // data.json 경로 주의 (루트 기준)
-                const res = await fetch('/data.json?t=' + new Date().getTime());
+                // data.json 경로 주의 (data/ 폴더)
+                const res = await fetch('/data/data.json?t=' + new Date().getTime());
                 allData = await res.json();
 
                 const stockData = allData.find(d => d.ticker === ticker);
