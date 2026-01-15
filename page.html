@@ -311,7 +311,7 @@
                 `;
             })();
 
-            // --- Financial Health HTML Generation ---
+            // --- Financial Health HTML Generation (Enhanced with indicators, badges, tooltips) ---
             const financialHealthHtml = (() => {
                 const fh = data.financial_health;
                 if (!fh) {
@@ -322,9 +322,52 @@
                     `;
                 }
 
-                const formatValue = (val, suffix = '') => {
+                // Status evaluation helper
+                const evaluate = (val, thresholds) => {
+                    if (val === null || val === undefined || val === 0) return { color: 'text-gray-500', badge: null, badgeColor: '' };
+                    if (thresholds.higherBetter) {
+                        if (val >= thresholds.good) return { color: 'text-green-400', badge: thresholds.goodLabel, badgeColor: 'bg-green-500/20 text-green-400' };
+                        if (val >= thresholds.warn) return { color: 'text-gray-300', badge: null, badgeColor: '' };
+                        return { color: 'text-red-400', badge: thresholds.badLabel, badgeColor: 'bg-red-500/20 text-red-400' };
+                    } else {
+                        // Lower is better (PER, PBR, debt)
+                        if (val <= thresholds.good) return { color: 'text-green-400', badge: thresholds.goodLabel, badgeColor: 'bg-green-500/20 text-green-400' };
+                        if (val <= thresholds.warn) return { color: 'text-gray-300', badge: null, badgeColor: '' };
+                        return { color: 'text-red-400', badge: thresholds.badLabel, badgeColor: 'bg-red-500/20 text-red-400' };
+                    }
+                };
+
+                // Thresholds definition
+                const thresholds = {
+                    per: { good: 15, warn: 25, goodLabel: '저평가', badLabel: '고평가', higherBetter: false, tip: '10배 미만이면 저평가', benchmark: 'S&P500 평균 약 20배' },
+                    pbr: { good: 1.5, warn: 3, goodLabel: '자산가치↑', badLabel: '고평가', higherBetter: false, tip: '1배 미만이면 순자산보다 저렴', benchmark: '1~3배가 일반적' },
+                    revenue_growth: { good: 15, warn: 0, goodLabel: '고성장', badLabel: '역성장', higherBetter: true, tip: '15% 이상이면 고성장 기업', benchmark: 'S&P500 평균 5~10%' },
+                    eps_growth: { good: 20, warn: 0, goodLabel: '급성장', badLabel: '감소', higherBetter: true, tip: '20% 이상이면 이익 급증', benchmark: '10% 이상이면 양호' },
+                    roe: { good: 15, warn: 8, goodLabel: '고수익', badLabel: '저효율', higherBetter: true, tip: '워렌 버핏은 15% 이상 선호', benchmark: '10% 이상이면 양호' },
+                    operating_margin: { good: 15, warn: 5, goodLabel: '마진우수', badLabel: '저마진', higherBetter: true, tip: '15% 이상이면 탁월한 수익성', benchmark: '업종별 편차 큼' },
+                    debt_ratio: { good: 100, warn: 200, goodLabel: '안정', badLabel: '위험', higherBetter: false, tip: '100% 미만이면 재정 건전', benchmark: '200% 초과 시 주의' },
+                    current_ratio: { good: 1.5, warn: 1, goodLabel: '유동성↑', badLabel: '주의', higherBetter: true, tip: '1.5 이상이면 단기 상환 능력 우수', benchmark: '1 미만은 유동성 위험' }
+                };
+
+                // Format with color and badge
+                const formatMetric = (key, val, suffix = '') => {
                     if (val === null || val === undefined || val === 0) return '<span class="text-gray-500">-</span>';
-                    return `<span class="text-white font-bold">${val}${suffix}</span>`;
+                    const t = thresholds[key];
+                    const status = evaluate(val, t);
+                    const badgeHtml = status.badge ? `<span class="ml-1 text-[9px] px-1.5 py-0.5 rounded ${status.badgeColor}">${status.badge}</span>` : '';
+                    return `<span class="${status.color} font-bold">${val}${suffix}</span>${badgeHtml}`;
+                };
+
+                // Tooltip helper
+                const tooltip = (key) => {
+                    const t = thresholds[key];
+                    return `<span class="group relative cursor-help ml-1">
+                        <span class="text-gray-500 text-[10px]">ⓘ</span>
+                        <span class="invisible group-hover:visible absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-40 p-2 bg-gray-900 border border-gray-700 rounded text-[10px] text-gray-300 z-50 shadow-lg">
+                            <div class="font-bold text-white mb-1">${t.tip}</div>
+                            <div class="text-gray-400">기준: ${t.benchmark}</div>
+                        </span>
+                    </span>`;
                 };
 
                 return `
@@ -338,14 +381,14 @@
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <div class="text-xs text-gray-400 mb-1">PER</div>
-                                <div class="text-lg">${formatValue(fh.per, '배')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">지금 주가가 순이익의 몇 배인가요?</div>
+                                <div class="text-xs text-gray-400 mb-1 flex items-center">PER${tooltip('per')}</div>
+                                <div class="text-lg">${formatMetric('per', fh.per, '배')}</div>
+                                <div class="text-[10px] text-gray-500 mt-1">순이익의 몇 배?</div>
                             </div>
                             <div>
-                                <div class="text-xs text-gray-400 mb-1">PBR</div>
-                                <div class="text-lg">${formatValue(fh.pbr, '배')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">회사가 망해도 남는 돈 대비 주가는?</div>
+                                <div class="text-xs text-gray-400 mb-1 flex items-center">PBR${tooltip('pbr')}</div>
+                                <div class="text-lg">${formatMetric('pbr', fh.pbr, '배')}</div>
+                                <div class="text-[10px] text-gray-500 mt-1">순자산의 몇 배?</div>
                             </div>
                         </div>
                     </div>
@@ -360,14 +403,14 @@
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <div class="text-xs text-gray-400 mb-1">매출성장률</div>
-                                <div class="text-lg ${fh.revenue_growth > 0 ? 'text-red-400' : fh.revenue_growth < 0 ? 'text-blue-400' : ''}">${formatValue(fh.revenue_growth, '%')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">작년보다 물건을 더 많이 팔았나요?</div>
+                                <div class="text-xs text-gray-400 mb-1 flex items-center">매출성장률${tooltip('revenue_growth')}</div>
+                                <div class="text-lg">${formatMetric('revenue_growth', fh.revenue_growth, '%')}</div>
+                                <div class="text-[10px] text-gray-500 mt-1">매출 증가율</div>
                             </div>
                             <div>
-                                <div class="text-xs text-gray-400 mb-1">EPS성장률</div>
-                                <div class="text-lg ${fh.eps_growth > 0 ? 'text-red-400' : fh.eps_growth < 0 ? 'text-blue-400' : ''}">${formatValue(fh.eps_growth, '%')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">주주 몫의 이익이 작년보다 늘었나요?</div>
+                                <div class="text-xs text-gray-400 mb-1 flex items-center">EPS성장률${tooltip('eps_growth')}</div>
+                                <div class="text-lg">${formatMetric('eps_growth', fh.eps_growth, '%')}</div>
+                                <div class="text-[10px] text-gray-500 mt-1">주당순이익 증가율</div>
                             </div>
                         </div>
                     </div>
@@ -382,14 +425,14 @@
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <div class="text-xs text-gray-400 mb-1">ROE</div>
-                                <div class="text-lg">${formatValue(fh.roe, '%')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">자본을 얼마나 효율적으로 불렸나요?</div>
+                                <div class="text-xs text-gray-400 mb-1 flex items-center">ROE${tooltip('roe')}</div>
+                                <div class="text-lg">${formatMetric('roe', fh.roe, '%')}</div>
+                                <div class="text-[10px] text-gray-500 mt-1">자기자본이익률</div>
                             </div>
                             <div>
-                                <div class="text-xs text-gray-400 mb-1">영업이익률</div>
-                                <div class="text-lg">${formatValue(fh.operating_margin, '%')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">순수 장사로 남긴 마진율은?</div>
+                                <div class="text-xs text-gray-400 mb-1 flex items-center">영업이익률${tooltip('operating_margin')}</div>
+                                <div class="text-lg">${formatMetric('operating_margin', fh.operating_margin, '%')}</div>
+                                <div class="text-[10px] text-gray-500 mt-1">순수 영업 마진</div>
                             </div>
                         </div>
                     </div>
@@ -404,14 +447,14 @@
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <div class="text-xs text-gray-400 mb-1">부채비율</div>
-                                <div class="text-lg ${fh.debt_ratio > 200 ? 'text-red-400' : fh.debt_ratio < 100 ? 'text-green-400' : ''}">${formatValue(fh.debt_ratio, '%')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">자본 대비 빚이 얼마나 있나요?</div>
+                                <div class="text-xs text-gray-400 mb-1 flex items-center">부채비율${tooltip('debt_ratio')}</div>
+                                <div class="text-lg">${formatMetric('debt_ratio', fh.debt_ratio, '%')}</div>
+                                <div class="text-[10px] text-gray-500 mt-1">자본 대비 부채</div>
                             </div>
                             <div>
-                                <div class="text-xs text-gray-400 mb-1">유동비율</div>
-                                <div class="text-lg ${fh.current_ratio >= 1.5 ? 'text-green-400' : fh.current_ratio < 1 ? 'text-red-400' : ''}">${formatValue(fh.current_ratio, '')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">1년 내 빚을 갚을 현금이 충분한가요?</div>
+                                <div class="text-xs text-gray-400 mb-1 flex items-center">유동비율${tooltip('current_ratio')}</div>
+                                <div class="text-lg">${formatMetric('current_ratio', fh.current_ratio, '')}</div>
+                                <div class="text-[10px] text-gray-500 mt-1">단기 상환 능력</div>
                             </div>
                         </div>
                     </div>
