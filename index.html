@@ -227,12 +227,12 @@
                 <div
                     class="grid grid-cols-12 gap-2 p-2 md:p-3 md:pr-[18px] text-xs text-gray-400 border-b border-gray-700 font-bold bg-[#23232a]">
                     <div
-                        class="col-span-3 md:col-span-1 flex items-center justify-start pl-2 gap-1 md:gap-2 relative text-[10px] md:text-xs">
+                        class="col-span-3 md:col-span-2 flex items-center justify-start pl-2 gap-1 md:gap-2 relative text-[10px] md:text-xs">
                         <div class="w-5 h-5 md:w-6 md:h-6"></div> <!-- Ghost Star Spacer -->
                         <span class="md:relative md:right-px">순위</span>
                     </div>
                     <div
-                        class="col-span-3 md:col-span-4 flex items-center justify-start pl-2 text-[10px] md:text-xs md:relative md:right-px">
+                        class="col-span-3 md:col-span-2 flex items-center justify-start pl-2 text-[10px] md:text-xs md:relative md:right-px">
                         종목명</div>
                     <div
                         class="col-span-2 md:col-span-1 flex items-center justify-start pl-2 text-[10px] md:text-xs md:relative md:right-px">
@@ -707,7 +707,7 @@
                 <div onclick="location.href='/stock/${item.ticker}'" 
                     class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center border-b border-gray-700 hover:bg-[#31313c] transition cursor-pointer group h-14 md:h-16">
                     
-                    <div class="col-span-3 md:col-span-1 flex items-center justify-start pl-2 gap-1 md:gap-2 relative">
+                    <div class="col-span-3 md:col-span-2 flex items-center justify-start pl-2 gap-1 md:gap-2 relative">
                         <button onclick="toggleFavorite('${item.ticker}', event)" 
                                 data-ticker="${item.ticker}"
                                 class="star-btn transition hover:scale-110 p-1 group">
@@ -732,7 +732,7 @@
                         </div>
                     </div>
                     
-                    <a href="/stock/${item.ticker}" onclick="event.stopPropagation()" class="col-span-3 md:col-span-4 flex items-center justify-start pl-2 gap-2 overflow-hidden block text-inherit hover:no-underline">
+                    <a href="/stock/${item.ticker}" onclick="event.stopPropagation()" class="col-span-3 md:col-span-3 flex items-center justify-start pl-2 gap-2 overflow-hidden block text-inherit hover:no-underline">
                         <div class="w-6 h-6 md:w-9 md:h-9 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden bg-[#31313c]">
                             <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" 
                                 alt="${item.name} 로고"
