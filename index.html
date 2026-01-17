@@ -627,35 +627,56 @@
 
         function renderList(data, category = 'all') {
             const list = document.getElementById('rankingList');
+
+            // Handle empty case
             if (data.length === 0) {
                 list.innerHTML = '<div class="p-10 text-center text-gray-500 text-sm">별 아이콘을 눌러 관심 종목을 추가하세요.</div>';
                 return;
             }
 
-            list.innerHTML = data.map((item, idx) => {
-                const changeColor = item.change_pct >= 0 ? 'text-red-400' : 'text-blue-400';
+            // [Performance] Progressive Rendering
+            // Render first 50 items immediately
+            const CHUNK_SIZE = 50;
+            const initialData = data.slice(0, CHUNK_SIZE);
 
-                let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
-                if (item.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
-                else if (item.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
-                else if (item.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
-                else if (item.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
-                else if (item.tier === 5) tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
+            list.innerHTML = initialData.map((item, idx) => createRowHtml(item, idx, category)).join('');
 
-                // Determine which rank to show: Overall or Sector
-                let displayRank, displayChange;
-                if (category === 'all') {
-                    displayRank = item.rank;
-                    displayChange = item.rank_change;
-                } else {
-                    displayRank = item.sector_rank;
-                    displayChange = item.sector_rank_change;
-                }
+            // Render remaining items in next frame
+            if (data.length > CHUNK_SIZE) {
+                setTimeout(() => {
+                    const remainingData = data.slice(CHUNK_SIZE);
+                    const remainingHtml = remainingData.map((item, idx) => createRowHtml(item, idx + CHUNK_SIZE, category)).join('');
+                    list.insertAdjacentHTML('beforeend', remainingHtml);
+                }, 0);
+            }
+        }
 
-                // If rank is missing (new stock), handle safely
-                if (!displayRank) displayRank = idx + 1;
+        // Helper function for row HTML to clean up code
+        function createRowHtml(item, idx, category) {
+            const changeColor = item.change_pct >= 0 ? 'text-red-400' : 'text-blue-400';
+            let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
+            if (item.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
+            else if (item.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
+            else if (item.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
+            else if (item.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
+            else if (item.tier === 5) tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
 
-                return `
+            const tierBadge = `<span class="px-1.5 py-0.5 text-[9px] md:text-[10px] font-bold rounded border ${tierClass}">${item.tier + ' Tier'}</span>`;
+
+            // Determine which rank to show: Overall or Sector
+            let displayRank, displayChange;
+            if (category === 'all') {
+                displayRank = item.rank;
+                displayChange = item.rank_change;
+            } else {
+                displayRank = item.sector_rank;
+                displayChange = item.sector_rank_change;
+            }
+
+            // If rank is missing (new stock), handle safely
+            if (!displayRank) displayRank = idx + 1;
+
+            return `
                 <div onclick="location.href='/stock/${item.ticker}'" 
                      class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center border-b border-gray-700 hover:bg-[#31313c] transition cursor-pointer group h-14 md:h-16">
                     <div class="col-span-2 md:col-span-1 flex items-center justify-center gap-1 md:gap-2 relative">
@@ -672,15 +693,15 @@
                         <div class="font-bold text-sm md:text-lg italic text-[#5383e8] w-9 md:w-8 text-right tracking-tighter">${displayRank}</div>
                         <div class="text-[9px] md:text-[10px] font-bold flex items-center justify-start w-6 md:w-8">
                             ${(() => {
-                        const change = displayChange || 0;
-                        if (change > 0) {
-                            return `<span class="text-green-500 flex items-center">▲ ${change}</span>`;
-                        } else if (change < 0) {
-                            return `<span class="text-red-500 flex items-center">▼ ${Math.abs(change)}</span>`;
-                        } else {
-                            return `<span class="text-gray-600">=</span>`;
-                        }
-                    })()}
+                    const change = displayChange || 0;
+                    if (change > 0) {
+                        return `<span class="text-green-500 flex items-center">▲ ${change}</span>`;
+                    } else if (change < 0) {
+                        return `<span class="text-red-500 flex items-center">▼ ${Math.abs(change)}</span>`;
+                    } else {
+                        return `<span class="text-gray-600">=</span>`;
+                    }
+                })()}
                         </div>
                     </div>
                     
@@ -688,6 +709,7 @@
                         <div class="w-6 h-6 md:w-9 md:h-9 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden bg-[#31313c]">
                             <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" 
                                  alt="${item.name} 로고"
+                                 loading="lazy"
                                  onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=128'" 
                                  style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
                         </div>
@@ -697,27 +719,36 @@
                         </div>
                     </a>
 
+                    <div class="col-span-2 md:col-span-1 text-center flex justify-center">
+                        ${tierBadge}
+                    </div>
+
+                    <div class="hidden md:flex md:col-span-1 text-center justify-center font-bold text-gray-300 text-xs md:text-sm">
+                        ${item.final_score}
+                    </div>
+
                     <div class="col-span-2 md:col-span-1 text-center">
-                        <span class="px-1.5 py-0.5 text-[9px] md:text-[10px] font-bold rounded border ${tierClass}">${item.tier + ' Tier'}</span>
+                        <div class="font-bold text-gray-200 text-xs md:text-sm">$${(item.current_price || 0).toFixed(2)}</div>
+                        <div class="text-[9px] md:text-[10px] font-bold ${changeColor}">
+                            ${item.change_pct > 0 ? '+' : ''}${item.change_pct}%
+                        </div>
                     </div>
-                    <div class="hidden md:block md:col-span-1 text-center text-[#5383e8] font-bold text-xs md:text-sm">${item.final_score}</div>
-                    <div class="col-span-2 md:col-span-1 text-center flex flex-col justify-center">
-                        <span class="text-white font-bold text-xs md:text-sm">$${(item.current_price || 0).toFixed(2)}</span>
-                        <span class="text-[10px] font-bold ${changeColor}">${item.change_pct > 0 ? '+' : ''}${item.change_pct}%</span>
+
+                    <div class="col-span-2 md:col-span-1 text-center">
+                        <span class="text-[9px] md:text-[10px] text-gray-400 bg-gray-800 px-1.5 py-0.5 rounded">${item.sector}</span>
                     </div>
-                    <div class="col-span-2 md:col-span-1 text-center text-[10px] text-gray-400 truncate">${item.sector}</div>
-                    <div class="hidden md:flex md:col-span-3 justify-center -space-x-2">
-                        ${(item.related_peers || []).map(p => `
-                            <div onclick="event.stopPropagation(); location.href='/stock/${p.ticker}'" 
-                                 class="w-8 h-8 rounded-full bg-[#1c1c1f] border border-gray-600 relative group cursor-pointer hover:z-20 hover:scale-110 transition overflow-hidden">
-                                <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" 
-                                     alt="${p.ticker} 관련주"
-                                     onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" 
-                                     style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
-                                <div class="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <span class="text-[7px] font-bold text-white tracking-tighter">${p.ticker}</span>
-                                </div>
-                            </div>
+
+                    <div class="hidden md:flex md:col-span-3 text-left pl-2 gap-1 overflow-x-auto no-scrollbar items-center">
+                        ${(item.related_peers || []).slice(0, 3).map(rel => `
+                            <a href="/stock/${rel.ticker}" 
+                               class="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#3a3a45] flex items-center justify-center border border-gray-600 hover:border-gray-400 transition" 
+                               title="${rel.name}">
+                                <img src="https://financialmodelingprep.com/image-stock/${rel.ticker.replace('.', '-')}.png" 
+                                     alt="${rel.ticker}"
+                                     loading="lazy"
+                                     onerror="this.style.display='none'"
+                                     class="w-full h-full rounded-full object-contain p-0.5">
+                            </a>
                         `).join('')}
                     </div>
                 </div>
