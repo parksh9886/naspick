@@ -595,7 +595,7 @@
                              onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=200'" 
                              style="filter: invert(1) hue-rotate(180deg);" class="w-7 h-7 rounded mb-2 object-contain shadow-md">
                         <div class="text-xs font-bold text-gray-200 tracking-tight text-center leading-tight mb-0.5">${item.name}</div>
-                        <div class="text-[10px] font-medium text-gray-500 tracking-wider mb-1">${item.ticker}</div>
+                        <div class="text-[9px] font-medium text-gray-500 tracking-wider mb-0.5 leading-none">${item.ticker}</div>
                         <div class="text-xs font-bold ${item.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'}">
                             ${item.change_pct > 0 ? '+' : ''}${item.change_pct}%
                         </div>
