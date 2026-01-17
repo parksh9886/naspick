@@ -35,7 +35,7 @@ export default async function middleware(request) {
     // Update meta description - SEO optimized with high-volume keywords
     modifiedHtml = modifiedHtml.replace(
         /<meta name="description" content="미국 주식 실시간 티어 분석 정보">/,
-        `<meta name="description" content="[${dateString}] ${ticker} 주가 전망, 목표가, 실시간 AI 분석. 나스픽 점수와 티어 확인. 재무건전성, RSI, 상승여력 분석.">`
+        `<meta name="description" content="[${dateString}] ${ticker} 주가 전망, 목표가, 실시간 AI 분석. 나스픽 점수와 티어 확인. 재무건전성, 기술적분석, 상승여력 분석.">`
     );
 
     // Update OG title
