@@ -50,6 +50,39 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        /* Modern thin scrollbar - appears on hover */
+        .modern-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: transparent transparent;
+            transition: scrollbar-color 0.3s;
+        }
+
+        .modern-scrollbar:hover {
+            scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+        }
+
+        .modern-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modern-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .modern-scrollbar::-webkit-scrollbar-thumb {
+            background: transparent;
+            border-radius: 3px;
+            transition: background 0.3s;
+        }
+
+        .modern-scrollbar:hover::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.5);
+        }
+
+        .modern-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(156, 163, 175, 0.7);
+        }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643020932469823"
         crossorigin="anonymous"></script>
@@ -195,7 +228,7 @@
                     <div class="hidden md:block md:col-span-3 text-center">관련주 (Top Picks)</div>
                 </div>
 
-                <div id="rankingList" class="overflow-y-auto flex-1 h-full">
+                <div id="rankingList" class="overflow-y-auto flex-1 h-full modern-scrollbar">
                     <div class="p-10 text-center text-gray-500">데이터를 불러오는 중입니다...</div>
                 </div>
             </div>
