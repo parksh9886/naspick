@@ -15,7 +15,7 @@
     <title>종목 상세페이지:나스픽</title>
     <meta name="description" content="미국 주식 실시간 티어 분석 정보">
     <!-- Brand Assets -->
-    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
 
     <!-- Open Graph (기본값, JS에서 동적 업데이트) -->
     <meta property="og:type" content="website">
@@ -191,6 +191,24 @@
 
                 const twitterDesc = document.querySelector('meta[name="twitter:description"]');
                 if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 점수 ${stockData.final_score}점.`);
+
+                // 6. Schema.org 구조화 데이터 (FinancialProduct)
+                const schemaScript = document.createElement('script');
+                schemaScript.type = 'application/ld+json';
+                schemaScript.textContent = JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "FinancialProduct",
+                    "name": `${stockData.name} (${stockData.ticker})`,
+                    "description": `${stockData.name} 실시간 AI 분석. 현재가 $${stockData.current_price}, 나스픽 점수 ${stockData.final_score}점 (${stockData.tier}티어)`,
+                    "category": stockData.sector,
+                    "url": `https://naspick.com/stock/${stockData.ticker}`,
+                    "provider": {
+                        "@type": "Organization",
+                        "name": "나스픽",
+                        "url": "https://naspick.com"
+                    }
+                });
+                document.head.appendChild(schemaScript);
                 // ----------------------------------------------------
 
                 renderPage(stockData);

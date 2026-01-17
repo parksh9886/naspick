@@ -3,6 +3,10 @@
         {
             "source": "/stock/:ticker",
             "destination": "/page.html"
+        },
+        {
+            "source": "/sector/:sectorName",
+            "destination": "/index.html"
         }
     ]
 }

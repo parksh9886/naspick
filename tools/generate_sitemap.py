@@ -1,71 +1,104 @@
+"""
+Sitemap Generator for Naspick
+Generates sitemap.xml with current date, stock pages, and sector pages
+"""
 import json
 import datetime
 import os
 
-# 1. 사이트 기본 주소 (본인 도메인으로 변경 필수!)
 BASE_URL = "https://naspick.com"
 
-def generate_sitemap():
-    print("🗺️ Generating Sitemap & Robots.txt...")
+# Sector mapping (Korean to URL slug)
+SECTOR_SLUGS = {
+    "기술": "technology",
+    "커뮤니케이션": "communication",
+    "임의소비재": "consumer-discretionary",
+    "필수소비재": "consumer-staples",
+    "에너지": "energy",
+    "금융": "financials",
+    "헬스케어": "healthcare",
+    "산업재": "industrials",
+    "소재": "materials",
+    "부동산": "real-estate",
+    "유틸리티": "utilities"
+}
 
-    # 2. 종목 데이터 읽기
+def generate_sitemap():
+    print("🗺️ Generating Sitemap...")
+
+    # Get correct data path relative to script location
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir)
+    data_path = os.path.join(project_root, 'data', 'data.json')
+    
+    # Fallback for running from project root
+    if not os.path.exists(data_path):
+        data_path = 'data/data.json'
+    
     try:
-        with open('data.json', 'r', encoding='utf-8') as f:
+        with open(data_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
     except FileNotFoundError:
-        print("❌ data.json not found!")
+        print(f"❌ data.json not found at {data_path}")
         return
 
-    # 3. XML 헤더 작성
-    xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
-    xml_content += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-
-    # 4. 메인 페이지 추가
     today = datetime.date.today().isoformat()
-    xml_content += f"""
-    <url>
-        <loc>{BASE_URL}/index.html</loc>
-        <lastmod>{today}</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-    </url>
-    """
+    
+    xml_parts = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        '',
+        '    <!-- Homepage -->',
+        '    <url>',
+        f'        <loc>{BASE_URL}/</loc>',
+        f'        <lastmod>{today}</lastmod>',
+        '        <changefreq>daily</changefreq>',
+        '        <priority>1.0</priority>',
+        '    </url>',
+    ]
 
-    # 5. 각 종목별 상세 페이지 URL 추가 (Clean URL 적용)
+    # Sector pages
+    xml_parts.append('')
+    xml_parts.append('    <!-- Sector Pages -->')
+    for sector_kr, sector_slug in SECTOR_SLUGS.items():
+        xml_parts.extend([
+            '    <url>',
+            f'        <loc>{BASE_URL}/sector/{sector_slug}</loc>',
+            f'        <lastmod>{today}</lastmod>',
+            '        <changefreq>daily</changefreq>',
+            '        <priority>0.9</priority>',
+            '    </url>',
+        ])
+
+    # Stock pages
+    xml_parts.append('')
+    xml_parts.append('    <!-- Stock Pages -->')
     for item in data:
         ticker = item.get('ticker')
         if ticker:
-            # 특수문자(&) 처리 (URL 인코딩)
-            safe_ticker = ticker.replace("&", "&amp;")
-            # Vercel Rewrite 적용된 Clean URL
-            url = f"{BASE_URL}/stock/{safe_ticker}"
-            
-            xml_content += f"""
-    <url>
-        <loc>{url}</loc>
-        <lastmod>{today}</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-    </url>"""
+            xml_parts.extend([
+                '    <url>',
+                f'        <loc>{BASE_URL}/stock/{ticker}</loc>',
+                f'        <lastmod>{today}</lastmod>',
+                '        <changefreq>daily</changefreq>',
+                '        <priority>0.8</priority>',
+                '    </url>',
+            ])
 
-    xml_content += '\n</urlset>'
+    xml_parts.append('</urlset>')
 
-    # 6. Sitemap 저장
-    with open('sitemap.xml', 'w', encoding='utf-8') as f:
-        f.write(xml_content)
+    # Write sitemap
+    sitemap_path = os.path.join(project_root, 'sitemap.xml') if 'project_root' in dir() else 'sitemap.xml'
+    if os.path.exists(os.path.join(project_root, 'sitemap.xml')):
+        sitemap_path = os.path.join(project_root, 'sitemap.xml')
+    else:
+        sitemap_path = 'sitemap.xml'
+        
+    with open(sitemap_path, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(xml_parts))
     
-    print(f"✅ Sitemap generated with {len(data) + 1} URLs.")
-
-    # 7. Robots.txt 생성
-    robots_content = f"""User-agent: *
-Allow: /
-
-Sitemap: {BASE_URL}/sitemap.xml
-"""
-    with open('robots.txt', 'w', encoding='utf-8') as f:
-        f.write(robots_content)
-    
-    print("✅ robots.txt generated.")
+    print(f"✅ Sitemap generated: {len(data)} stocks + {len(SECTOR_SLUGS)} sectors")
+    print(f"   Updated: {today}")
 
 if __name__ == "__main__":
     generate_sitemap()

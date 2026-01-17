@@ -1,4 +1,17 @@
 User-agent: *
 Allow: /
 
+# AI Crawlers (GEO Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://naspick.com/sitemap.xml

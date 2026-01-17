@@ -17,6 +17,7 @@
         content="미국 주식 실시간 랭킹과 종목별 티어(Tier) 분석 정보를 제공합니다. 데이터 알고리즘이 선정한 오늘의 주도주와 투자 인사이트를 나스픽에서 확인하세요.">
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="canonical" href="https://naspick.com/">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -53,6 +54,23 @@
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643020932469823"
         crossorigin="anonymous"></script>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "나스픽 - NASPICK",
+        "url": "https://naspick.com",
+        "description": "미국 주식 실시간 랭킹과 종목별 티어(Tier) 분석 정보를 제공합니다. 데이터 알고리즘이 선정한 오늘의 주도주와 투자 인사이트를 확인하세요.",
+        "inLanguage": "ko",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://naspick.com/stock/{search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
 </head>
 
 <body class="bg-[#1c1c1f] text-white min-h-screen flex flex-col">
@@ -192,6 +210,26 @@
             "금융", "헬스케어", "산업재", "소재", "부동산", "유틸리티"
         ];
 
+        // SEO: Sector URL slug mapping
+        const SECTOR_SLUGS = {
+            "기술": "technology",
+            "커뮤니케이션": "communication",
+            "임의소비재": "consumer-discretionary",
+            "필수소비재": "consumer-staples",
+            "에너지": "energy",
+            "금융": "financials",
+            "헬스케어": "healthcare",
+            "산업재": "industrials",
+            "소재": "materials",
+            "부동산": "real-estate",
+            "유틸리티": "utilities"
+        };
+
+        // Reverse mapping: slug -> korean
+        const SLUG_TO_SECTOR = Object.fromEntries(
+            Object.entries(SECTOR_SLUGS).map(([k, v]) => [v, k])
+        );
+
         async function loadData() {
             try {
                 // Modify to fetch chart data as well
@@ -204,7 +242,21 @@
 
                 renderWatchlist();
                 renderFilters();
-                renderList(allData);
+
+                // SEO: Check if URL has sector path
+                const pathParts = window.location.pathname.split('/');
+                if (pathParts[1] === 'sector' && pathParts[2]) {
+                    const slug = pathParts[2];
+                    const sectorKr = SLUG_TO_SECTOR[slug];
+                    if (sectorKr) {
+                        selectSector(sectorKr);
+                    } else {
+                        renderList(allData);
+                    }
+                } else {
+                    renderList(allData);
+                }
+
                 initSearch();
 
                 if (resChart && resChart.ok) {
@@ -217,6 +269,69 @@
                 document.getElementById('rankingList').innerHTML = '<div class="p-10 text-center text-red-500">데이터 로드 실패. scorer.py가 실행되었는지 확인하세요.</div>';
             }
         }
+
+        // SEO: Select sector and update URL
+        function selectSector(sectorKr) {
+            const slug = SECTOR_SLUGS[sectorKr];
+
+            // Update URL without page reload
+            if (slug) {
+                history.pushState({ sector: sectorKr }, '', `/sector/${slug}`);
+
+                // Update page title and meta for SEO
+                document.title = `${sectorKr} 섹터 미국 주식 실시간 랭킹 | 나스픽`;
+                const metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) {
+                    metaDesc.setAttribute('content', `${sectorKr} 섹터 미국 주식 실시간 랭킹과 종목별 티어(Tier) 분석. 나스픽 AI 알고리즘 기반 투자 인사이트.`);
+                }
+            }
+
+            // Update button styles
+            document.querySelectorAll('nav button').forEach(b => {
+                b.classList.remove('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
+                b.classList.add('bg-[#282830]', 'text-gray-400', 'border-gray-700');
+                if (b.textContent === sectorKr) {
+                    b.classList.remove('bg-[#282830]', 'text-gray-400', 'border-gray-700');
+                    b.classList.add('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
+                }
+            });
+
+            const filtered = allData.filter(d => d.sector === sectorKr);
+            renderList(filtered, sectorKr);
+        }
+
+        // SEO: Reset to all stocks
+        function selectAll() {
+            history.pushState({ sector: 'all' }, '', '/');
+            document.title = '미국 주식 실시간 티어:나스픽';
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+                metaDesc.setAttribute('content', '미국 주식 실시간 랭킹과 종목별 티어(Tier) 분석 정보를 제공합니다. 데이터 알고리즘이 선정한 오늘의 주도주와 투자 인사이트를 나스픽에서 확인하세요.');
+            }
+
+            document.querySelectorAll('nav button').forEach(b => {
+                b.classList.remove('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
+                b.classList.add('bg-[#282830]', 'text-gray-400', 'border-gray-700');
+            });
+            const allBtn = document.querySelector('nav button[data-cat="all"]');
+            if (allBtn) {
+                allBtn.classList.remove('bg-[#282830]', 'text-gray-400', 'border-gray-700');
+                allBtn.classList.add('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
+            }
+
+            renderList(allData, 'all');
+        }
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', (e) => {
+            if (e.state && e.state.sector) {
+                if (e.state.sector === 'all') {
+                    selectAll();
+                } else {
+                    selectSector(e.state.sector);
+                }
+            }
+        });
 
         function renderChart(data) {
             if (!data || data.length === 0) return;
@@ -383,30 +498,12 @@
                 const btn = document.createElement('button');
                 btn.className = "px-3 py-2 bg-[#282830] text-gray-400 font-medium text-xs rounded-full border border-gray-700 whitespace-nowrap hover:bg-gray-700 hover:text-white hover:border-gray-500 transition flex-shrink-0";
                 btn.textContent = sec;
-                btn.onclick = () => {
-                    document.querySelectorAll('nav button').forEach(b => {
-                        b.classList.remove('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
-                        b.classList.add('bg-[#282830]', 'text-gray-400', 'border-gray-700');
-                    });
-                    btn.classList.remove('bg-[#282830]', 'text-gray-400', 'border-gray-700');
-                    btn.classList.add('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
-
-                    const filtered = allData.filter(d => d.sector === sec);
-                    renderList(filtered, sec);
-                };
+                btn.onclick = () => selectSector(sec);  // SEO: Use selectSector for URL update
                 nav.appendChild(btn);
             });
 
             // Re-bind All
-            allBtn.onclick = () => {
-                document.querySelectorAll('nav button').forEach(b => {
-                    b.classList.remove('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
-                    b.classList.add('bg-[#282830]', 'text-gray-400', 'border-gray-700');
-                });
-                allBtn.classList.remove('bg-[#282830]', 'text-gray-400', 'border-gray-700');
-                allBtn.classList.add('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
-                renderList(allData, 'all');
-            }
+            allBtn.onclick = () => selectAll();  // SEO: Use selectAll for URL update
         }
 
         function renderList(data, category = 'all') {
