@@ -68,19 +68,20 @@
 
         .modern-scrollbar::-webkit-scrollbar-track {
             background: transparent;
-        }
-
-        /* Transparent spacer to push scrollbar down */
-        .modern-scrollbar::-webkit-scrollbar-button:vertical:start:decrement {
-            display: block;
-            height: 40px;
-            background-color: transparent;
+            border-top: 44px solid transparent;
+            /* Header height spacer */
+            background-clip: padding-box;
         }
 
         .modern-scrollbar::-webkit-scrollbar-thumb {
             background: transparent;
             border-radius: 3px;
             transition: background 0.3s;
+        }
+
+        background: transparent;
+        border-radius: 3px;
+        transition: background 0.3s;
         }
 
         .modern-scrollbar:hover::-webkit-scrollbar-thumb {
