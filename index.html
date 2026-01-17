@@ -226,34 +226,28 @@
                 class="bg-[#282830] rounded-lg shadow-xl overflow-hidden h-[calc(100vh-280px)] min-h-[600px] flex flex-col border border-gray-800 border-b-[12px] border-b-[#23232a]">
                 <div
                     class="grid grid-cols-12 gap-2 p-2 md:p-3 md:pr-[18px] text-xs text-gray-400 border-b border-gray-700 font-bold bg-[#23232a]">
-
-                    <div class="col-span-2 md:col-span-1 flex items-center justify-start pl-10 text-[10px] md:text-xs">
-                        순위
+                    <div class="col-span-3 md:col-span-1 flex items-center justify-center pl-2 gap-1 md:gap-2 relative">
+                        <div class="w-5 h-5 md:w-6 md:h-6"></div> <!-- Ghost Star Spacer -->
+                        <span class="md:relative md:right-px">순위</span>
                     </div>
-
-                    <div class="col-span-4 md:col-span-4 flex items-center justify-start pl-2 text-[10px] md:text-xs">
-                        종목명
-                    </div>
-
-                    <div class="col-span-2 md:col-span-1 flex items-center justify-start pl-2 text-[10px] md:text-xs">
-                        티어
-                    </div>
-
-                    <div class="hidden md:flex md:col-span-1 items-center justify-start pl-2 text-[10px] md:text-xs">
-                        Score
-                    </div>
-
-                    <div class="col-span-2 md:col-span-1 flex items-center justify-start pl-2 text-[10px] md:text-xs">
-                        가격
-                    </div>
-
-                    <div class="col-span-2 md:col-span-1 flex items-center justify-start pl-2 text-[10px] md:text-xs">
-                        섹터
-                    </div>
-
-                    <div class="hidden md:flex md:col-span-3 items-center justify-start pl-2 text-left">
-                        관련주 (Top Picks)
-                    </div>
+                    <div
+                        class="col-span-3 md:col-span-4 flex items-center justify-start pl-2 text-[10px] md:text-xs md:relative md:right-px">
+                        종목명</div>
+                    <div
+                        class="col-span-2 md:col-span-1 flex items-center justify-start pl-2 text-[10px] md:text-xs md:relative md:right-px">
+                        티어</div>
+                    <div
+                        class="hidden md:flex md:col-span-1 items-center justify-start pl-2 text-[10px] md:text-xs md:relative md:right-px">
+                        Score</div>
+                    <div
+                        class="col-span-2 md:col-span-1 flex items-center justify-start pl-2 text-[10px] md:text-xs md:relative md:right-px">
+                        가격</div>
+                    <div
+                        class="col-span-2 md:col-span-1 flex items-center justify-start pl-2 text-[10px] md:text-xs md:relative md:right-px">
+                        섹터</div>
+                    <div
+                        class="hidden md:flex md:col-span-3 items-center justify-start pl-2 text-left md:relative md:right-px">
+                        관련주 (Top Picks)</div>
                 </div>
                 <div id="rankingList" class="overflow-y-scroll flex-1 modern-scrollbar relative"
                     style="overflow-y: overlay;">
@@ -712,7 +706,7 @@
                 <div onclick="location.href='/stock/${item.ticker}'" 
                     class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center border-b border-gray-700 hover:bg-[#31313c] transition cursor-pointer group h-14 md:h-16">
                     
-                    <div class="col-span-2 md:col-span-1 flex items-center justify-start pl-2 gap-1 md:gap-2 relative">
+                    <div class="col-span-3 md:col-span-1 flex items-center justify-center gap-1 md:gap-2 relative">
                         <button onclick="toggleFavorite('${item.ticker}', event)" 
                                 data-ticker="${item.ticker}"
                                 class="star-btn transition hover:scale-110 p-1 group">
@@ -737,7 +731,7 @@
                         </div>
                     </div>
                     
-                    <a href="/stock/${item.ticker}" onclick="event.stopPropagation()" class="col-span-4 md:col-span-4 flex items-center justify-start pl-2 gap-2 overflow-hidden block text-inherit hover:no-underline">
+                    <a href="/stock/${item.ticker}" onclick="event.stopPropagation()" class="col-span-3 md:col-span-4 flex items-center justify-start pl-2 gap-2 overflow-hidden block text-inherit hover:no-underline">
                         <div class="w-6 h-6 md:w-9 md:h-9 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden bg-[#31313c]">
                             <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" 
                                 alt="${item.name} 로고"
@@ -767,7 +761,7 @@
                     </div>
 
                     <div class="col-span-2 md:col-span-1 text-left pl-2">
-                        <span class="text-[9px] md:text-[10px] text-gray-200 bg-gray-600 px-1.5 py-0.5 rounded">${item.sector}</span>
+                        <span class="text-[9px] md:text-[10px] text-gray-200 bg-gray-600 px-1.5 py-0.5 rounded whitespace-nowrap tracking-tighter block w-full text-center overflow-hidden text-ellipsis">${item.sector}</span>
                     </div>
 
                     <div class="hidden md:flex md:col-span-3 text-left pl-2 gap-1 overflow-x-auto no-scrollbar items-center">
