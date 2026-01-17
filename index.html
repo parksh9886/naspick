@@ -716,7 +716,7 @@
                             </svg>
                         </button>
                         
-                        <div class="font-bold text-sm md:text-lg italic text-[#5383e8] w-9 md:w-8 text-right tracking-tighter">${displayRank}</div>
+                        <div class="font-bold text-sm md:text-lg italic text-[#5383e8] w-9 md:w-8 text-left tracking-tighter">${displayRank}</div>
                         <div class="text-[9px] md:text-[10px] font-bold flex items-center justify-start w-6 md:w-8">
                             ${(() => {
                     const change = displayChange || 0;
@@ -761,7 +761,7 @@
                     </div>
 
                     <div class="col-span-2 md:col-span-1 text-left pl-2">
-                        <span class="text-[9px] md:text-[10px] text-gray-200 bg-gray-600 px-1.5 py-0.5 rounded whitespace-nowrap tracking-tighter block w-full text-center overflow-hidden text-ellipsis">${item.sector}</span>
+                        <span class="text-[9px] md:text-[10px] text-gray-200 bg-gray-600 px-1.5 py-0.5 rounded whitespace-nowrap tracking-tighter inline-block overflow-hidden text-ellipsis max-w-full">${item.sector}</span>
                     </div>
 
                     <div class="hidden md:flex md:col-span-3 text-left pl-2 gap-1 overflow-x-auto no-scrollbar items-center">
