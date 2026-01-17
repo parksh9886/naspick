@@ -218,34 +218,30 @@
 
             <div
                 class="bg-[#282830] rounded-lg shadow-xl overflow-hidden h-[calc(100vh-280px)] min-h-[600px] flex flex-col border border-gray-800 border-b-[12px] border-b-[#23232a]">
-                <div id="rankingList" class="overflow-y-auto flex-1 h-full modern-scrollbar relative">
-                    <!-- Header (Sticky inside scroll container) -->
+                <!-- Header (Fixed top, separate from scroll) -->
+                <div
+                    class="grid grid-cols-12 gap-2 p-3 text-xs text-gray-400 border-b border-gray-700 font-bold bg-[#23232a] pr-[6px]">
                     <div
-                        class="grid grid-cols-12 gap-2 p-3 text-xs text-gray-400 border-b border-gray-700 font-bold bg-[#23232a] sticky top-0 z-30">
-                        <div
-                            class="col-span-2 md:col-span-1 flex items-center justify-center pl-7 md:pl-8 text-[10px] md:text-xs">
-                            순위
-                        </div>
-                        <div
-                            class="col-span-4 md:col-span-4 flex items-center justify-start pl-4 text-[10px] md:text-xs">
-                            종목명</div>
-                        <div class="col-span-2 md:col-span-1 flex items-center justify-center text-[10px] md:text-xs">티어
-                        </div>
-                        <div
-                            class="hidden md:block md:col-span-1 flex items-center justify-center pl-6 text-[10px] md:text-xs">
-                            Score</div>
-                        <div class="col-span-2 md:col-span-1 flex items-center justify-center text-[10px] md:text-xs">가격
-                        </div>
-                        <div class="col-span-2 md:col-span-1 flex items-center justify-center text-[10px] md:text-xs">섹터
-                        </div>
-                        <div class="hidden md:block md:col-span-3 flex items-center justify-start pl-2 text-left">관련주
-                            (Top Picks)</div>
+                        class="col-span-2 md:col-span-1 flex items-center justify-center pl-7 md:pl-8 text-[10px] md:text-xs">
+                        순위</div>
+                    <div class="col-span-4 md:col-span-4 flex items-center justify-start pl-4 text-[10px] md:text-xs">
+                        종목명</div>
+                    <div class="col-span-2 md:col-span-1 flex items-center justify-center text-[10px] md:text-xs">티어
                     </div>
+                    <div
+                        class="hidden md:block md:col-span-1 flex items-center justify-center pl-6 text-[10px] md:text-xs">
+                        Score</div>
+                    <div class="col-span-2 md:col-span-1 flex items-center justify-center text-[10px] md:text-xs">가격
+                    </div>
+                    <div class="col-span-2 md:col-span-1 flex items-center justify-center text-[10px] md:text-xs">섹터
+                    </div>
+                    <div class="hidden md:block md:col-span-3 flex items-center justify-start pl-2 text-left">관련주 (Top
+                        Picks)</div>
+                </div>
 
-                    <!-- Rows Container -->
-                    <div id="rankingRows">
-                        <div class="p-10 text-center text-gray-500 text-sm">데이터를 불러오는 중입니다...</div>
-                    </div>
+                <!-- Scrollable List -->
+                <div id="rankingList" class="overflow-y-scroll flex-1 h-full modern-scrollbar relative">
+                    <div class="p-10 text-center text-gray-500 text-sm">데이터를 불러오는 중입니다...</div>
                 </div>
             </div>
             </div>
@@ -356,7 +352,7 @@
 
             } catch (err) {
                 console.error(err);
-                document.getElementById('rankingRows').innerHTML = '<div class="p-10 text-center text-red-500">데이터 로드 실패. scorer.py가 실행되었는지 확인하세요.</div>';
+                document.getElementById('rankingList').innerHTML = '<div class="p-10 text-center text-red-500">데이터 로드 실패. scorer.py가 실행되었는지 확인하세요.</div>';
             }
         }
 
@@ -642,7 +638,7 @@
         }
 
         function renderList(data, category = 'all') {
-            const list = document.getElementById('rankingRows');
+            const list = document.getElementById('rankingList');
 
             // Handle empty case
             if (data.length === 0) {
