@@ -134,7 +134,7 @@
 
         <aside
             class="w-[360px] shrink-0 bg-[#282830] rounded-lg p-4 shadow-lg hidden lg:flex flex-col border border-gray-800">
-            <h2 class="text-gray-400 text-xs font-bold mb-4">WATCHLIST</h2>
+            <h2 class="text-gray-400 text-xs font-bold mb-4">즐겨찾는 종목</h2>
             <div id="watchlistGrid" class="grid grid-cols-3 gap-2 overflow-y-auto pr-1">
             </div>
         </aside>
@@ -204,6 +204,7 @@
                     class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#1c1c1f] to-transparent z-10 pointer-events-none">
                 </div>
                 <nav id="categoryNav" class="flex gap-2 overflow-x-auto no-scrollbar pb-2 items-center pr-4">
+                    <!-- Favorites Button Added Dynamically -->
                     <button data-cat="all"
                         class="px-4 py-2 bg-[#5383e8] text-white font-bold text-xs rounded-full border border-[#5383e8] whitespace-nowrap shadow-lg shadow-blue-500/20 hover:bg-[#426dc6] transition flex-shrink-0 active-cat">
                         전체 랭킹
@@ -236,7 +237,47 @@
     </main>
 
     <script>
-        let allData = [];
+        let favorites = new Set(JSON.parse(localStorage.getItem('naspick_favorites') || '[]'));
+
+        function toggleFavorite(ticker, event) {
+            if (event) event.stopPropagation();
+
+            if (favorites.has(ticker)) {
+                favorites.delete(ticker);
+            } else {
+                favorites.add(ticker);
+            }
+            localStorage.setItem('naspick_favorites', JSON.stringify([...favorites]));
+
+            // Re-render components
+            renderWatchlist();
+
+            // If current view is favorites, re-render list
+            const activeBtn = document.querySelector('nav button.active-cat');
+            if (activeBtn && activeBtn.dataset.cat === 'favorites') {
+                const favData = allData.filter(d => favorites.has(d.ticker));
+                renderList(favData, 'favorites');
+            } else {
+                // Just update star icons without full re-render for better performance
+                updateStarIcons();
+            }
+        }
+
+        function updateStarIcons() {
+            document.querySelectorAll('.star-btn').forEach(btn => {
+                const ticker = btn.dataset.ticker;
+                if (favorites.has(ticker)) {
+                    btn.innerHTML = '★';
+                    btn.classList.add('text-yellow-400');
+                    btn.classList.remove('text-gray-600', 'hover:text-yellow-400');
+                } else {
+                    btn.innerHTML = '☆';
+                    btn.classList.add('text-gray-600', 'hover:text-yellow-400');
+                    btn.classList.remove('text-yellow-400');
+                }
+            });
+        }
+
         const SECTORS = [
             "기술", "커뮤니케이션", "임의소비재", "필수소비재", "에너지",
             "금융", "헬스케어", "산업재", "소재", "부동산", "유틸리티"
@@ -500,13 +541,23 @@
         }
 
         function renderWatchlist() {
-            // Sort by Market Cap desc
-            const sortedByCap = [...allData].sort((a, b) => (b.market_cap || 0) - (a.market_cap || 0)).slice(0, 21);
             const container = document.getElementById('watchlistGrid');
-            // SEO 수정: div onclick -> a href (block 클래스 추가하여 레이아웃 유지)
-            container.innerHTML = sortedByCap.map((item, idx) => `
+            const favList = [...favorites];
+
+            if (favList.length === 0) {
+                container.innerHTML = `<div class="col-span-3 text-center text-gray-500 text-xs py-10">별 아이콘을 눌러<br>관심 종목을 추가하세요.</div>`;
+                return;
+            }
+
+            const favData = allData.filter(d => favorites.has(d.ticker));
+
+            // Sort by Rank if available, or name
+            favData.sort((a, b) => (a.rank || 999) - (b.rank || 999));
+
+            container.innerHTML = favData.map((item) => `
                 <a href="/stock/${item.ticker}" 
-                   class="aspect-square bg-[#31313c] rounded border border-gray-700 flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition hover:bg-[#3a3a45] p-1 block text-inherit hover:no-underline">
+                   class="aspect-square bg-[#31313c] rounded border border-gray-700 flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition hover:bg-[#3a3a45] p-1 block text-inherit hover:no-underline relative group">
+                    <button onclick="toggleFavorite('${item.ticker}', event)" class="absolute top-1 right-1 text-yellow-400 text-[10px] hover:scale-110 transition">★</button>
                     <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" 
                          alt="${item.ticker} 로고"
                          onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=64'" 
@@ -521,21 +572,45 @@
 
         function renderFilters() {
             const nav = document.getElementById('categoryNav');
-            // Keep the 'All' button, add others
-            const allBtn = nav.firstElementChild;
             nav.innerHTML = '';
+
+            // 1. Favorites Button (First)
+            const favBtn = document.createElement('button');
+            favBtn.className = "px-3 py-2 bg-[#282830] text-gray-400 font-medium text-xs rounded-full border border-gray-700 whitespace-nowrap hover:bg-gray-700 hover:text-white hover:border-gray-500 transition flex-shrink-0 flex items-center gap-1";
+            favBtn.innerHTML = '★'; // Just star icon as requested for compact mobile view, or "★ 즐겨찾기"
+            favBtn.dataset.cat = 'favorites';
+            favBtn.onclick = () => {
+                document.querySelectorAll('nav button').forEach(b => {
+                    b.classList.remove('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg', 'active-cat');
+                    b.classList.add('bg-[#282830]', 'text-gray-400', 'border-gray-700');
+                });
+                favBtn.classList.remove('bg-[#282830]', 'text-gray-400', 'border-gray-700');
+                favBtn.classList.add('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg', 'active-cat');
+
+                const favData = allData.filter(d => favorites.has(d.ticker));
+                renderList(favData, 'favorites');
+
+                // Update URL for favorites? Maybe just keep as is or clean URL
+                history.pushState({ sector: 'favorites' }, '', '#favorites');
+            };
+            nav.appendChild(favBtn);
+
+            // 2. All Button
+            const allBtn = document.createElement('button');
+            allBtn.className = "px-4 py-2 bg-[#5383e8] text-white font-bold text-xs rounded-full border border-[#5383e8] whitespace-nowrap shadow-lg shadow-blue-500/20 hover:bg-[#426dc6] transition flex-shrink-0 active-cat";
+            allBtn.textContent = "전체 랭킹";
+            allBtn.dataset.cat = 'all';
+            allBtn.onclick = () => selectAll();
             nav.appendChild(allBtn);
 
+            // 3. Sector Buttons
             SECTORS.forEach(sec => {
                 const btn = document.createElement('button');
                 btn.className = "px-3 py-2 bg-[#282830] text-gray-400 font-medium text-xs rounded-full border border-gray-700 whitespace-nowrap hover:bg-gray-700 hover:text-white hover:border-gray-500 transition flex-shrink-0";
                 btn.textContent = sec;
-                btn.onclick = () => selectSector(sec);  // SEO: Use selectSector for URL update
+                btn.onclick = () => selectSector(sec);
                 nav.appendChild(btn);
             });
-
-            // Re-bind All
-            allBtn.onclick = () => selectAll();  // SEO: Use selectAll for URL update
         }
 
         function renderList(data, category = 'all') {
@@ -571,7 +646,14 @@
                 return `
                 <div onclick="location.href='/stock/${item.ticker}'" 
                      class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center border-b border-gray-700 hover:bg-[#31313c] transition cursor-pointer group h-14 md:h-16">
-                    <div class="col-span-2 md:col-span-1 flex items-center justify-center gap-1 md:gap-2">
+                    <div class="col-span-2 md:col-span-1 flex items-center justify-center gap-1 md:gap-2 relative">
+                        <!-- Star Button -->
+                        <button onclick="toggleFavorite('${item.ticker}', event)" 
+                                data-ticker="${item.ticker}"
+                                class="star-btn text-sm md:text-base transition hover:scale-110 p-1 ${favorites.has(item.ticker) ? 'text-yellow-400' : 'text-gray-600 hover:text-yellow-400'}">
+                            ${favorites.has(item.ticker) ? '★' : '☆'}
+                        </button>
+                        
                         <div class="font-bold text-sm md:text-lg italic text-[#5383e8] w-9 md:w-8 text-right tracking-tighter">${displayRank}</div>
                         <div class="text-[9px] md:text-[10px] font-bold flex items-center justify-start w-6 md:w-8">
                             ${(() => {
