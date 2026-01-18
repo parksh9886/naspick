@@ -87,7 +87,7 @@
 
             <!-- Language Switcher -->
             <div class="hidden md:flex items-center justify-end">
-                <a href="/"
+                <a id="langSwitcher" href="/"
                     class="flex items-center gap-1.5 text-blue-200 hover:text-white transition px-3 py-1.5 rounded-full hover:bg-[#3e63b0] group"
                     title="한국어">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -271,6 +271,12 @@
                 renderPage(stockData);
                 initHeaderSearch();
                 initFavorites(stockData.ticker);
+
+                // Update language switcher to maintain current page
+                const langSwitcher = document.getElementById('langSwitcher');
+                if (langSwitcher) {
+                    langSwitcher.href = `/stock/${stockData.ticker}`;
+                }
 
             } catch (err) {
                 console.error(err);
@@ -518,7 +524,32 @@
                 const ta = data.technical_analysis || {};
                 let html = '';
 
-                // RSI
+                // 1. Candle Pattern
+                const cp = ta.candle_pattern;
+                if (cp) {
+                    const imgPath = '/images/candle_patterns/' + cp.pattern + '.png';
+                    html += `
+                        <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
+                            <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">Candle Pattern</div>
+                            <div class="flex items-center gap-3">
+                                <img src="${imgPath}" alt="${cp.name_en || cp.name_kr}" class="w-12 h-12 object-contain" onerror="this.style.display='none'">
+                                <div>
+                                    <div class="text-sm font-bold ${cp.signal === 'bullish' ? 'text-green-400' : 'text-red-400'}">${cp.name_en || cp.name_kr}</div>
+                                    <div class="text-[10px] text-gray-500">${cp.desc_en || cp.desc} (${cp.date})</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
+                            <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Candle Pattern</div>
+                            <div class="text-xs text-gray-500">No significant pattern in last 5 days</div>
+                        </div>
+                    `;
+                }
+
+                // 2. RSI
                 const rsi = ta.rsi || { value: 50, status: 'neutral' };
                 const rsiColor = rsi.status === 'overbought' ? 'text-red-400' :
                     rsi.status === 'oversold' ? 'text-green-400' : 'text-gray-400';
@@ -555,7 +586,7 @@
                     </div>
                 `;
 
-                // Volume
+                // 3. Volume
                 const vol = ta.volume || { pct_change: 0, status: 'normal' };
                 const volColor = vol.pct_change >= 0 ? 'text-green-400' : 'text-red-400';
                 const volSign = vol.pct_change >= 0 ? '+' : '';

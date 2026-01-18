@@ -87,7 +87,7 @@
 
             <!-- Language Switcher -->
             <div class="hidden md:flex items-center justify-end">
-                <a href="/en/"
+                <a id="langSwitcher" href="/en/"
                     class="flex items-center gap-1.5 text-blue-200 hover:text-white transition px-3 py-1.5 rounded-full hover:bg-[#3e63b0] group"
                     title="English">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -259,6 +259,12 @@
                 renderPage(stockData);
                 initHeaderSearch();
                 initFavorites(stockData.ticker); // [NEW] Initialize favorites
+
+                // Update language switcher to maintain current page
+                const langSwitcher = document.getElementById('langSwitcher');
+                if (langSwitcher) {
+                    langSwitcher.href = `/en/stock/${stockData.ticker}`;
+                }
 
             } catch (err) {
                 console.error(err);
