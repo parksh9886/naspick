@@ -164,14 +164,17 @@
                 const today = new Date();
                 const dateString = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
-                // 1. Title
-                document.title = `${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis & Rating | NASPICK`;
+                // Rating label
+                const ratingLabel = stockData.tier === 1 ? 'A+' : stockData.tier === 2 ? 'A' : stockData.tier === 3 ? 'B' : stockData.tier === 4 ? 'C' : 'D';
 
-                // 2. Meta Description
+                // 1. Title (with date for long-tail keywords)
+                document.title = `${dateString} ${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis & Rating | NASPICK`;
+
+                // 2. Meta Description (with date)
                 const metaDesc = document.querySelector('meta[name="description"]');
                 if (metaDesc) {
                     metaDesc.setAttribute('content',
-                        `${stockData.name_en || stockData.name} (${stockData.ticker}) AI analysis. Current price $${stockData.current_price}, NASPICK score ${stockData.final_score}/100. Real-time ratings and price targets.`
+                        `[${dateString}] ${stockData.name_en || stockData.name} (${stockData.ticker}) AI analysis. Current price $${stockData.current_price}, NASPICK Rating ${ratingLabel} (Score ${stockData.final_score}/100). Real-time ratings and price targets.`
                     );
                 }
 
@@ -194,21 +197,21 @@
                     twitterImage.setAttribute('content', `https://financialmodelingprep.com/image-stock/${stockData.ticker.replace('.', '-')}.png`);
                 }
 
-                // 5. OG/Twitter Title, Description, URL
+                // 5. OG/Twitter Title, Description, URL (with date)
                 const ogTitle = document.querySelector('meta[property="og:title"]');
-                if (ogTitle) ogTitle.setAttribute('content', `${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis | NASPICK`);
+                if (ogTitle) ogTitle.setAttribute('content', `${dateString} ${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis | NASPICK`);
 
                 const ogDesc = document.querySelector('meta[property="og:description"]');
-                if (ogDesc) ogDesc.setAttribute('content', `${stockData.name_en || stockData.name} AI analysis. Price $${stockData.current_price}, Score ${stockData.final_score}/100.`);
+                if (ogDesc) ogDesc.setAttribute('content', `[${dateString}] ${stockData.name_en || stockData.name} AI analysis. Price $${stockData.current_price}, Rating ${ratingLabel}.`);
 
                 const ogUrl = document.querySelector('meta[property="og:url"]');
                 if (ogUrl) ogUrl.setAttribute('content', `https://naspick.com/en/stock/${stockData.ticker}`);
 
                 const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-                if (twitterTitle) twitterTitle.setAttribute('content', `${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis | NASPICK`);
+                if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis | NASPICK`);
 
                 const twitterDesc = document.querySelector('meta[name="twitter:description"]');
-                if (twitterDesc) twitterDesc.setAttribute('content', `${stockData.name_en || stockData.name} AI analysis. Price $${stockData.current_price}, Score ${stockData.final_score}.`);
+                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString}] ${stockData.name_en || stockData.name} AI analysis. Price $${stockData.current_price}, Rating ${ratingLabel}.`);
 
                 // 6. Schema.org FinancialProduct
                 const schemaScript = document.createElement('script');
