@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 
 <head>
     <!-- Google tag (gtag.js) -->
@@ -12,23 +12,23 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>종목 상세페이지:나스픽</title>
-    <meta name="description" content="미국 주식 실시간 티어 분석 정보">
+    <title>Stock Analysis | NASPICK</title>
+    <meta name="description" content="AI-powered stock analysis and ratings">
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
 
-    <!-- Open Graph (기본값, JS에서 동적 업데이트) -->
+    <!-- Open Graph (Default, updated dynamically via JS) -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="나스픽">
-    <meta property="og:title" content="종목 상세페이지 | 나스픽">
-    <meta property="og:description" content="미국 주식 실시간 티어 분석 정보">
-    <meta property="og:url" content="https://naspick.com/">
+    <meta property="og:site_name" content="NASPICK">
+    <meta property="og:title" content="Stock Analysis | NASPICK">
+    <meta property="og:description" content="AI-powered stock analysis and ratings">
+    <meta property="og:url" content="https://naspick.com/en/">
     <meta property="og:image" content="https://naspick.com/images/og-image.png">
 
-    <!-- Twitter Card (기본값, JS에서 동적 업데이트) -->
+    <!-- Twitter Card (Default, updated dynamically via JS) -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="종목 상세페이지 | 나스픽">
-    <meta name="twitter:description" content="미국 주식 실시간 티어 분석 정보">
+    <meta name="twitter:title" content="Stock Analysis | NASPICK">
+    <meta name="twitter:description" content="AI-powered stock analysis and ratings">
     <meta name="twitter:image" content="https://naspick.com/og-image.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,7 +37,7 @@
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         body {
-            font-family: 'Pretendard', sans-serif;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         @keyframes loadBar {
@@ -65,20 +65,20 @@
             class="container mx-auto px-4 flex flex-row items-center justify-between md:grid md:grid-cols-3 gap-3 md:gap-4">
 
             <div class="flex items-center gap-3 shrink-0">
-                <button onclick="location.href='/'" class="text-blue-200 hover:text-white transition">
+                <button onclick="location.href='/en/'" class="text-blue-200 hover:text-white transition">
                     <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
                         </path>
                     </svg>
                 </button>
-                <a href="/"
+                <a href="/en/"
                     class="text-xl md:text-3xl font-black italic tracking-tighter text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)] cursor-pointer hover:opacity-90 transition block">
                     NASPICK
                 </a>
             </div>
 
             <div class="relative flex-1 max-w-[200px] md:max-w-sm flex justify-end md:justify-center md:ml-32">
-                <input type="text" id="headerSearch" placeholder="티커/종목명..."
+                <input type="text" id="headerSearch" placeholder="Ticker or name..."
                     class="w-full bg-[#3e63b0] text-white placeholder-blue-200/50 px-3 py-2 md:px-5 md:py-3 text-sm md:text-base rounded-full border border-blue-400 focus:outline-none focus:ring-2 focus:ring-white transition shadow-inner font-bold">
                 <div id="headerSearchResults"
                     class="absolute top-full right-0 md:right-auto md:left-0 mt-2 w-64 bg-[#282830] rounded-lg shadow-xl border border-gray-700 hidden z-50 max-h-64 overflow-y-auto">
@@ -87,15 +87,15 @@
 
             <!-- Language Switcher -->
             <div class="hidden md:flex items-center justify-end">
-                <a href="/en/"
+                <a href="/"
                     class="flex items-center gap-1.5 text-blue-200 hover:text-white transition px-3 py-1.5 rounded-full hover:bg-[#3e63b0] group"
-                    title="English">
+                    title="한국어">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
                         </path>
                     </svg>
-                    <span class="text-xs font-bold tracking-wide">EN</span>
+                    <span class="text-xs font-bold tracking-wide">KO</span>
                 </a>
             </div>
         </div>
@@ -108,16 +108,31 @@
     <script>
         let allData = [];
 
+        // Korean to English sector mapping
+        const SECTOR_KR_TO_EN = {
+            "기술": "Technology",
+            "커뮤니케이션": "Communication",
+            "임의소비재": "Consumer Discretionary",
+            "필수소비재": "Consumer Staples",
+            "에너지": "Energy",
+            "금융": "Financials",
+            "헬스케어": "Healthcare",
+            "산업재": "Industrials",
+            "소재": "Materials",
+            "부동산": "Real Estate",
+            "유틸리티": "Utilities"
+        };
+
         async function init() {
             try {
-                // [변경] 경로(Path) 방식: "/stock/TSLA" 에서 "TSLA" 추출
+                // Path parsing for /en/stock/TSLA pattern
                 const pathSegments = window.location.pathname.split('/');
                 let ticker = pathSegments[pathSegments.length - 1];
 
-                // 혹시 주소가 "/stock/TSLA/" 처럼 끝에 슬래시가 붙을 경우 대비
+                // Handle trailing slash /en/stock/TSLA/
                 if (!ticker) ticker = pathSegments[pathSegments.length - 2];
 
-                // URL 파라미터가 있다면 (기존 방식 하위 호환)
+                // URL parameter fallback
                 const params = new URLSearchParams(window.location.search);
                 if (!ticker || ticker === 'page.html') {
                     ticker = params.get('ticker');
@@ -126,61 +141,52 @@
                 if (ticker) ticker = ticker.toUpperCase();
 
                 if (!ticker || ticker === 'STOCK' || ticker === 'PAGE.HTML') {
-                    // 티커가 없는 경우 홈으로 리다이렉트 하지 않고 대기 (또는 에러 표시)
-                    // alert('잘못된 접근입니다.');
-                    // location.href = 'index.html';
-                    // return;
+                    // Invalid access
                 }
 
                 if (!ticker) {
-                    alert('종목을 찾을 수 없습니다.');
-                    location.href = '/';
+                    alert('Stock not found.');
+                    location.href = '/en/';
                     return;
                 }
 
-                // data.json 경로 주의 (루트 기준)
-                // data.json 경로 주의 (data/ 폴더)
                 const res = await fetch('/data/data.json?t=' + new Date().getTime());
                 allData = await res.json();
 
                 const stockData = allData.find(d => d.ticker === ticker);
 
                 if (!stockData) {
-                    document.getElementById('mainContent').innerHTML = '<div class="p-20 text-center text-red-400">해당 종목 데이터를 찾을 수 없습니다.</div>';
+                    document.getElementById('mainContent').innerHTML = '<div class="p-20 text-center text-red-400">Stock data not found.</div>';
                     return;
                 }
 
-                // --- SEO 핵심 추가: 동적 타이틀, 메타설명, Canonical Tag ---
+                // --- SEO: Dynamic Title, Meta, Canonical ---
                 const today = new Date();
-                const month = today.getMonth() + 1;
-                const date = today.getDate();
-                const dateString = `${month}월 ${date}일`;
+                const dateString = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
-                // 1. Title 업데이트
-                document.title = `${dateString} ${stockData.name}(${stockData.ticker}) 실시간 티어 & 주가 분석 | 나스픽`;
+                // 1. Title
+                document.title = `${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis & Rating | NASPICK`;
 
-                // 2. Meta Description 업데이트
+                // 2. Meta Description
                 const metaDesc = document.querySelector('meta[name="description"]');
                 if (metaDesc) {
                     metaDesc.setAttribute('content',
-                        `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 나스픽 점수 ${stockData.final_score}점(${stockData.tier}티어). 기관 수급 포착 및 상승 모멘텀 발생. 1차 지지 라인 확인하기.`
+                        `${stockData.name_en || stockData.name} (${stockData.ticker}) AI analysis. Current price $${stockData.current_price}, NASPICK score ${stockData.final_score}/100. Real-time ratings and price targets.`
                     );
                 }
 
-                // 3. Canonical Tag 설정
+                // 3. Canonical Tag
                 let canonicalLink = document.querySelector('link[rel="canonical"]');
                 if (!canonicalLink) {
                     canonicalLink = document.createElement('link');
                     canonicalLink.rel = 'canonical';
                     document.head.appendChild(canonicalLink);
                 }
-                canonicalLink.href = `https://naspick.com/stock/${stockData.ticker}`;
+                canonicalLink.href = `https://naspick.com/en/stock/${stockData.ticker}`;
 
-                // 4. OG Image 동적 업데이트 (종목 로고)
-                // Fallback이 이미 헤더에 있지만, 종목별 이미지가 있다면 교체
+                // 4. OG Image
                 const ogImage = document.querySelector('meta[property="og:image"]');
                 if (ogImage) {
-                    // FMP 로고 활용 (또는 차트 이미지)
                     ogImage.setAttribute('content', `https://financialmodelingprep.com/image-stock/${stockData.ticker.replace('.', '-')}.png`);
                 }
                 const twitterImage = document.querySelector('meta[name="twitter:image"]');
@@ -188,41 +194,41 @@
                     twitterImage.setAttribute('content', `https://financialmodelingprep.com/image-stock/${stockData.ticker.replace('.', '-')}.png`);
                 }
 
-                // 5. OG/Twitter Title, Description, URL 동적 업데이트
+                // 5. OG/Twitter Title, Description, URL
                 const ogTitle = document.querySelector('meta[property="og:title"]');
-                if (ogTitle) ogTitle.setAttribute('content', `${dateString} ${stockData.name}(${stockData.ticker}) 실시간 티어 & 주가 분석 | 나스픽`);
+                if (ogTitle) ogTitle.setAttribute('content', `${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis | NASPICK`);
 
                 const ogDesc = document.querySelector('meta[property="og:description"]');
-                if (ogDesc) ogDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 나스픽 점수 ${stockData.final_score}점(${stockData.tier}티어).`);
+                if (ogDesc) ogDesc.setAttribute('content', `${stockData.name_en || stockData.name} AI analysis. Price $${stockData.current_price}, Score ${stockData.final_score}/100.`);
 
                 const ogUrl = document.querySelector('meta[property="og:url"]');
-                if (ogUrl) ogUrl.setAttribute('content', `https://naspick.com/stock/${stockData.ticker}`);
+                if (ogUrl) ogUrl.setAttribute('content', `https://naspick.com/en/stock/${stockData.ticker}`);
 
                 const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-                if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.name}(${stockData.ticker}) 실시간 티어 & 주가 분석 | 나스픽`);
+                if (twitterTitle) twitterTitle.setAttribute('content', `${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis | NASPICK`);
 
                 const twitterDesc = document.querySelector('meta[name="twitter:description"]');
-                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 점수 ${stockData.final_score}점.`);
+                if (twitterDesc) twitterDesc.setAttribute('content', `${stockData.name_en || stockData.name} AI analysis. Price $${stockData.current_price}, Score ${stockData.final_score}.`);
 
-                // 6. Schema.org 구조화 데이터 (FinancialProduct)
+                // 6. Schema.org FinancialProduct
                 const schemaScript = document.createElement('script');
                 schemaScript.type = 'application/ld+json';
                 schemaScript.textContent = JSON.stringify({
                     "@context": "https://schema.org",
                     "@type": "FinancialProduct",
-                    "name": `${stockData.name} (${stockData.ticker})`,
-                    "description": `${stockData.name} 실시간 AI 분석. 현재가 $${stockData.current_price}, 나스픽 점수 ${stockData.final_score}점 (${stockData.tier}티어)`,
-                    "category": stockData.sector,
-                    "url": `https://naspick.com/stock/${stockData.ticker}`,
+                    "name": `${stockData.name_en || stockData.name} (${stockData.ticker})`,
+                    "description": `${stockData.name_en || stockData.name} real-time AI analysis. Current price $${stockData.current_price}, NASPICK score ${stockData.final_score}/100`,
+                    "category": SECTOR_KR_TO_EN[stockData.sector] || stockData.sector,
+                    "url": `https://naspick.com/en/stock/${stockData.ticker}`,
                     "provider": {
                         "@type": "Organization",
-                        "name": "나스픽",
-                        "url": "https://naspick.com"
+                        "name": "NASPICK",
+                        "url": "https://naspick.com/en/"
                     }
                 });
                 document.head.appendChild(schemaScript);
 
-                // 7. Breadcrumb 스키마 (검색 결과에 경로 표시)
+                // 7. Breadcrumb Schema
                 const breadcrumbScript = document.createElement('script');
                 breadcrumbScript.type = 'application/ld+json';
                 breadcrumbScript.textContent = JSON.stringify({
@@ -231,18 +237,24 @@
                     "itemListElement": [{
                         "@type": "ListItem",
                         "position": 1,
-                        "name": "홈",
-                        "item": "https://naspick.com/"
+                        "name": "Home",
+                        "item": "https://naspick.com/en/"
                     }, {
                         "@type": "ListItem",
                         "position": 2,
-                        "name": `${stockData.name} (${stockData.ticker})`,
-                        "item": `https://naspick.com/stock/${stockData.ticker}`
+                        "name": `${stockData.name_en || stockData.name} (${stockData.ticker})`,
+                        "item": `https://naspick.com/en/stock/${stockData.ticker}`
                     }]
                 });
                 document.head.appendChild(breadcrumbScript);
 
-                // 8. hreflang 동적 추가
+                // 8. hreflang tags
+                const hreflangEn = document.createElement('link');
+                hreflangEn.rel = 'alternate';
+                hreflangEn.hreflang = 'en';
+                hreflangEn.href = `https://naspick.com/en/stock/${stockData.ticker}`;
+                document.head.appendChild(hreflangEn);
+
                 const hreflangKo = document.createElement('link');
                 hreflangKo.rel = 'alternate';
                 hreflangKo.hreflang = 'ko';
@@ -252,51 +264,50 @@
                 const hreflangDefault = document.createElement('link');
                 hreflangDefault.rel = 'alternate';
                 hreflangDefault.hreflang = 'x-default';
-                hreflangDefault.href = `https://naspick.com/stock/${stockData.ticker}`;
+                hreflangDefault.href = `https://naspick.com/en/stock/${stockData.ticker}`;
                 document.head.appendChild(hreflangDefault);
                 // ----------------------------------------------------
 
                 renderPage(stockData);
                 initHeaderSearch();
-                initFavorites(stockData.ticker); // [NEW] Initialize favorites
+                initFavorites(stockData.ticker);
 
             } catch (err) {
                 console.error(err);
-                document.getElementById('mainContent').innerHTML = '<div class="p-20 text-center text-red-400">데이터 로드 실패</div>';
+                document.getElementById('mainContent').innerHTML = '<div class="p-20 text-center text-red-400">Failed to load data</div>';
             }
         }
 
         function renderPage(data) {
             const isPlus = data.change_pct >= 0;
-            const changeColor = isPlus ? 'text-red-400' : 'text-blue-400';
+            // US convention: green = up, red = down
+            const changeColor = isPlus ? 'text-green-400' : 'text-red-400';
             const changeSign = isPlus ? '▲' : '▼';
 
+            // Rating badge (A+, A, B, C, D instead of Tier)
             let tierBadge = '';
-            if (data.tier === 1) tierBadge = `<span class="bg-[#0093ff] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12 cursor-help" title="Top 5%">1 TIER</span>`;
-            else if (data.tier === 2) tierBadge = `<span class="bg-[#00bba3] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">2 TIER</span>`;
-            else if (data.tier === 3) tierBadge = `<span class="bg-[#ffb900] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">3 TIER</span>`;
-            else if (data.tier === 4) tierBadge = `<span class="bg-[#9aa4af] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">4 TIER</span>`;
-            else tierBadge = `<span class="bg-[#a07557] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">5 TIER</span>`;
+            let ratingLabel = 'C';
+            if (data.tier === 1) { ratingLabel = 'A+'; tierBadge = `<span class="bg-[#0093ff] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12 cursor-help" title="Top 5%">A+</span>`; }
+            else if (data.tier === 2) { ratingLabel = 'A'; tierBadge = `<span class="bg-[#00bba3] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">A</span>`; }
+            else if (data.tier === 3) { ratingLabel = 'B'; tierBadge = `<span class="bg-[#ffb900] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">B</span>`; }
+            else if (data.tier === 4) { ratingLabel = 'C'; tierBadge = `<span class="bg-[#9aa4af] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">C</span>`; }
+            else { ratingLabel = 'D'; tierBadge = `<span class="bg-[#a07557] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">D</span>`; }
+
+            const sectorEn = SECTOR_KR_TO_EN[data.sector] || data.sector;
 
             const stats = data.stats_bar || { trend: 0, volume: 0, momentum: 0, impact: 0 };
-            const signals = (data.signals || []).map(s => {
-                if (s === "RSI_Overbought") return `<span class="text-rose-400 font-bold ml-1">RSI 과열권</span>`;
-                if (s === "MACD_GoldenCross") return `<span class="text-amber-400 font-bold ml-1">MACD Golden Cross</span>`;
-                return s;
-            }).join(', ');
 
-            // --- Extract Consensus HTML Generation Logic ---
+            // --- Consensus HTML ---
             const consensusHtml = (() => {
                 const cons = data.consensus;
-                // Check if consensus exists AND has valid target_price data
                 if (!cons || !cons.target_price) {
                     return `
                         <div class="flex items-center justify-between mb-4">
                             <div class="text-gray-400 text-xs font-bold uppercase tracking-wider">Wall St. Consensus</div>
-                            <div class="text-xs text-gray-500">데이터 없음</div>
+                            <div class="text-xs text-gray-500">No data</div>
                         </div>
                         <div class="text-center text-gray-500 text-sm py-4">
-                            전문가 의견 데이터가 없습니다.
+                            No analyst ratings available.
                         </div>
                     `;
                 }
@@ -329,7 +340,7 @@
                         <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        월스트리트 시장 예상치(전망치)
+                        Wall Street Price Targets
                     </div>
                     <div class="flex justify-between items-end mb-6">
                         <div>
@@ -339,11 +350,11 @@
                                 <span class="text-xs bg-blue-600 text-white px-2 py-0.5 rounded">${score} / 5.0</span>
                             </div>
                             ` : `
-                            <div class="text-sm text-gray-400">투자의견 없음</div>
+                            <div class="text-sm text-gray-400">No rating</div>
                             `}
                         </div>
                         <div class="text-right">
-                            <div class="text-gray-400 text-xs">상승 여력 (Upside)</div>
+                            <div class="text-gray-400 text-xs">Upside Potential</div>
                             <div class="text-xl font-bold ${upsideColor}">${upsideSign}${upside}%</div>
                         </div>
                     </div>
@@ -364,7 +375,7 @@
                             <div class="text-[10px] text-gray-400">Target</div>
                         </div>
 
-                        <!-- Current Price (White Triangle) - Moved Above -->
+                        <!-- Current Price (White Triangle) -->
                         <div class="absolute -top-6 flex flex-col items-center z-20 transition-all duration-1000" style="left: ${p_current}%; transform: translateX(-50%);">
                             <div class="mb-1 px-2 py-0.5 bg-gray-600 rounded text-xs text-white font-bold border border-gray-500 shadow-lg whitespace-nowrap">
                                 Now $${current}
@@ -376,18 +387,17 @@
                 `;
             })();
 
-            // --- Financial Health HTML Generation (Enhanced with indicators, badges, tooltips) ---
+            // --- Financial Health HTML ---
             const financialHealthHtml = (() => {
                 const fh = data.financial_health;
                 if (!fh) {
                     return `
                         <div class="text-center text-gray-500 text-sm py-4">
-                            재무 데이터가 없습니다.
+                            Financial data not available.
                         </div>
                     `;
                 }
 
-                // Status evaluation helper
                 const evaluate = (val, thresholds) => {
                     if (val === null || val === undefined || val === 0) return { color: 'text-gray-500', badge: null, badgeColor: '' };
                     if (thresholds.higherBetter) {
@@ -395,26 +405,23 @@
                         if (val >= thresholds.warn) return { color: 'text-gray-300', badge: null, badgeColor: '' };
                         return { color: 'text-red-400', badge: thresholds.badLabel, badgeColor: 'bg-red-500/20 text-red-400' };
                     } else {
-                        // Lower is better (PER, PBR, debt)
                         if (val <= thresholds.good) return { color: 'text-green-400', badge: thresholds.goodLabel, badgeColor: 'bg-green-500/20 text-green-400' };
                         if (val <= thresholds.warn) return { color: 'text-gray-300', badge: null, badgeColor: '' };
                         return { color: 'text-red-400', badge: thresholds.badLabel, badgeColor: 'bg-red-500/20 text-red-400' };
                     }
                 };
 
-                // Thresholds definition
                 const thresholds = {
-                    per: { good: 15, warn: 25, goodLabel: '저평가', badLabel: '고평가', higherBetter: false, tip: '10배 미만이면 저평가', benchmark: 'S&P500 평균 약 20배' },
-                    pbr: { good: 1.5, warn: 3, goodLabel: '자산가치↑', badLabel: '고평가', higherBetter: false, tip: '1배 미만이면 순자산보다 저렴', benchmark: '1~3배가 일반적' },
-                    revenue_growth: { good: 15, warn: 0, goodLabel: '고성장', badLabel: '역성장', higherBetter: true, tip: '15% 이상이면 고성장 기업', benchmark: 'S&P500 평균 5~10%' },
-                    eps_growth: { good: 20, warn: 0, goodLabel: '급성장', badLabel: '감소', higherBetter: true, tip: '20% 이상이면 이익 급증', benchmark: '10% 이상이면 양호' },
-                    roe: { good: 15, warn: 8, goodLabel: '고수익', badLabel: '저효율', higherBetter: true, tip: '워렌 버핏은 15% 이상 선호', benchmark: '10% 이상이면 양호' },
-                    operating_margin: { good: 15, warn: 5, goodLabel: '마진우수', badLabel: '저마진', higherBetter: true, tip: '15% 이상이면 탁월한 수익성', benchmark: '업종별 편차 큼' },
-                    debt_ratio: { good: 100, warn: 200, goodLabel: '안정', badLabel: '위험', higherBetter: false, tip: '100% 미만이면 재정 건전', benchmark: '200% 초과 시 주의' },
-                    current_ratio: { good: 1.5, warn: 1, goodLabel: '유동성↑', badLabel: '주의', higherBetter: true, tip: '1.5 이상이면 단기 상환 능력 우수', benchmark: '1 미만은 유동성 위험' }
+                    per: { good: 15, warn: 25, goodLabel: 'Undervalued', badLabel: 'Overvalued', higherBetter: false },
+                    pbr: { good: 1.5, warn: 3, goodLabel: 'Good Value', badLabel: 'Overvalued', higherBetter: false },
+                    revenue_growth: { good: 15, warn: 0, goodLabel: 'High Growth', badLabel: 'Declining', higherBetter: true },
+                    eps_growth: { good: 20, warn: 0, goodLabel: 'Strong', badLabel: 'Declining', higherBetter: true },
+                    roe: { good: 15, warn: 8, goodLabel: 'Excellent', badLabel: 'Weak', higherBetter: true },
+                    operating_margin: { good: 15, warn: 5, goodLabel: 'High Margin', badLabel: 'Low Margin', higherBetter: true },
+                    debt_ratio: { good: 100, warn: 200, goodLabel: 'Stable', badLabel: 'Risky', higherBetter: false },
+                    current_ratio: { good: 1.5, warn: 1, goodLabel: 'Liquid', badLabel: 'Caution', higherBetter: true }
                 };
 
-                // Format with color and badge
                 const formatMetric = (key, val, suffix = '') => {
                     if (val === null || val === undefined || val === 0) return '<span class="text-gray-500">-</span>';
                     const t = thresholds[key];
@@ -423,133 +430,172 @@
                     return `<span class="${status.color} font-bold">${val}${suffix}</span>${badgeHtml}`;
                 };
 
-                // Tooltip helper
-                const tooltip = (key) => {
-                    const t = thresholds[key];
-                    return `<span class="group relative cursor-help ml-1">
-                        <span class="text-gray-500 text-[10px] p-2 -m-2">ⓘ</span>
-                        <span class="invisible group-hover:visible absolute bottom-full left-1/2 -translate-x-1/4 mb-2 w-40 p-2 bg-gray-900 border border-gray-700 rounded text-[10px] text-gray-300 z-50 shadow-lg">
-                            <div class="font-bold text-white mb-1">${t.tip}</div>
-                            <div class="text-gray-400">기준: ${t.benchmark}</div>
-                        </span>
-                    </span>`;
-                };
-
                 return `
-                    <!-- 가치 평가 -->
+                    <!-- Valuation -->
                     <div class="bg-[#1e1e24] rounded-lg p-4 border border-gray-700">
                         <div class="flex items-center gap-2 mb-3">
                             <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <span class="text-sm font-bold text-gray-200">가치 평가</span>
+                            <span class="text-sm font-bold text-gray-200">Valuation</span>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <div class="text-xs text-gray-400 mb-1 flex items-center">PER${tooltip('per')}</div>
-                                <div class="text-lg">${formatMetric('per', fh.per, '배')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">순이익의 몇 배?</div>
+                                <div class="text-xs text-gray-400 mb-1">P/E Ratio</div>
+                                <div class="text-lg">${formatMetric('per', fh.per, 'x')}</div>
                             </div>
                             <div>
-                                <div class="text-xs text-gray-400 mb-1 flex items-center">PBR${tooltip('pbr')}</div>
-                                <div class="text-lg">${formatMetric('pbr', fh.pbr, '배')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">순자산의 몇 배?</div>
+                                <div class="text-xs text-gray-400 mb-1">P/B Ratio</div>
+                                <div class="text-lg">${formatMetric('pbr', fh.pbr, 'x')}</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 성장성 -->
+                    <!-- Growth -->
                     <div class="bg-[#1e1e24] rounded-lg p-4 border border-gray-700">
                         <div class="flex items-center gap-2 mb-3">
                             <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                             </svg>
-                            <span class="text-sm font-bold text-gray-200">성장성</span>
+                            <span class="text-sm font-bold text-gray-200">Growth</span>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <div class="text-xs text-gray-400 mb-1 flex items-center">매출성장률${tooltip('revenue_growth')}</div>
+                                <div class="text-xs text-gray-400 mb-1">Revenue Growth</div>
                                 <div class="text-lg">${formatMetric('revenue_growth', fh.revenue_growth, '%')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">매출 증가율</div>
                             </div>
                             <div>
-                                <div class="text-xs text-gray-400 mb-1 flex items-center">EPS성장률${tooltip('eps_growth')}</div>
+                                <div class="text-xs text-gray-400 mb-1">EPS Growth</div>
                                 <div class="text-lg">${formatMetric('eps_growth', fh.eps_growth, '%')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">주당순이익 증가율</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 수익성 -->
+                    <!-- Profitability -->
                     <div class="bg-[#1e1e24] rounded-lg p-4 border border-gray-700">
                         <div class="flex items-center gap-2 mb-3">
                             <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
                             </svg>
-                            <span class="text-sm font-bold text-gray-200">수익성</span>
+                            <span class="text-sm font-bold text-gray-200">Profitability</span>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <div class="text-xs text-gray-400 mb-1 flex items-center">ROE${tooltip('roe')}</div>
+                                <div class="text-xs text-gray-400 mb-1">ROE</div>
                                 <div class="text-lg">${formatMetric('roe', fh.roe, '%')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">자기자본이익률</div>
                             </div>
                             <div>
-                                <div class="text-xs text-gray-400 mb-1 flex items-center">영업이익률${tooltip('operating_margin')}</div>
+                                <div class="text-xs text-gray-400 mb-1">Operating Margin</div>
                                 <div class="text-lg">${formatMetric('operating_margin', fh.operating_margin, '%')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">순수 영업 마진</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 안정성 -->
+                    <!-- Stability -->
                     <div class="bg-[#1e1e24] rounded-lg p-4 border border-gray-700">
                         <div class="flex items-center gap-2 mb-3">
                             <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                             </svg>
-                            <span class="text-sm font-bold text-gray-200">안정성</span>
+                            <span class="text-sm font-bold text-gray-200">Stability</span>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <div class="text-xs text-gray-400 mb-1 flex items-center">부채비율${tooltip('debt_ratio')}</div>
+                                <div class="text-xs text-gray-400 mb-1">Debt Ratio</div>
                                 <div class="text-lg">${formatMetric('debt_ratio', fh.debt_ratio, '%')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">자본 대비 부채</div>
                             </div>
                             <div>
-                                <div class="text-xs text-gray-400 mb-1 flex items-center">유동비율${tooltip('current_ratio')}</div>
+                                <div class="text-xs text-gray-400 mb-1">Current Ratio</div>
                                 <div class="text-lg">${formatMetric('current_ratio', fh.current_ratio, '')}</div>
-                                <div class="text-[10px] text-gray-500 mt-1">단기 상환 능력</div>
                             </div>
                         </div>
                     </div>
                 `;
             })();
 
+            // --- Technical Analysis HTML ---
+            const technicalHtml = (() => {
+                const ta = data.technical_analysis || {};
+                let html = '';
+
+                // RSI
+                const rsi = ta.rsi || { value: 50, status: 'neutral' };
+                const rsiColor = rsi.status === 'overbought' ? 'text-red-400' :
+                    rsi.status === 'oversold' ? 'text-green-400' : 'text-gray-400';
+                const rsiLabel = rsi.status === 'overbought' ? 'Overbought' :
+                    rsi.status === 'oversold' ? 'Oversold' :
+                        rsi.status === 'bullish' ? 'Bullish' : 'Bearish';
+
+                html += `
+                    <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
+                        <div class="flex justify-between items-center mb-3">
+                            <div class="text-[10px] text-gray-500 uppercase tracking-wider">RSI (14)</div>
+                            <div class="${rsiColor} text-xs font-bold">${rsiLabel}</div>
+                        </div>
+                        <div class="relative">
+                            <div class="h-3 rounded-full overflow-hidden flex">
+                                <div class="w-[30%] bg-gradient-to-r from-green-600 to-green-500"></div>
+                                <div class="w-[40%] bg-gradient-to-r from-green-500 via-gray-600 to-red-500"></div>
+                                <div class="w-[30%] bg-gradient-to-r from-red-500 to-red-600"></div>
+                            </div>
+                            <div class="absolute top-0 h-3 flex items-center" style="left: ${rsi.value}%; transform: translateX(-50%);">
+                                <div class="w-1 h-5 bg-white rounded shadow-lg shadow-white/50"></div>
+                            </div>
+                            <div class="flex justify-between text-[8px] text-gray-600 mt-1">
+                                <span>0</span>
+                                <span class="text-green-500">30</span>
+                                <span class="text-gray-400">50</span>
+                                <span class="text-red-500">70</span>
+                                <span>100</span>
+                            </div>
+                        </div>
+                        <div class="text-center mt-2">
+                            <span class="text-2xl font-bold ${rsiColor}">${rsi.value}</span>
+                        </div>
+                    </div>
+                `;
+
+                // Volume
+                const vol = ta.volume || { pct_change: 0, status: 'normal' };
+                const volColor = vol.pct_change >= 0 ? 'text-green-400' : 'text-red-400';
+                const volSign = vol.pct_change >= 0 ? '+' : '';
+
+                html += `
+                    <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
+                        <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">Volume <span class="normal-case">(vs Avg)</span></div>
+                        <div class="flex items-center gap-2">
+                            <div class="${volColor} text-sm font-bold">${volSign}${vol.pct_change}%</div>
+                        </div>
+                    </div>
+                `;
+
+                return html;
+            })();
+
             const html = `
                 <section class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
                     <div class="flex items-center gap-4">
                         <img src="https://financialmodelingprep.com/image-stock/${data.ticker.replace('.', '-')}.png" 
-                             alt="${data.name} 로고"
+                             alt="${data.name_en || data.name} logo"
                              onerror="this.src='https://ui-avatars.com/api/?name=${data.ticker}&background=5383e8&color=fff&size=256'" 
                              style="filter: invert(1) hue-rotate(180deg);" class="w-16 h-16 rounded-lg shadow-lg object-contain">
                             <div>
                                 <div class="flex items-center gap-2 mb-1">
-                                    <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">${data.name}</h1>
+                                    <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">${data.name_en || data.name}</h1>
                                     <div id="favoriteContainer" class="cursor-pointer pt-1"></div>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <span class="text-lg font-bold text-gray-400 tracking-wider">${data.ticker}</span>
                                     ${tierBadge}
                                 </div>
-                                <div class="text-gray-400 text-sm mt-0.5">${data.sector}</div>
+                                <div class="text-gray-400 text-sm mt-0.5">${sectorEn}</div>
                             </div>
                         </div>
                     </div>
                     <div class="text-right">
                         <div class="text-4xl font-bold font-mono">$${data.current_price}</div>
                         <div class="${changeColor} font-bold text-lg flex items-center justify-end gap-1">
-                            ${isPlus ? '▲' : ''} ${data.change_pct}% <span class="text-xs text-gray-500 font-normal">Today</span>
+                            ${changeSign} ${Math.abs(data.change_pct)}% <span class="text-xs text-gray-500 font-normal">Today</span>
                         </div>
                     </div>
                 </section>
@@ -571,7 +617,7 @@
                                 <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
                                 </svg>
-                                재무 건전성 점검
+                                Financial Health
                             </h3>
                             <div class="space-y-3">
                                 ${financialHealthHtml}
@@ -590,7 +636,7 @@
                                 <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
                                 </svg>
-                                나스픽 점수 분석
+                                NASPICK Score
                             </h2>
                             
                             <div class="flex items-end gap-2 mb-6">
@@ -601,7 +647,7 @@
                             <div class="space-y-5">
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
-                                        <span class="text-gray-300 font-bold">Fundamentals (실적/성장)</span>
+                                        <span class="text-gray-300 font-bold">Fundamentals</span>
                                         <span class="text-blue-400 font-bold">${stats.trend}%</span>
                                     </div>
                                     <div class="w-full bg-gray-700 h-2.5 rounded-full overflow-hidden">
@@ -611,7 +657,7 @@
                                 
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
-                                        <span class="text-gray-300 font-bold">Value (가치평가)</span>
+                                        <span class="text-gray-300 font-bold">Value</span>
                                         <span class="text-amber-400 font-bold">${stats.impact}%</span>
                                     </div>
                                     <div class="w-full bg-gray-700 h-2.5 rounded-full overflow-hidden">
@@ -621,7 +667,7 @@
 
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
-                                        <span class="text-gray-300 font-bold">Momentum (상승탄력)</span>
+                                        <span class="text-gray-300 font-bold">Momentum</span>
                                         <span class="text-rose-400 font-bold">${stats.momentum}%</span>
                                     </div>
                                     <div class="w-full bg-gray-700 h-2.5 rounded-full overflow-hidden">
@@ -631,7 +677,7 @@
 
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
-                                        <span class="text-gray-300 font-bold">Sentiment (수급/심리)</span>
+                                        <span class="text-gray-300 font-bold">Sentiment</span>
                                         <span class="text-green-400 font-bold">${stats.volume}%</span>
                                     </div>
                                     <div class="w-full bg-gray-700 h-2.5 rounded-full overflow-hidden">
@@ -651,96 +697,10 @@
                                 <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
-                                기술적 분석
+                                Technical Analysis
                             </h3>
                             <div class="space-y-4">
-                                ${(() => {
-                    const ta = data.technical_analysis || {};
-                    let html = '';
-
-                    // 1. Candle Pattern
-                    const cp = ta.candle_pattern;
-                    if (cp) {
-                        const imgPath = '/images/candle_patterns/' + cp.pattern + '.png';
-                        html += `
-                                            <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
-                                                <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">캔들 패턴</div>
-                                                <div class="flex items-center gap-3">
-                                                    <img src="${imgPath}" alt="${cp.name_kr}" class="w-12 h-12 object-contain" onerror="this.style.display='none'">
-                                                    <div>
-                                                        <div class="text-sm font-bold ${cp.signal === 'bullish' ? 'text-green-400' : 'text-red-400'}">${cp.name_kr}</div>
-                                                        <div class="text-[10px] text-gray-500">${cp.desc} (${cp.date})</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        `;
-                    } else {
-                        html += `
-                                            <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
-                                                <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">캔들 패턴</div>
-                                                <div class="text-xs text-gray-500">최근 5일 내 특이 패턴 없음</div>
-                                            </div>
-                                        `;
-                    }
-
-                    // 2. RSI (Gauge Chart Style)
-                    const rsi = ta.rsi || { value: 50, status: 'neutral' };
-                    // Color logic: Overbought=Red, Oversold=Blue, Others=Gray
-                    const rsiColor = rsi.status === 'overbought' ? 'text-red-400' :
-                        rsi.status === 'oversold' ? 'text-blue-400' : 'text-gray-400';
-                    const rsiLabel = rsi.status === 'overbought' ? '과매수' :
-                        rsi.status === 'oversold' ? '과매도' :
-                            rsi.status === 'bullish' ? '강세' : '약세';
-
-                    html += `
-                                        <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
-                                            <div class="flex justify-between items-center mb-3">
-                                                <div class="text-[10px] text-gray-500 uppercase tracking-wider">RSI (14)</div>
-                                                <div class="${rsiColor} text-xs font-bold">${rsiLabel}</div>
-                                            </div>
-                                            <div class="relative">
-                                                <!-- RSI Gauge Background with zones -->
-                                                <div class="h-3 rounded-full overflow-hidden flex">
-                                                    <div class="w-[30%] bg-gradient-to-r from-blue-600 to-blue-500"></div>
-                                                    <div class="w-[40%] bg-gradient-to-r from-blue-500 via-gray-600 to-red-500"></div>
-                                                    <div class="w-[30%] bg-gradient-to-r from-red-500 to-red-600"></div>
-                                                </div>
-                                                <!-- RSI Marker -->
-                                                <div class="absolute top-0 h-3 flex items-center" style="left: ${rsi.value}%; transform: translateX(-50%);">
-                                                    <div class="w-1 h-5 bg-white rounded shadow-lg shadow-white/50"></div>
-                                                </div>
-                                                <!-- Zone Labels -->
-                                                <div class="flex justify-between text-[8px] text-gray-600 mt-1">
-                                                    <span>0</span>
-                                                    <span class="text-blue-500">30</span>
-                                                    <span class="text-gray-400">50</span>
-                                                    <span class="text-red-500">70</span>
-                                                    <span>100</span>
-                                                </div>
-                                            </div>
-                                            <div class="text-center mt-2">
-                                                <span class="text-2xl font-bold ${rsiColor}">${rsi.value}</span>
-                                            </div>
-                                        </div>
-                                    `;
-
-                    // 3. Volume
-                    const vol = ta.volume || { pct_change: 0, status: 'normal' };
-                    // Color logic: Rise=Red, Fall=Blue
-                    const volColor = vol.pct_change >= 0 ? 'text-red-400' : 'text-blue-400';
-                    const volSign = vol.pct_change >= 0 ? '+' : '';
-
-                    html += `
-                                        <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
-                                            <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">거래량 <span class="normal-case">(전일)</span></div>
-                                            <div class="flex items-center gap-2">
-                                                <div class="${volColor} text-sm font-bold">평균 대비 ${volSign}${vol.pct_change}%</div>
-                                            </div>
-                                        </div>
-                                    `;
-
-                    return html;
-                })()}
+                                ${technicalHtml}
                             </div>
                         </div>
 
@@ -750,7 +710,7 @@
                                 <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
                                 </svg>
-                                재무 건전성 점검
+                                Financial Health
                             </h3>
                             <div class="space-y-3">
                                 ${financialHealthHtml}
@@ -762,31 +722,31 @@
                                 <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                                 </svg>
-                                관련주 TOP 3
+                                Related Stocks
                             </h4>
                             <div class="space-y-3">
                                 ${(data.related_peers || []).map(p => {
-                    const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker };
-                    // SEO 수정: onclick -> a href
-                    return `
-                                        <a href="/stock/${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
-                                            <div class="flex items-center gap-3">
-                                                <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
-                                                    <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" 
-                                                         alt="${p.ticker} 관련주"
-                                                         onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" 
-                                                         style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
-                                                </div>
-                                                <div>
-                                                    <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">${peerData.name}</div>
-                                                    <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
-                                                </div>
+                const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker, name_en: p.ticker };
+                const peerChangeColor = p.change_pct >= 0 ? 'text-green-400' : 'text-red-400';
+                return `
+                                    <a href="/en/stock/${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
+                                                <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" 
+                                                     alt="${p.ticker}"
+                                                     onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" 
+                                                     style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
                                             </div>
-                                            <span class="${p.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct > 0 ? '+' : ''}${p.change_pct}%</span>
-                                        </a>
-                                    `;
-                }).join('')}
-                                ${(data.related_peers || []).length === 0 ? '<div class="text-xs text-gray-600">No peers found</div>' : ''}
+                                            <div>
+                                                <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">${peerData.name_en || peerData.name}</div>
+                                                <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
+                                            </div>
+                                        </div>
+                                        <span class="${peerChangeColor} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct > 0 ? '+' : ''}${p.change_pct}%</span>
+                                    </a>
+                                `;
+            }).join('')}
+                                ${(data.related_peers || []).length === 0 ? '<div class="text-xs text-gray-600">No related stocks found</div>' : ''}
                             </div>
                         </div>
 
@@ -814,17 +774,15 @@
             }
         }
 
-        // [NEW] Favorites Logic for Page
+        // Favorites Logic
         function initFavorites(ticker) {
             const favorites = new Set(JSON.parse(localStorage.getItem('naspick_favorites') || '[]'));
             const container = document.getElementById('favoriteContainer');
             if (!container) return;
 
-            // Render Button
             const isFav = favorites.has(ticker);
             renderFavoriteButton(container, isFav);
 
-            // Click Handler
             container.onclick = (e) => {
                 e.stopPropagation();
                 if (favorites.has(ticker)) {
@@ -833,8 +791,6 @@
                     favorites.add(ticker);
                 }
                 localStorage.setItem('naspick_favorites', JSON.stringify([...favorites]));
-
-                // Update UI immediately
                 renderFavoriteButton(container, favorites.has(ticker));
             };
         }
@@ -868,19 +824,18 @@
                 ).slice(0, 5);
 
                 if (matches.length > 0) {
-                    // SEO 수정: div onclick -> a href
                     resultsDiv.innerHTML = matches.map(d => `
-                        <a href="/stock/${d.ticker}" class="p-2 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
+                        <a href="/en/stock/${d.ticker}" class="p-2 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
                             <div>
                                 <span class="font-bold text-xs text-white">${d.ticker}</span>
-                                <span class="text-[10px] text-gray-400 ml-1">${d.name}</span>
+                                <span class="text-[10px] text-gray-400 ml-1">${d.name_en || d.name}</span>
                             </div>
                             <span class="text-[#5383e8] text-[10px] font-bold">${d.final_score}</span>
                         </a>
                     `).join('');
                     resultsDiv.classList.remove('hidden');
                 } else {
-                    resultsDiv.innerHTML = '<div class="p-2 text-gray-500 text-[10px]">검색 결과 없음</div>';
+                    resultsDiv.innerHTML = '<div class="p-2 text-gray-500 text-[10px]">No results found</div>';
                     resultsDiv.classList.remove('hidden');
                 }
             });

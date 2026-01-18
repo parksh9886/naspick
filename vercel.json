@@ -7,6 +7,18 @@
         {
             "source": "/sector/:sectorName",
             "destination": "/index.html"
+        },
+        {
+            "source": "/en",
+            "destination": "/en/index.html"
+        },
+        {
+            "source": "/en/stock/:ticker",
+            "destination": "/en/page.html"
+        },
+        {
+            "source": "/en/sector/:sectorName",
+            "destination": "/en/index.html"
         }
     ]
 }

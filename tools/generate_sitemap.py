@@ -48,18 +48,26 @@ def generate_sitemap():
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
         '',
-        '    <!-- Homepage -->',
+        '    <!-- Korean Homepage -->',
         '    <url>',
         f'        <loc>{BASE_URL}/</loc>',
         f'        <lastmod>{today}</lastmod>',
         '        <changefreq>daily</changefreq>',
         '        <priority>1.0</priority>',
         '    </url>',
+        '',
+        '    <!-- English Homepage -->',
+        '    <url>',
+        f'        <loc>{BASE_URL}/en/</loc>',
+        f'        <lastmod>{today}</lastmod>',
+        '        <changefreq>daily</changefreq>',
+        '        <priority>1.0</priority>',
+        '    </url>',
     ]
 
-    # Sector pages
+    # Korean Sector pages
     xml_parts.append('')
-    xml_parts.append('    <!-- Sector Pages -->')
+    xml_parts.append('    <!-- Korean Sector Pages -->')
     for sector_kr, sector_slug in SECTOR_SLUGS.items():
         xml_parts.extend([
             '    <url>',
@@ -70,15 +78,43 @@ def generate_sitemap():
             '    </url>',
         ])
 
-    # Stock pages
+    # English Sector pages
     xml_parts.append('')
-    xml_parts.append('    <!-- Stock Pages -->')
+    xml_parts.append('    <!-- English Sector Pages -->')
+    for sector_kr, sector_slug in SECTOR_SLUGS.items():
+        xml_parts.extend([
+            '    <url>',
+            f'        <loc>{BASE_URL}/en/sector/{sector_slug}</loc>',
+            f'        <lastmod>{today}</lastmod>',
+            '        <changefreq>daily</changefreq>',
+            '        <priority>0.9</priority>',
+            '    </url>',
+        ])
+
+    # Korean Stock pages
+    xml_parts.append('')
+    xml_parts.append('    <!-- Korean Stock Pages -->')
     for item in data:
         ticker = item.get('ticker')
         if ticker:
             xml_parts.extend([
                 '    <url>',
                 f'        <loc>{BASE_URL}/stock/{ticker}</loc>',
+                f'        <lastmod>{today}</lastmod>',
+                '        <changefreq>daily</changefreq>',
+                '        <priority>0.8</priority>',
+                '    </url>',
+            ])
+
+    # English Stock pages
+    xml_parts.append('')
+    xml_parts.append('    <!-- English Stock Pages -->')
+    for item in data:
+        ticker = item.get('ticker')
+        if ticker:
+            xml_parts.extend([
+                '    <url>',
+                f'        <loc>{BASE_URL}/en/stock/{ticker}</loc>',
                 f'        <lastmod>{today}</lastmod>',
                 '        <changefreq>daily</changefreq>',
                 '        <priority>0.8</priority>',
@@ -97,7 +133,8 @@ def generate_sitemap():
     with open(sitemap_path, 'w', encoding='utf-8') as f:
         f.write('\n'.join(xml_parts))
     
-    print(f"✅ Sitemap generated: {len(data)} stocks + {len(SECTOR_SLUGS)} sectors")
+    print(f"✅ Sitemap generated: {len(data)} stocks × 2 languages + {len(SECTOR_SLUGS)} sectors × 2 languages")
+    print(f"   Total URLs: {2 + len(SECTOR_SLUGS)*2 + len(data)*2}")
     print(f"   Updated: {today}")
 
 if __name__ == "__main__":
