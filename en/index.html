@@ -853,10 +853,26 @@
                     return;
                 }
 
+                // Search aliases for common brand names
+                const SEARCH_ALIASES = {
+                    'google': ['GOOGL', 'GOOG'],
+                    'facebook': ['META'],
+                    'berkshire': ['BRK.B']
+                };
+
+                // Check if search term matches any alias
+                let aliasMatches = [];
+                for (const [alias, tickers] of Object.entries(SEARCH_ALIASES)) {
+                    if (alias.includes(term) || term.includes(alias)) {
+                        aliasMatches = aliasMatches.concat(tickers);
+                    }
+                }
+
                 const matches = allData.filter(d =>
                     d.ticker.toLowerCase().includes(term) ||
                     (d.name && d.name.toLowerCase().includes(term)) ||
-                    (d.name_en && d.name_en.toLowerCase().includes(term))
+                    (d.name_en && d.name_en.toLowerCase().includes(term)) ||
+                    aliasMatches.includes(d.ticker)
                 ).slice(0, 10);
 
                 if (matches.length > 0) {
