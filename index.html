@@ -45,6 +45,38 @@
             font-family: 'Pretendard', sans-serif;
         }
 
+        /* Scrollbar behaviors */
+        @media (max-width: 768px) {
+            .mobile-no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+
+            .mobile-no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .pc-scrollbar::-webkit-scrollbar {
+                height: 8px;
+            }
+
+            .pc-scrollbar::-webkit-scrollbar-track {
+                background: #1c1c1f;
+                border-radius: 4px;
+            }
+
+            .pc-scrollbar::-webkit-scrollbar-thumb {
+                background: #4b5563;
+                border-radius: 4px;
+            }
+
+            .pc-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: #6b7280;
+            }
+        }
+
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -242,7 +274,8 @@
                 <div
                     class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#1c1c1f] to-transparent z-10 pointer-events-none">
                 </div>
-                <nav id="categoryNav" class="flex gap-2 overflow-x-auto no-scrollbar pb-2 items-center pr-4">
+                <nav id="categoryNav"
+                    class="flex gap-2 overflow-x-auto mobile-no-scrollbar pc-scrollbar pb-2 items-center pr-4">
                     <!-- Favorites Button Added Dynamically -->
                     <button data-cat="all"
                         class="px-4 py-2 bg-[#5383e8] text-white font-bold text-xs rounded-full border border-[#5383e8] whitespace-nowrap shadow-lg shadow-blue-500/20 hover:bg-[#426dc6] transition flex-shrink-0 active-cat">
