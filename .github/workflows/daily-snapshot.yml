@@ -28,13 +28,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
+      - name: Sync Stock Names (if new tickers)
+        run: |
+          python tools/sync_stock_names.py
+      
       - name: Create Daily Snapshot
         run: |
           python save_daily_snapshot.py
       
-      - name: Commit and push snapshot
+      - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add data/yesterday_ranks.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "📸 Daily Snapshot: Update yesterday_ranks.json" && (git pull --rebase origin main || git pull origin main) && git push)
+          git add data/yesterday_ranks.json scripts/data/sp500_english_names.py scripts/data/sp500_korean_names.py
+          git diff --quiet && git diff --staged --quiet || (git commit -m "📸 Daily Snapshot: Update ranks and sync names" && (git pull --rebase origin main || git pull origin main) && git push)
