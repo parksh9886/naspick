@@ -240,17 +240,50 @@
             </div>
 
             <div class="relative mb-4 group">
-                <div
-                    class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#1c1c1f] to-transparent z-10 pointer-events-none">
+                <!-- Left Gradient -->
+                <div class="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#1c1c1f] to-transparent z-10 pointer-events-none hidden"
+                    id="scrollLeftGradient"></div>
+
+                <!-- Right Gradient + Arrow -->
+                <div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#1c1c1f] via-[#1c1c1f]/80 to-transparent z-10 pointer-events-none flex items-center justify-end pr-1 transition-opacity duration-300"
+                    id="scrollRightGradient">
+                    <svg class="w-5 h-5 text-gray-400 animate-pulse" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
                 </div>
-                <nav id="categoryNav" class="flex gap-2 overflow-x-auto no-scrollbar pb-2 items-center pr-4">
+
+                <nav id="categoryNav"
+                    class="flex gap-2 overflow-x-auto no-scrollbar pb-2 items-center pr-8 scroll-smooth"
+                    onscroll="checkScroll()">
                     <!-- Favorites Button Added Dynamically -->
                     <button data-cat="all"
                         class="px-4 py-2 bg-[#5383e8] text-white font-bold text-xs rounded-full border border-[#5383e8] whitespace-nowrap shadow-lg shadow-blue-500/20 hover:bg-[#426dc6] transition flex-shrink-0 active-cat">
                         All Stocks
                     </button>
+                    <!-- Other buttons added by JS -->
                 </nav>
             </div>
+
+            <script>
+                function checkScroll() {
+                    const nav = document.getElementById('categoryNav');
+                    const leftGrad = document.getElementById('scrollLeftGradient');
+                    const rightGrad = document.getElementById('scrollRightGradient');
+
+                    if (nav.scrollLeft > 10) {
+                        leftGrad.classList.remove('hidden');
+                    } else {
+                        leftGrad.classList.add('hidden');
+                    }
+
+                    if (nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 10) {
+                        rightGrad.style.opacity = '0';
+                    } else {
+                        rightGrad.style.opacity = '1';
+                    }
+                }
+            </script>
 
             <div class="flex justify-between items-center mb-3 px-2">
                 <span class="text-xs text-gray-500">※ Data updated every 15 mins</span>
