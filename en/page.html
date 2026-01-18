@@ -529,16 +529,40 @@
 
                 // 1. Candle Pattern
                 const cp = ta.candle_pattern;
+
+                // Frontend Translation Fallback (in case backend data is not updated yet)
+                const CANDLE_TRANS = {
+                    "망치형": "Hammer",
+                    "유성형": "Shooting Star",
+                    "상승 장악형": "Bullish Engulfing",
+                    "하락 장악형": "Bearish Engulfing",
+                    "샛별형": "Morning Star",
+                    "석별형": "Evening Star"
+                };
+
+                const CANDLE_DESC_TRANS = {
+                    "하락 추세에서 바닥 반전 신호": "Bottom reversal signal in downtrend",
+                    "상승 추세에서 고점 반전 신호": "Top reversal signal in uptrend",
+                    "강력한 매수세로 추세 반전": "Strong buying momentum reversal",
+                    "강력한 매도세로 추세 반전": "Strong selling momentum reversal",
+                    "강력한 바닥 반전 3봉 패턴": "Strong bottom reversal (3-bar)",
+                    "강력한 고점 반전 3봉 패턴": "Strong top reversal (3-bar)"
+                };
+
                 if (cp) {
                     const imgPath = '/images/candle_patterns/' + cp.pattern + '.png';
+                    // Use priority: existing name_en > mapped name > original name_kr
+                    const finalName = cp.name_en || CANDLE_TRANS[cp.name_kr] || cp.name_kr;
+                    const finalDesc = cp.desc_en || CANDLE_DESC_TRANS[cp.desc] || cp.desc;
+
                     html += `
                         <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
                             <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">Candle Pattern</div>
                             <div class="flex items-center gap-3">
-                                <img src="${imgPath}" alt="${cp.name_en || cp.name_kr}" class="w-12 h-12 object-contain" onerror="this.style.display='none'">
+                                <img src="${imgPath}" alt="${finalName}" class="w-12 h-12 object-contain" onerror="this.style.display='none'">
                                 <div>
-                                    <div class="text-sm font-bold ${cp.signal === 'bullish' ? 'text-green-400' : 'text-red-400'}">${cp.name_en || cp.name_kr}</div>
-                                    <div class="text-[10px] text-gray-500">${cp.desc_en || cp.desc} (${cp.date})</div>
+                                    <div class="text-sm font-bold ${cp.signal === 'bullish' ? 'text-green-400' : 'text-red-400'}">${finalName}</div>
+                                    <div class="text-[10px] text-gray-500">${finalDesc} (${cp.date})</div>
                                 </div>
                             </div>
                         </div>
