@@ -60,20 +60,26 @@
         @media (min-width: 769px) {
             .pc-scrollbar::-webkit-scrollbar {
                 height: 8px;
+                /* Height for horizontal scrollbar */
+                width: 8px;
+                /* Width for vertical scrollbar */
             }
 
             .pc-scrollbar::-webkit-scrollbar-track {
-                background: #1c1c1f;
-                border-radius: 4px;
+                background: transparent;
+                /* Transparent track like the image */
             }
 
             .pc-scrollbar::-webkit-scrollbar-thumb {
-                background: #4b5563;
+                background: #808080;
+                /* Neutral gray like the image */
                 border-radius: 4px;
+                /* Rounded corners */
             }
 
             .pc-scrollbar::-webkit-scrollbar-thumb:hover {
-                background: #6b7280;
+                background: #a0a0a0;
+                /* Lighter on hover */
             }
         }
 
