@@ -18,6 +18,8 @@
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <link rel="canonical" href="https://naspick.com/">
+    <link rel="alternate" hreflang="ko" href="https://naspick.com/">
+    <link rel="alternate" hreflang="x-default" href="https://naspick.com/">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -102,6 +104,18 @@
             "target": "https://naspick.com/stock/{search_term_string}",
             "query-input": "required name=search_term_string"
         }
+    }
+    </script>
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "나스픽 (NASPICK)",
+        "url": "https://naspick.com",
+        "logo": "https://naspick.com/images/og-image.png",
+        "description": "미국 주식 AI 분석 플랫폼. S&P 500 전종목 실시간 티어 분석과 투자 인사이트 제공."
     }
     </script>
 </head>

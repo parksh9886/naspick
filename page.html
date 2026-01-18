@@ -209,6 +209,39 @@
                     }
                 });
                 document.head.appendChild(schemaScript);
+
+                // 7. Breadcrumb 스키마 (검색 결과에 경로 표시)
+                const breadcrumbScript = document.createElement('script');
+                breadcrumbScript.type = 'application/ld+json';
+                breadcrumbScript.textContent = JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [{
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "홈",
+                        "item": "https://naspick.com/"
+                    }, {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": `${stockData.name} (${stockData.ticker})`,
+                        "item": `https://naspick.com/stock/${stockData.ticker}`
+                    }]
+                });
+                document.head.appendChild(breadcrumbScript);
+
+                // 8. hreflang 동적 추가
+                const hreflangKo = document.createElement('link');
+                hreflangKo.rel = 'alternate';
+                hreflangKo.hreflang = 'ko';
+                hreflangKo.href = `https://naspick.com/stock/${stockData.ticker}`;
+                document.head.appendChild(hreflangKo);
+
+                const hreflangDefault = document.createElement('link');
+                hreflangDefault.rel = 'alternate';
+                hreflangDefault.hreflang = 'x-default';
+                hreflangDefault.href = `https://naspick.com/stock/${stockData.ticker}`;
+                document.head.appendChild(hreflangDefault);
                 // ----------------------------------------------------
 
                 renderPage(stockData);
