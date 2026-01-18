@@ -77,11 +77,6 @@
             transition: background 0.3s;
         }
 
-        background: transparent;
-        border-radius: 3px;
-        transition: background 0.3s;
-        }
-
         .modern-scrollbar:hover::-webkit-scrollbar-thumb {
             background: rgba(156, 163, 175, 0.5);
         }
@@ -692,8 +687,9 @@
             const tierBadge = `<span class="px-1.5 py-0.5 text-[9px] md:text-[10px] font-bold rounded border ${tierClass}">${item.tier + ' Tier'}</span>`;
 
             // Determine which rank to show: Overall or Sector
+            // Favorites tab shows overall rank, sector tabs show sector rank
             let displayRank, displayChange;
-            if (category === 'all') {
+            if (category === 'all' || category === 'favorites') {
                 displayRank = item.rank;
                 displayChange = item.rank_change;
             } else {
