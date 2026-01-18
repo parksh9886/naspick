@@ -94,6 +94,13 @@ class NaspickEngine:
             stock_names = SP500_KOREAN_NAMES
         except ImportError:
             stock_names = {}
+
+        # English Names
+        try:
+            from scripts.data.sp500_english_names import SP500_ENGLISH_NAMES
+            stock_names_en = SP500_ENGLISH_NAMES
+        except ImportError:
+            stock_names_en = {}
             
         exchange_map = self.fetcher.get_exchange_data()
         
@@ -156,7 +163,7 @@ class NaspickEngine:
             item = {
                 "ticker": ticker,
                 "name": stock_names.get(ticker, ticker),
-                "name_en": ticker,
+                "name_en": stock_names_en.get(ticker, ticker),
                 "exchange": exchange_map.get(ticker, "NASDAQ"),
                 "sector": sector_kr,
                 "current_price": round(current_price, 2),
