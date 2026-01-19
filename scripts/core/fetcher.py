@@ -186,6 +186,26 @@ class StockDataFetcher:
                                     if hasattr(p_date, 'strftime'):
                                         data['dividend_payment_date'] = p_date.strftime('%Y-%m-%d')
                                         
+                            # [NEW] Fetch Past Earnings Result (Surprise)
+                            # This makes individual requests, so it might be slower, but it's for daily update.
+                            try:
+                                e_dates = ticker_obj.earnings_dates
+                                if e_dates is not None and not e_dates.empty:
+                                    # Filter for past dates
+                                    now = pd.Timestamp.now().tz_localize(e_dates.index.dtype.tz)
+                                    past_earnings = e_dates[e_dates.index < now]
+                                    
+                                    if not past_earnings.empty:
+                                        last = past_earnings.iloc[0] # Most recent past
+                                        # Check if we have valid data (sometimes it's NaN for very recent/future)
+                                        if pd.notna(last['Reported EPS']):
+                                            data['last_earnings_date'] = past_earnings.index[0].strftime('%Y-%m-%d')
+                                            data['last_eps_est'] = float(last['EPS Estimate']) if pd.notna(last['EPS Estimate']) else None
+                                            data['last_eps_act'] = float(last['Reported EPS'])
+                                            data['last_surprise'] = float(last['Surprise(%)']) if pd.notna(last['Surprise(%)']) else None
+                            except Exception as e:
+                                pass
+                                
                         except: pass
                         
                         # 3. Dividend Amount (Per Share) using .dividends history (Most accurate)

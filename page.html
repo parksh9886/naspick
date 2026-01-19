@@ -826,12 +826,73 @@
                                     <div class="space-y-4">
                                         <!-- Earnings -->
                                         <div>
-                                            <div class="text-xs text-gray-400 mb-1 flex items-center">
-                                                실적 발표 ${earningsDday}
-                                            </div>
-                                            <div class="text-sm font-bold text-gray-200 flex items-center gap-2">
-                                                ${earningsDate} ${earningsAlert}
-                                            </div>
+                                            ${(() => {
+                            // 1. Next Earnings Logic
+                            let nextHtml = '';
+                            if (cal.next_earnings) {
+                                const today = new Date();
+                                today.setHours(0, 0, 0, 0);
+                                const nextDate = new Date(cal.next_earnings);
+                                const diffTime = nextDate - today;
+                                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                                let dDay = '';
+                                let alert = '';
+
+                                if (diffDays >= 0 && diffDays <= 7) {
+                                    dDay = `<span class="text-orange-400 font-bold ml-2">D-${diffDays}</span>`;
+                                    alert = '🔔';
+                                } else if (diffDays > 7 && diffDays <= 14) {
+                                    dDay = `<span class="text-gray-400 ml-2">D-${diffDays}</span>`;
+                                } else if (diffDays < 0) {
+                                    dDay = `<span class="text-gray-600 ml-2 text-[10px]">(종료)</span>`;
+                                }
+
+                                nextHtml = `
+                                                        <div class="text-xs text-gray-400 mb-1 flex items-center">
+                                                            다음 실적 발표 ${dDay}
+                                                        </div>
+                                                        <div class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                                                            ${cal.next_earnings} ${alert}
+                                                        </div>
+                                                    `;
+
+                                // If next earnings is far (> 30 days) and we have past result, current display is too empty.
+                                if (diffDays > 30 && cal.last_earnings_date) {
+                                    // Show past earnings below
+                                }
+                            } else {
+                                nextHtml = `<div class="text-xs text-gray-500">다음 발표일 미정</div>`;
+                            }
+
+                            // 2. Past Earnings Logic
+                            let pastHtml = '';
+                            if (cal.last_earnings_date && cal.last_surprise !== undefined) {
+                                const isBeat = cal.last_surprise > 0;
+                                const color = isBeat ? 'text-green-400' : 'text-red-400';
+                                const label = isBeat ? '어닝 서프라이즈' : '어닝 쇼크';
+                                const sign = isBeat ? '+' : '';
+
+                                pastHtml = `
+                                                        <div class="mt-3 pt-3 border-t border-gray-700/50">
+                                                            <div class="text-xs text-gray-400 mb-1 flex justify-between">
+                                                                <span>직전 실적 (${cal.last_earnings_date})</span>
+                                                                <span class="${color} font-bold text-[10px] bg-gray-700/50 px-1.5 rounded">${label}</span>
+                                                            </div>
+                                                            <div class="flex justify-between items-end">
+                                                                <div class="text-[10px] text-gray-500">
+                                                                    예상 ${cal.last_eps_est} / 실제 <span class="text-gray-200 font-bold">${cal.last_eps_act}</span>
+                                                                </div>
+                                                                <div class="${color} font-bold text-sm">
+                                                                    ${sign}${cal.last_surprise}%
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    `;
+                            }
+
+                            return nextHtml + pastHtml;
+                        })()}
                                         </div>
 
                                         <div class="w-full h-px bg-gray-700/50 my-2"></div>
