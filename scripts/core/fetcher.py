@@ -154,10 +154,13 @@ class StockDataFetcher:
         
         for i in range(0, len(tickers), chunk_size):
             chunk = tickers[i:i+chunk_size]
-            print(f"   Fetching extra info chunk {i//chunk_size + 1}...")
+            # [Fix] Sanitize tickers for yfinance (BRK.B -> BRK-B)
+            yf_chunk = [t.replace('.', '-') for t in chunk]
+            
+            print(f"   Fetching extra info chunk {i//chunk_size + 1} ({len(yf_chunk)} stocks)...")
             
             try:
-                tickers_obj = yf.Tickers(" ".join(chunk))
+                tickers_obj = yf.Tickers(" ".join(yf_chunk))
                 
                 # yf.Tickers.tickers is a dict of Ticker objects
                 for t_sym, ticker_obj in tickers_obj.tickers.items():
