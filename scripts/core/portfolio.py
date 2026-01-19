@@ -41,77 +41,75 @@ class PortfolioManager:
             print(f"⚠️ SPY fetch error: {e}")
             return None
 
-    def process_dividends(self, portfolio):
-        """Check and process dividends for holdings"""
-        print("💰 Checking for dividends...")
+    def process_corporate_actions(self, portfolio):
+        """Check and process Dividends and Stock Splits"""
+        print("💰 Checking for Corporate Actions (Divs & Splits)...")
         holdings = portfolio.get('holdings', {})
         if not holdings: return
         
         tickers = list(holdings.keys())
-        # Fetch 5 days to ensure we don't miss any if script skipped a day
         try:
-            # auto_adjust=False needed to get raw price and separate dividend actions
+            # Fetch 5 days (actions=True returns "Dividends" and "Stock Splits")
             df = yf.download(tickers, period='5d', actions=True, auto_adjust=False, progress=False, group_by='ticker')
             
             total_div_added = 0
-            if 'dividend_history' not in portfolio:
-                portfolio['dividend_history'] = []
+            if 'action_history' not in portfolio:
+                portfolio['action_history'] = portfolio.get('dividend_history', []) # Migrate old key if exists
             
-            # Helper to check if dividend already processed
-            def is_processed(ticker, date_str):
-                for d in portfolio['dividend_history']:
-                    if d['ticker'] == ticker and d['date'] == date_str:
+            def is_processed(ticker, date_str, action_type):
+                for d in portfolio['action_history']:
+                    if d['ticker'] == ticker and d['date'] == date_str and d.get('type') == action_type:
                         return True
                 return False
 
-            today = datetime.now().date()
-            
             for ticker in tickers:
-                div_series = None
+                # Extract Ticker DataFrame
+                t_df = None
                 if len(tickers) == 1:
-                    # Single level columns
-                    if 'Dividends' in df.columns:
-                        div_series = df['Dividends']
+                    t_df = df
                 else:
-                    # MultiIndex
                     if ticker in df.columns:
-                        try:
-                            t_df = df[ticker]
-                            if 'Dividends' in t_df.columns:
-                                div_series = t_df['Dividends']
-                        except: pass
+                        t_df = df[ticker]
                 
-                if div_series is not None:
-                    # div_series index is Datetime
-                    dividends = div_series[div_series > 0]
-                    for date, div_amt in dividends.items():
-                        date_str = date.strftime('%Y-%m-%d')
-                        # Check if within relevant window (e.g. last 3 days) to avoid processing old data
-                        # And strictly check if not processed
-                        # Assuming script runs daily, we can check date >= last_update or simply date within 5 days and not in log
-                        
-                        if not is_processed(ticker, date_str):
-                            qty = holdings[ticker]
-                            amount = div_amt * qty
-                            portfolio['cash'] += amount
-                            total_div_added += amount
-                            
-                            log_entry = {
-                                "date": date_str,
-                                "ticker": ticker,
-                                "amount": round(amount, 2),
-                                "per_share": div_amt
-                            }
-                            portfolio['dividend_history'].append(log_entry)
-                            print(f"   + Dividend: {ticker} ${amount:.2f} ({date_str})")
-            
+                if t_df is not None:
+                    # 1. Process Dividends
+                    if 'Dividends' in t_df.columns:
+                        divs = t_df['Dividends'][t_df['Dividends'] > 0]
+                        for date, amount in divs.items():
+                            date_str = date.strftime('%Y-%m-%d')
+                            if not is_processed(ticker, date_str, 'DIVIDEND'):
+                                qty = holdings[ticker]
+                                cash_in = amount * qty
+                                portfolio['cash'] += cash_in
+                                total_div_added += cash_in
+                                
+                                portfolio['action_history'].append({
+                                    "date": date_str, "ticker": ticker, "type": "DIVIDEND",
+                                    "amount": round(cash_in, 2), "per_share": amount
+                                })
+                                print(f"   + Dividend: {ticker} ${cash_in:.2f} ({date_str})")
+
+                    # 2. Process Stock Splits
+                    if 'Stock Splits' in t_df.columns:
+                        splits = t_df['Stock Splits'][t_df['Stock Splits'] > 0]
+                        for date, ratio in splits.items():
+                            date_str = date.strftime('%Y-%m-%d')
+                            if not is_processed(ticker, date_str, 'SPLIT'):
+                                old_qty = holdings[ticker]
+                                new_qty = int(old_qty * ratio)
+                                holdings[ticker] = new_qty
+                                
+                                portfolio['action_history'].append({
+                                    "date": date_str, "ticker": ticker, "type": "SPLIT",
+                                    "ratio": ratio, "old_qty": old_qty, "new_qty": new_qty
+                                })
+                                print(f"   ✂️ Split: {ticker} 1:{ratio} (Qty {old_qty} -> {new_qty})")
+
             if total_div_added > 0:
                 print(f"   Total Dividends Added: ${total_div_added:.2f}")
-            else:
-                print("   No new dividends found.")
-                
+
         except Exception as e:
-            print(f"⚠️ Dividend check failed: {e}")
+            print(f"⚠️ Corporate action check failed: {e}")
 
     def update_daily(self):
         print("📊 Daily Portfolio Value Update (Modularized)")
@@ -126,8 +124,8 @@ class PortfolioManager:
         
         print(f"✓ Loaded portfolio state (last update: {portfolio['last_update']})")
         
-        # 1.5 Process Dividends (Added for Dividend Reinvestment)
-        self.process_dividends(portfolio)
+        # 1.5 Process Corporate Actions (Divs & Splits)
+        self.process_corporate_actions(portfolio)
         
         # 2. Load current stock data
         d_path = self.paths['OUTPUT_JSON'] # data.json
