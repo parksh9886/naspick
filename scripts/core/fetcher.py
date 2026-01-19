@@ -168,31 +168,42 @@ class StockDataFetcher:
                         # calendar is property, makes request
                         try:
                             cal = ticker_obj.calendar
-                            if cal and 'Earnings Date' in cal:
-                                dates = cal['Earnings Date']
-                                if dates:
-                                    # Take first one
-                                    data['next_earnings'] = dates[0].strftime('%Y-%m-%d')
+                            if cal:
+                                # 1. Earnings
+                                if 'Earnings Date' in cal:
+                                    dates = cal['Earnings Date']
+                                    if dates:
+                                        data['next_earnings'] = dates[0].strftime('%Y-%m-%d')
+                                
+                                # 2. Dividend Dates
+                                if 'Ex-Dividend Date' in cal:
+                                    d_date = cal['Ex-Dividend Date']
+                                    if hasattr(d_date, 'strftime'):
+                                        data['ex_dividend_date'] = d_date.strftime('%Y-%m-%d')
+                                
+                                if 'Dividend Date' in cal:
+                                    p_date = cal['Dividend Date']
+                                    if hasattr(p_date, 'strftime'):
+                                        data['dividend_payment_date'] = p_date.strftime('%Y-%m-%d')
+                                        
                         except: pass
                         
-                        # 2. Dividends (from calendar or info)
-                        # Trying calendar first for Ex-Div
+                        # 3. Dividend Amount (Per Share) using .dividends history (Most accurate)
                         try:
-                             # cal might be already fetched
-                             if cal and 'Ex-Dividend Date' in cal:
-                                 d_date = cal['Ex-Dividend Date']
-                                 # It might be a date object or list?
-                                 if hasattr(d_date, 'strftime'):
-                                     data['ex_dividend_date'] = d_date.strftime('%Y-%m-%d')
+                            divs = ticker_obj.dividends
+                            if not divs.empty:
+                                last_div = divs.iloc[-1]
+                                data['dividend_amount'] = float(last_div)
                         except: pass
-                        
-                        # If simple calendar access failed, info is too heavy for bulk. 
-                        # We will skip info-based deep fetch to save time/limits.
-                        # Naspick relies on 'financials' for some data, maybe we can rely on that?
-                        # No, we want "Next" dates.
                         
                         if data:
                             calendar_data[t_sym] = data
+                            
+                    except Exception as e:
+                        pass
+            except: pass
+            
+        return calendar_data
                             
                     except Exception as e:
                         # print(f"Error {t_sym}: {e}")

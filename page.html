@@ -784,20 +784,34 @@
                     const cal = data.calendar || {};
                     const earningsDate = cal.next_earnings || '미정';
                     const exDivDate = cal.ex_dividend_date || '-';
-                    let earningsAlert = '';
+                    const payDate = cal.dividend_payment_date || '-';
+                    const divAmt = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
 
-                    // Date Check
+                    // Earnings Logic
+                    let earningsAlert = '';
+                    let earningsDday = '';
                     if (earningsDate !== '미정') {
                         const todayMs = new Date().setHours(0, 0, 0, 0);
                         const targetMs = new Date(earningsDate).setHours(0, 0, 0, 0);
                         const diffDays = Math.ceil((targetMs - todayMs) / (1000 * 60 * 60 * 24));
 
                         if (diffDays >= 0 && diffDays <= 7) {
-                            earningsAlert = `<span class="text-[10px] text-orange-400 font-bold ml-2 animate-pulse">⚠️ D-${diffDays}</span>`;
+                            earningsDday = `<span class="text-orange-400 font-bold ml-2">D-${diffDays}</span>`;
+                            earningsAlert = '🔔';
                         } else if (diffDays > 7 && diffDays <= 14) {
-                            earningsAlert = `<span class="text-[10px] text-gray-400 ml-2">D-${diffDays}</span>`;
+                            earningsDday = `<span class="text-gray-400 ml-2">D-${diffDays}</span>`;
+                        } else if (diffDays < 0) {
+                            earningsDday = `<span class="text-gray-600 ml-2 text-[10px]">(종료)</span>`;
                         }
                     }
+
+                    // Dividend Logic Helper
+                    const getDateStatus = (dateStr) => {
+                        if (!dateStr || dateStr === '-') return '';
+                        const todayMs = new Date().setHours(0, 0, 0, 0);
+                        const targetMs = new Date(dateStr).setHours(0, 0, 0, 0);
+                        return targetMs < todayMs ? '<span class="text-gray-500 text-[10px] ml-1">(지났음)</span>' : '<span class="text-blue-400 text-[10px] ml-1">(예정)</span>';
+                    };
 
                     return `
                                 <div class="bg-[#282830] rounded-xl border border-gray-800 p-5 mt-4">
@@ -808,16 +822,41 @@
                                         투자 캘린더
                                     </h4>
                                     <div class="space-y-4">
-                                        <div class="flex justify-between items-center border-b border-gray-700/50 pb-2">
-                                            <span class="text-xs text-gray-400">실적 발표</span>
-                                            <div class="flex items-center">
-                                                <span class="text-sm font-bold text-gray-200">${earningsDate}</span>
-                                                ${earningsAlert}
+                                        <!-- Earnings -->
+                                        <div>
+                                            <div class="text-xs text-gray-400 mb-1 flex items-center">
+                                                실적 발표 ${earningsDday}
+                                            </div>
+                                            <div class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                                                ${earningsDate} ${earningsAlert}
                                             </div>
                                         </div>
-                                        <div class="flex justify-between items-center">
-                                            <span class="text-xs text-gray-400">배당락일</span>
-                                            <span class="text-sm font-bold text-gray-200">${exDivDate}</span>
+
+                                        <div class="w-full h-px bg-gray-700/50 my-2"></div>
+
+                                        <!-- Dividend -->
+                                        <div>
+                                            <div class="text-xs text-gray-400 mb-2">배당</div>
+                                            <div class="space-y-2">
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-xs text-gray-500">배당락일</span>
+                                                    <div class="text-xs text-gray-300">
+                                                        ${exDivDate} ${getDateStatus(exDivDate)}
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-xs text-gray-500">지급일</span>
+                                                    <div class="text-xs text-gray-300">
+                                                        ${payDate} ${getDateStatus(payDate)}
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-xs text-gray-500">지급금액(1주당)</span>
+                                                    <div class="text-sm font-bold text-gray-200">
+                                                        ${divAmt}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
