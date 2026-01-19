@@ -1015,7 +1015,8 @@
 
             // 2. Valuation (PER)
             let perAns = "";
-            const per = data.financials?.pers?.peer_avg_per ? data.financials.per : null;
+            // Fix: Use data.financial_health.per
+            const per = data.financial_health?.per;
             if (per) {
                 if (per < 15) perAns = `네, 그렇습니다. 현재 ${data.name}의 PER은 **${per.toFixed(2)}배**로, 시장 평균 대비 **저평가**되어 있어 가격 매력도가 높은 구간입니다.`;
                 else if (per > 50) perAns = `현재 ${data.name}의 PER은 **${per.toFixed(2)}배**로, 시장 평균 대비 다소 **높게 평가**받고 있습니다. 이는 높은 성장 기대감이 반영된 결과일 수 있습니다.`;
@@ -1034,7 +1035,10 @@
 
             // 3. Technical (RSI)
             let rsiAns = "";
-            const rsi = data.technical_indicators?.current_rsi || null;
+            // Fix: Use data.technical_analysis.rsi.value
+            const rsiObj = data.technical_analysis?.rsi;
+            const rsi = rsiObj ? rsiObj.value : null;
+
             if (rsi) {
                 if (rsi > 70) rsiAns = `주의가 필요합니다. 현재 RSI 지표가 **${rsi.toFixed(2)}**로 **과매수(과열)** 구간에 진입해 있어, 단기적으로 주가가 조정받을 가능성이 있습니다.`;
                 else if (rsi < 30) rsiAns = `네, 기술적으로 좋은 기회일 수 있습니다. 현재 RSI 지표가 **${rsi.toFixed(2)}**로 **과매도** 구간에 있어, 기술적 반등이 기대되는 시점입니다.`;

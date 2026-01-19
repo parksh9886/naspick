@@ -1023,7 +1023,8 @@
 
                 // 2. Valuation (PER)
                 let perAns = "";
-                const per = data.financials?.pers?.peer_avg_per ? data.financials.per : null;
+                // Fix: Use data.financial_health.per
+                const per = data.financial_health?.per;
                 if (per) {
                     if (per < 15) perAns = `Yes. Currently, ${data.name_en || data.name}'s PER is **${per.toFixed(2)}x**, which is considered **undervalued** compared to the market average, offering good price merit.`;
                     else if (per > 50) perAns = `Currently, ${data.name_en || data.name}'s PER is **${per.toFixed(2)}x**, which is relatively **overvalued**. This may reflect high growth expectations.`;
@@ -1042,7 +1043,10 @@
 
                 // 3. Technical (RSI)
                 let rsiAns = "";
-                const rsi = data.technical_indicators?.current_rsi || null;
+                // Fix: Use data.technical_analysis.rsi.value
+                const rsiObj = data.technical_analysis?.rsi;
+                const rsi = rsiObj ? rsiObj.value : null;
+
                 if (rsi) {
                     if (rsi > 70) rsiAns = `Caution is needed. The RSI is **${rsi.toFixed(2)}**, indicating an **overbought** zone. A short-term correction may occur.`;
                     else if (rsi < 30) rsiAns = `It could be a buying opportunity. The RSI is **${rsi.toFixed(2)}**, indicating an **oversold** zone. A technical rebound is expected.`;
