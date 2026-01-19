@@ -272,12 +272,14 @@
             const changeColor = isPlus ? 'text-red-400' : 'text-blue-400';
             const changeSign = isPlus ? '▲' : '▼';
 
-            let tierBadge = '';
-            if (data.tier === 1) tierBadge = `<span class="bg-[#0093ff] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12 cursor-help" title="Top 5%">1 TIER</span>`;
-            else if (data.tier === 2) tierBadge = `<span class="bg-[#00bba3] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">2 TIER</span>`;
-            else if (data.tier === 3) tierBadge = `<span class="bg-[#ffb900] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">3 TIER</span>`;
-            else if (data.tier === 4) tierBadge = `<span class="bg-[#9aa4af] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">4 TIER</span>`;
-            else tierBadge = `<span class="bg-[#a07557] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">5 TIER</span>`;
+            let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
+            if (data.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
+            else if (data.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
+            else if (data.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
+            else if (data.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
+            else if (data.tier === 5) tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
+
+            const tierBadge = `<span class="px-2 py-0.5 text-sm font-bold rounded border ${tierClass}">${data.tier} TIER</span>`;
 
             const stats = data.stats_bar || { trend: 0, volume: 0, momentum: 0, impact: 0 };
             const signals = (data.signals || []).map(s => {

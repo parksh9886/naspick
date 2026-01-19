@@ -289,13 +289,16 @@
             const changeSign = isPlus ? '▲' : '▼';
 
             // Rating badge (A+, A, B, C, D instead of Tier)
-            let tierBadge = '';
             let ratingLabel = 'C';
-            if (data.tier === 1) { ratingLabel = 'A+'; tierBadge = `<span class="bg-[#0093ff] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12 cursor-help" title="Top 5%">A+</span>`; }
-            else if (data.tier === 2) { ratingLabel = 'A'; tierBadge = `<span class="bg-[#00bba3] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">A</span>`; }
-            else if (data.tier === 3) { ratingLabel = 'B'; tierBadge = `<span class="bg-[#ffb900] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">B</span>`; }
-            else if (data.tier === 4) { ratingLabel = 'C'; tierBadge = `<span class="bg-[#9aa4af] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">C</span>`; }
-            else { ratingLabel = 'D'; tierBadge = `<span class="bg-[#a07557] text-white text-sm font-bold px-3 py-1 rounded transform -skew-x-12">D</span>`; }
+            let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
+
+            if (data.tier === 1) { ratingLabel = 'A+'; tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10'; }
+            else if (data.tier === 2) { ratingLabel = 'A'; tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10'; }
+            else if (data.tier === 3) { ratingLabel = 'B'; tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10'; }
+            else if (data.tier === 4) { ratingLabel = 'C'; tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10'; }
+            else { ratingLabel = 'D'; tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10'; }
+
+            const tierBadge = `<span class="px-2 py-0.5 text-sm font-bold rounded border ${tierClass}">${ratingLabel}</span>`;
 
             const sectorEn = SECTOR_KR_TO_EN[data.sector] || data.sector;
 
