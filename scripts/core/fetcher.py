@@ -140,3 +140,63 @@ class StockDataFetcher:
             print(f"❌ Error fetching market cap: {e}")
             
         return mcaps
+
+    def fetch_calendar_data_bulk(self, tickers):
+        """Fetch Calendar (Earnings, Divs) for tickers using yfinance"""
+        import yfinance as yf
+        print(f"📅 Fetching Calendar Data for {len(tickers)} tickers...")
+        
+        chunk_size = 50
+        calendar_data = {} # {ticker: {next_earnings, next_dividend_date, div_rate, div_yield}}
+        
+        # We need to act carefully as calling .calendar on Ticker object might trigger requests.
+        # yf.Tickers might optimizes some access.
+        
+        for i in range(0, len(tickers), chunk_size):
+            chunk = tickers[i:i+chunk_size]
+            print(f"   Fetching extra info chunk {i//chunk_size + 1}...")
+            
+            try:
+                tickers_obj = yf.Tickers(" ".join(chunk))
+                
+                # yf.Tickers.tickers is a dict of Ticker objects
+                for t_sym, ticker_obj in tickers_obj.tickers.items():
+                    try:
+                        data = {}
+                        
+                        # 1. Earnings (from calendar)
+                        # calendar is property, makes request
+                        try:
+                            cal = ticker_obj.calendar
+                            if cal and 'Earnings Date' in cal:
+                                dates = cal['Earnings Date']
+                                if dates:
+                                    # Take first one
+                                    data['next_earnings'] = dates[0].strftime('%Y-%m-%d')
+                        except: pass
+                        
+                        # 2. Dividends (from calendar or info)
+                        # Trying calendar first for Ex-Div
+                        try:
+                             # cal might be already fetched
+                             if cal and 'Ex-Dividend Date' in cal:
+                                 d_date = cal['Ex-Dividend Date']
+                                 # It might be a date object or list?
+                                 if hasattr(d_date, 'strftime'):
+                                     data['ex_dividend_date'] = d_date.strftime('%Y-%m-%d')
+                        except: pass
+                        
+                        # If simple calendar access failed, info is too heavy for bulk. 
+                        # We will skip info-based deep fetch to save time/limits.
+                        # Naspick relies on 'financials' for some data, maybe we can rely on that?
+                        # No, we want "Next" dates.
+                        
+                        if data:
+                            calendar_data[t_sym] = data
+                            
+                    except Exception as e:
+                        # print(f"Error {t_sym}: {e}")
+                        pass
+            except: pass
+            
+        return calendar_data

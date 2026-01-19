@@ -78,6 +78,9 @@ class NaspickEngine:
 
         # 5. Fetch Market Caps
         market_caps = self.fetcher.get_market_caps_bulk(ranked_df['Ticker'].tolist())
+        
+        # 5.5 Fetch Calendar Data (Earnings, Dividends)
+        calendar_data = self.fetcher.fetch_calendar_data_bulk(ranked_df['Ticker'].tolist())
 
         # 6. Generate Context & JSON
         print("📝 Generating Final JSON...")
@@ -202,6 +205,7 @@ class NaspickEngine:
                 "technical_analysis": ctx,
                 "consensus": consensus_data.get(ticker, None),
                 "financial_health": consensus_data.get(ticker, {}).get('financial_health', None),
+                "calendar": calendar_data.get(ticker, None),
                 "related_peers": []
             }
             final_results.append(item)

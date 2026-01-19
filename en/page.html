@@ -696,8 +696,8 @@
                                 <span class="text-5xl font-extrabold text-[#5383e8] tracking-tighter">${data.final_score}</span>
                                 <span class="text-lg font-bold text-gray-500 mb-2">/ 100</span>
                             </div>
-
-                            <div class="space-y-4">
+                        
+                        <div class="space-y-4 hidden lg:block">
                                 <div>
                                     <div class="flex justify-between text-xs mb-1.5">
                                         <span class="text-gray-300 font-bold">📈 Fundamentals</span>
@@ -790,7 +790,52 @@
                             </div>
                         </div>
 
-                        <div class="bg-[#23232a] rounded-xl border border-gray-800 p-5">
+                        <!-- 3. Investment Calendar HTML Generation -->
+                        ${(() => {
+                    const cal = data.calendar || {};
+                    const earningsDate = cal.next_earnings || 'TBD';
+                    const exDivDate = cal.ex_dividend_date || '-';
+                    let earningsAlert = '';
+
+                    // Date Check
+                    if (earningsDate !== 'TBD') {
+                        const todayMs = new Date().setHours(0, 0, 0, 0);
+                        const targetMs = new Date(earningsDate).setHours(0, 0, 0, 0);
+                        const diffDays = Math.ceil((targetMs - todayMs) / (1000 * 60 * 60 * 24));
+
+                        if (diffDays >= 0 && diffDays <= 7) {
+                            earningsAlert = `<span class="text-[10px] text-orange-400 font-bold ml-2 animate-pulse">⚠️ In ${diffDays} days</span>`;
+                        } else if (diffDays > 7 && diffDays <= 14) {
+                            earningsAlert = `<span class="text-[10px] text-gray-400 ml-2">In ${diffDays} days</span>`;
+                        }
+                    }
+
+                    return `
+                                <div class="bg-[#282830] rounded-xl border border-gray-800 p-5 mt-4">
+                                    <h4 class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        Investment Calendar
+                                    </h4>
+                                    <div class="space-y-4">
+                                        <div class="flex justify-between items-center border-b border-gray-700/50 pb-2">
+                                            <span class="text-xs text-gray-400">Earnings Release</span>
+                                            <div class="flex items-center">
+                                                <span class="text-sm font-bold text-gray-200">${earningsDate}</span>
+                                                ${earningsAlert}
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-xs text-gray-400">Ex-Dividend Date</span>
+                                            <span class="text-sm font-bold text-gray-200">${exDivDate}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                })()}
+
+                        <div class="mt-auto bg-[#23232a] rounded-xl border border-gray-800 p-5">
                             <h4 class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
                                 <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -799,9 +844,9 @@
                             </h4>
                             <div class="space-y-3">
                                 ${(data.related_peers || []).map(p => {
-                const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker, name_en: p.ticker };
-                const peerChangeColor = p.change_pct >= 0 ? 'text-green-400' : 'text-red-400';
-                return `
+                    const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker, name_en: p.ticker };
+                    const peerChangeColor = p.change_pct >= 0 ? 'text-green-400' : 'text-red-400';
+                    return `
                                     <a href="/en/stock/${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
                                         <div class="flex items-center gap-3">
                                             <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
@@ -818,7 +863,7 @@
                                         <span class="${peerChangeColor} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct > 0 ? '+' : ''}${p.change_pct}%</span>
                                     </a>
                                 `;
-            }).join('')}
+                }).join('')}
                                 ${(data.related_peers || []).length === 0 ? '<div class="text-xs text-gray-600">No related stocks found</div>' : ''}
                             </div>
                         </div>
