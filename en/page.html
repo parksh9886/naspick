@@ -1014,7 +1014,7 @@
                 else if (data.final_score < 40) scoreAns = `Caution is advised. Price momentum or financial indicators are currently weak.`;
                 else scoreAns = `It is showing a stable and moderate trend.`;
 
-                const ratingLabel = (data.tier === '1') ? 'A+' : (data.tier === '2') ? 'A' : (data.tier === '3') ? 'B' : (data.tier === '4') ? 'C' : 'D';
+                const ratingLabel = (String(data.tier) === '1') ? 'A+' : (String(data.tier) === '2') ? 'A' : (String(data.tier) === '3') ? 'B' : (String(data.tier) === '4') ? 'C' : 'D';
 
                 qnaList.push({
                     q: `What is the investment rating and score for ${data.name_en || data.name}?`,
@@ -1033,6 +1033,11 @@
                         q: `Is ${data.name_en || data.name} stock currently overvalued or undervalued? (PER Analysis)`,
                         a: perAns
                     });
+                } else {
+                    qnaList.push({
+                        q: `Is ${data.name_en || data.name} stock currently overvalued or undervalued? (PER Analysis)`,
+                        a: `Currently, PER (Price-to-Earnings Ratio) data for ${data.name_en || data.name} is not available.`
+                    });
                 }
 
                 // 3. Technical (RSI)
@@ -1046,6 +1051,11 @@
                     qnaList.push({
                         q: `Is now a good time to buy ${data.name_en || data.name}? (RSI Technical Analysis)`,
                         a: rsiAns
+                    });
+                } else {
+                    qnaList.push({
+                        q: `Is now a good time to buy ${data.name_en || data.name}? (RSI Technical Analysis)`,
+                        a: `Currently, there is insufficient data to perform RSI technical analysis.`
                     });
                 }
 
@@ -1070,12 +1080,16 @@
 
                 // 5. Price & Target
                 const consensus = data.consensus || {};
-                if (consensus.target_price && data.current_price) {
-                    const upside = ((consensus.target_price - data.current_price) / data.current_price * 100).toFixed(2);
+                // Fix: target_price might be an object {mean: ...} or number
+                let tp = consensus.target_price;
+                if (tp && typeof tp === 'object') tp = tp.mean;
+
+                if (tp && data.current_price) {
+                    const upside = ((tp - data.current_price) / data.current_price * 100).toFixed(2);
                     const upsidedown = upside > 0 ? 'upside' : 'downside'; // usually target > price means upside
                     qnaList.push({
                         q: `What is the current price and target price for ${data.name_en || data.name}? (Price Forecast)`,
-                        a: `As of ${today}, the price of ${data.name_en || data.name} is **$${data.current_price}**. The average Wall Street target price is **$${consensus.target_price}**, implying a potential **${upside}% ${upsidedown}**.`
+                        a: `As of ${today}, the price of ${data.name_en || data.name} is **$${data.current_price}**. The average Wall Street target price is **$${tp.toFixed(2)}**, implying a potential **${upside}% ${upsidedown}**.`
                     });
                 } else {
                     qnaList.push({

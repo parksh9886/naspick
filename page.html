@@ -1025,6 +1025,11 @@
                     q: `${data.name} 주식은 현재 저평가 상태인가요? (PER 분석)`,
                     a: perAns
                 });
+            } else {
+                qnaList.push({
+                    q: `${data.name} 주식은 현재 저평가 상태인가요? (PER 분석)`,
+                    a: `현재 ${data.name}에 대한 PER(주가수익비율) 데이터가 집계되지 않았습니다.`
+                });
             }
 
             // 3. Technical (RSI)
@@ -1038,6 +1043,11 @@
                 qnaList.push({
                     q: `지금 ${data.name} 주식을 사도 될까요? (RSI 기술적 분석)`,
                     a: rsiAns
+                });
+            } else {
+                qnaList.push({
+                    q: `지금 ${data.name} 주식을 사도 될까요? (RSI 기술적 분석)`,
+                    a: `현재 기술적 지표(RSI)를 분석할 충분한 데이터가 없습니다.`
                 });
             }
 
@@ -1062,12 +1072,16 @@
 
             // 5. Price & Target
             const consensus = data.consensus || {};
-            if (consensus.target_price && data.current_price) {
-                const upside = ((consensus.target_price - data.current_price) / data.current_price * 100).toFixed(2);
+            // Fix: target_price might be an object {mean: ...} or number
+            let tp = consensus.target_price;
+            if (tp && typeof tp === 'object') tp = tp.mean;
+
+            if (tp && data.current_price) {
+                const upside = ((tp - data.current_price) / data.current_price * 100).toFixed(2);
                 const upsidedown = upside > 0 ? '상승 여력' : '수준';
                 qnaList.push({
                     q: `${data.name}(${data.ticker})의 현재 주가와 목표주가는 얼마인가요? (주가 전망)`,
-                    a: `${today} 기준 ${data.name}의 주가는 **$${data.current_price}**입니다. 월스트리트 전문가들의 평균 목표주가는 **$${consensus.target_price}**로, 현재가 대비 약 **${upside}%의 ${upsidedown}**이 있는 것으로 분석됩니다.`
+                    a: `${today} 기준 ${data.name}의 주가는 **$${data.current_price}**입니다. 월스트리트 전문가들의 평균 목표주가는 **$${tp.toFixed(2)}**로, 현재가 대비 약 **${upside}%의 ${upsidedown}**이 있는 것으로 분석됩니다.`
                 });
             } else {
                 qnaList.push({
