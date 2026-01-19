@@ -213,21 +213,16 @@
                 const twitterDesc = document.querySelector('meta[name="twitter:description"]');
                 if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString}] ${stockData.name_en || stockData.name} AI analysis. Price $${stockData.current_price}, Rating ${ratingLabel}.`);
 
-                // 6. Schema.org FinancialProduct
+                // 6. Schema.org 구조화 데이터 (Corporation)
                 const schemaScript = document.createElement('script');
                 schemaScript.type = 'application/ld+json';
                 schemaScript.textContent = JSON.stringify({
                     "@context": "https://schema.org",
-                    "@type": "FinancialProduct",
-                    "name": `${stockData.name_en || stockData.name} (${stockData.ticker})`,
-                    "description": `${stockData.name_en || stockData.name} real-time AI analysis. Current price $${stockData.current_price}, NASPICK score ${stockData.final_score}/100`,
-                    "category": SECTOR_KR_TO_EN[stockData.sector] || stockData.sector,
-                    "url": `https://naspick.com/en/stock/${stockData.ticker}`,
-                    "provider": {
-                        "@type": "Organization",
-                        "name": "NASPICK",
-                        "url": "https://naspick.com/en/"
-                    }
+                    "@type": "Corporation",
+                    "name": stockData.name_en || stockData.name,
+                    "tickerSymbol": stockData.ticker,
+                    "description": `${stockData.name_en || stockData.name} - ${SECTOR_KR_TO_EN[stockData.sector] || stockData.sector}`,
+                    "url": `https://naspick.com/en/stock/${stockData.ticker}`
                 });
                 document.head.appendChild(schemaScript);
 
