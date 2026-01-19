@@ -1030,7 +1030,7 @@
                     else perAns = `Currently, ${data.name_en || data.name}'s PER is **${per.toFixed(2)}x**, trading at a **fair value** similar to the market average.`;
 
                     qnaList.push({
-                        q: `Is ${data.name_en || data.name} stock currently overvalued or undervalued?`,
+                        q: `Is ${data.name_en || data.name} stock currently overvalued or undervalued? (PER Analysis)`,
                         a: perAns
                     });
                 }
@@ -1044,7 +1044,7 @@
                     else rsiAns = `The technical indicators are **neutral**. The RSI is **${rsi.toFixed(2)}**, showing a stable trend suitable for accumulation.`;
 
                     qnaList.push({
-                        q: `Is now a good time to buy ${data.name_en || data.name}?`,
+                        q: `Is now a good time to buy ${data.name_en || data.name}? (RSI Technical Analysis)`,
                         a: rsiAns
                     });
                 }
@@ -1074,17 +1074,17 @@
                     const upside = ((consensus.target_price - data.current_price) / data.current_price * 100).toFixed(2);
                     const upsidedown = upside > 0 ? 'upside' : 'downside'; // usually target > price means upside
                     qnaList.push({
-                        q: `What is the current price and target price for ${data.name_en || data.name}?`,
+                        q: `What is the current price and target price for ${data.name_en || data.name}? (Price Forecast)`,
                         a: `As of ${today}, the price of ${data.name_en || data.name} is **$${data.current_price}**. The average Wall Street target price is **$${consensus.target_price}**, implying a potential **${upside}% ${upsidedown}**.`
                     });
                 } else {
                     qnaList.push({
-                        q: `What is the current price and target price for ${data.name_en || data.name}?`,
+                        q: `What is the current price and target price for ${data.name_en || data.name}? (Price Forecast)`,
                         a: `There is currently insufficient Wall Street analyst target price data for ${data.name_en || data.name}.`
                     });
                 }
 
-                // Render HTML
+                // Render HTML (Accordion Style)
                 const faqContainer = document.getElementById('faqSection');
                 if (faqContainer) {
                     faqContainer.innerHTML = `
@@ -1092,12 +1092,17 @@
                             <h3 class="text-lg font-bold text-gray-200 mb-4 flex items-center gap-2">
                                  💬 Frequently Asked Questions
                             </h3>
-                            <div class="space-y-4">
+                            <div class="space-y-3">
                                 ${qnaList.map(item => `
-                                    <div class="bg-[#1c1c1f] rounded-lg p-4 border border-gray-800/50">
-                                        <h4 class="font-bold text-gray-300 mb-2 text-sm">Q. ${item.q}</h4>
-                                        <p class="text-sm text-gray-400 leading-relaxed">${item.a.replace(/\*\*(.*?)\*\*/g, '<span class="text-gray-200 font-bold">$1</span>')}</p>
-                                    </div>
+                                    <details class="group bg-[#1c1c1f] rounded-lg border border-gray-800/50 open:border-gray-700 transition-all">
+                                        <summary class="flex justify-between items-center p-4 cursor-pointer list-none">
+                                            <h4 class="font-bold text-gray-300 text-sm">Q. ${item.q}</h4>
+                                            <svg class="w-4 h-4 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        </summary>
+                                        <p class="px-4 pb-4 text-sm text-gray-400 leading-relaxed border-t border-gray-800/50 pt-3">
+                                            ${item.a.replace(/\*\*(.*?)\*\*/g, '<span class="text-gray-200 font-bold">$1</span>')}
+                                        </p>
+                                    </details>
                                 `).join('')}
                             </div>
                         </div>
