@@ -65,13 +65,16 @@ class NaspickEngine:
         # 3. Calculate Technical Factors (Bulk)
         df_all_price = self.scorer.calculate_technical_factors_bulk(df_all_price)
 
+        # 3.5 Load Consensus (needed for scoring)
+        consensus_data = self.load_consensus()
+
         # 4. Score Logic (Sector Relative)
         print("🏆 Calculating Scores (Sector Ranking)...")
         latest_date = df_all_price['Date'].max()
         print(f"   Target Date: {latest_date.date()}")
 
         df_latest = df_all_price[df_all_price['Date'] == latest_date].copy()
-        ranked_df = self.scorer.apply_sector_scoring(df_latest, df_fin)
+        ranked_df = self.scorer.apply_sector_scoring(df_latest, df_fin, consensus_data)
 
         # 5. Fetch Market Caps
         market_caps = self.fetcher.get_market_caps_bulk(ranked_df['Ticker'].tolist())
@@ -85,8 +88,6 @@ class NaspickEngine:
         if os.path.exists(ranks_path):
             with open(ranks_path, 'r', encoding='utf-8') as f:
                 yesterday_ranks = json.load(f)
-                
-        consensus_data = self.load_consensus()
         
         # Korean Names
         try:
@@ -140,17 +141,38 @@ class NaspickEngine:
             elif rsi < 30: signals.append("RSI_Oversold")
             if macd_golden: signals.append("MACD_GoldenCross")
             
-            # Stats Bar
+            # Stats Bar (v2.0 - 6 factors for UI)
             val_score = row['Score_PER'] + row['Score_PBR'] + row['Score_PSR'] + row['Score_EVEB']
             growth_score = row['Score_RevG'] + row['Score_EPSG']
             prof_score = row['Score_ROE'] + row['Score_NM'] + row['Score_OM']
             mom_score = row['Score_Mom1Y'] + row['Score_Mom6M'] + row['Score_Mom3M']
+            stability_score = row.get('Score_Stability', 0)
+            risk_score = row.get('Score_Risk', 0)
+            consensus_score = row.get('Score_Consensus', 0)
+            sentiment_score = row['Score_Vol']
             
+            # score_breakdown: raw scores for each factor (for UI display)
+            score_breakdown = {
+                "value": round(val_score, 1),           # max 20
+                "growth": round(growth_score, 1),       # max 20
+                "profitability": round(prof_score, 1),  # max 15
+                "momentum": round(mom_score, 1),        # max 20
+                "stability": round(stability_score, 1), # max 5
+                "risk": round(risk_score, 1),           # max 5
+                "consensus": round(consensus_score, 1), # max 10
+                "sentiment": round(sentiment_score, 1)  # max 5
+            }
+            
+            # stats_bar: percentage values for animated bars (0-100)
+            # Combine Growth + Profitability as "Fundamentals" (35pt -> 100%)
             stats_bar = {
-                "trend": int((growth_score + prof_score) / 45 * 100),
-                "volume": int(row['Score_Vol'] * 10),
-                "momentum": int(mom_score * 5),
-                "impact": int(val_score * 4)
+                "fundamentals": int((growth_score + prof_score) / 35 * 100),
+                "value": int(val_score / 20 * 100),
+                "momentum": int(mom_score / 20 * 100),
+                "stability": int(stability_score / 5 * 100),
+                "risk": int(risk_score / 5 * 100),
+                "consensus": int(consensus_score / 10 * 100),
+                "sentiment": int(sentiment_score / 5 * 100)
             }
             
             # Build Item
@@ -174,6 +196,7 @@ class NaspickEngine:
                 "rank_change": (prev_rk - current_rank) if prev_rk else 0,
                 "tier": self.scorer.assign_tier(current_rank, len(ranked_df)),
                 "stats_bar": stats_bar,
+                "score_breakdown": score_breakdown,
                 "signals": signals,
                 "levels": levels,
                 "technical_analysis": ctx,
