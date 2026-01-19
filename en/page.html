@@ -976,11 +976,16 @@
                             </div>
                         </div>
 
+                        <!-- FAQ Section -->
+                        <div id="faqSection"></div> 
                     </div>
                 </div>
             `;
 
             document.getElementById('mainContent').innerHTML = html;
+
+            // [SEO] Render Dynamic FAQ
+            renderFAQ(data);
 
             // Initialize TradingView Widget
             if (window.TradingView) {
@@ -997,6 +1002,126 @@
                     "container_id": "tv_chart_container",
                     "studies": ["BB@tv-basicstudies"]
                 });
+            }
+
+            function renderFAQ(data) {
+                const today = new Date().toISOString().split('T')[0];
+                const qnaList = [];
+
+                // 1. Investment Score (English)
+                let scoreAns = "";
+                if (data.final_score >= 80) scoreAns = `It has very high investment attractiveness. Both price momentum and financial health are excellent.`;
+                else if (data.final_score < 40) scoreAns = `Caution is advised. Price momentum or financial indicators are currently weak.`;
+                else scoreAns = `It is showing a stable and moderate trend.`;
+
+                const ratingLabel = (data.tier === '1') ? 'A+' : (data.tier === '2') ? 'A' : (data.tier === '3') ? 'B' : (data.tier === '4') ? 'C' : 'D';
+
+                qnaList.push({
+                    q: `What is the investment rating and score for ${data.name_en || data.name}?`,
+                    a: `Based on Naspick AI analysis as of ${today}, ${data.name_en || data.name} has a score of **${data.final_score} (${ratingLabel} Rating)**. ${scoreAns}`
+                });
+
+                // 2. Valuation (PER)
+                let perAns = "";
+                const per = data.financials?.pers?.peer_avg_per ? data.financials.per : null;
+                if (per) {
+                    if (per < 15) perAns = `Yes. Currently, ${data.name_en || data.name}'s PER is **${per.toFixed(2)}x**, which is considered **undervalued** compared to the market average, offering good price merit.`;
+                    else if (per > 50) perAns = `Currently, ${data.name_en || data.name}'s PER is **${per.toFixed(2)}x**, which is relatively **overvalued**. This may reflect high growth expectations.`;
+                    else perAns = `Currently, ${data.name_en || data.name}'s PER is **${per.toFixed(2)}x**, trading at a **fair value** similar to the market average.`;
+
+                    qnaList.push({
+                        q: `Is ${data.name_en || data.name} stock currently overvalued or undervalued?`,
+                        a: perAns
+                    });
+                }
+
+                // 3. Technical (RSI)
+                let rsiAns = "";
+                const rsi = data.technical_indicators?.current_rsi || null;
+                if (rsi) {
+                    if (rsi > 70) rsiAns = `Caution is needed. The RSI is **${rsi.toFixed(2)}**, indicating an **overbought** zone. A short-term correction may occur.`;
+                    else if (rsi < 30) rsiAns = `It could be a buying opportunity. The RSI is **${rsi.toFixed(2)}**, indicating an **oversold** zone. A technical rebound is expected.`;
+                    else rsiAns = `The technical indicators are **neutral**. The RSI is **${rsi.toFixed(2)}**, showing a stable trend suitable for accumulation.`;
+
+                    qnaList.push({
+                        q: `Is now a good time to buy ${data.name_en || data.name}?`,
+                        a: rsiAns
+                    });
+                }
+
+                // 4. Calendar
+                const cal = data.calendar || {};
+                let calAnsParts = [];
+                if (cal.dividend_yield) calAnsParts.push(`The expected dividend yield is **${cal.dividend_yield}%**, and the ex-dividend date is ${cal.ex_dividend_date}.`);
+                if (cal.next_earnings) calAnsParts.push(`The next earnings release is scheduled for **${cal.next_earnings}**.`);
+                else if (cal.last_surprise) calAnsParts.push(`In the last earnings report (${cal.last_earnings_date}), it recorded an **Earnings ${cal.last_surprise > 0 ? 'Beat' : 'Miss'} (${cal.last_surprise > 0 ? '+' : ''}${cal.last_surprise}%)**.`);
+
+                if (calAnsParts.length > 0) {
+                    qnaList.push({
+                        q: `When is the next earnings date and dividend for ${data.name_en || data.name}?`,
+                        a: calAnsParts.join(' ')
+                    });
+                } else {
+                    qnaList.push({
+                        q: `When is the next earnings date and dividend for ${data.name_en || data.name}?`,
+                        a: `Currently, there is no confirmed information regarding the earnings release date or dividend schedule for ${data.name_en || data.name}.`
+                    });
+                }
+
+                // 5. Price & Target
+                const consensus = data.consensus || {};
+                if (consensus.target_price && data.current_price) {
+                    const upside = ((consensus.target_price - data.current_price) / data.current_price * 100).toFixed(2);
+                    const upsidedown = upside > 0 ? 'upside' : 'downside'; // usually target > price means upside
+                    qnaList.push({
+                        q: `What is the current price and target price for ${data.name_en || data.name}?`,
+                        a: `As of ${today}, the price of ${data.name_en || data.name} is **$${data.current_price}**. The average Wall Street target price is **$${consensus.target_price}**, implying a potential **${upside}% ${upsidedown}**.`
+                    });
+                } else {
+                    qnaList.push({
+                        q: `What is the current price and target price for ${data.name_en || data.name}?`,
+                        a: `There is currently insufficient Wall Street analyst target price data for ${data.name_en || data.name}.`
+                    });
+                }
+
+                // Render HTML
+                const faqContainer = document.getElementById('faqSection');
+                if (faqContainer) {
+                    faqContainer.innerHTML = `
+                        <div class="mt-8 bg-[#23232a] rounded-xl border border-gray-800 p-6">
+                            <h3 class="text-lg font-bold text-gray-200 mb-4 flex items-center gap-2">
+                                 💬 Frequently Asked Questions
+                            </h3>
+                            <div class="space-y-4">
+                                ${qnaList.map(item => `
+                                    <div class="bg-[#1c1c1f] rounded-lg p-4 border border-gray-800/50">
+                                        <h4 class="font-bold text-gray-300 mb-2 text-sm">Q. ${item.q}</h4>
+                                        <p class="text-sm text-gray-400 leading-relaxed">${item.a.replace(/\*\*(.*?)\*\*/g, '<span class="text-gray-200 font-bold">$1</span>')}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Inject JSON-LD Schema
+                const schemaData = {
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    "mainEntity": qnaList.map(item => ({
+                        "@type": "Question",
+                        "name": item.q,
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": item.a.replace(/\*\*/g, '') // Remove markdown bold for schema
+                        }
+                    }))
+                };
+
+                const script = document.createElement('script');
+                script.type = 'application/ld+json';
+                script.text = JSON.stringify(schemaData);
+                document.head.appendChild(script);
             }
         }
 
