@@ -167,49 +167,77 @@ class StockDataFetcher:
                     try:
                         data = {}
                         
-                        # 1. Earnings (from calendar)
-                        # calendar is property, makes request
+                        # 1. Earnings (Improved with earnings_dates)
                         try:
-                            cal = ticker_obj.calendar
-                            if cal:
-                                # 1. Earnings
-                                if 'Earnings Date' in cal:
-                                    dates = cal['Earnings Date']
-                                    if dates:
-                                        data['next_earnings'] = dates[0].strftime('%Y-%m-%d')
-                                
-                                # 2. Dividend Dates
-                                if 'Ex-Dividend Date' in cal:
-                                    d_date = cal['Ex-Dividend Date']
-                                    if hasattr(d_date, 'strftime'):
-                                        data['ex_dividend_date'] = d_date.strftime('%Y-%m-%d')
-                                
-                                if 'Dividend Date' in cal:
-                                    p_date = cal['Dividend Date']
-                                    if hasattr(p_date, 'strftime'):
-                                        data['dividend_payment_date'] = p_date.strftime('%Y-%m-%d')
-                                        
-                            # [NEW] Fetch Past Earnings Result (Surprise)
-                            # This makes individual requests, so it might be slower, but it's for daily update.
-                            try:
-                                e_dates = ticker_obj.earnings_dates
-                                if e_dates is not None and not e_dates.empty:
-                                    # Filter for past dates
+                            # Try to get strictly future earnings from earnings_dates (DataFrame)
+                            # This is more reliable than ticker.calendar which sometimes shows past dates
+                            e_dates = ticker_obj.earnings_dates
+                            found_future_earnings = False
+                            
+                            if e_dates is not None and not e_dates.empty:
+                                try:
+                                    # Normalize timezone to match earnings_dates index
                                     now = pd.Timestamp.now().tz_localize(e_dates.index.dtype.tz)
-                                    past_earnings = e_dates[e_dates.index < now]
+                                    # specific future earnings
+                                    future_earnings = e_dates[e_dates.index >= now].sort_index()
                                     
+                                    if not future_earnings.empty:
+                                        # The first one is the nearest future earnings
+                                        next_date = future_earnings.index[0]
+                                        data['next_earnings'] = next_date.strftime('%Y-%m-%d')
+                                        found_future_earnings = True
+                                    
+                                    # Also capture past earnings for 'Recent Results'
+                                    past_earnings = e_dates[e_dates.index < now].sort_index(ascending=False)
                                     if not past_earnings.empty:
-                                        last = past_earnings.iloc[0] # Most recent past
-                                        # Check if we have valid data (sometimes it's NaN for very recent/future)
+                                        last = past_earnings.iloc[0]
                                         if pd.notna(last['Reported EPS']):
                                             data['last_earnings_date'] = past_earnings.index[0].strftime('%Y-%m-%d')
                                             data['last_eps_est'] = float(last['EPS Estimate']) if pd.notna(last['EPS Estimate']) else None
                                             data['last_eps_act'] = float(last['Reported EPS'])
                                             data['last_surprise'] = float(last['Surprise(%)']) if pd.notna(last['Surprise(%)']) else None
-                            except Exception as e:
-                                pass
-                                
-                        except: pass
+                                except Exception as e:
+                                    pass
+
+                            # Fallback to .calendar if no future earnings found in dataframe
+                            if not found_future_earnings:
+                                cal = ticker_obj.calendar
+                                if cal and 'Earnings Date' in cal:
+                                    dates = cal['Earnings Date']
+                                    if dates:
+                                        data['next_earnings'] = dates[0].strftime('%Y-%m-%d')
+                                        
+                        except Exception:
+                            pass
+                        
+                        # 2. Dividend Dates (Calendar + History fallback)
+                        try:
+                            cal = ticker_obj.calendar
+                            # Ex-Dividend Date
+                            if cal and 'Ex-Dividend Date' in cal:
+                                d_date = cal['Ex-Dividend Date']
+                                if hasattr(d_date, 'strftime'):
+                                    data['ex_dividend_date'] = d_date.strftime('%Y-%m-%d')
+                            
+                            # Payment Date
+                            if cal and 'Dividend Date' in cal:
+                                p_date = cal['Dividend Date']
+                                if hasattr(p_date, 'strftime'):
+                                    data['dividend_payment_date'] = p_date.strftime('%Y-%m-%d')
+                                    
+                            # If no ex-dividend date from calendar (often empty if not declared),
+                            # get the LAST ex-dividend date from history to show "Recent Div"
+                            if 'ex_dividend_date' not in data:
+                                divs = ticker_obj.dividends
+                                if not divs.empty:
+                                    # Last one
+                                    last_div_date = divs.index[-1]
+                                    data['ex_dividend_date'] = last_div_date.strftime('%Y-%m-%d')
+                                    # Mark this as 'past' implicitly by date check in frontend, 
+                                    # or we could add a flag, but date comparison is enough.
+                                    
+                        except Exception:
+                            pass
                         
                         # 3. Dividend Amount (Per Share) using .dividends history (Most accurate)
                         try:
