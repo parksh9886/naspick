@@ -881,10 +881,10 @@
                                                             </div>
                                                             <div class="flex justify-between items-end">
                                                                 <div class="text-[10px] text-gray-500">
-                                                                    예상 ${cal.last_eps_est} / 실제 <span class="text-gray-200 font-bold">${cal.last_eps_act}</span>
+                                                                    예상 ${cal.last_eps_est ? Number(cal.last_eps_est).toFixed(2) : '-'} / 실제 <span class="text-gray-200 font-bold">${Number(cal.last_eps_act).toFixed(2)}</span>
                                                                 </div>
                                                                 <div class="${color} font-bold text-sm">
-                                                                    ${sign}${cal.last_surprise}%
+                                                                    ${sign}${Number(cal.last_surprise).toFixed(2)}%
                                                                 </div>
                                                             </div>
                                                         </div>
