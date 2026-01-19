@@ -38,6 +38,16 @@ class NaspickEngine:
                 return json.load(f)
         return {}
 
+    def load_calendar_data(self):
+        """Load cached calendar data"""
+        path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'data', 'calendar_data.json')
+        if os.path.exists(path):
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except: pass
+        return {}
+
     def run(self):
         print("🚀 Naspick Engine Started (Facade Pattern Implementation)")
         print(f"⏰ Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -79,8 +89,10 @@ class NaspickEngine:
         # 5. Fetch Market Caps
         market_caps = self.fetcher.get_market_caps_bulk(ranked_df['Ticker'].tolist())
         
-        # 5.5 Fetch Calendar Data (Earnings, Dividends)
-        calendar_data = self.fetcher.fetch_calendar_data_bulk(ranked_df['Ticker'].tolist())
+        # 5.5 Load Calendar Data (From Cache)
+        # calendar_data = self.fetcher.fetch_calendar_data_bulk(ranked_df['Ticker'].tolist()) # OLD Live Fetch
+        calendar_data = self.load_calendar_data()
+
 
         # 6. Generate Context & JSON
         print("📝 Generating Final JSON...")

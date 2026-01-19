@@ -29,6 +29,10 @@ jobs:
     - name: Fetch Consensus Data (Yahoo Finance)
       run: python fetch_consensus.py
 
+    - name: Fetch Calendar Data (Daily)
+      run: python update_calendar.py
+
+
     - name: Commit and push changes
       run: |
         git config --global user.name 'GitHub Action'

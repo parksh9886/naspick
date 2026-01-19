@@ -204,10 +204,3 @@ class StockDataFetcher:
             except: pass
             
         return calendar_data
-                            
-                    except Exception as e:
-                        # print(f"Error {t_sym}: {e}")
-                        pass
-            except: pass
-            
-        return calendar_data
