@@ -192,8 +192,15 @@
                 const ogTitle = document.querySelector('meta[property="og:title"]');
                 if (ogTitle) ogTitle.setAttribute('content', `${dateString} ${stockData.name}(${stockData.ticker}) 실시간 티어 & 주가 분석 | 나스픽`);
 
+                // [SEO] Add Calendar Keywords (Earnings, Dividend)
+                let seoExtra = "";
+                const cal = stockData.calendar || {};
+                if (cal.next_earnings) seoExtra += ` 다음 실적발표: ${cal.next_earnings}.`;
+                if (cal.dividend_yield) seoExtra += ` 배당수익률: ${cal.dividend_yield}%.`;
+                else if (cal.last_surprise) seoExtra += ` 직전 실적: ${cal.last_surprise > 0 ? '어닝서프라이즈' : '미스'}(${cal.last_surprise}%).`;
+
                 const ogDesc = document.querySelector('meta[property="og:description"]');
-                if (ogDesc) ogDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 나스픽 점수 ${stockData.final_score}점(${stockData.tier}티어).`);
+                if (ogDesc) ogDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 나스픽 점수 ${stockData.final_score}점(${stockData.tier}티어).${seoExtra}`);
 
                 const ogUrl = document.querySelector('meta[property="og:url"]');
                 if (ogUrl) ogUrl.setAttribute('content', `https://naspick.com/stock/${stockData.ticker}`);
@@ -202,7 +209,7 @@
                 if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.name}(${stockData.ticker}) 실시간 티어 & 주가 분석 | 나스픽`);
 
                 const twitterDesc = document.querySelector('meta[name="twitter:description"]');
-                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 점수 ${stockData.final_score}점.`);
+                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 점수 ${stockData.final_score}점.${seoExtra}`);
 
                 // 6. Schema.org 구조화 데이터 (Corporation)
                 const schemaScript = document.createElement('script');

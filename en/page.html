@@ -201,8 +201,15 @@
                 const ogTitle = document.querySelector('meta[property="og:title"]');
                 if (ogTitle) ogTitle.setAttribute('content', `${dateString} ${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis | NASPICK`);
 
+                // [SEO] Add Calendar Keywords (Earnings, Dividend)
+                let seoExtra = "";
+                const cal = stockData.calendar || {};
+                if (cal.next_earnings) seoExtra += ` Next Earnings: ${cal.next_earnings}.`;
+                if (cal.dividend_yield) seoExtra += ` Dividend Yield: ${cal.dividend_yield}%.`;
+                else if (cal.last_surprise) seoExtra += ` Last Earnings: ${cal.last_surprise > 0 ? 'Beat' : 'Miss'}(${cal.last_surprise}%).`;
+
                 const ogDesc = document.querySelector('meta[property="og:description"]');
-                if (ogDesc) ogDesc.setAttribute('content', `[${dateString}] ${stockData.name_en || stockData.name} AI analysis. Price $${stockData.current_price}, Rating ${ratingLabel}.`);
+                if (ogDesc) ogDesc.setAttribute('content', `[${dateString}] ${stockData.name_en || stockData.name} AI analysis. Price $${stockData.current_price}, Rating ${ratingLabel}.${seoExtra}`);
 
                 const ogUrl = document.querySelector('meta[property="og:url"]');
                 if (ogUrl) ogUrl.setAttribute('content', `https://naspick.com/en/stock/${stockData.ticker}`);
@@ -211,7 +218,7 @@
                 if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis | NASPICK`);
 
                 const twitterDesc = document.querySelector('meta[name="twitter:description"]');
-                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString}] ${stockData.name_en || stockData.name} AI analysis. Price $${stockData.current_price}, Rating ${ratingLabel}.`);
+                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString}] ${stockData.name_en || stockData.name} AI analysis. Price $${stockData.current_price}, Rating ${ratingLabel}.${seoExtra}`);
 
                 // 6. Schema.org 구조화 데이터 (Corporation)
                 const schemaScript = document.createElement('script');
