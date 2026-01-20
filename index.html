@@ -463,7 +463,9 @@
             }
 
             // Update button styles
-            document.querySelectorAll('nav button').forEach(b => {
+            // Update button styles
+            const navChildren = document.getElementById('categoryNav').children;
+            Array.from(navChildren).forEach(b => {
                 b.classList.remove('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
                 b.classList.add('bg-[#282830]', 'text-gray-400', 'border-gray-700');
                 if (b.textContent === sectorKr) {
