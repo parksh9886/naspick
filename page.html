@@ -199,7 +199,7 @@
 
                 // [SEO] Add Calendar Keywords (Earnings, Dividend)
                 let seoExtra = "";
-                const cal = stockData.calendar || {};
+                // cal is already declared above
                 if (cal.next_earnings) seoExtra += ` 다음 실적발표: ${cal.next_earnings}.`;
                 if (cal.dividend_yield) seoExtra += ` 배당수익률: ${cal.dividend_yield}%.`;
                 else if (cal.last_surprise) seoExtra += ` 직전 실적: ${cal.last_surprise > 0 ? '어닝서프라이즈' : '미스'}(${cal.last_surprise}%).`;
