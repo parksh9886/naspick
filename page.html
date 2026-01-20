@@ -158,14 +158,17 @@
                 const date = today.getDate();
                 const dateString = `${month}월 ${date}일`;
 
-                // 1. Title 업데이트
-                document.title = `${dateString} ${stockData.name}(${stockData.ticker}) 실시간 티어 & 주가 분석 | 나스픽`;
+                // 1. Title 업데이트 (SEO 최적화: '주가 전망', '목표가' 키워드 포함)
+                document.title = `${dateString} ${stockData.ticker} 주가 전망 & 목표가 | ${stockData.name} AI 분석 - 나스픽`;
 
-                // 2. Meta Description 업데이트
+                // 2. Meta Description 업데이트 (SEO 최적화: '적정 주가', '목표가', '배당', '실적' 키워드 포함)
                 const metaDesc = document.querySelector('meta[name="description"]');
+                const cal = stockData.calendar || {};
+                let metaDividend = cal.dividend_yield ? `배당: ${cal.dividend_yield}%.` : '';
+                let metaEarnings = cal.next_earnings ? `다음 실적: ${cal.next_earnings}.` : '';
                 if (metaDesc) {
                     metaDesc.setAttribute('content',
-                        `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 나스픽 점수 ${stockData.final_score}점(${stockData.tier}티어). 기관 수급 포착 및 상승 모멘텀 발생. 1차 지지 라인 확인하기.`
+                        `[${dateString}] ${stockData.name}(${stockData.ticker}) 적정 주가 및 월스트리트 목표가 분석. 현재가 $${stockData.current_price}, 나스픽 AI 점수 ${stockData.final_score}점(${stockData.tier}티어). ${metaDividend} ${metaEarnings}`.trim()
                     );
                 }
 
@@ -190,9 +193,9 @@
                     twitterImage.setAttribute('content', `https://financialmodelingprep.com/image-stock/${stockData.ticker.replace('.', '-')}.png`);
                 }
 
-                // 5. OG/Twitter Title, Description, URL 동적 업데이트
+                // 5. OG/Twitter Title, Description, URL 동적 업데이트 (SEO 최적화)
                 const ogTitle = document.querySelector('meta[property="og:title"]');
-                if (ogTitle) ogTitle.setAttribute('content', `${dateString} ${stockData.name}(${stockData.ticker}) 실시간 티어 & 주가 분석 | 나스픽`);
+                if (ogTitle) ogTitle.setAttribute('content', `${dateString} ${stockData.ticker} 주가 전망 & 목표가 | ${stockData.name} AI 분석 - 나스픽`);
 
                 // [SEO] Add Calendar Keywords (Earnings, Dividend)
                 let seoExtra = "";
@@ -208,7 +211,7 @@
                 if (ogUrl) ogUrl.setAttribute('content', `https://naspick.com/stock/${stockData.ticker}`);
 
                 const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-                if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.name}(${stockData.ticker}) 실시간 티어 & 주가 분석 | 나스픽`);
+                if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.ticker} 주가 전망 & 목표가 | ${stockData.name} AI 분석 - 나스픽`);
 
                 const twitterDesc = document.querySelector('meta[name="twitter:description"]');
                 if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 점수 ${stockData.final_score}점.${seoExtra}`);
@@ -1169,6 +1172,18 @@
                     a: `${data.name}에 대한 월스트리트 전문가들의 목표주가 데이터가 현재 충분하지 않습니다.`
                 });
             }
+
+            // 6. Naspick AI Score & Tier (SEO: 'AI 분석', '주식 티어' 키워드)
+            let tierDescription = '';
+            if (data.tier === 1) tierDescription = '최상위 등급으로, 현재 시장에서 가장 강력한 상승 모멘텀과 우수한 펀더멘털을 보유한 종목입니다.';
+            else if (data.tier === 2) tierDescription = '우량 등급으로, 안정적인 성장성과 양호한 투자 매력도를 갖춘 종목입니다.';
+            else if (data.tier === 3) tierDescription = '보통 등급으로, 시장 평균 수준의 흐름을 보이고 있습니다.';
+            else tierDescription = '주의 등급으로, 현재 모멘텀이나 펀더멘털 개선이 필요한 상태입니다.';
+
+            qnaList.push({
+                q: `${data.name}(${data.ticker})의 나스픽 AI 점수와 티어 등급은 어떻게 되나요?`,
+                a: `${today} 기준 ${data.name}의 나스픽 AI 종합 점수는 **${data.final_score}점**이며, **${data.tier}티어** 등급입니다. ${tierDescription} 이 점수는 기술적 분석, 펀더멘털, 시장 센티먼트를 종합하여 15분마다 실시간 업데이트됩니다.`
+            });
 
             // Render HTML (Accordion Style)
             const faqContainer = document.getElementById('faqSection');

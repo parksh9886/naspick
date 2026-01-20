@@ -167,14 +167,17 @@
                 // Rating label
                 const ratingLabel = stockData.tier === 1 ? 'A+' : stockData.tier === 2 ? 'A' : stockData.tier === 3 ? 'B' : stockData.tier === 4 ? 'C' : 'D';
 
-                // 1. Title (with date for long-tail keywords)
-                document.title = `${dateString} ${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis & Rating | NASPICK`;
+                // 1. Title (SEO: 'Stock Forecast', 'Price Target' keywords)
+                document.title = `${dateString} ${stockData.ticker} Stock Forecast & Price Target | ${stockData.name_en || stockData.name} AI Analysis - NASPICK`;
 
-                // 2. Meta Description (with date)
+                // 2. Meta Description (SEO: 'Fair Value', 'Price Target', 'Dividend', 'Earnings' keywords)
                 const metaDesc = document.querySelector('meta[name="description"]');
+                const cal = stockData.calendar || {};
+                let metaDividend = cal.dividend_yield ? `Dividend: ${cal.dividend_yield}%.` : '';
+                let metaEarnings = cal.next_earnings ? `Next Earnings: ${cal.next_earnings}.` : '';
                 if (metaDesc) {
                     metaDesc.setAttribute('content',
-                        `[${dateString}] ${stockData.name_en || stockData.name} (${stockData.ticker}) AI analysis. Current price $${stockData.current_price}, NASPICK Rating ${ratingLabel} (Score ${stockData.final_score}/100). Real-time ratings and price targets.`
+                        `[${dateString}] ${stockData.name_en || stockData.name} (${stockData.ticker}) fair value & Wall Street price target analysis. Current price $${stockData.current_price}, NASPICK AI Score ${stockData.final_score}/100 (${ratingLabel}). ${metaDividend} ${metaEarnings}`.trim()
                     );
                 }
 
@@ -197,9 +200,9 @@
                     twitterImage.setAttribute('content', `https://financialmodelingprep.com/image-stock/${stockData.ticker.replace('.', '-')}.png`);
                 }
 
-                // 5. OG/Twitter Title, Description, URL (with date)
+                // 5. OG/Twitter Title, Description, URL (SEO optimized)
                 const ogTitle = document.querySelector('meta[property="og:title"]');
-                if (ogTitle) ogTitle.setAttribute('content', `${dateString} ${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis | NASPICK`);
+                if (ogTitle) ogTitle.setAttribute('content', `${dateString} ${stockData.ticker} Stock Forecast & Price Target | ${stockData.name_en || stockData.name} AI Analysis - NASPICK`);
 
                 // [SEO] Add Calendar Keywords (Earnings, Dividend)
                 let seoExtra = "";
@@ -215,7 +218,7 @@
                 if (ogUrl) ogUrl.setAttribute('content', `https://naspick.com/en/stock/${stockData.ticker}`);
 
                 const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-                if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Analysis | NASPICK`);
+                if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.ticker} Stock Forecast & Price Target | ${stockData.name_en || stockData.name} AI Analysis - NASPICK`);
 
                 const twitterDesc = document.querySelector('meta[name="twitter:description"]');
                 if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString}] ${stockData.name_en || stockData.name} AI analysis. Price $${stockData.current_price}, Rating ${ratingLabel}.${seoExtra}`);
@@ -1174,6 +1177,18 @@
                         a: `There is currently insufficient Wall Street analyst target price data for ${data.name_en || data.name}.`
                     });
                 }
+
+                // 6. NASPICK AI Score & Rating (SEO: 'AI analysis', 'stock rating' keywords)
+                let tierDescription = '';
+                if (data.tier === 1) tierDescription = 'This is the highest rating, indicating the stock has strong momentum and excellent fundamentals in the current market.';
+                else if (data.tier === 2) tierDescription = 'A high-quality rating, indicating stable growth and good investment attractiveness.';
+                else if (data.tier === 3) tierDescription = 'An average rating, showing market-average performance.';
+                else tierDescription = 'A cautionary rating, indicating momentum or fundamentals need improvement.';
+
+                qnaList.push({
+                    q: `What is the NASPICK AI Score and Rating for ${data.name_en || data.name} (${data.ticker})?`,
+                    a: `As of ${today}, ${data.name_en || data.name}'s NASPICK AI comprehensive score is **${data.final_score}/100** with an **${ratingLabel} Rating**. ${tierDescription} This score is calculated by combining technical analysis, fundamentals, and market sentiment, updated every 15 minutes.`
+                });
 
                 // Render HTML (Accordion Style)
                 const faqContainer = document.getElementById('faqSection');
