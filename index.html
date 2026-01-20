@@ -494,198 +494,195 @@
             }
             canonicalLink.href = `https://naspick.com/`;
 
-            document.querySelectorAll('nav button').forEach(b => {
-                b.classList.remove('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
-                b.classList.add('bg-[#282830]', 'text-gray-400', 'border-gray-700');
-                renderFilters();
+            renderFilters();
 
-                // Check URL for Sector
-                const path = window.location.pathname;
-                let foundSector = false;
+            // Check URL for Sector
+            const path = window.location.pathname;
+            let foundSector = false;
 
-                // Handle Korean Sector URL
-                if (path.includes('/sector/')) {
-                    const parts = path.split('/sector/');
-                    if (parts.length > 1 && parts[1]) {
-                        const slug = parts[1];
-                        const krName = Object.keys(SECTOR_SLUGS).find(key => SECTOR_SLUGS[key] === slug);
-                        if (krName) {
-                            selectSector(krName);
-                            foundSector = true;
-                        }
+            // Handle Korean Sector URL
+            if (path.includes('/sector/')) {
+                const parts = path.split('/sector/');
+                if (parts.length > 1 && parts[1]) {
+                    const slug = parts[1];
+                    const krName = Object.keys(SECTOR_SLUGS).find(key => SECTOR_SLUGS[key] === slug);
+                    if (krName) {
+                        selectSector(krName);
+                        foundSector = true;
                     }
-                }
-
-                if (!foundSector) {
-                    const allBtn = document.querySelector('nav a[data-cat="all"]');
-                    if (allBtn) {
-                        allBtn.classList.remove('bg-[#282830]', 'text-gray-400', 'border-gray-700');
-                        allBtn.classList.add('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
-                    }
-                    renderList(allData, 'all');
                 }
             }
+
+            if (!foundSector) {
+                const allBtn = document.querySelector('nav a[data-cat="all"]');
+                if (allBtn) {
+                    allBtn.classList.remove('bg-[#282830]', 'text-gray-400', 'border-gray-700');
+                    allBtn.classList.add('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
+                }
+                renderList(allData, 'all');
+            }
+        }
 
         // Handle browser back/forward
         window.addEventListener('popstate', (e) => {
-                if (e.state && e.state.sector) {
-                    if (e.state.sector === 'all') {
-                        selectAll();
-                    } else {
-                        selectSector(e.state.sector);
+            if (e.state && e.state.sector) {
+                if (e.state.sector === 'all') {
+                    selectAll();
+                } else {
+                    selectSector(e.state.sector);
+                }
+            }
+        });
+
+        function renderChart(data) {
+            if (!data || data.length === 0) return;
+
+            // Format Data & Convert to % Return
+            const dates = data.map(d => d.date);
+            const sb1_start = data[0].sb1;
+            const spy_start = data[0].spy;
+
+            const sb1 = data.map(d => ((d.sb1 - sb1_start) / sb1_start * 100));
+            const spy = data.map(d => ((d.spy - spy_start) / spy_start * 100));
+
+            // Returns calculation
+            const sb1_ret = sb1[sb1.length - 1].toFixed(1);
+            const spy_ret = spy[spy.length - 1].toFixed(1);
+
+            document.getElementById('sb1Return').innerText = `+${sb1_ret}%`;
+            document.getElementById('spyReturn').innerText = `+${spy_ret}%`;
+
+            // Set Period Text
+            const startD = dates[0].replace(/-/g, '/');
+            document.getElementById('periodText').innerText = `(${startD}~ )`;
+            document.getElementById('periodText').classList.remove('opacity-0');
+
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+
+            // Gradient fill (Sky Blue)
+            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(56, 189, 248, 0.2)');
+            gradient.addColorStop(1, 'rgba(56, 189, 248, 0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [
+                        {
+                            label: 'Naspick Portfolio',
+                            data: sb1,
+                            borderColor: '#38bdf8',
+                            backgroundColor: gradient,
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            pointHoverRadius: 4,
+                            pointBackgroundColor: '#38bdf8'
+                        },
+                        {
+                            label: 'S&P 500',
+                            data: spy,
+                            borderColor: '#6b7280',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            fill: false,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            pointHoverRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1c1c1f',
+                            titleColor: '#9ca3af',
+                            bodyColor: '#fff',
+                            borderColor: '#374151',
+                            borderWidth: 1,
+                            padding: 10,
+                            displayColors: true,
+                            titleFont: { family: 'Pretendard' },
+                            bodyFont: { family: 'Pretendard', weight: 'bold' },
+                            callbacks: {
+                                label: function (context) {
+                                    let val = context.parsed.y;
+                                    let sign = val >= 0 ? '+' : '';
+                                    return ' ' + context.dataset.label + ': ' + sign + val.toFixed(2) + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false, drawBorder: false },
+                            ticks: {
+                                maxTicksLimit: 5,
+                                color: '#6b7280',
+                                font: { size: 10, family: 'Pretendard' }
+                            },
+                            border: { display: false }
+                        },
+                        y: {
+                            grid: {
+                                color: '#2d2d35',
+                                borderDash: [5, 5],
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#6b7280',
+                                font: { size: 10, family: 'Pretendard' },
+                                callback: function (value) { return value + '%'; }
+                            },
+                            border: { display: false }
+                        }
                     }
                 }
             });
+        }
 
-            function renderChart(data) {
-                if (!data || data.length === 0) return;
+        let isChartExpanded = false;
+        function toggleChart() {
+            const body = document.getElementById('chartBody');
+            const icon = document.getElementById('chartToggleIcon');
 
-                // Format Data & Convert to % Return
-                const dates = data.map(d => d.date);
-                const sb1_start = data[0].sb1;
-                const spy_start = data[0].spy;
+            isChartExpanded = !isChartExpanded;
 
-                const sb1 = data.map(d => ((d.sb1 - sb1_start) / sb1_start * 100));
-                const spy = data.map(d => ((d.spy - spy_start) / spy_start * 100));
+            if (isChartExpanded) {
+                body.style.maxHeight = '500px';
+                body.style.opacity = '1';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                body.style.maxHeight = '0px';
+                body.style.opacity = '0';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
 
-                // Returns calculation
-                const sb1_ret = sb1[sb1.length - 1].toFixed(1);
-                const spy_ret = spy[spy.length - 1].toFixed(1);
+        function renderWatchlist() {
+            const container = document.getElementById('watchlistGrid');
+            const favList = [...favorites];
 
-                document.getElementById('sb1Return').innerText = `+${sb1_ret}%`;
-                document.getElementById('spyReturn').innerText = `+${spy_ret}%`;
-
-                // Set Period Text
-                const startD = dates[0].replace(/-/g, '/');
-                document.getElementById('periodText').innerText = `(${startD}~ )`;
-                document.getElementById('periodText').classList.remove('opacity-0');
-
-                const ctx = document.getElementById('performanceChart').getContext('2d');
-
-                // Gradient fill (Sky Blue)
-                const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-                gradient.addColorStop(0, 'rgba(56, 189, 248, 0.2)');
-                gradient.addColorStop(1, 'rgba(56, 189, 248, 0)');
-
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: dates,
-                        datasets: [
-                            {
-                                label: 'Naspick Portfolio',
-                                data: sb1,
-                                borderColor: '#38bdf8',
-                                backgroundColor: gradient,
-                                borderWidth: 2,
-                                fill: true,
-                                tension: 0.4,
-                                pointRadius: 0,
-                                pointHoverRadius: 4,
-                                pointBackgroundColor: '#38bdf8'
-                            },
-                            {
-                                label: 'S&P 500',
-                                data: spy,
-                                borderColor: '#6b7280',
-                                borderWidth: 2,
-                                borderDash: [5, 5],
-                                fill: false,
-                                tension: 0.4,
-                                pointRadius: 0,
-                                pointHoverRadius: 4
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        interaction: {
-                            mode: 'index',
-                            intersect: false,
-                        },
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                backgroundColor: '#1c1c1f',
-                                titleColor: '#9ca3af',
-                                bodyColor: '#fff',
-                                borderColor: '#374151',
-                                borderWidth: 1,
-                                padding: 10,
-                                displayColors: true,
-                                titleFont: { family: 'Pretendard' },
-                                bodyFont: { family: 'Pretendard', weight: 'bold' },
-                                callbacks: {
-                                    label: function (context) {
-                                        let val = context.parsed.y;
-                                        let sign = val >= 0 ? '+' : '';
-                                        return ' ' + context.dataset.label + ': ' + sign + val.toFixed(2) + '%';
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                grid: { display: false, drawBorder: false },
-                                ticks: {
-                                    maxTicksLimit: 5,
-                                    color: '#6b7280',
-                                    font: { size: 10, family: 'Pretendard' }
-                                },
-                                border: { display: false }
-                            },
-                            y: {
-                                grid: {
-                                    color: '#2d2d35',
-                                    borderDash: [5, 5],
-                                    drawBorder: false
-                                },
-                                ticks: {
-                                    color: '#6b7280',
-                                    font: { size: 10, family: 'Pretendard' },
-                                    callback: function (value) { return value + '%'; }
-                                },
-                                border: { display: false }
-                            }
-                        }
-                    }
-                });
+            if (favList.length === 0) {
+                container.innerHTML = `<div class="col-span-3 text-center text-gray-500 text-xs py-10">별 아이콘을 눌러<br>관심 종목을 추가하세요.</div>`;
+                return;
             }
 
-            let isChartExpanded = false;
-            function toggleChart() {
-                const body = document.getElementById('chartBody');
-                const icon = document.getElementById('chartToggleIcon');
+            const favData = allData.filter(d => favorites.has(d.ticker));
 
-                isChartExpanded = !isChartExpanded;
+            // Sort by Rank if available, or name
+            favData.sort((a, b) => (a.rank || 999) - (b.rank || 999));
 
-                if (isChartExpanded) {
-                    body.style.maxHeight = '500px';
-                    body.style.opacity = '1';
-                    icon.style.transform = 'rotate(0deg)';
-                } else {
-                    body.style.maxHeight = '0px';
-                    body.style.opacity = '0';
-                    icon.style.transform = 'rotate(180deg)';
-                }
-            }
-
-            function renderWatchlist() {
-                const container = document.getElementById('watchlistGrid');
-                const favList = [...favorites];
-
-                if (favList.length === 0) {
-                    container.innerHTML = `<div class="col-span-3 text-center text-gray-500 text-xs py-10">별 아이콘을 눌러<br>관심 종목을 추가하세요.</div>`;
-                    return;
-                }
-
-                const favData = allData.filter(d => favorites.has(d.ticker));
-
-                // Sort by Rank if available, or name
-                favData.sort((a, b) => (a.rank || 999) - (b.rank || 999));
-
-                container.innerHTML = favData.map((item) => `
+            container.innerHTML = favData.map((item) => `
                 <div class="relative group aspect-square">
                     <button onclick="toggleFavorite('${item.ticker}', event)" class="absolute top-1 right-1 hover:scale-110 transition z-20 cursor-pointer">
                         <svg class="w-3.5 h-3.5 text-yellow-400 fill-current drop-shadow-md" 
@@ -707,118 +704,118 @@
                     </a>
                 </div>
             `).join('');
-            }
+        }
 
-            function renderFilters() {
-                const nav = document.getElementById('categoryNav');
-                nav.innerHTML = '';
+        function renderFilters() {
+            const nav = document.getElementById('categoryNav');
+            nav.innerHTML = '';
 
-                // 1. Favorites Button (First)
-                const favBtn = document.createElement('button');
-                favBtn.className = "px-3 py-2 bg-[#282830] text-gray-400 font-medium text-xs rounded-full border border-gray-700 whitespace-nowrap hover:bg-gray-700 hover:text-white hover:border-gray-500 transition flex-shrink-0 flex items-center gap-1 group";
-                favBtn.innerHTML = `
+            // 1. Favorites Button (First)
+            const favBtn = document.createElement('button');
+            favBtn.className = "px-3 py-2 bg-[#282830] text-gray-400 font-medium text-xs rounded-full border border-gray-700 whitespace-nowrap hover:bg-gray-700 hover:text-white hover:border-gray-500 transition flex-shrink-0 flex items-center gap-1 group";
+            favBtn.innerHTML = `
                 <svg class="w-3.5 h-3.5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                 </svg>
             `;
-                favBtn.dataset.cat = 'favorites';
-                favBtn.onclick = () => {
-                    document.querySelectorAll('nav button').forEach(b => {
-                        b.classList.remove('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg', 'active-cat');
-                        b.classList.add('bg-[#282830]', 'text-gray-400', 'border-gray-700');
-                    });
-                    favBtn.classList.remove('bg-[#282830]', 'text-gray-400', 'border-gray-700');
-                    favBtn.classList.add('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg', 'active-cat');
-
-                    const favData = allData.filter(d => favorites.has(d.ticker));
-                    renderList(favData, 'favorites');
-
-                    // Update URL for favorites? Maybe just keep as is or clean URL
-                    history.pushState({ sector: 'favorites' }, '', '#favorites');
-                };
-                nav.appendChild(favBtn);
-
-                // 2. All Button
-                const allBtn = document.createElement('a');
-                allBtn.href = '/';
-                allBtn.className = "px-4 py-2 bg-[#5383e8] text-white font-bold text-xs rounded-full border border-[#5383e8] whitespace-nowrap shadow-lg shadow-blue-500/20 hover:bg-[#426dc6] transition flex-shrink-0 active-cat flex items-center justify-center no-underline hover:no-underline";
-                allBtn.textContent = "전체 랭킹";
-                allBtn.dataset.cat = 'all';
-                allBtn.onclick = (e) => {
-                    e.preventDefault();
-                    selectAll();
-                };
-                nav.appendChild(allBtn);
-
-                // 3. Sector Buttons
-                SECTORS.forEach(sec => {
-                    const btn = document.createElement('a');
-                    btn.href = `/sector/${SECTOR_SLUGS[sec]}`;
-                    btn.className = "px-3 py-2 bg-[#282830] text-gray-400 font-medium text-xs rounded-full border border-gray-700 whitespace-nowrap hover:bg-gray-700 hover:text-white hover:border-gray-500 transition flex-shrink-0 flex items-center justify-center no-underline hover:no-underline";
-                    btn.textContent = sec;
-                    btn.onclick = (e) => {
-                        e.preventDefault();
-                        selectSector(sec);
-                    };
-                    nav.appendChild(btn);
+            favBtn.dataset.cat = 'favorites';
+            favBtn.onclick = () => {
+                document.querySelectorAll('nav button').forEach(b => {
+                    b.classList.remove('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg', 'active-cat');
+                    b.classList.add('bg-[#282830]', 'text-gray-400', 'border-gray-700');
                 });
+                favBtn.classList.remove('bg-[#282830]', 'text-gray-400', 'border-gray-700');
+                favBtn.classList.add('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg', 'active-cat');
+
+                const favData = allData.filter(d => favorites.has(d.ticker));
+                renderList(favData, 'favorites');
+
+                // Update URL for favorites? Maybe just keep as is or clean URL
+                history.pushState({ sector: 'favorites' }, '', '#favorites');
+            };
+            nav.appendChild(favBtn);
+
+            // 2. All Button
+            const allBtn = document.createElement('a');
+            allBtn.href = '/';
+            allBtn.className = "px-4 py-2 bg-[#5383e8] text-white font-bold text-xs rounded-full border border-[#5383e8] whitespace-nowrap shadow-lg shadow-blue-500/20 hover:bg-[#426dc6] transition flex-shrink-0 active-cat flex items-center justify-center no-underline hover:no-underline";
+            allBtn.textContent = "전체 랭킹";
+            allBtn.dataset.cat = 'all';
+            allBtn.onclick = (e) => {
+                e.preventDefault();
+                selectAll();
+            };
+            nav.appendChild(allBtn);
+
+            // 3. Sector Buttons
+            SECTORS.forEach(sec => {
+                const btn = document.createElement('a');
+                btn.href = `/sector/${SECTOR_SLUGS[sec]}`;
+                btn.className = "px-3 py-2 bg-[#282830] text-gray-400 font-medium text-xs rounded-full border border-gray-700 whitespace-nowrap hover:bg-gray-700 hover:text-white hover:border-gray-500 transition flex-shrink-0 flex items-center justify-center no-underline hover:no-underline";
+                btn.textContent = sec;
+                btn.onclick = (e) => {
+                    e.preventDefault();
+                    selectSector(sec);
+                };
+                nav.appendChild(btn);
+            });
+        }
+
+        function renderList(data, category = 'all') {
+            const list = document.getElementById('rankingRows');
+
+            // Handle empty case
+            if (data.length === 0) {
+
+
+                list.innerHTML = '<div class="p-10 text-center text-gray-500 text-sm">별 아이콘을 눌러 관심 종목을 추가하세요.</div>';
+                return;
             }
 
-            function renderList(data, category = 'all') {
-                const list = document.getElementById('rankingRows');
+            // [Performance] Progressive Rendering
+            // Render first 50 items immediately
+            const CHUNK_SIZE = 50;
+            const initialData = data.slice(0, CHUNK_SIZE);
 
-                // Handle empty case
-                if (data.length === 0) {
+            list.innerHTML = initialData.map((item, idx) => createRowHtml(item, idx, category)).join('');
 
+            // Render remaining items in next frame
+            if (data.length > CHUNK_SIZE) {
+                setTimeout(() => {
+                    const remainingData = data.slice(CHUNK_SIZE);
+                    const remainingHtml = remainingData.map((item, idx) => createRowHtml(item, idx + CHUNK_SIZE, category)).join('');
+                    list.insertAdjacentHTML('beforeend', remainingHtml);
+                }, 0);
+            }
+        }
 
-                    list.innerHTML = '<div class="p-10 text-center text-gray-500 text-sm">별 아이콘을 눌러 관심 종목을 추가하세요.</div>';
-                    return;
-                }
+        // Helper function for row HTML to clean up code
+        function createRowHtml(item, idx, category) {
+            const changeColor = item.change_pct >= 0 ? 'text-red-400' : 'text-blue-400';
+            let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
+            if (item.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
+            else if (item.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
+            else if (item.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
+            else if (item.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
+            else if (item.tier === 5) tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
 
-                // [Performance] Progressive Rendering
-                // Render first 50 items immediately
-                const CHUNK_SIZE = 50;
-                const initialData = data.slice(0, CHUNK_SIZE);
+            const tierBadge = `<span class="px-1.5 py-0.5 text-[9px] md:text-[10px] font-bold rounded border ${tierClass}">${item.tier + ' Tier'}</span>`;
 
-                list.innerHTML = initialData.map((item, idx) => createRowHtml(item, idx, category)).join('');
-
-                // Render remaining items in next frame
-                if (data.length > CHUNK_SIZE) {
-                    setTimeout(() => {
-                        const remainingData = data.slice(CHUNK_SIZE);
-                        const remainingHtml = remainingData.map((item, idx) => createRowHtml(item, idx + CHUNK_SIZE, category)).join('');
-                        list.insertAdjacentHTML('beforeend', remainingHtml);
-                    }, 0);
-                }
+            // Determine which rank to show: Overall or Sector
+            // Favorites tab shows overall rank, sector tabs show sector rank
+            let displayRank, displayChange;
+            if (category === 'all' || category === 'favorites') {
+                displayRank = item.rank;
+                displayChange = item.rank_change;
+            } else {
+                displayRank = item.sector_rank;
+                displayChange = item.sector_rank_change;
             }
 
-            // Helper function for row HTML to clean up code
-            function createRowHtml(item, idx, category) {
-                const changeColor = item.change_pct >= 0 ? 'text-red-400' : 'text-blue-400';
-                let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
-                if (item.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
-                else if (item.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
-                else if (item.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
-                else if (item.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
-                else if (item.tier === 5) tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
+            // If rank is missing (new stock), handle safely
+            if (!displayRank) displayRank = idx + 1;
 
-                const tierBadge = `<span class="px-1.5 py-0.5 text-[9px] md:text-[10px] font-bold rounded border ${tierClass}">${item.tier + ' Tier'}</span>`;
-
-                // Determine which rank to show: Overall or Sector
-                // Favorites tab shows overall rank, sector tabs show sector rank
-                let displayRank, displayChange;
-                if (category === 'all' || category === 'favorites') {
-                    displayRank = item.rank;
-                    displayChange = item.rank_change;
-                } else {
-                    displayRank = item.sector_rank;
-                    displayChange = item.sector_rank_change;
-                }
-
-                // If rank is missing (new stock), handle safely
-                if (!displayRank) displayRank = idx + 1;
-
-                return `
+            return `
                 <li class="block border-b border-gray-700 hover:bg-[#31313c] transition group h-14 md:h-16 list-none">
                     <div onclick="location.href='/stock/${item.ticker}'" class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center w-full h-full text-inherit hover:no-underline cursor-pointer">
 
@@ -835,15 +832,15 @@
                             <div class="font-bold text-sm md:text-lg italic text-[#5383e8] w-9 md:w-8 text-left tracking-tighter">${displayRank}</div>
                             <div class="text-[9px] md:text-[10px] font-bold flex items-center justify-start w-6 md:w-8">
                                 ${(() => {
-                        const change = displayChange || 0;
-                        if (change > 0) {
-                            return `<span class="text-green-500 flex items-center">▲ ${change}</span>`;
-                        } else if (change < 0) {
-                            return `<span class="text-red-500 flex items-center">▼ ${Math.abs(change)}</span>`;
-                        } else {
-                            return `<span class="text-gray-600">=</span>`;
-                        }
-                    })()}
+                    const change = displayChange || 0;
+                    if (change > 0) {
+                        return `<span class="text-green-500 flex items-center">▲ ${change}</span>`;
+                    } else if (change < 0) {
+                        return `<span class="text-red-500 flex items-center">▼ ${Math.abs(change)}</span>`;
+                    } else {
+                        return `<span class="text-gray-600">=</span>`;
+                    }
+                })()}
                             </div>
                         </div>
 
@@ -896,47 +893,47 @@
                     </div>
                 </li>
                 `;
-            }
+        }
 
-            function initSearch() {
-                const input = document.getElementById('searchInput');
-                const resultsDiv = document.getElementById('searchResults');
+        function initSearch() {
+            const input = document.getElementById('searchInput');
+            const resultsDiv = document.getElementById('searchResults');
 
-                input.addEventListener('input', (e) => {
-                    const term = e.target.value.toLowerCase();
-                    if (!term) {
-                        resultsDiv.classList.add('hidden');
-                        return;
+            input.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                if (!term) {
+                    resultsDiv.classList.add('hidden');
+                    return;
+                }
+
+                // Search aliases for common brand names
+                const SEARCH_ALIASES = {
+                    '구글': ['GOOGL', 'GOOG'],
+                    'google': ['GOOGL', 'GOOG'],
+                    '페이스북': ['META'],
+                    'facebook': ['META'],
+                    '버크셔': ['BRK.B'],
+                    'berkshire': ['BRK.B']
+                };
+
+                // Check if search term matches any alias
+                let aliasMatches = [];
+                for (const [alias, tickers] of Object.entries(SEARCH_ALIASES)) {
+                    if (alias.includes(term) || term.includes(alias)) {
+                        aliasMatches = aliasMatches.concat(tickers);
                     }
+                }
 
-                    // Search aliases for common brand names
-                    const SEARCH_ALIASES = {
-                        '구글': ['GOOGL', 'GOOG'],
-                        'google': ['GOOGL', 'GOOG'],
-                        '페이스북': ['META'],
-                        'facebook': ['META'],
-                        '버크셔': ['BRK.B'],
-                        'berkshire': ['BRK.B']
-                    };
+                const matches = allData.filter(d =>
+                    d.ticker.toLowerCase().includes(term) ||
+                    (d.name && d.name.toLowerCase().includes(term)) ||
+                    (d.name_en && d.name_en.toLowerCase().includes(term)) ||
+                    aliasMatches.includes(d.ticker)
+                ).slice(0, 10);
 
-                    // Check if search term matches any alias
-                    let aliasMatches = [];
-                    for (const [alias, tickers] of Object.entries(SEARCH_ALIASES)) {
-                        if (alias.includes(term) || term.includes(alias)) {
-                            aliasMatches = aliasMatches.concat(tickers);
-                        }
-                    }
-
-                    const matches = allData.filter(d =>
-                        d.ticker.toLowerCase().includes(term) ||
-                        (d.name && d.name.toLowerCase().includes(term)) ||
-                        (d.name_en && d.name_en.toLowerCase().includes(term)) ||
-                        aliasMatches.includes(d.ticker)
-                    ).slice(0, 10);
-
-                    if (matches.length > 0) {
-                        // SEO 수정: div onclick -> a href
-                        resultsDiv.innerHTML = matches.map(d => `
+                if (matches.length > 0) {
+                    // SEO 수정: div onclick -> a href
+                    resultsDiv.innerHTML = matches.map(d => `
                         <a href="/stock/${d.ticker}" class="p-3 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
                             <div>
                                 <div class="flex items-center gap-2">
@@ -948,22 +945,22 @@
                             <span class="text-[#5383e8] text-xs font-bold">${d.final_score}점</span>
                         </a>
                     `).join('');
-                        resultsDiv.classList.remove('hidden');
-                    } else {
-                        resultsDiv.innerHTML = '<div class="p-3 text-gray-500 text-xs">검색 결과가 없습니다.</div>';
-                        resultsDiv.classList.remove('hidden');
-                    }
-                });
+                    resultsDiv.classList.remove('hidden');
+                } else {
+                    resultsDiv.innerHTML = '<div class="p-3 text-gray-500 text-xs">검색 결과가 없습니다.</div>';
+                    resultsDiv.classList.remove('hidden');
+                }
+            });
 
-                // Close search when clicking outside
-                document.addEventListener('click', (e) => {
-                    if (!input.contains(e.target) && !resultsDiv.contains(e.target)) {
-                        resultsDiv.classList.add('hidden');
-                    }
-                });
-            }
+            // Close search when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!input.contains(e.target) && !resultsDiv.contains(e.target)) {
+                    resultsDiv.classList.add('hidden');
+                }
+            });
+        }
 
-            loadData();
+        loadData();
     </script>
 
     <footer class="text-center text-[10px] md:text-xs text-gray-500 py-3 md:py-4 px-4 border-t border-gray-800 mt-4">
