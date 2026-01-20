@@ -1277,9 +1277,15 @@
                     return;
                 }
 
+                // Normalize function: remove spaces for flexible matching
+                const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
+                const normalizedTerm = normalize(term);
+
                 const matches = allData.filter(d =>
                     d.ticker.toLowerCase().includes(term) ||
+                    normalize(d.name).includes(normalizedTerm) ||
                     (d.name && d.name.toLowerCase().includes(term)) ||
+                    normalize(d.name_en).includes(normalizedTerm) ||
                     (d.name_en && d.name_en.toLowerCase().includes(term))
                 ).slice(0, 5);
 
