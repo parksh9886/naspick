@@ -1298,7 +1298,10 @@
                                 <span class="font-bold text-xs text-white">${d.ticker}</span>
                                 <span class="text-[10px] text-gray-400 ml-1">${d.name_en || d.name}</span>
                             </div>
-                            <span class="text-[#5383e8] text-[10px] font-bold">${d.final_score}</span>
+                            <div class="text-right">
+                                <span class="text-[#5383e8] text-[10px] font-bold block">${d.final_score}</span>
+                                <span class="text-gray-500 text-[9px] block">Tier ${d.tier}</span>
+                            </div>
                         </a>
                     `).join('');
                     resultsDiv.classList.remove('hidden');

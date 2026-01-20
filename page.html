@@ -1277,13 +1277,30 @@
                     return;
                 }
 
-                // Normalize function: remove spaces for flexible matching
+                // Korean Chosung Helper
+                const getChosung = (str) => {
+                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+                    let result = "";
+                    for (let i = 0; i < str.length; i++) {
+                        const code = str.charCodeAt(i) - 44032;
+                        if (code > -1 && code < 11172) {
+                            result += chosung[Math.floor(code / 588)];
+                        } else {
+                            result += str.charAt(i);
+                        }
+                    }
+                    return result;
+                };
+
+                // Normalize: remove spaces
                 const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
                 const normalizedTerm = normalize(term);
+                const chosungTerm = getChosung(normalizedTerm);
 
                 const matches = allData.filter(d =>
                     d.ticker.toLowerCase().includes(term) ||
                     normalize(d.name).includes(normalizedTerm) ||
+                    getChosung(normalize(d.name)).includes(chosungTerm) ||
                     (d.name && d.name.toLowerCase().includes(term)) ||
                     normalize(d.name_en).includes(normalizedTerm) ||
                     (d.name_en && d.name_en.toLowerCase().includes(term))
@@ -1297,7 +1314,11 @@
                                 <span class="font-bold text-xs text-white">${d.ticker}</span>
                                 <span class="text-[10px] text-gray-400 ml-1">${d.name}</span>
                             </div>
-                            <span class="text-[#5383e8] text-[10px] font-bold">${d.final_score}</span>
+                            <div class="text-right">
+                                <span class="text-[#5383e8] text-[10px] font-bold block">${d.final_score}</span>
+                                <span class="text-gray-500 text-[9px] block">${d.tier}티어</span>
+                            </div>
+                        </a>
                         </a>
                     `).join('');
                     resultsDiv.classList.remove('hidden');

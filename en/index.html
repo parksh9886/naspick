@@ -919,7 +919,10 @@
                                      <span class="text-xs text-gray-300">${d.name_en || d.name}</span>
                                 </div>
                             </div>
-                            <span class="text-[#5383e8] text-xs font-bold">${d.final_score} pts</span>
+                            <div class="text-right">
+                                <span class="text-[#5383e8] text-xs font-bold block">${d.final_score} pts</span>
+                                <span class="text-gray-400 text-[10px] font-mono block">Tier ${d.tier}</span>
+                            </div>
                         </a>
                     `).join('');
                     resultsDiv.classList.remove('hidden');
