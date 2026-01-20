@@ -1084,12 +1084,12 @@
                 else perAns = `현재 ${data.name}의 PER은 **${per.toFixed(2)}배**로, 시장 평균과 유사한 **적정 가치** 수준에서 거래되고 있습니다.`;
 
                 qnaList.push({
-                    q: `${data.name} 주식은 현재 저평가 상태인가요? (PER 분석)`,
+                    q: `${data.name}(${data.ticker}) 주식은 현재 저평가 상태인가요? (PER 분석)`,
                     a: perAns
                 });
             } else {
                 qnaList.push({
-                    q: `${data.name} 주식은 현재 저평가 상태인가요? (PER 분석)`,
+                    q: `${data.name}(${data.ticker}) 주식은 현재 저평가 상태인가요? (PER 분석)`,
                     a: `현재 ${data.name}에 대한 PER(주가수익비율) 데이터가 집계되지 않았습니다.`
                 });
             }
@@ -1106,12 +1106,12 @@
                 else rsiAns = `현재 기술적 지표는 **중립**입니다. RSI 지표가 **${rsi.toFixed(2)}**로 안정적인 흐름을 보이고 있어, 분할 매수 관점에서 접근하기 좋습니다.`;
 
                 qnaList.push({
-                    q: `지금 ${data.name} 주식을 사도 될까요? (RSI 기술적 분석)`,
+                    q: `지금 ${data.name}(${data.ticker}) 주식을 사도 될까요? (RSI 기술적 분석)`,
                     a: rsiAns
                 });
             } else {
                 qnaList.push({
-                    q: `지금 ${data.name} 주식을 사도 될까요? (RSI 기술적 분석)`,
+                    q: `지금 ${data.name}(${data.ticker}) 주식을 사도 될까요? (RSI 기술적 분석)`,
                     a: `현재 기술적 지표(RSI)를 분석할 충분한 데이터가 없습니다.`
                 });
             }
@@ -1125,12 +1125,12 @@
 
             if (calAnsParts.length > 0) {
                 qnaList.push({
-                    q: `${data.name}의 다음 실적 발표일과 배당금은?`,
+                    q: `${data.name}(${data.ticker})의 다음 실적 발표일과 배당금은?`,
                     a: calAnsParts.join(' ')
                 });
             } else {
                 qnaList.push({
-                    q: `${data.name}의 다음 실적 발표일과 배당금은?`,
+                    q: `${data.name}(${data.ticker})의 다음 실적 발표일과 배당금은?`,
                     a: `현재 ${data.name}의 확정된 실적 발표일이나 배당 일정 정보가 없습니다.`
                 });
             }
