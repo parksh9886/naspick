@@ -239,19 +239,40 @@ class StockDataFetcher:
                         except Exception:
                             pass
                         
-                        # 3. Dividend Amount (Per Share) using .dividends history (Most accurate)
+                        # 3. Dividend Amount (Per Share) & Annualized TTM
                         try:
                             divs = ticker_obj.dividends
                             if not divs.empty:
                                 last_div = divs.iloc[-1]
                                 data['dividend_amount'] = float(last_div)
+                                
+                                # [New] Calculate TTM Dividends (Last 365 days sum)
+                                # This handles Monthly, Quarterly, Semi-Annual, Annual automatically
+                                ttm_start = pd.Timestamp.now().tz_localize(divs.index.dtype.tz) - pd.Timedelta(days=365)
+                                ttm_divs = divs[divs.index >= ttm_start]
+                                if not ttm_divs.empty:
+                                    data['dividend_ttm'] = float(ttm_divs.sum())
+                                else:
+                                    # Fallback if no divs in last year but has history (rare)
+                                    # Just use frequency * last_div? Unsafe.
+                                    # Just use last_div * 4 as very rough estimate if logic fails
+                                    pass
+
                         except: pass
                         
-                        # 4. Dividend Yield (from ticker.info)
+                        # 4. Dividend Yield (Priority: info > TTM calculation)
                         try:
                             info = ticker_obj.info
                             if info and 'dividendYield' in info and info['dividendYield']:
-                                data['dividend_yield'] = round(info['dividendYield'] * 100, 2)  # Convert to percentage
+                                data['dividend_yield'] = round(info['dividendYield'] * 100, 2)
+                            
+                            # Fallback: Calculate from TTM
+                            elif 'dividend_ttm' in data and 'previousClose' in info:
+                                price = info['previousClose']
+                                if price and price > 0:
+                                     yield_val = (data['dividend_ttm'] / price) * 100
+                                     data['dividend_yield'] = round(yield_val, 2)
+                                     # data['is_ttm_yield'] = True
                         except: pass
                         
                         if data:

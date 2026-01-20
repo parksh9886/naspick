@@ -222,14 +222,17 @@ class NaspickEngine:
             # Helper: Get or Calculate Calendar Data
             cal_data = calendar_data.get(ticker, {}) if calendar_data else {}
             
-            # [Fix] Calculate Dividend Yield if missing but Dividend Amount exists
-            if cal_data and 'dividend_amount' in cal_data and ('dividend_yield' not in cal_data or not cal_data['dividend_yield']):
+            # [Fix] Calculate Dividend Yield if missing (Priority: TTM > *4 Estimate)
+            if cal_data and ('dividend_yield' not in cal_data or not cal_data['dividend_yield']):
                  if current_price > 0:
-                     # Assume quarterly (x4) as default for US stocks
-                     approx_yield = (cal_data['dividend_amount'] * 4 / current_price) * 100
-                     cal_data['dividend_yield'] = round(approx_yield, 2)
-                     # Optional: Add flag to indicate estimated
-                     # cal_data['is_estimated_yield'] = True
+                     if 'dividend_ttm' in cal_data and cal_data['dividend_ttm'] > 0:
+                         # Use exact TTM sum (Most accurate for all frequencies)
+                         yield_val = (cal_data['dividend_ttm'] / current_price) * 100
+                         cal_data['dividend_yield'] = round(yield_val, 2)
+                     elif 'dividend_amount' in cal_data:
+                         # Fallback: Assume quarterly (x4) if TTM missing
+                         approx_yield = (cal_data['dividend_amount'] * 4 / current_price) * 100
+                         cal_data['dividend_yield'] = round(approx_yield, 2)
             
             item["calendar"] = cal_data
             item["related_peers"] = []
