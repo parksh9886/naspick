@@ -129,20 +129,18 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643020932469823"
         crossorigin="anonymous"></script>
 
-    <!-- Schema.org Structured Data -->
-    <script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "나스픽 - NASPICK",
-        "url": "https://naspick.com",
-        "description": "미국 주식 실시간 랭킹과 종목별 티어(Tier) 분석 정보를 제공합니다. 데이터 알고리즘이 선정한 오늘의 주도주와 투자 인사이트를 확인하세요.",
-        "inLanguage": "ko",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://naspick.com/stock/{search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "나스픽 - NASPICK",
+    "url": "https://naspick.com",
+    "description": "미국 주식 실시간 랭킹과 종목별 티어(Tier) 분석 정보를 제공합니다. 데이터 알고리즘이 선정한 오늘의 주도주와 투자 인사이트를 확인하세요.",
+    "inLanguage": "ko",
+    "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://naspick.com/stock/{search_term_string}",
+    "query-input": "required name=search_term_string"
+    }
     }
     </script>
 
@@ -154,13 +152,18 @@
         "name": "나스픽 (NASPICK)",
         "url": "https://naspick.com",
         "logo": "https://naspick.com/images/og-image.png",
-        "description": "미국 주식 AI 분석 플랫폼. S&P 500 전종목 실시간 티어 분석과 투자 인사이트 제공."
+        "description": "미국 주식 AI 분석 플랫폼. S&P 500 전종목 실시간 티어 분석과 투자 인사이트 제공.",
+        "sameAs": [
+            "https://twitter.com/naspick",
+            "https://instagram.com/naspick"
+        ]
     }
     </script>
 </head>
 
 <body class="bg-[#1c1c1f] text-white min-h-screen flex flex-col">
-    <h1 class="sr-only">나스픽 - 미국 주식 실시간 티어 및 AI 데이터 분석 플랫폼</h1>
+    <!-- SEO Improved H1 -->
+    <h1 class="sr-only">나스픽 - 미국 주식 실시간 티어 분석 및 S&P500 AI 추천 랭킹</h1>
 
     <header class="bg-[#5383e8] py-3 md:py-5 border-b border-[#3e63b0] shadow-lg z-20">
         <div
@@ -312,11 +315,12 @@
                         class="hidden md:flex md:col-span-3 items-center justify-start pl-2 text-left md:relative md:right-px">
                         관련주 (Top Picks)</div>
                 </div>
+                <!-- Semantic Change: div (scroll container) -> ol (list) structure fixed -->
                 <div id="rankingList" class="overflow-y-scroll flex-1 modern-scrollbar relative"
                     style="overflow-y: overlay;">
-                    <div id="rankingRows">
-                        <div class="p-10 text-center text-gray-500 text-sm">데이터를 불러오는 중입니다...</div>
-                    </div>
+                    <ol id="rankingRows" class="w-full">
+                        <li class="p-10 text-center text-gray-500 text-sm list-none">데이터를 불러오는 중입니다...</li>
+                    </ol>
                 </div>
             </div>
             </div>
@@ -445,6 +449,15 @@
                 if (metaDesc) {
                     metaDesc.setAttribute('content', `${sectorKr} 섹터 미국 주식 실시간 랭킹과 종목별 티어(Tier) 분석. 나스픽 AI 알고리즘 기반 투자 인사이트.`);
                 }
+
+                // [SEO] Update Canonical Tag dynamically
+                let canonicalLink = document.querySelector('link[rel="canonical"]');
+                if (!canonicalLink) {
+                    canonicalLink = document.createElement('link');
+                    canonicalLink.rel = 'canonical';
+                    document.head.appendChild(canonicalLink);
+                }
+                canonicalLink.href = `https://naspick.com/sector/${slug}`;
             }
 
             // Update button styles
@@ -469,6 +482,15 @@
             if (metaDesc) {
                 metaDesc.setAttribute('content', '미국 주식 실시간 랭킹과 종목별 티어(Tier) 분석 정보를 제공합니다. 데이터 알고리즘이 선정한 오늘의 주도주와 투자 인사이트를 나스픽에서 확인하세요.');
             }
+
+            // [SEO] Reset Canonical Tag
+            let canonicalLink = document.querySelector('link[rel="canonical"]');
+            if (!canonicalLink) {
+                canonicalLink = document.createElement('link');
+                canonicalLink.rel = 'canonical';
+                document.head.appendChild(canonicalLink);
+            }
+            canonicalLink.href = `https://naspick.com/`;
 
             document.querySelectorAll('nav button').forEach(b => {
                 b.classList.remove('bg-[#5383e8]', 'text-white', 'border-[#5383e8]', 'shadow-lg');
@@ -768,82 +790,85 @@
             if (!displayRank) displayRank = idx + 1;
 
             return `
-                <div onclick="location.href='/stock/${item.ticker}'" 
-                    class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center border-b border-gray-700 hover:bg-[#31313c] transition cursor-pointer group h-14 md:h-16">
-                    
-                    <div class="col-span-3 md:col-span-2 flex items-center justify-start pl-2 gap-1 md:gap-2 relative">
-                        <button onclick="toggleFavorite('${item.ticker}', event)" 
+            // Semantic Change: div -> li, onclick -> a href
+            return `
+                < li class="block border-b border-gray-700 hover:bg-[#31313c] transition group h-14 md:h-16 list-none" >
+                    <a href="/stock/${item.ticker}" class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center w-full h-full text-inherit hover:no-underline">
+
+                        <div class="col-span-3 md:col-span-2 flex items-center justify-start pl-2 gap-1 md:gap-2 relative">
+                            <button onclick="toggleFavorite('${item.ticker}', event)"
                                 data-ticker="${item.ticker}"
-                                class="star-btn transition hover:scale-110 p-1 group">
-                            <svg class="w-5 h-5 md:w-6 md:h-6 ${favorites.has(item.ticker) ? 'text-yellow-400 fill-current' : 'text-gray-600 fill-transparent group-hover:text-yellow-400'}" 
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                            </svg>
-                        </button>
-                        
-                        <div class="font-bold text-sm md:text-lg italic text-[#5383e8] w-9 md:w-8 text-left tracking-tighter">${displayRank}</div>
-                        <div class="text-[9px] md:text-[10px] font-bold flex items-center justify-start w-6 md:w-8">
-                            ${(() => {
-                    const change = displayChange || 0;
-                    if (change > 0) {
-                        return `<span class="text-green-500 flex items-center">▲ ${change}</span>`;
-                    } else if (change < 0) {
-                        return `<span class="text-red-500 flex items-center">▼ ${Math.abs(change)}</span>`;
-                    } else {
-                        return `<span class="text-gray-600">=</span>`;
-                    }
-                })()}
+                                class="star-btn transition hover:scale-110 p-1 group z-10">
+                                <svg class="w-5 h-5 md:w-6 md:h-6 ${favorites.has(item.ticker) ? 'text-yellow-400 fill-current' : 'text-gray-600 fill-transparent group-hover:text-yellow-400'}"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                </svg>
+                            </button>
+
+                            <div class="font-bold text-sm md:text-lg italic text-[#5383e8] w-9 md:w-8 text-left tracking-tighter">${displayRank}</div>
+                            <div class="text-[9px] md:text-[10px] font-bold flex items-center justify-start w-6 md:w-8">
+                                ${(() => {
+                                    const change = displayChange || 0;
+                                    if (change > 0) {
+                                        return `<span class="text-green-500 flex items-center">▲ ${change}</span>`;
+                                    } else if (change < 0) {
+                                        return `<span class="text-red-500 flex items-center">▼ ${Math.abs(change)}</span>`;
+                                    } else {
+                                        return `<span class="text-gray-600">=</span>`;
+                                    }
+                                })()}
+                            </div>
                         </div>
-                    </div>
-                    
-                    <a href="/stock/${item.ticker}" onclick="event.stopPropagation()" class="col-span-3 md:col-span-3 flex items-center justify-start pl-2 gap-2 overflow-hidden block text-inherit hover:no-underline">
-                        <div class="w-6 h-6 md:w-9 md:h-9 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden bg-[#31313c]">
-                            <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" 
-                                alt="${item.name} 로고"
-                                loading="lazy"
-                                onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=128'" 
-                                style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
+
+                        <div class="col-span-3 md:col-span-3 flex items-center justify-start pl-2 gap-2 overflow-hidden">
+                            <div class="w-6 h-6 md:w-9 md:h-9 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden bg-[#31313c]">
+                                <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png"
+                                    alt="${item.name}(${item.ticker}) 로고"
+                                    loading="lazy"
+                                    onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=128'"
+                                    style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
+                            </div>
+                            <div class="min-w-0 text-left">
+                                <div class="font-bold text-gray-100 text-xs md:text-sm truncate">${item.name}</div>
+                                <div class="text-[9px] md:text-[10px] text-gray-500">${item.ticker}</div>
+                            </div>
                         </div>
-                        <div class="min-w-0 text-left">
-                            <div class="font-bold text-gray-100 text-xs md:text-sm truncate">${item.name}</div>
-                            <div class="text-[9px] md:text-[10px] text-gray-500">${item.ticker}</div>
+
+                        <div class="col-span-2 md:col-span-1 flex items-center justify-start pl-2">
+                            ${tierBadge}
+                        </div>
+
+                        <div class="hidden md:flex md:col-span-1 items-center justify-start pl-2 font-bold text-gray-300 text-xs md:text-sm">
+                            ${item.final_score}
+                        </div>
+
+                        <div class="col-span-2 md:col-span-1 text-left pl-2">
+                            <div class="font-bold text-gray-200 text-xs md:text-sm">$${(item.current_price || 0).toFixed(2)}</div>
+                            <div class="text-[9px] md:text-[10px] font-bold ${changeColor}">
+                                ${item.change_pct > 0 ? '+' : ''}${item.change_pct}%
+                            </div>
+                        </div>
+
+                        <div class="col-span-2 md:col-span-1 text-left pl-2">
+                            <span class="text-[9px] md:text-[10px] text-gray-200 bg-gray-600 px-1.5 py-0.5 rounded whitespace-nowrap tracking-tighter inline-block overflow-hidden text-ellipsis max-w-full">${item.sector}</span>
+                        </div>
+
+                        <div class="hidden md:flex md:col-span-3 text-left pl-2 gap-1 overflow-x-auto no-scrollbar items-center" onclick="event.preventDefault()">
+                            ${(item.related_peers || []).slice(0, 3).map(rel => `
+                                <a href="/stock/${rel.ticker}" 
+                                class="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#3a3a45] flex items-center justify-center border border-gray-600 hover:border-gray-400 transition relative z-20" 
+                                title="${rel.name}">
+                                    <img src="https://financialmodelingprep.com/image-stock/${rel.ticker.replace('.', '-')}.png" 
+                                        alt="${rel.name || rel.ticker} 관련주"
+                                        loading="lazy"
+                                        onerror="this.style.display='none'"
+                                        class="w-full h-full rounded-full object-contain p-0.5">
+                                </a>
+                            `).join('')}
                         </div>
                     </a>
-
-                    <div class="col-span-2 md:col-span-1 flex items-center justify-start pl-2">
-                        ${tierBadge}
-                    </div>
-
-                    <div class="hidden md:flex md:col-span-1 items-center justify-start pl-2 font-bold text-gray-300 text-xs md:text-sm">
-                        ${item.final_score}
-                    </div>
-
-                    <div class="col-span-2 md:col-span-1 text-left pl-2">
-                        <div class="font-bold text-gray-200 text-xs md:text-sm">$${(item.current_price || 0).toFixed(2)}</div>
-                        <div class="text-[9px] md:text-[10px] font-bold ${changeColor}">
-                            ${item.change_pct > 0 ? '+' : ''}${item.change_pct}%
-                        </div>
-                    </div>
-
-                    <div class="col-span-2 md:col-span-1 text-left pl-2">
-                        <span class="text-[9px] md:text-[10px] text-gray-200 bg-gray-600 px-1.5 py-0.5 rounded whitespace-nowrap tracking-tighter inline-block overflow-hidden text-ellipsis max-w-full">${item.sector}</span>
-                    </div>
-
-                    <div class="hidden md:flex md:col-span-3 text-left pl-2 gap-1 overflow-x-auto no-scrollbar items-center">
-                        ${(item.related_peers || []).slice(0, 3).map(rel => `
-                            <a href="/stock/${rel.ticker}" 
-                            class="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#3a3a45] flex items-center justify-center border border-gray-600 hover:border-gray-400 transition" 
-                            title="${rel.name}">
-                                <img src="https://financialmodelingprep.com/image-stock/${rel.ticker.replace('.', '-')}.png" 
-                                    alt="${rel.ticker}"
-                                    loading="lazy"
-                                    onerror="this.style.display='none'"
-                                    class="w-full h-full rounded-full object-contain p-0.5">
-                            </a>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
+                </li >
+                `;
         }
 
         function initSearch() {
@@ -885,7 +910,7 @@
                 if (matches.length > 0) {
                     // SEO 수정: div onclick -> a href
                     resultsDiv.innerHTML = matches.map(d => `
-                        <a href="/stock/${d.ticker}" class="p-3 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
+                < a href = "/stock/${d.ticker}" class="p-3 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline" >
                             <div>
                                 <div class="flex items-center gap-2">
                                      <span class="font-bold text-sm text-white">${d.ticker}</span>
@@ -894,7 +919,7 @@
                                 <span class="text-[10px] text-gray-500">${d.name_en || ''}</span>
                             </div>
                             <span class="text-[#5383e8] text-xs font-bold">${d.final_score}점</span>
-                        </a>
+                        </a >
                     `).join('');
                     resultsDiv.classList.remove('hidden');
                 } else {
