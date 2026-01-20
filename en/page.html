@@ -1090,8 +1090,8 @@
                 const ratingLabel = (String(data.tier) === '1') ? 'A+' : (String(data.tier) === '2') ? 'A' : (String(data.tier) === '3') ? 'B' : (String(data.tier) === '4') ? 'C' : 'D';
 
                 qnaList.push({
-                    q: `What is the investment rating and score for ${data.name_en || data.name}?`,
-                    a: `Based on Naspick AI analysis as of ${today}, ${data.name_en || data.name} has a score of **${data.final_score} (${ratingLabel} Rating)**. ${scoreAns}`
+                    q: `What is the investment rating and score for ${data.name_en || data.name} (${data.ticker})?`,
+                    a: `Based on Naspick AI analysis as of ${today}, ${data.name_en || data.name} (${data.ticker}) has a score of **${data.final_score} (${ratingLabel} Rating)**. ${scoreAns}`
                 });
 
                 // 2. Valuation (PER)
@@ -1099,18 +1099,18 @@
                 // Fix: Use data.financial_health.per
                 const per = data.financial_health?.per;
                 if (per) {
-                    if (per < 15) perAns = `Yes. Currently, ${data.name_en || data.name}'s PER is **${per.toFixed(2)}x**, which is considered **undervalued** compared to the market average, offering good price merit.`;
-                    else if (per > 50) perAns = `Currently, ${data.name_en || data.name}'s PER is **${per.toFixed(2)}x**, which is relatively **overvalued**. This may reflect high growth expectations.`;
-                    else perAns = `Currently, ${data.name_en || data.name}'s PER is **${per.toFixed(2)}x**, trading at a **fair value** similar to the market average.`;
+                    if (per < 15) perAns = `Yes. Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, which is considered **undervalued** compared to the market average, offering good price merit.`;
+                    else if (per > 50) perAns = `Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, which is relatively **overvalued**. This may reflect high growth expectations.`;
+                    else perAns = `Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, trading at a **fair value** similar to the market average.`;
 
                     qnaList.push({
-                        q: `Is ${data.name_en || data.name} stock currently overvalued or undervalued? (PER Analysis)`,
+                        q: `Is ${data.name_en || data.name} (${data.ticker}) stock currently overvalued or undervalued? (PER Analysis)`,
                         a: perAns
                     });
                 } else {
                     qnaList.push({
-                        q: `Is ${data.name_en || data.name} stock currently overvalued or undervalued? (PER Analysis)`,
-                        a: `Currently, PER (Price-to-Earnings Ratio) data for ${data.name_en || data.name} is not available.`
+                        q: `Is ${data.name_en || data.name} (${data.ticker}) stock currently overvalued or undervalued? (PER Analysis)`,
+                        a: `Currently, PER (Price-to-Earnings Ratio) data for ${data.name_en || data.name} (${data.ticker}) is not available.`
                     });
                 }
 
@@ -1126,13 +1126,13 @@
                     else rsiAns = `The technical indicators are **neutral**. The RSI is **${rsi.toFixed(2)}**, showing a stable trend suitable for accumulation.`;
 
                     qnaList.push({
-                        q: `Is now a good time to buy ${data.name_en || data.name}? (RSI Technical Analysis)`,
+                        q: `Is now a good time to buy ${data.name_en || data.name} (${data.ticker})? (RSI Technical Analysis)`,
                         a: rsiAns
                     });
                 } else {
                     qnaList.push({
-                        q: `Is now a good time to buy ${data.name_en || data.name}? (RSI Technical Analysis)`,
-                        a: `Currently, there is insufficient data to perform RSI technical analysis.`
+                        q: `Is now a good time to buy ${data.name_en || data.name} (${data.ticker})? (RSI Technical Analysis)`,
+                        a: `Currently, there is insufficient data to perform RSI technical analysis for ${data.name_en || data.name} (${data.ticker}).`
                     });
                 }
 
@@ -1145,7 +1145,7 @@
 
                 if (calAnsParts.length > 0) {
                     qnaList.push({
-                        q: `When is the next earnings date and dividend for ${data.name_en || data.name}?`,
+                        q: `When is the next earnings date and dividend for ${data.name_en || data.name} (${data.ticker})?`,
                         a: calAnsParts.join(' ')
                     });
                 } else {
