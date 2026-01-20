@@ -720,19 +720,27 @@
             nav.appendChild(favBtn);
 
             // 2. All Button
-            const allBtn = document.createElement('button');
-            allBtn.className = "px-4 py-2 bg-[#5383e8] text-white font-bold text-xs rounded-full border border-[#5383e8] whitespace-nowrap shadow-lg shadow-blue-500/20 hover:bg-[#426dc6] transition flex-shrink-0 active-cat";
+            const allBtn = document.createElement('a');
+            allBtn.href = '/';
+            allBtn.className = "px-4 py-2 bg-[#5383e8] text-white font-bold text-xs rounded-full border border-[#5383e8] whitespace-nowrap shadow-lg shadow-blue-500/20 hover:bg-[#426dc6] transition flex-shrink-0 active-cat flex items-center justify-center no-underline hover:no-underline";
             allBtn.textContent = "전체 랭킹";
             allBtn.dataset.cat = 'all';
-            allBtn.onclick = () => selectAll();
+            allBtn.onclick = (e) => {
+                e.preventDefault();
+                selectAll();
+            };
             nav.appendChild(allBtn);
 
             // 3. Sector Buttons
             SECTORS.forEach(sec => {
-                const btn = document.createElement('button');
-                btn.className = "px-3 py-2 bg-[#282830] text-gray-400 font-medium text-xs rounded-full border border-gray-700 whitespace-nowrap hover:bg-gray-700 hover:text-white hover:border-gray-500 transition flex-shrink-0";
+                const btn = document.createElement('a');
+                btn.href = `/sector/${SECTOR_SLUGS[sec]}`;
+                btn.className = "px-3 py-2 bg-[#282830] text-gray-400 font-medium text-xs rounded-full border border-gray-700 whitespace-nowrap hover:bg-gray-700 hover:text-white hover:border-gray-500 transition flex-shrink-0 flex items-center justify-center no-underline hover:no-underline";
                 btn.textContent = sec;
-                btn.onclick = () => selectSector(sec);
+                btn.onclick = (e) => {
+                    e.preventDefault();
+                    selectSector(sec);
+                };
                 nav.appendChild(btn);
             });
         }
@@ -793,7 +801,7 @@
 
             return `
                 <li class="block border-b border-gray-700 hover:bg-[#31313c] transition group h-14 md:h-16 list-none">
-                    <a href="/stock/${item.ticker}" class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center w-full h-full text-inherit hover:no-underline">
+                    <div onclick="location.href='/stock/${item.ticker}'" class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center w-full h-full text-inherit hover:no-underline cursor-pointer">
 
                         <div class="col-span-3 md:col-span-2 flex items-center justify-start pl-2 gap-1 md:gap-2 relative">
                             <button onclick="toggleFavorite('${item.ticker}', event)"
@@ -820,7 +828,7 @@
                             </div>
                         </div>
 
-                        <div class="col-span-3 md:col-span-3 flex items-center justify-start pl-2 gap-2 overflow-hidden">
+                        <a href="/stock/${item.ticker}" onclick="event.stopPropagation()" class="col-span-3 md:col-span-3 flex items-center justify-start pl-2 gap-2 overflow-hidden text-inherit hover:no-underline">
                             <div class="w-6 h-6 md:w-9 md:h-9 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden bg-[#31313c]">
                                 <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png"
                                     alt="${item.name}(${item.ticker}) 로고"
@@ -832,7 +840,7 @@
                                 <div class="font-bold text-gray-100 text-xs md:text-sm truncate">${item.name}</div>
                                 <div class="text-[9px] md:text-[10px] text-gray-500">${item.ticker}</div>
                             </div>
-                        </div>
+                        </a>
 
                         <div class="col-span-2 md:col-span-1 flex items-center justify-start pl-2">
                             ${tierBadge}
@@ -853,9 +861,9 @@
                             <span class="text-[9px] md:text-[10px] text-gray-200 bg-gray-600 px-1.5 py-0.5 rounded whitespace-nowrap tracking-tighter inline-block overflow-hidden text-ellipsis max-w-full">${item.sector}</span>
                         </div>
 
-                        <div class="hidden md:flex md:col-span-3 text-left pl-2 gap-1 overflow-x-auto no-scrollbar items-center" onclick="event.preventDefault()">
+                        <div class="hidden md:flex md:col-span-3 text-left pl-2 gap-1 items-center h-full">
                             ${(item.related_peers || []).slice(0, 3).map(rel => `
-                                <a href="/stock/${rel.ticker}" 
+                                <a href="/stock/${rel.ticker}" onclick="event.stopPropagation()"
                                 class="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#3a3a45] flex items-center justify-center border border-gray-600 hover:border-gray-400 transition relative z-20" 
                                 title="${rel.name}">
                                     <img src="https://financialmodelingprep.com/image-stock/${rel.ticker.replace('.', '-')}.png" 
@@ -866,7 +874,7 @@
                                 </a>
                             `).join('')}
                         </div>
-                    </a>
+                    </div>
                 </li>
                 `;
         }

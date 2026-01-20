@@ -277,6 +277,19 @@
         }
 
         function renderPage(data) {
+            const SECTOR_SLUGS = {
+                "기술": "technology",
+                "커뮤니케이션": "communication",
+                "임의소비재": "consumer-discretionary",
+                "필수소비재": "consumer-staples",
+                "에너지": "energy",
+                "금융": "financials",
+                "헬스케어": "healthcare",
+                "산업재": "industrials",
+                "소재": "materials",
+                "부동산": "real-estate",
+                "유틸리티": "utilities"
+            };
             const isPlus = data.change_pct >= 0;
             const changeColor = isPlus ? 'text-red-400' : 'text-blue-400';
             const changeSign = isPlus ? '▲' : '▼';
@@ -554,7 +567,7 @@
                                     <span class="text-lg font-bold text-gray-400 tracking-wider">${data.ticker}</span>
                                     ${tierBadge}
                                 </div>
-                                <div class="text-gray-400 text-sm mt-0.5">${data.sector}</div>
+                                <a href="/sector/${SECTOR_SLUGS[data.sector]}" class="inline-block px-2 py-1 bg-gray-600 text-gray-200 rounded text-xs font-bold hover:bg-gray-500 transition-colors mt-1 hover:text-white hover:no-underline">${data.sector}</a>
                             </div>
                         </div>
                     </div>
