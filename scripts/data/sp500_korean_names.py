@@ -310,7 +310,7 @@ SP500_KOREAN_NAMES = {
     "MGM": "MGM리조트",
     "MKC": "맥코믹",
     "MLM": "마틴마리에타",
-    "MRSH": "마시",
+    "MMC": "Marsh McLennan",
     "MMM": "3M",
     "MNST": "몬스터",
     "MO": "알트리아",
@@ -501,7 +501,7 @@ SP500_KOREAN_NAMES = {
     "XEL": "엑셀에너지",
     "XOM": "엑손모빌",
     "XYL": "자일렘",
-    "XYZ": "블록",  # Placeholder
+    "XYZ": "블록",
     "YUM": "얌브랜즈",
     "ZBH": "짐머바이오맷",
     "ZBRA": "지브라 테크놀로지스",
