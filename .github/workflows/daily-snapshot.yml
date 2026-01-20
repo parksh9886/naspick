@@ -31,6 +31,10 @@ jobs:
       - name: Sync Stock Names (if new tickers)
         run: |
           python tools/sync_stock_names.py
+
+      - name: Update Calendar Data (Earnings/Dividends)
+        run: |
+          python update_calendar.py
       
       - name: Create Daily Snapshot
         run: |

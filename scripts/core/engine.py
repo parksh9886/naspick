@@ -217,8 +217,22 @@ class NaspickEngine:
                 "technical_analysis": ctx,
                 "consensus": consensus_data.get(ticker, None),
                 "financial_health": consensus_data.get(ticker, {}).get('financial_health', None),
-                "calendar": calendar_data.get(ticker, None),
-                "related_peers": []
+            }
+            
+            # Helper: Get or Calculate Calendar Data
+            cal_data = calendar_data.get(ticker, {}) if calendar_data else {}
+            
+            # [Fix] Calculate Dividend Yield if missing but Dividend Amount exists
+            if cal_data and 'dividend_amount' in cal_data and ('dividend_yield' not in cal_data or not cal_data['dividend_yield']):
+                 if current_price > 0:
+                     # Assume quarterly (x4) as default for US stocks
+                     approx_yield = (cal_data['dividend_amount'] * 4 / current_price) * 100
+                     cal_data['dividend_yield'] = round(approx_yield, 2)
+                     # Optional: Add flag to indicate estimated
+                     # cal_data['is_estimated_yield'] = True
+            
+            item["calendar"] = cal_data
+            item["related_peers"] = []
             }
             final_results.append(item)
             
