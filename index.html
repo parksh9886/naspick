@@ -941,9 +941,18 @@
                     return result;
                 };
 
+                // Helper: Decompose Compound Consonants
+                const decomposeHangul = (str) => {
+                    const doubleConsonants = {
+                        'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
+                        'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
+                    };
+                    return str.split('').map(char => doubleConsonants[char] || char).join('');
+                };
+
                 // Normalize: remove spaces
                 const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
-                const normalizedTerm = normalize(term);
+                const normalizedTerm = decomposeHangul(normalize(term));
                 const chosungTerm = getChosung(normalizedTerm);
 
                 const matches = allData.filter(d =>
