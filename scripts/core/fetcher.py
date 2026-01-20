@@ -247,6 +247,13 @@ class StockDataFetcher:
                                 data['dividend_amount'] = float(last_div)
                         except: pass
                         
+                        # 4. Dividend Yield (from ticker.info)
+                        try:
+                            info = ticker_obj.info
+                            if info and 'dividendYield' in info and info['dividendYield']:
+                                data['dividend_yield'] = round(info['dividendYield'] * 100, 2)  # Convert to percentage
+                        except: pass
+                        
                         if data:
                             calendar_data[t_sym] = data
                             
