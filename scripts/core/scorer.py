@@ -127,10 +127,10 @@ class MarketScorer:
         else:
             merged['Score_OM'] = 0
             
-        # D. Momentum (20 pts) - High is Good (with 1M lag)
-        merged['Score_Mom1Y'] = merged.groupby('Sector')['Return_12M'].rank(pct=True, ascending=True) * 10
-        merged['Score_Mom6M'] = merged.groupby('Sector')['Return_6M'].rank(pct=True, ascending=True) * 5
-        merged['Score_Mom3M'] = merged.groupby('Sector')['Return_3M'].rank(pct=True, ascending=True) * 5
+        # D. Momentum (20 pts) - High is Good (with 1M lag) -> [CHANGED] Market Relative (Absolute)
+        merged['Score_Mom1Y'] = merged['Return_12M'].rank(pct=True, ascending=True) * 10
+        merged['Score_Mom6M'] = merged['Return_6M'].rank(pct=True, ascending=True) * 5
+        merged['Score_Mom3M'] = merged['Return_3M'].rank(pct=True, ascending=True) * 5
         
         # E. Stability (5 pts) - Low Debt is Good
         merged['Score_Stability'] = (1 - merged.groupby('Sector')['Debt_Ratio'].rank(pct=True, ascending=True)) * 5
@@ -138,11 +138,11 @@ class MarketScorer:
         # F. Risk (5 pts) - Low Volatility is Good
         merged['Score_Risk'] = (1 - merged.groupby('Sector')['Volatility_60D'].rank(pct=True, ascending=True)) * 5
         
-        # G. Consensus (10 pts) - High Upside is Good
-        merged['Score_Consensus'] = merged.groupby('Sector')['Consensus_Upside'].rank(pct=True, ascending=True) * 10
+        # G. Consensus (10 pts) - High Upside is Good -> [CHANGED] Market Relative (Absolute)
+        merged['Score_Consensus'] = merged['Consensus_Upside'].rank(pct=True, ascending=True) * 10
         
-        # H. Sentiment (5 pts) - High is Good (Volume Spike)
-        merged['Score_Vol'] = merged.groupby('Sector')['Vol_Spike'].rank(pct=True, ascending=True) * 5
+        # H. Sentiment (5 pts) - High is Good (Volume Spike) -> [CHANGED] Market Relative (Absolute)
+        merged['Score_Vol'] = merged['Vol_Spike'].rank(pct=True, ascending=True) * 5
         
         # 3. Fill NaNs with 0
         score_cols = [c for c in merged.columns if c.startswith('Score_')]
