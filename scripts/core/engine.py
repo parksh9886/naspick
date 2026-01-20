@@ -236,7 +236,7 @@ class NaspickEngine:
             
             item["calendar"] = cal_data
             item["related_peers"] = []
-            }
+            
             final_results.append(item)
             
         # 7. Final Polish
