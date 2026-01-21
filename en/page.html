@@ -674,20 +674,38 @@
                              alt="${data.name_en || data.name} logo"
                              onerror="this.src='https://ui-avatars.com/api/?name=${data.ticker}&background=5383e8&color=fff&size=256'" 
                              style="filter: invert(1) hue-rotate(180deg);" class="w-16 h-16 rounded-lg shadow-lg object-contain">
-                            <div>
+                            <div class="w-full">
                                 <div class="flex items-center gap-2 mb-1">
-                                    <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">${data.name_en || data.name}</h1>
-                                    <div id="favoriteContainer" class="cursor-pointer pt-1"></div>
+                                    <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight break-keep mr-1">${data.name_en || data.name}</h1>
+                                    <div id="favoriteContainer" class="cursor-pointer pt-1 shrink-0"></div>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-lg font-bold text-gray-400 tracking-wider">${data.ticker}</span>
-                                    ${tierBadge}
+                                
+                                <div class="flex justify-between items-end w-full gap-4">
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-lg font-bold text-gray-400 tracking-wider">${data.ticker}</span>
+                                            ${tierBadge}
+                                        </div>
+                                        <a href="/en/sector/${SECTOR_SLUGS[data.sector]}" class="inline-block px-2 py-1 bg-gray-600 text-gray-200 rounded text-xs font-bold hover:bg-gray-500 transition-colors mt-1 hover:text-white hover:no-underline">${sectorEn}</a>
+                                    </div>
+
+                                    <!-- Mobile Price Block -->
+                                    <div class="text-right md:hidden">
+                                        <div class="text-2xl font-bold font-mono">$${data.current_price}</div>
+                                        <div class="${changeColor} font-bold text-sm flex items-center justify-end gap-1">
+                                            ${changeSign} ${Math.abs(data.change_pct)}%
+                                        </div>
+                                        <div class="text-[10px] text-gray-400 font-bold mt-0.5 tracking-wider">
+                                            ${formatMarketCap(data.market_cap)}
+                                        </div>
+                                    </div>
                                 </div>
-                                <a href="/en/sector/${SECTOR_SLUGS[data.sector]}" class="inline-block px-2 py-1 bg-gray-600 text-gray-200 rounded text-xs font-bold hover:bg-gray-500 transition-colors mt-1 hover:text-white hover:no-underline">${sectorEn}</a>
                             </div>
                         </div>
                     </div>
-                    <div class="text-right">
+                    
+                    <!-- Desktop Price Block -->
+                    <div class="text-right hidden md:block">
                         <div class="text-4xl font-bold font-mono">$${data.current_price}</div>
                         <div class="${changeColor} font-bold text-lg flex items-center justify-end gap-1">
                             ${changeSign} ${Math.abs(data.change_pct)}% <span class="text-xs text-gray-500 font-normal">Today</span>
