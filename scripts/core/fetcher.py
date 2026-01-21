@@ -264,7 +264,13 @@ class StockDataFetcher:
                         try:
                             info = ticker_obj.info
                             if info and 'dividendYield' in info and info['dividendYield']:
-                                data['dividend_yield'] = round(info['dividendYield'] * 100, 2)
+                                raw_yield = info['dividendYield']
+                                # [Fix] If yield > 0.5 (50%), it's likely already a percentage.
+                                # Normally yields are 0.05 (5%), but sometimes 5.0 (5%).
+                                if raw_yield > 0.5:
+                                    data['dividend_yield'] = round(raw_yield, 2)
+                                else:
+                                    data['dividend_yield'] = round(raw_yield * 100, 2)
                             
                             # Fallback: Calculate from TTM
                             elif 'dividend_ttm' in data and 'previousClose' in info:
