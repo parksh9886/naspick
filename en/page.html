@@ -313,6 +313,15 @@
                 "부동산": "real-estate",
                 "유틸리티": "utilities"
             };
+
+            const formatMarketCap = (num) => {
+                if (!num) return '-';
+                if (num >= 1e12) return (num / 1e12).toFixed(2) + 'T';
+                if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+                if (num >= 1e6) return (num / 1e6).toFixed(0) + 'M';
+                return num.toLocaleString();
+            };
+
             const isPlus = data.change_pct >= 0;
             // US convention: green = up, red = down
             const changeColor = isPlus ? 'text-green-400' : 'text-red-400';
@@ -682,6 +691,9 @@
                         <div class="text-4xl font-bold font-mono">$${data.current_price}</div>
                         <div class="${changeColor} font-bold text-lg flex items-center justify-end gap-1">
                             ${changeSign} ${Math.abs(data.change_pct)}% <span class="text-xs text-gray-500 font-normal">Today</span>
+                        </div>
+                        <div class="text-[11px] text-gray-500 font-bold mt-1 tracking-wider">
+                           MC: ${formatMarketCap(data.market_cap)}
                         </div>
                     </div>
                 </section>

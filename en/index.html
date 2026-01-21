@@ -310,8 +310,11 @@
                         class="col-span-2 md:col-span-1 flex items-center justify-start pl-2 text-[10px] md:text-xs md:relative md:right-px">
                         Sector</div>
                     <div
-                        class="hidden md:flex md:col-span-3 items-center justify-start pl-2 text-left md:relative md:right-px">
+                        class="hidden md:flex md:col-span-2 items-center justify-start pl-2 text-left md:relative md:right-px">
                         Related (Top Picks)</div>
+                    <div
+                        class="hidden md:flex md:col-span-1 items-center justify-end pr-2 text-[10px] md:text-xs md:relative md:right-px">
+                        Market Cap</div>
                 </div>
                 <div id="rankingList" class="overflow-y-scroll flex-1 modern-scrollbar relative"
                     style="overflow-y: overlay;">
@@ -366,6 +369,16 @@
                     }
                 }
             });
+        }
+
+        }
+
+        function formatMarketCap(num) {
+            if (!num) return '-';
+            if (num >= 1e12) return (num / 1e12).toFixed(2) + 'T';
+            if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+            if (num >= 1e6) return (num / 1e6).toFixed(0) + 'M';
+            return num.toLocaleString();
         }
 
         // English sector names
@@ -802,82 +815,77 @@
             if (!displayRank) displayRank = idx + 1;
 
             return `
-                <div onclick="location.href='/en/stock/${item.ticker}'" 
-                    class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center border-b border-gray-700 hover:bg-[#31313c] transition cursor-pointer group h-14 md:h-16">
-                    
-                    <div class="col-span-3 md:col-span-2 flex items-center justify-start pl-2 gap-1 md:gap-2 relative">
-                        <button onclick="toggleFavorite('${item.ticker}', event)" 
-                                data-ticker="${item.ticker}"
-                                class="star-btn transition hover:scale-110 p-1 group">
-                            <svg class="w-5 h-5 md:w-6 md:h-6 ${favorites.has(item.ticker) ? 'text-yellow-400 fill-current' : 'text-gray-600 fill-transparent group-hover:text-yellow-400'}" 
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                            </svg>
-                        </button>
-                        
-                        <div class="font-bold text-sm md:text-lg italic text-[#5383e8] w-9 md:w-8 text-left tracking-tighter">${displayRank}</div>
-                        <div class="text-[9px] md:text-[10px] font-bold flex items-center justify-start w-6 md:w-8">
-                            ${(() => {
-                    const change = displayChange || 0;
-                    if (change > 0) {
-                        return `<span class="text-green-500 flex items-center">▲ ${change}</span>`;
-                    } else if (change < 0) {
-                        return `<span class="text-red-500 flex items-center">▼ ${Math.abs(change)}</span>`;
-                    } else {
-                        return `<span class="text-gray-600">=</span>`;
-                    }
-                })()}
-                        </div>
-                    </div>
-                    
-                    <a href="/en/stock/${item.ticker}" onclick="event.stopPropagation()" class="col-span-3 md:col-span-3 flex items-center justify-start pl-2 gap-2 overflow-hidden block text-inherit hover:no-underline">
-                        <div class="w-6 h-6 md:w-9 md:h-9 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden bg-[#31313c]">
-                            <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" 
-                                alt="${item.name_en || item.name} logo"
-                                loading="lazy"
-                                onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=128'" 
-                                style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
-                        </div>
-                        <div class="min-w-0 text-left">
-                            <div class="font-bold text-gray-100 text-xs md:text-sm truncate">${item.name_en || item.name}</div>
-                            <div class="text-[9px] md:text-[10px] text-gray-500">${item.ticker}</div>
-                        </div>
-                    </a>
-
-                    <div class="col-span-2 md:col-span-1 flex items-center justify-start pl-2">
-                        ${tierBadge}
-                    </div>
-
-                    <div class="hidden md:flex md:col-span-1 items-center justify-start pl-2 font-bold text-gray-300 text-xs md:text-sm">
-                        ${item.final_score}
-                    </div>
-
-                    <div class="col-span-2 md:col-span-1 text-left pl-2">
-                        <div class="font-bold text-gray-200 text-xs md:text-sm">$${(item.current_price || 0).toFixed(2)}</div>
-                        <div class="text-[9px] md:text-[10px] font-bold ${changeColor}">
-                            ${item.change_pct > 0 ? '+' : ''}${item.change_pct}%
-                        </div>
-                    </div>
-
-                    <div class="col-span-2 md:col-span-1 text-left pl-2">
-                        <span class="text-[9px] md:text-[10px] text-gray-200 bg-gray-600 px-1.5 py-0.5 rounded whitespace-nowrap tracking-tighter inline-block overflow-hidden text-ellipsis max-w-full">${sectorEn}</span>
-                    </div>
-
-                        <div class="hidden md:flex md:col-span-3 text-left pl-2 gap-1 items-center h-full">
-                            ${(item.related_peers || []).slice(0, 3).map(rel => `
-                                <a href="/en/stock/${rel.ticker}" onclick="event.stopPropagation()"
-                                class="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#3a3a45] flex items-center justify-center border border-gray-600 hover:border-gray-400 transition" 
-                                title="${rel.name}">
-                                    <img src="https://financialmodelingprep.com/image-stock/${rel.ticker.replace('.', '-')}.png" 
-                                        alt="${rel.ticker}"
-                                        loading="lazy"
-                                        onerror="this.style.display='none'"
-                                        class="w-full h-full rounded-full object-contain p-0.5">
-                                </a>
-                            `).join('')}
-                        </div>
+        <li class="block border-b border-gray-700 hover:bg-[#31313c] transition group h-14 md:h-16 list-none">
+            <div onclick="location.href='/en/stock/${item.ticker}'" class="grid grid-cols-12 gap-2 p-2 md:p-3 items-center w-full h-full text-inherit hover:no-underline cursor-pointer">
+                
+                <div class="col-span-3 md:col-span-2 flex items-center gap-1 md:gap-3 pl-2 relative">
+                    <button class="star-btn absolute -left-1 md:left-0 p-2 md:p-1.5 z-20 group-hover:scale-110 transition opacity-100 md:opacity-0 group-hover:opacity-100 focus:opacity-100"
+                        onclick="toggleFavorite('${item.ticker}', event)"
+                        data-ticker="${item.ticker}">
+                        <svg class="w-4 h-4 md:w-5 md:h-5 ${favorites.has(item.ticker) ? 'text-yellow-400 fill-current' : 'text-gray-600 fill-transparent group-hover:text-yellow-400'}" 
+                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                        </svg>
+                    </button>
+                    <span class="text-sm md:text-lg font-black italic w-6 md:w-8 text-center text-gray-300 ml-5 md:ml-6">${displayRank}</span>
+                    <span class="text-[9px] md:text-[10px] font-bold ${displayChange > 0 ? 'text-red-400' : (displayChange < 0 ? 'text-blue-400' : 'text-gray-600')} w-6 text-center">
+                        ${displayChange > 0 ? '▲' + displayChange : (displayChange < 0 ? '▼' + Math.abs(displayChange) : '-')}
+                    </span>
                 </div>
-            `;
+
+                <div class="col-span-3 md:col-span-3 flex items-center gap-2 md:gap-3 pl-1 overflow-hidden">
+                    <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" 
+                         alt="${item.ticker}" 
+                         load="lazy"
+                         onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=200'" 
+                         style="filter: invert(1) hue-rotate(180deg);" 
+                         class="w-7 h-7 md:w-9 md:h-9 rounded shadow-sm object-contain flex-shrink-0 bg-gray-800">
+                    <div class="flex flex-col min-w-0">
+                        <span class="font-bold text-xs md:text-sm text-gray-100 truncate leading-tight">${item.name_en || item.name}</span>
+                        <span class="text-[9px] md:text-[10px] text-gray-400 font-medium tracking-wide">${item.ticker}</span>
+                    </div>
+                </div>
+
+                <div class="col-span-2 md:col-span-1 text-center md:text-left pl-0 md:pl-2">
+                     ${tierBadge}
+                </div>
+
+                <div class="hidden md:flex md:col-span-1 text-left pl-2">
+                    <span class="text-sm font-bold text-blue-400 font-mono tracking-tight">${item.final_score}</span>
+                </div>
+
+                <div class="col-span-2 md:col-span-1 text-left pl-0 md:pl-2">
+                    <div class="flex flex-col">
+                        <span class="text-xs md:text-sm font-bold text-gray-200 font-mono tracking-tight">$${item.current_price}</span>
+                        <span class="text-[9px] md:text-[10px] font-bold ${changeColor}">${item.change_pct}%</span>
+                    </div>
+                </div>
+
+                <div class="col-span-2 md:col-span-1 flex items-center pl-2">
+                    <span class="px-2 py-0.5 text-[10px] font-medium rounded-md bg-gray-700/50 text-gray-300 border border-gray-600 whitespace-nowrap overflow-hidden text-ellipsis max-w-full block text-center">${sectorEn}</span>
+                </div>
+
+                 <div class="hidden md:flex md:col-span-2 text-left pl-2 gap-1 items-center h-full">
+                    ${(item.related_peers || []).slice(0, 3).map(rel => `
+                        <a href="/en/stock/${rel.ticker}" onclick="event.stopPropagation()"
+                        class="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#3a3a45] flex items-center justify-center border border-gray-600 hover:border-gray-400 transition relative z-20" 
+                        title="${rel.name}">
+                            <img src="https://financialmodelingprep.com/image-stock/${rel.ticker.replace('.', '-')}.png" 
+                                alt="${rel.name || rel.ticker} Peers"
+                                loading="lazy"
+                                onerror="this.style.display='none'"
+                                class="w-full h-full rounded-full object-contain p-0.5">
+                            </a>
+                    `).join('')}
+                </div>
+
+                <!-- Market Cap (New Column, col-span-1) -->
+                <div class="hidden md:flex md:col-span-1 items-center justify-end pr-2 text-[11px] font-bold text-gray-400 font-mono tracking-tight">
+                    ${formatMarketCap(item.market_cap)}
+                </div>
+            </div>
+        </li>
+    `;
         }
 
         function initSearch() {

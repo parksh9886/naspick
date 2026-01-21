@@ -110,35 +110,44 @@ class StockDataFetcher:
         return pd.concat(all_hist_list)
 
     def get_market_caps_bulk(self, tickers):
-        """Fetch market cap for tickers"""
-        print(f"💰 Fetching Market Caps for {len(tickers)} tickers...")
+        """Fetch market cap for tickers using yfinance (Batch)"""
+        print(f"💰 Fetching Market Caps for {len(tickers)} tickers via yfinance...")
+        import yfinance as yf
         mcaps = {}
         
-        try:
-            # Fetch broad listings containing MarCap
-            df_nasdaq = fdr.StockListing('NASDAQ')
-            df_nyse = fdr.StockListing('NYSE')
-            df_amex = fdr.StockListing('AMEX')
+        chunk_size = 100
+        for i in range(0, len(tickers), chunk_size):
+            chunk = tickers[i:i+chunk_size]
+            # Sanitize for yfinance
+            yf_chunk = [t.replace('.', '-') for t in chunk]
+            print(f"   Fetching market cap chunk {i//chunk_size + 1} ({len(yf_chunk)} stocks)...")
             
-            combined = pd.concat([df_nasdaq, df_nyse, df_amex])
-            
-            col = 'MarCap' if 'MarCap' in combined.columns else 'MarketCap'
-            if col in combined.columns:
-                mc_lookup = dict(zip(combined['Symbol'], combined[col]))
+            try:
+                batch = yf.Tickers(" ".join(yf_chunk))
+                # Iterate through response
+                for t_sym, ticker_obj in batch.tickers.items():
+                    try:
+                        # Map back to original ticker (hyphenated from yf)
+                        # We need to match precise original ticker key
+                        # The key in batch.tickers is usually the sanitized one (e.g. BRK-B)
+                        
+                        original_ticker = t_sym
+                        # Reverse lookup if needed (simple Replace)
+                        if '-' in t_sym and t_sym.replace('-', '.') in tickers:
+                             original_ticker = t_sym.replace('-', '.')
+
+                        info = ticker_obj.info
+                        if info and 'marketCap' in info and info['marketCap']:
+                             mcaps[original_ticker] = int(info['marketCap'])
+                        else:
+                             # Fallback fast exit
+                             mcaps[original_ticker] = 0
+                             
+                    except Exception:
+                        pass
+            except Exception as e:
+                print(f"❌ Error fetching market cap chunk: {e}")
                 
-                for t in tickers:
-                    mc = mc_lookup.get(t)
-                    if not mc:
-                        # Try hyphenated lookup
-                        mc = mc_lookup.get(t.replace('.', '-'))
-                    
-                    mcaps[t] = int(mc) if mc else 0
-            else:
-                pass # Return empty maps or 0s
-                
-        except Exception as e:
-            print(f"❌ Error fetching market cap: {e}")
-            
         return mcaps
 
     def fetch_calendar_data_bulk(self, tickers):
