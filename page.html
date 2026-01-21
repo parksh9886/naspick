@@ -104,7 +104,13 @@
     </header>
 
     <main id="mainContent" class="container mx-auto px-4 py-6 max-w-7xl">
-        <div class="p-20 text-center text-gray-500">Loading stock data...</div>
+        <!-- SEO: Static H1 for bots before JS load -->
+        <h1 class="sr-only">미국 주식 실시간 분석 및 주가 전망</h1>
+
+        <div class="p-20 text-center text-gray-500">
+            <h2 class="text-xl font-bold mb-2">데이터를 불러오는 중입니다...</h2>
+            <p class="text-sm">S&P 500 전종목 AI 티어 분석, 적정 주가, 월스트리트 목표가 정보를 로딩하고 있습니다.</p>
+        </div>
     </main>
 
     <script>

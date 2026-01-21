@@ -102,7 +102,14 @@
     </header>
 
     <main id="mainContent" class="container mx-auto px-4 py-6 max-w-7xl">
-        <div class="p-20 text-center text-gray-500">Loading stock data...</div>
+        <!-- SEO: Static H1 for bots before JS load -->
+        <h1 class="sr-only">US Stock Analysis & Price Targets</h1>
+
+        <div class="p-20 text-center text-gray-500">
+            <h2 class="text-xl font-bold mb-2">Loading Market Data...</h2>
+            <p class="text-sm">Analyzing S&P 500 stocks with AI ratings, fair value estimates, and Wall Street
+                consensus.</p>
+        </div>
     </main>
 
     <script>
