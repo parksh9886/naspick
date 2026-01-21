@@ -1019,16 +1019,32 @@
                 })()}
 
                         <div class="bg-[#23232a] rounded-xl border border-gray-800 p-5">
-                            <h4 class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
-                                <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                </svg>
-                                관련주 TOP 3
-                            </h4>
-                            <div class="space-y-3">
+                            <!-- Header with Segmented Control -->
+                            <div class="flex items-center justify-between mb-4 border-b border-gray-700 pb-3">
+                                <h4 class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                    관련 종목
+                                </h4>
+                                <!-- iOS Style Pill Tabs -->
+                                <div class="flex bg-gray-700/50 rounded-lg p-0.5">
+                                    <button id="tabSectorLeader" onclick="switchRelatedTab('sector')" 
+                                            class="px-2.5 py-1 text-[10px] font-bold rounded-md transition-all bg-[#5383e8] text-white">
+                                        섹터 대장
+                                    </button>
+                                    <button id="tabSimilarScore" onclick="switchRelatedTab('similar')"
+                                            class="px-2.5 py-1 text-[10px] font-bold rounded-md transition-all text-gray-400 hover:text-gray-200">
+                                        유사 점수
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- SEO: 두 리스트 모두 HTML에 렌더링 (CSS로 토글) -->
+                            <!-- Sector Leaders List -->
+                            <div id="sectorLeaderList" class="space-y-3">
                                 ${(data.related_peers || []).map(p => {
                     const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker };
-                    // SEO 수정: onclick -> a href
                     return `
                                         <a href="/stock/${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
                                             <div class="flex items-center gap-3">
@@ -1047,7 +1063,32 @@
                                         </a>
                                     `;
                 }).join('')}
-                                ${(data.related_peers || []).length === 0 ? '<div class="text-xs text-gray-600">No peers found</div>' : ''}
+                                ${(data.related_peers || []).length === 0 ? '<div class="text-xs text-gray-600">관련 종목 없음</div>' : ''}
+                            </div>
+                            
+                            <!-- Similar Score List (Hidden by default, but in HTML for SEO) -->
+                            <div id="similarScoreList" class="space-y-3 hidden">
+                                ${(data.similar_score_peers || []).map(p => {
+                    const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker };
+                    return `
+                                        <a href="/stock/${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
+                                                    <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" 
+                                                         alt="${p.ticker} 유사점수"
+                                                         onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" 
+                                                         style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">${peerData.name}</div>
+                                                    <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
+                                                </div>
+                                            </div>
+                                            <span class="${p.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct > 0 ? '+' : ''}${p.change_pct}%</span>
+                                        </a>
+                                    `;
+                }).join('')}
+                                ${(data.similar_score_peers || []).length === 0 ? '<div class="text-xs text-gray-600">유사 점수 종목 없음</div>' : ''}
                             </div>
                         </div>
 
@@ -1077,6 +1118,32 @@
                     "container_id": "tv_chart_container",
                     "studies": ["BB@tv-basicstudies"]
                 });
+            }
+        }
+
+        // Tab switching for Related Stocks (SEO-friendly: CSS toggle only)
+        function switchRelatedTab(type) {
+            const sectorList = document.getElementById('sectorLeaderList');
+            const similarList = document.getElementById('similarScoreList');
+            const tabSector = document.getElementById('tabSectorLeader');
+            const tabSimilar = document.getElementById('tabSimilarScore');
+
+            if (!sectorList || !similarList) return;
+
+            if (type === 'sector') {
+                sectorList.classList.remove('hidden');
+                similarList.classList.add('hidden');
+                tabSector.classList.add('bg-[#5383e8]', 'text-white');
+                tabSector.classList.remove('text-gray-400');
+                tabSimilar.classList.remove('bg-[#5383e8]', 'text-white');
+                tabSimilar.classList.add('text-gray-400');
+            } else {
+                sectorList.classList.add('hidden');
+                similarList.classList.remove('hidden');
+                tabSimilar.classList.add('bg-[#5383e8]', 'text-white');
+                tabSimilar.classList.remove('text-gray-400');
+                tabSector.classList.remove('bg-[#5383e8]', 'text-white');
+                tabSector.classList.add('text-gray-400');
             }
         }
 

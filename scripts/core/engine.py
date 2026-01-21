@@ -255,6 +255,35 @@ class NaspickEngine:
                 peers = [p for p in items if p['ticker'] != item['ticker']][:3]
                 item['related_peers'] = [{"ticker": p['ticker'], "change_pct": p['change_pct']} for p in peers]
         
+        # Similar Score Peers (점수 유사 종목: 위 2개 + 아래 1개)
+        total_count = len(final_results)
+        for item in final_results:
+            current_rank = item['rank']
+            current_idx = current_rank - 1  # 0-indexed
+            
+            # 후보 인덱스 계산 (위 2개 + 아래 1개, 엣지케이스 처리)
+            if current_rank == 1:
+                # 1등: 아래 3개
+                indices = [1, 2, 3]
+            elif current_rank == 2:
+                # 2등: 위 1개 + 아래 2개
+                indices = [0, 2, 3]
+            elif current_rank >= total_count - 1:
+                # 꼴등 또는 끝에서 2번째: 위 3개
+                indices = [current_idx - 3, current_idx - 2, current_idx - 1]
+            else:
+                # 일반 케이스: 위 2개 + 아래 1개
+                indices = [current_idx - 2, current_idx - 1, current_idx + 1]
+            
+            # 유효 인덱스 필터링 및 데이터 추출
+            similar_peers = []
+            for idx in indices:
+                if 0 <= idx < total_count and idx != current_idx:
+                    p = final_results[idx]
+                    similar_peers.append({"ticker": p['ticker'], "change_pct": p['change_pct']})
+            
+            item['similar_score_peers'] = similar_peers[:3]  # 최대 3개
+        
         # 8. Save
         out_path = self.paths['OUTPUT_JSON']
         with open(out_path, 'w', encoding='utf-8') as f:
