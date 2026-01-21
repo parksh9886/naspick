@@ -17,7 +17,7 @@
         content="Discover top-rated S&P 500 stocks with AI-powered analysis. Real-time stock rankings, price targets, and quantitative ratings. Updated every 15 minutes.">
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
-    <link rel="canonical" href="https://naspick.com/en/">
+
     <link rel="alternate" hreflang="en" href="https://naspick.com/en/">
     <link rel="alternate" hreflang="ko" href="https://naspick.com/">
     <link rel="alternate" hreflang="x-default" href="https://naspick.com/en/">
@@ -432,6 +432,15 @@
                     if (sectorEn) selectSector(sectorEn);
                     else renderList(allData);
                 } else {
+                    // [SEO] Default Canonical for Homepage
+                    let canonicalLink = document.querySelector('link[rel="canonical"]');
+                    if (!canonicalLink) {
+                        canonicalLink = document.createElement('link');
+                        canonicalLink.rel = 'canonical';
+                        document.head.appendChild(canonicalLink);
+                    }
+                    canonicalLink.href = 'https://naspick.com/en/';
+
                     renderList(allData);
                 }
 

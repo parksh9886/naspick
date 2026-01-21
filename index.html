@@ -17,7 +17,7 @@
         content="S&P 500 전종목 AI 분석 순위. 오늘의 1티어 추천 종목, 주가 전망, 목표가 비교. PER·ROE 기반 정량 분석과 기술적분석. 15분마다 실시간 업데이트.">
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
-    <link rel="canonical" href="https://naspick.com/">
+
     <link rel="alternate" hreflang="ko" href="https://naspick.com/">
     <link rel="alternate" hreflang="en" href="https://naspick.com/en/">
     <link rel="alternate" hreflang="x-default" href="https://naspick.com/">
@@ -417,6 +417,15 @@
                     if (sectorKr) selectSector(sectorKr);
                     else renderList(allData);
                 } else {
+                    // [SEO] Default Canonical for Homepage
+                    let canonicalLink = document.querySelector('link[rel="canonical"]');
+                    if (!canonicalLink) {
+                        canonicalLink = document.createElement('link');
+                        canonicalLink.rel = 'canonical';
+                        document.head.appendChild(canonicalLink);
+                    }
+                    canonicalLink.href = 'https://naspick.com/';
+
                     renderList(allData);
                 }
 
