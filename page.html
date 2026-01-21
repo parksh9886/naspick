@@ -852,40 +852,46 @@
                                         <!-- Earnings -->
                                         <div>
                                             ${(() => {
-                            // 1. Next Earnings Logic
+                            // 1. Earnings Logic
                             let nextHtml = '';
                             if (cal.next_earnings) {
-                                const today = new Date();
-                                today.setHours(0, 0, 0, 0);
+                                const todayMs = new Date().setHours(0, 0, 0, 0);
                                 const nextDate = new Date(cal.next_earnings);
-                                const diffTime = nextDate - today;
-                                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                const nextMs = nextDate.setHours(0, 0, 0, 0);
+                                const diffDays = Math.ceil((nextMs - todayMs) / (1000 * 60 * 60 * 24));
 
                                 let dDay = '';
                                 let alert = '';
+                                const isFuture = diffDays >= 0;
 
-                                if (diffDays >= 0 && diffDays <= 7) {
-                                    dDay = `<span class="text-orange-400 font-bold ml-2">D-${diffDays}</span>`;
-                                    alert = '🔔';
-                                } else if (diffDays > 7 && diffDays <= 14) {
-                                    dDay = `<span class="text-gray-400 ml-2">D-${diffDays}</span>`;
-                                } else if (diffDays < 0) {
-                                    dDay = `<span class="text-gray-600 ml-2 text-[10px]">(종료)</span>`;
+                                if (isFuture) {
+                                    if (diffDays <= 7) {
+                                        dDay = `<span class="text-orange-400 font-bold ml-2">D-${diffDays}</span>`;
+                                        alert = '🔔';
+                                    } else if (diffDays <= 14) {
+                                        dDay = `<span class="text-gray-400 ml-2">D-${diffDays}</span>`;
+                                    }
+
+                                    nextHtml = `
+                                        <div class="text-xs text-gray-400 mb-1 flex items-center">
+                                            다음 실적 발표 ${dDay}
+                                        </div>
+                                        <div class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                                            ${cal.next_earnings} ${alert}
+                                        </div>
+                                    `;
+                                } else {
+                                    // Date passed
+                                    nextHtml = `
+                                        <div class="text-xs text-gray-400 mb-1 flex items-center">
+                                            직전 실적 발표 <span class="text-gray-600 ml-2 text-[10px]">(종료)</span>
+                                        </div>
+                                        <div class="text-sm font-bold text-gray-500 flex items-center gap-2">
+                                            ${cal.next_earnings}
+                                        </div>
+                                    `;
                                 }
 
-                                nextHtml = `
-                                                        <div class="text-xs text-gray-400 mb-1 flex items-center">
-                                                            다음 실적 발표 ${dDay}
-                                                        </div>
-                                                        <div class="text-sm font-bold text-gray-200 flex items-center gap-2">
-                                                            ${cal.next_earnings} ${alert}
-                                                        </div>
-                                                    `;
-
-                                // If next earnings is far (> 30 days) and we have past result, current display is too empty.
-                                if (diffDays > 30 && cal.last_earnings_date) {
-                                    // Show past earnings below
-                                }
                             } else {
                                 nextHtml = `
                                         <div class="text-xs text-gray-400 mb-1">실적 발표</div>
@@ -893,7 +899,7 @@
                                     `;
                             }
 
-                            // 2. Past Earnings Logic
+                            // 2. Past Earnings Logic (Surprise)
                             let pastHtml = '';
                             if (cal.last_earnings_date && cal.last_surprise !== undefined) {
                                 const isBeat = cal.last_surprise > 0;
@@ -926,7 +932,6 @@
                                         <div class="w-full h-px bg-gray-700/50 my-2"></div>
 
                                         <!-- Dividend -->
-                                        <!-- Dividend -->
                                         ${(() => {
                             const exDate = cal.ex_dividend_date;
                             const payDate = cal.dividend_payment_date;
@@ -941,11 +946,9 @@
                                                 `;
                             }
 
-                            const today = new Date();
-                            today.setHours(0, 0, 0, 0);
-
-                            const targetEx = new Date(exDate);
-                            const isExFuture = targetEx >= today;
+                            const todayMs = new Date().setHours(0, 0, 0, 0);
+                            const targetExMs = new Date(exDate).setHours(0, 0, 0, 0);
+                            const isExFuture = targetExMs >= todayMs;
 
                             let label = '';
                             let statusBadge = '';
@@ -958,14 +961,14 @@
                                 dateColor = 'text-gray-200';
                             } else {
                                 // Case 2: After Ex-Dividend Date
-                                label = '직전 배당락일 (Last)';
+                                label = '최근 배당락일';
                                 dateColor = 'text-gray-500';
 
                                 // Check Payment Status
                                 let isPayFuture = false;
                                 if (payDate && payDate !== '-') {
-                                    const targetPay = new Date(payDate);
-                                    isPayFuture = targetPay >= today;
+                                    const targetPayMs = new Date(payDate).setHours(0, 0, 0, 0);
+                                    isPayFuture = targetPayMs >= todayMs;
                                 }
 
                                 if (isPayFuture) {
@@ -977,7 +980,7 @@
                                 }
                             }
 
-                            const payDateStyle = (payDate && new Date(payDate) >= today) ? 'text-amber-400 font-bold' : 'text-gray-500';
+                            const payDateStyle = (payDate && new Date(payDate).setHours(0, 0, 0, 0) >= todayMs) ? 'text-amber-400 font-bold' : 'text-gray-500';
 
                             return `
                                                 <div>
@@ -1134,12 +1137,54 @@
                 });
             }
 
-            // 4. Calendar
+            // 4. Calendar (Fixed: Check for past dates)
             const cal = data.calendar || {};
             let calAnsParts = [];
-            if (cal.dividend_yield) calAnsParts.push(`예상 배당 수익률은 **${cal.dividend_yield}%**이며, 다가오는 배당락일은 ${cal.ex_dividend_date}입니다.`);
-            if (cal.next_earnings) calAnsParts.push(`다음 실적 발표는 **${cal.next_earnings}**로 예정되어 있습니다.`);
-            else if (cal.last_surprise) calAnsParts.push(`가장 최근 실적발표(${cal.last_earnings_date})에서는 시장 예상치를 상회하는 **어닝 서프라이즈(${cal.last_surprise > 0 ? '+' : ''}${cal.last_surprise}%)**를 기록했습니다.`);
+
+            // A. Dividend Logic
+            if (cal.dividend_yield) {
+                let divMsg = `예상 배당 수익률은 **${cal.dividend_yield}%**이며, `;
+                if (cal.ex_dividend_date && cal.ex_dividend_date !== '-') {
+                    const todayMs = new Date().setHours(0, 0, 0, 0);
+                    const exDateMs = new Date(cal.ex_dividend_date).setHours(0, 0, 0, 0);
+
+                    if (exDateMs >= todayMs) {
+                        divMsg += `다가오는 배당락일은 **${cal.ex_dividend_date}**입니다.`;
+                    } else {
+                        divMsg += `가장 최근 배당락일은 **${cal.ex_dividend_date}**였습니다.`;
+                    }
+                } else {
+                    divMsg += `배당락일 정보는 아직 없습니다.`;
+                }
+                calAnsParts.push(divMsg);
+            }
+
+            // B. Earnings Logic
+            if (cal.next_earnings) {
+                const todayMs = new Date().setHours(0, 0, 0, 0);
+                const nextDocs = new Date(cal.next_earnings);
+                // Check if date is valid
+                if (!isNaN(nextDocs.getTime())) {
+                    const nextMs = nextDocs.setHours(0, 0, 0, 0);
+                    if (nextMs >= todayMs) {
+                        calAnsParts.push(`다음 실적 발표는 **${cal.next_earnings}**로 예정되어 있습니다.`);
+                    } else {
+                        calAnsParts.push(`직전 실적 발표일은 **${cal.next_earnings}**였으며,`);
+                        // If we have surprise data for this past date (usually in last_surprise), append it.
+                        // However, cal.next_earnings might be the *just passed* one.
+                        // We can just look at last_surprise generally.
+                        if (cal.last_surprise) {
+                            calAnsParts.push(`시장 예상치 대비 **${cal.last_surprise > 0 ? '어닝 서프라이즈' : '미스'}(${cal.last_surprise}%)**를 기록했습니다.`);
+                        } else {
+                            calAnsParts.push(`발표가 완료되었습니다.`);
+                        }
+                    }
+                } else {
+                    calAnsParts.push(`다음 실적 발표는 **${cal.next_earnings}**로 예정되어 있습니다.`);
+                }
+            } else if (cal.last_surprise) {
+                calAnsParts.push(`가장 최근 실적발표(${cal.last_earnings_date})에서는 시장 예상치를 상회하는 **어닝 서프라이즈(${cal.last_surprise > 0 ? '+' : ''}${cal.last_surprise}%)**를 기록했습니다.`);
+            }
 
             if (calAnsParts.length > 0) {
                 qnaList.push({
@@ -1271,7 +1316,7 @@
             const resultsDiv = document.getElementById('headerSearchResults');
 
             input.addEventListener('input', (e) => {
-                const term = e.target.value.toLowerCase();
+                const term = e.target.value.toLowerCase().replace(/\s+/g, ''); // Remove spaces
                 if (!term) {
                     resultsDiv.classList.add('hidden');
                     return;
@@ -1292,6 +1337,28 @@
                     return result;
                 };
 
+                // New: Jamo Helper
+                const getJamo = (str) => {
+                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+                    const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
+                    const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+
+                    let result = "";
+                    for (let i = 0; i < str.length; i++) {
+                        const code = str.charCodeAt(i) - 44032;
+                        if (code > -1 && code < 11172) {
+                            const c = Math.floor(code / 588);
+                            const j = Math.floor((code % 588) / 28);
+                            const k = code % 28;
+                            result += chosung[c] + jungsung[j];
+                            if (k > 0) result += jongsung[k];
+                        } else {
+                            result += str.charAt(i);
+                        }
+                    }
+                    return result;
+                };
+
                 // Helper: Decompose Compound Consonants
                 const decomposeHangul = (str) => {
                     const doubleConsonants = {
@@ -1301,19 +1368,38 @@
                     return str.split('').map(char => doubleConsonants[char] || char).join('');
                 };
 
-                // Normalize: remove spaces
                 const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
-                const normalizedTerm = decomposeHangul(normalize(term));
-                const chosungTerm = getChosung(normalizedTerm);
 
-                const matches = allData.filter(d =>
-                    d.ticker.toLowerCase().includes(term) ||
-                    normalize(d.name).includes(normalizedTerm) ||
-                    getChosung(normalize(d.name)).includes(chosungTerm) ||
-                    (d.name && d.name.toLowerCase().includes(term)) ||
-                    normalize(d.name_en).includes(normalizedTerm) ||
-                    (d.name_en && d.name_en.toLowerCase().includes(term))
-                ).slice(0, 5);
+                // Determine Search Mode
+                const hasHangulSyllable = /[가-힣]/.test(term);
+                let matches = [];
+
+                if (hasHangulSyllable) {
+                    // [Mode A] Hybrid Jamo Search
+                    const jamoTerm = getJamo(term);
+
+                    matches = allData.filter(d => {
+                        const normName = normalize(d.name);
+                        return d.ticker.toLowerCase().includes(term) ||
+                            normName.includes(term) ||
+                            getJamo(normName).includes(jamoTerm) ||
+                            (d.name_en && normalize(d.name_en).includes(term));
+                    }).slice(0, 5);
+
+                } else {
+                    // [Mode B] Standard/Chosung Search
+                    const normalizedTerm = decomposeHangul(term);
+                    const chosungTerm = getChosung(normalizedTerm);
+
+                    matches = allData.filter(d =>
+                        d.ticker.toLowerCase().includes(term) ||
+                        normalize(d.name).includes(normalizedTerm) ||
+                        getChosung(normalize(d.name)).includes(chosungTerm) ||
+                        (d.name && d.name.toLowerCase().includes(term)) ||
+                        normalize(d.name_en).includes(normalizedTerm) ||
+                        (d.name_en && d.name_en.toLowerCase().includes(term))
+                    ).slice(0, 5);
+                }
 
                 if (matches.length > 0) {
                     // SEO 수정: div onclick -> a href

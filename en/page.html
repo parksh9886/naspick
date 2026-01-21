@@ -862,35 +862,46 @@
                                         <!-- Earnings -->
                                         <div>
                                             ${(() => {
-                            // 1. Next Earnings Logic
+                            // 1. Earnings Logic
                             let nextHtml = '';
                             if (cal.next_earnings) {
-                                const today = new Date();
-                                today.setHours(0, 0, 0, 0);
+                                const todayMs = new Date().setHours(0, 0, 0, 0);
                                 const nextDate = new Date(cal.next_earnings);
-                                const diffTime = nextDate - today;
-                                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                const nextMs = nextDate.setHours(0, 0, 0, 0);
+                                const diffDays = Math.ceil((nextMs - todayMs) / (1000 * 60 * 60 * 24));
 
                                 let dDay = '';
                                 let alert = '';
+                                const isFuture = diffDays >= 0;
 
-                                if (diffDays >= 0 && diffDays <= 7) {
-                                    dDay = `<span class="text-orange-400 font-bold ml-2">in ${diffDays} days</span>`;
-                                    alert = '🔔';
-                                } else if (diffDays > 7 && diffDays <= 14) {
-                                    dDay = `<span class="text-gray-400 ml-2">in ${diffDays} days</span>`;
-                                } else if (diffDays < 0) {
-                                    dDay = `<span class="text-gray-600 ml-2 text-[10px]">(Ended)</span>`;
+                                if (isFuture) {
+                                    if (diffDays <= 7) {
+                                        dDay = `<span class="text-orange-400 font-bold ml-2">in ${diffDays} days</span>`;
+                                        alert = '🔔';
+                                    } else if (diffDays <= 14) {
+                                        dDay = `<span class="text-gray-400 ml-2">in ${diffDays} days</span>`;
+                                    }
+
+                                    nextHtml = `
+                                        <div class="text-xs text-gray-400 mb-1 flex items-center">
+                                            Next Earnings ${dDay}
+                                        </div>
+                                        <div class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                                            ${cal.next_earnings} ${alert}
+                                        </div>
+                                    `;
+                                } else {
+                                    // Date passed
+                                    nextHtml = `
+                                        <div class="text-xs text-gray-400 mb-1 flex items-center">
+                                            Last Earnings Release <span class="text-gray-600 ml-2 text-[10px]">(Ended)</span>
+                                        </div>
+                                        <div class="text-sm font-bold text-gray-500 flex items-center gap-2">
+                                            ${cal.next_earnings}
+                                        </div>
+                                    `;
                                 }
 
-                                nextHtml = `
-                                                        <div class="text-xs text-gray-400 mb-1 flex items-center">
-                                                            Next Earnings ${dDay}
-                                                        </div>
-                                                        <div class="text-sm font-bold text-gray-200 flex items-center gap-2">
-                                                            ${cal.next_earnings} ${alert}
-                                                        </div>
-                                                    `;
                             } else {
                                 nextHtml = `
                                         <div class="text-xs text-gray-400 mb-1">Earnings Release</div>
@@ -931,7 +942,6 @@
                                         <div class="w-full h-px bg-gray-700/50 my-2"></div>
 
                                         <!-- Dividend -->
-                                        <!-- Dividend -->
                                         ${(() => {
                             const exDate = cal.ex_dividend_date;
                             const payDate = cal.dividend_payment_date;
@@ -946,11 +956,9 @@
                                                 `;
                             }
 
-                            const today = new Date();
-                            today.setHours(0, 0, 0, 0);
-
-                            const targetEx = new Date(exDate);
-                            const isExFuture = targetEx >= today;
+                            const todayMs = new Date().setHours(0, 0, 0, 0);
+                            const targetExMs = new Date(exDate).setHours(0, 0, 0, 0);
+                            const isExFuture = targetExMs >= todayMs;
 
                             let label = '';
                             let statusBadge = '';
@@ -969,8 +977,8 @@
                                 // Check Payment Status
                                 let isPayFuture = false;
                                 if (payDate && payDate !== '-') {
-                                    const targetPay = new Date(payDate);
-                                    isPayFuture = targetPay >= today;
+                                    const targetPayMs = new Date(payDate).setHours(0, 0, 0, 0);
+                                    isPayFuture = targetPayMs >= todayMs;
                                 }
 
                                 if (isPayFuture) {
@@ -981,7 +989,7 @@
                                 }
                             }
 
-                            const payDateStyle = (payDate && new Date(payDate) >= today) ? 'text-amber-400 font-bold' : 'text-gray-500';
+                            const payDateStyle = (payDate && new Date(payDate).setHours(0, 0, 0, 0) >= todayMs) ? 'text-amber-400 font-bold' : 'text-gray-500';
 
                             return `
                                                 <div>
@@ -1273,23 +1281,87 @@
             const resultsDiv = document.getElementById('headerSearchResults');
 
             input.addEventListener('input', (e) => {
-                const term = e.target.value.toLowerCase();
+                const term = e.target.value.toLowerCase().replace(/\s+/g, '');
                 if (!term) {
                     resultsDiv.classList.add('hidden');
                     return;
                 }
 
-                // Normalize function: remove spaces for flexible matching
-                const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
-                const normalizedTerm = normalize(term);
+                const getChosung = (str) => {
+                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+                    let result = "";
+                    for (let i = 0; i < str.length; i++) {
+                        const code = str.charCodeAt(i) - 44032;
+                        if (code > -1 && code < 11172) {
+                            result += chosung[Math.floor(code / 588)];
+                        } else {
+                            result += str.charAt(i);
+                        }
+                    }
+                    return result;
+                };
 
-                const matches = allData.filter(d =>
-                    d.ticker.toLowerCase().includes(term) ||
-                    normalize(d.name).includes(normalizedTerm) ||
-                    (d.name && d.name.toLowerCase().includes(term)) ||
-                    normalize(d.name_en).includes(normalizedTerm) ||
-                    (d.name_en && d.name_en.toLowerCase().includes(term))
-                ).slice(0, 5);
+                // New: Jamo Helper
+                const getJamo = (str) => {
+                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+                    const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
+                    const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+
+                    let result = "";
+                    for (let i = 0; i < str.length; i++) {
+                        const code = str.charCodeAt(i) - 44032;
+                        if (code > -1 && code < 11172) {
+                            const c = Math.floor(code / 588);
+                            const j = Math.floor((code % 588) / 28);
+                            const k = code % 28;
+                            result += chosung[c] + jungsung[j];
+                            if (k > 0) result += jongsung[k];
+                        } else {
+                            result += str.charAt(i);
+                        }
+                    }
+                    return result;
+                };
+
+
+                // Helper: Decompose
+                const decomposeHangul = (str) => {
+                    const doubleConsonants = {
+                        'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
+                        'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
+                    };
+                    return str.split('').map(char => doubleConsonants[char] || char).join('');
+                };
+
+                const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
+
+                // Determine Search Mode
+                const hasHangulSyllable = /[가-힣]/.test(term);
+                let matches = [];
+
+                if (hasHangulSyllable) {
+                    const jamoTerm = getJamo(term);
+                    matches = allData.filter(d => {
+                        const normName = normalize(d.name);
+                        // Note: For English site, d.name is Korean name. d.name_en is English.
+                        // We check both.
+                        return d.ticker.toLowerCase().includes(term) ||
+                            normName.includes(term) ||
+                            getJamo(normName).includes(jamoTerm) ||
+                            (d.name_en && normalize(d.name_en).includes(term));
+                    }).slice(0, 5);
+                } else {
+                    const normalizedTerm = decomposeHangul(term);
+                    const chosungTerm = getChosung(normalizedTerm);
+                    matches = allData.filter(d =>
+                        d.ticker.toLowerCase().includes(term) ||
+                        normalize(d.name).includes(normalizedTerm) ||
+                        getChosung(normalize(d.name)).includes(chosungTerm) ||
+                        (d.name && d.name.toLowerCase().includes(term)) ||
+                        normalize(d.name_en).includes(normalizedTerm) ||
+                        (d.name_en && d.name_en.toLowerCase().includes(term))
+                    ).slice(0, 5);
+                }
 
                 if (matches.length > 0) {
                     resultsDiv.innerHTML = matches.map(d => `
