@@ -1130,147 +1130,148 @@
                     "studies": ["BB@tv-basicstudies"]
                 });
             }
+        }
 
-            // Tab switching for Related Stocks (SEO-friendly: CSS toggle only)
-            function switchRelatedTab(type) {
-                const sectorList = document.getElementById('sectorLeaderList');
-                const similarList = document.getElementById('similarScoreList');
-                const tabSector = document.getElementById('tabSectorLeader');
-                const tabSimilar = document.getElementById('tabSimilarScore');
+        // Tab switching for Related Stocks (SEO-friendly: CSS toggle only)
+        function switchRelatedTab(type) {
+            const sectorList = document.getElementById('sectorLeaderList');
+            const similarList = document.getElementById('similarScoreList');
+            const tabSector = document.getElementById('tabSectorLeader');
+            const tabSimilar = document.getElementById('tabSimilarScore');
 
-                if (!sectorList || !similarList) return;
+            if (!sectorList || !similarList) return;
 
-                if (type === 'sector') {
-                    sectorList.classList.remove('hidden');
-                    similarList.classList.add('hidden');
-                    tabSector.classList.add('bg-[#5383e8]', 'text-white');
-                    tabSector.classList.remove('text-gray-400');
-                    tabSimilar.classList.remove('bg-[#5383e8]', 'text-white');
-                    tabSimilar.classList.add('text-gray-400');
-                } else {
-                    sectorList.classList.add('hidden');
-                    similarList.classList.remove('hidden');
-                    tabSimilar.classList.add('bg-[#5383e8]', 'text-white');
-                    tabSimilar.classList.remove('text-gray-400');
-                    tabSector.classList.remove('bg-[#5383e8]', 'text-white');
-                    tabSector.classList.add('text-gray-400');
-                }
+            if (type === 'sector') {
+                sectorList.classList.remove('hidden');
+                similarList.classList.add('hidden');
+                tabSector.classList.add('bg-[#5383e8]', 'text-white');
+                tabSector.classList.remove('text-gray-400');
+                tabSimilar.classList.remove('bg-[#5383e8]', 'text-white');
+                tabSimilar.classList.add('text-gray-400');
+            } else {
+                sectorList.classList.add('hidden');
+                similarList.classList.remove('hidden');
+                tabSimilar.classList.add('bg-[#5383e8]', 'text-white');
+                tabSimilar.classList.remove('text-gray-400');
+                tabSector.classList.remove('bg-[#5383e8]', 'text-white');
+                tabSector.classList.add('text-gray-400');
+            }
+        }
+
+        function renderFAQ(data) {
+            const today = new Date().toISOString().split('T')[0];
+            const qnaList = [];
+
+            // 1. Investment Score (English)
+            let scoreAns = "";
+            if (data.final_score >= 80) scoreAns = `It has very high investment attractiveness. Both price momentum and financial health are excellent.`;
+            else if (data.final_score < 40) scoreAns = `Caution is advised. Price momentum or financial indicators are currently weak.`;
+            else scoreAns = `It is showing a stable and moderate trend.`;
+
+            const ratingLabel = (String(data.tier) === '1') ? 'A+' : (String(data.tier) === '2') ? 'A' : (String(data.tier) === '3') ? 'B' : (String(data.tier) === '4') ? 'C' : 'D';
+
+            qnaList.push({
+                q: `What is the investment rating and score for ${data.name_en || data.name} (${data.ticker})?`,
+                a: `Based on Naspick AI analysis as of ${today}, ${data.name_en || data.name} (${data.ticker}) has a score of **${data.final_score} (${ratingLabel} Rating)**. ${scoreAns}`
+            });
+
+            // 2. Valuation (PER)
+            let perAns = "";
+            // Fix: Use data.financial_health.per
+            const per = data.financial_health?.per;
+            if (per) {
+                if (per < 15) perAns = `Yes. Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, which is considered **undervalued** compared to the market average, offering good price merit.`;
+                else if (per > 50) perAns = `Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, which is relatively **overvalued**. This may reflect high growth expectations.`;
+                else perAns = `Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, trading at a **fair value** similar to the market average.`;
+
+                qnaList.push({
+                    q: `Is ${data.name_en || data.name} (${data.ticker}) stock currently overvalued or undervalued? (PER Analysis)`,
+                    a: perAns
+                });
+            } else {
+                qnaList.push({
+                    q: `Is ${data.name_en || data.name} (${data.ticker}) stock currently overvalued or undervalued? (PER Analysis)`,
+                    a: `Currently, PER (Price-to-Earnings Ratio) data for ${data.name_en || data.name} (${data.ticker}) is not available.`
+                });
             }
 
-            function renderFAQ(data) {
-                const today = new Date().toISOString().split('T')[0];
-                const qnaList = [];
+            // 3. Technical (RSI)
+            let rsiAns = "";
+            // Fix: Use data.technical_analysis.rsi.value
+            const rsiObj = data.technical_analysis?.rsi;
+            const rsi = rsiObj ? rsiObj.value : null;
 
-                // 1. Investment Score (English)
-                let scoreAns = "";
-                if (data.final_score >= 80) scoreAns = `It has very high investment attractiveness. Both price momentum and financial health are excellent.`;
-                else if (data.final_score < 40) scoreAns = `Caution is advised. Price momentum or financial indicators are currently weak.`;
-                else scoreAns = `It is showing a stable and moderate trend.`;
-
-                const ratingLabel = (String(data.tier) === '1') ? 'A+' : (String(data.tier) === '2') ? 'A' : (String(data.tier) === '3') ? 'B' : (String(data.tier) === '4') ? 'C' : 'D';
-
-                qnaList.push({
-                    q: `What is the investment rating and score for ${data.name_en || data.name} (${data.ticker})?`,
-                    a: `Based on Naspick AI analysis as of ${today}, ${data.name_en || data.name} (${data.ticker}) has a score of **${data.final_score} (${ratingLabel} Rating)**. ${scoreAns}`
-                });
-
-                // 2. Valuation (PER)
-                let perAns = "";
-                // Fix: Use data.financial_health.per
-                const per = data.financial_health?.per;
-                if (per) {
-                    if (per < 15) perAns = `Yes. Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, which is considered **undervalued** compared to the market average, offering good price merit.`;
-                    else if (per > 50) perAns = `Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, which is relatively **overvalued**. This may reflect high growth expectations.`;
-                    else perAns = `Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, trading at a **fair value** similar to the market average.`;
-
-                    qnaList.push({
-                        q: `Is ${data.name_en || data.name} (${data.ticker}) stock currently overvalued or undervalued? (PER Analysis)`,
-                        a: perAns
-                    });
-                } else {
-                    qnaList.push({
-                        q: `Is ${data.name_en || data.name} (${data.ticker}) stock currently overvalued or undervalued? (PER Analysis)`,
-                        a: `Currently, PER (Price-to-Earnings Ratio) data for ${data.name_en || data.name} (${data.ticker}) is not available.`
-                    });
-                }
-
-                // 3. Technical (RSI)
-                let rsiAns = "";
-                // Fix: Use data.technical_analysis.rsi.value
-                const rsiObj = data.technical_analysis?.rsi;
-                const rsi = rsiObj ? rsiObj.value : null;
-
-                if (rsi) {
-                    if (rsi > 70) rsiAns = `Caution is needed. The RSI is **${rsi.toFixed(2)}**, indicating an **overbought** zone. A short-term correction may occur.`;
-                    else if (rsi < 30) rsiAns = `It could be a buying opportunity. The RSI is **${rsi.toFixed(2)}**, indicating an **oversold** zone. A technical rebound is expected.`;
-                    else rsiAns = `The technical indicators are **neutral**. The RSI is **${rsi.toFixed(2)}**, showing a stable trend suitable for accumulation.`;
-
-                    qnaList.push({
-                        q: `Is now a good time to buy ${data.name_en || data.name} (${data.ticker})? (RSI Technical Analysis)`,
-                        a: rsiAns
-                    });
-                } else {
-                    qnaList.push({
-                        q: `Is now a good time to buy ${data.name_en || data.name} (${data.ticker})? (RSI Technical Analysis)`,
-                        a: `Currently, there is insufficient data to perform RSI technical analysis for ${data.name_en || data.name} (${data.ticker}).`
-                    });
-                }
-
-                // 4. Calendar
-                const cal = data.calendar || {};
-                let calAnsParts = [];
-                if (cal.dividend_yield) calAnsParts.push(`The expected dividend yield is **${cal.dividend_yield}%**, and the ex-dividend date is ${cal.ex_dividend_date}.`);
-                if (cal.next_earnings) calAnsParts.push(`The next earnings release is scheduled for **${cal.next_earnings}**.`);
-                else if (cal.last_surprise) calAnsParts.push(`In the last earnings report (${cal.last_earnings_date}), it recorded an **Earnings ${cal.last_surprise > 0 ? 'Beat' : 'Miss'} (${cal.last_surprise > 0 ? '+' : ''}${cal.last_surprise}%)**.`);
-
-                if (calAnsParts.length > 0) {
-                    qnaList.push({
-                        q: `When is the next earnings date and dividend for ${data.name_en || data.name} (${data.ticker})?`,
-                        a: calAnsParts.join(' ')
-                    });
-                } else {
-                    qnaList.push({
-                        q: `When is the next earnings date and dividend for ${data.name_en || data.name}?`,
-                        a: `Currently, there is no confirmed information regarding the earnings release date or dividend schedule for ${data.name_en || data.name}.`
-                    });
-                }
-
-                // 5. Price & Target
-                const consensus = data.consensus || {};
-                // Fix: target_price might be an object {mean: ...} or number
-                let tp = consensus.target_price;
-                if (tp && typeof tp === 'object') tp = tp.mean;
-
-                if (tp && data.current_price) {
-                    const upside = ((tp - data.current_price) / data.current_price * 100).toFixed(2);
-                    const upsidedown = upside > 0 ? 'upside' : 'downside'; // usually target > price means upside
-                    qnaList.push({
-                        q: `What is the current price and target price for ${data.name_en || data.name}? (Price Forecast)`,
-                        a: `As of ${today}, the price of ${data.name_en || data.name} is **$${data.current_price}**. The average Wall Street target price is **$${tp.toFixed(2)}**, implying a potential **${upside}% ${upsidedown}**.`
-                    });
-                } else {
-                    qnaList.push({
-                        q: `What is the current price and target price for ${data.name_en || data.name}? (Price Forecast)`,
-                        a: `There is currently insufficient Wall Street analyst target price data for ${data.name_en || data.name}.`
-                    });
-                }
-
-                // 6. NASPICK AI Score & Rating (SEO: 'AI analysis', 'stock rating' keywords)
-                let tierDescription = '';
-                if (data.tier === 1) tierDescription = 'This is the highest rating, indicating the stock has strong momentum and excellent fundamentals in the current market.';
-                else if (data.tier === 2) tierDescription = 'A high-quality rating, indicating stable growth and good investment attractiveness.';
-                else if (data.tier === 3) tierDescription = 'An average rating, showing market-average performance.';
-                else tierDescription = 'A cautionary rating, indicating momentum or fundamentals need improvement.';
+            if (rsi) {
+                if (rsi > 70) rsiAns = `Caution is needed. The RSI is **${rsi.toFixed(2)}**, indicating an **overbought** zone. A short-term correction may occur.`;
+                else if (rsi < 30) rsiAns = `It could be a buying opportunity. The RSI is **${rsi.toFixed(2)}**, indicating an **oversold** zone. A technical rebound is expected.`;
+                else rsiAns = `The technical indicators are **neutral**. The RSI is **${rsi.toFixed(2)}**, showing a stable trend suitable for accumulation.`;
 
                 qnaList.push({
-                    q: `What is the NASPICK AI Score and Rating for ${data.name_en || data.name} (${data.ticker})?`,
-                    a: `As of ${today}, ${data.name_en || data.name}'s NASPICK AI comprehensive score is **${data.final_score}/100** with an **${ratingLabel} Rating**. ${tierDescription} This score is calculated by combining technical analysis, fundamentals, and market sentiment, updated every 15 minutes.`
+                    q: `Is now a good time to buy ${data.name_en || data.name} (${data.ticker})? (RSI Technical Analysis)`,
+                    a: rsiAns
                 });
+            } else {
+                qnaList.push({
+                    q: `Is now a good time to buy ${data.name_en || data.name} (${data.ticker})? (RSI Technical Analysis)`,
+                    a: `Currently, there is insufficient data to perform RSI technical analysis for ${data.name_en || data.name} (${data.ticker}).`
+                });
+            }
 
-                // Render HTML (Accordion Style)
-                const faqContainer = document.getElementById('faqSection');
-                if (faqContainer) {
-                    faqContainer.innerHTML = `
+            // 4. Calendar
+            const cal = data.calendar || {};
+            let calAnsParts = [];
+            if (cal.dividend_yield) calAnsParts.push(`The expected dividend yield is **${cal.dividend_yield}%**, and the ex-dividend date is ${cal.ex_dividend_date}.`);
+            if (cal.next_earnings) calAnsParts.push(`The next earnings release is scheduled for **${cal.next_earnings}**.`);
+            else if (cal.last_surprise) calAnsParts.push(`In the last earnings report (${cal.last_earnings_date}), it recorded an **Earnings ${cal.last_surprise > 0 ? 'Beat' : 'Miss'} (${cal.last_surprise > 0 ? '+' : ''}${cal.last_surprise}%)**.`);
+
+            if (calAnsParts.length > 0) {
+                qnaList.push({
+                    q: `When is the next earnings date and dividend for ${data.name_en || data.name} (${data.ticker})?`,
+                    a: calAnsParts.join(' ')
+                });
+            } else {
+                qnaList.push({
+                    q: `When is the next earnings date and dividend for ${data.name_en || data.name}?`,
+                    a: `Currently, there is no confirmed information regarding the earnings release date or dividend schedule for ${data.name_en || data.name}.`
+                });
+            }
+
+            // 5. Price & Target
+            const consensus = data.consensus || {};
+            // Fix: target_price might be an object {mean: ...} or number
+            let tp = consensus.target_price;
+            if (tp && typeof tp === 'object') tp = tp.mean;
+
+            if (tp && data.current_price) {
+                const upside = ((tp - data.current_price) / data.current_price * 100).toFixed(2);
+                const upsidedown = upside > 0 ? 'upside' : 'downside'; // usually target > price means upside
+                qnaList.push({
+                    q: `What is the current price and target price for ${data.name_en || data.name}? (Price Forecast)`,
+                    a: `As of ${today}, the price of ${data.name_en || data.name} is **$${data.current_price}**. The average Wall Street target price is **$${tp.toFixed(2)}**, implying a potential **${upside}% ${upsidedown}**.`
+                });
+            } else {
+                qnaList.push({
+                    q: `What is the current price and target price for ${data.name_en || data.name}? (Price Forecast)`,
+                    a: `There is currently insufficient Wall Street analyst target price data for ${data.name_en || data.name}.`
+                });
+            }
+
+            // 6. NASPICK AI Score & Rating (SEO: 'AI analysis', 'stock rating' keywords)
+            let tierDescription = '';
+            if (data.tier === 1) tierDescription = 'This is the highest rating, indicating the stock has strong momentum and excellent fundamentals in the current market.';
+            else if (data.tier === 2) tierDescription = 'A high-quality rating, indicating stable growth and good investment attractiveness.';
+            else if (data.tier === 3) tierDescription = 'An average rating, showing market-average performance.';
+            else tierDescription = 'A cautionary rating, indicating momentum or fundamentals need improvement.';
+
+            qnaList.push({
+                q: `What is the NASPICK AI Score and Rating for ${data.name_en || data.name} (${data.ticker})?`,
+                a: `As of ${today}, ${data.name_en || data.name}'s NASPICK AI comprehensive score is **${data.final_score}/100** with an **${ratingLabel} Rating**. ${tierDescription} This score is calculated by combining technical analysis, fundamentals, and market sentiment, updated every 15 minutes.`
+            });
+
+            // Render HTML (Accordion Style)
+            const faqContainer = document.getElementById('faqSection');
+            if (faqContainer) {
+                faqContainer.innerHTML = `
                         <div class="mt-8 bg-[#23232a] rounded-xl border border-gray-800 p-6">
                             <h3 class="text-lg font-bold text-gray-200 mb-4 flex items-center gap-2">
                                  💬 Frequently Asked Questions
@@ -1290,27 +1291,26 @@
                             </div>
                         </div>
                     `;
-                }
-
-                // Inject JSON-LD Schema
-                const schemaData = {
-                    "@context": "https://schema.org",
-                    "@type": "FAQPage",
-                    "mainEntity": qnaList.map(item => ({
-                        "@type": "Question",
-                        "name": item.q,
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": item.a.replace(/\*\*/g, '') // Remove markdown bold for schema
-                        }
-                    }))
-                };
-
-                const script = document.createElement('script');
-                script.type = 'application/ld+json';
-                script.text = JSON.stringify(schemaData);
-                document.head.appendChild(script);
             }
+
+            // Inject JSON-LD Schema
+            const schemaData = {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": qnaList.map(item => ({
+                    "@type": "Question",
+                    "name": item.q,
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": item.a.replace(/\*\*/g, '') // Remove markdown bold for schema
+                    }
+                }))
+            };
+
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.text = JSON.stringify(schemaData);
+            document.head.appendChild(script);
         }
 
         // Favorites Logic

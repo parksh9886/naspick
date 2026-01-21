@@ -65054,7 +65054,7 @@
     "name": "피서브",
     "name_en": "Fiserv",
     "exchange": "NASDAQ",
-    "sector": "Unknown",
+    "sector": "금융",
     "current_price": 64.49,
     "change_pct": -2.72,
     "market_cap": 0,
@@ -65141,7 +65141,20 @@
       "last_eps_act": 2.04,
       "last_surprise": -22.9
     },
-    "related_peers": [],
+    "related_peers": [
+      {
+        "ticker": "SYF",
+        "change_pct": -5.13
+      },
+      {
+        "ticker": "ALL",
+        "change_pct": 0.66
+      },
+      {
+        "ticker": "TRV",
+        "change_pct": 0.07
+      }
+    ],
     "sector_rank": 1,
     "similar_score_peers": [
       {
