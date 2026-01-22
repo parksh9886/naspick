@@ -27,10 +27,18 @@ class StockDataFetcher:
             tickers = FALLBACK_TICKERS[:]
             
         # Ensure dual class shares logic
+        # FDR may return tickers as BRKB or BRK-B, we normalize to BRK.B format
         for t in REQUIRED_TICKERS:
-            t_hyphen = t.replace('.', '-')
+            t_hyphen = t.replace('.', '-')  # BRK.B -> BRK-B
+            t_concat = t.replace('.', '')   # BRK.B -> BRKB
+            
+            # Remove any variant formats
             if t_hyphen in tickers:
                 tickers.remove(t_hyphen)
+            if t_concat in tickers:
+                tickers.remove(t_concat)
+            
+            # Add the canonical dot format
             if t not in tickers:
                 tickers.append(t)
                 

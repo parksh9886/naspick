@@ -23,7 +23,10 @@ PATHS = {
 # Yahoo Finance Fetch Mapping (Dot to Hyphen)
 FETCH_MAP = {
     'BRK.B': 'BRK-B',
-    'BF.B': 'BF-B'
+    'BF.B': 'BF-B',
+    # FDR returns BRKB/BFB format, also need mapping
+    'BRKB': 'BRK-B',
+    'BFB': 'BF-B',
 }
 
 # Dual Class Shares & Special Handling
