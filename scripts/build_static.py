@@ -84,6 +84,13 @@ def replace_meta_tags(content, meta):
     
     content = content.replace('content="https://naspick.com/"', f'content="{meta["url"]}"')
     content = content.replace('content="https://naspick.com/en/"', f'content="{meta["url"]}"')
+    
+    # Image Replacements (OG & Twitter)
+    if "image" in meta:
+        # OG Image string in template
+        content = content.replace('content="https://naspick.com/images/og-image.png"', f'content="{meta["image"]}"')
+        # Twitter Image string in template (note the path difference in template: /og-image.png vs /images/og-image.png)
+        content = content.replace('content="https://naspick.com/og-image.png"', f'content="{meta["image"]}"')
         
     return content
 
@@ -120,7 +127,8 @@ def generate_stock_pages(data):
             "og_title": title_ko,
             "url": url_ko,
             "url_ko": url_ko,
-            "url_en": url_en
+            "url_en": url_en,
+            "image": f"https://financialmodelingprep.com/image-stock/{ticker.replace('.', '-')}.png"
         }
         
         html_ko = replace_meta_tags(template_ko, meta_ko)
@@ -141,7 +149,8 @@ def generate_stock_pages(data):
             "og_title": title_en,
             "url": url_en,
             "url_ko": url_ko,
-            "url_en": url_en
+            "url_en": url_en,
+            "image": f"https://financialmodelingprep.com/image-stock/{ticker.replace('.', '-')}.png"
         }
         
         html_en = replace_meta_tags(template_en, meta_en)
