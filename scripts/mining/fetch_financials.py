@@ -41,21 +41,26 @@ def update_financials(mode='smart'):
             
             today = datetime.now().date()
             yesterday = today - timedelta(days=1)
+            two_days_ago = today - timedelta(days=2)
+            
             today_str = today.strftime('%Y-%m-%d')
             yesterday_str = yesterday.strftime('%Y-%m-%d')
+            days_ago_2_str = two_days_ago.strftime('%Y-%m-%d')
             
-            print(f"🔎 Checking earnings events for {yesterday_str} and {today_str}...")
+            target_dates = [today_str, yesterday_str, days_ago_2_str]
+            
+            print(f"🔎 Checking earnings events for {target_dates} (server time)...")
             
             for ticker, data in cal_data.items():
                 # Check next_earnings or last_earnings_date
                 last_date = data.get('last_earnings_date')
                 next_date = data.get('next_earnings')
                 
-                # Logic: If earnings happened recently, update financials
+                # Logic: If earnings happened recently (up to 2 days ago to cover timezones/delays)
                 is_target = False
-                if last_date in [today_str, yesterday_str]:
+                if last_date in target_dates:
                     is_target = True
-                elif next_date in [today_str, yesterday_str]: # Just released?
+                elif next_date in target_dates: 
                     is_target = True
                     
                 if is_target:
