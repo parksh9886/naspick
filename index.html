@@ -707,7 +707,8 @@
                     <a href="/stock/${item.ticker}" 
                        class="w-full h-full bg-[#31313c] rounded-lg border border-gray-700 flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition hover:bg-[#3a3a45] p-2 block text-inherit hover:no-underline">
                         <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png"  
-                             alt="${item.ticker} 로고"
+                             alt="${item.name}(${item.ticker}) 주식 로고"
+                             loading="lazy"
                              onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=200'" 
                              style="filter: invert(1) hue-rotate(180deg);" class="w-7 h-7 rounded mb-2 object-contain shadow-md">
                         <div class="text-xs font-bold text-gray-200 tracking-tight text-center leading-tight mb-0.5">${item.name}</div>

@@ -696,7 +696,8 @@
                     <a href="/en/stock/${item.ticker}" 
                        class="w-full h-full bg-[#31313c] rounded-lg border border-gray-700 flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition hover:bg-[#3a3a45] p-2 block text-inherit hover:no-underline">
                         <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png"  
-                             alt="${item.ticker} logo"
+                             alt="${item.name_en || item.name} (${item.ticker}) stock logo"
+                             loading="lazy"
                              onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=200'" 
                              style="filter: invert(1) hue-rotate(180deg);" class="w-7 h-7 rounded mb-2 object-contain shadow-md">
                         <div class="text-xs font-bold text-gray-200 tracking-tight text-center leading-tight mb-0.5">${item.name_en || item.name}</div>
@@ -836,8 +837,8 @@
                 <div class="col-span-3 md:col-span-3 flex items-center gap-2 md:gap-3 pl-1 overflow-hidden">
                     <div class="w-7 h-7 md:w-9 md:h-9 rounded shadow-sm flex items-center justify-center p-0.5 shrink-0 overflow-hidden bg-[#31313c]">
                         <img src="https://financialmodelingprep.com/image-stock/${item.ticker.replace('.', '-')}.png" 
-                             alt="${item.ticker}" 
-                             load="lazy"
+                             alt="${item.name_en || item.name} (${item.ticker}) stock logo" 
+                             loading="lazy"
                              onerror="this.src='https://ui-avatars.com/api/?name=${item.ticker}&background=5383e8&color=fff&size=200'" 
                              style="filter: invert(1) hue-rotate(180deg);" 
                              class="w-full h-full object-contain">
