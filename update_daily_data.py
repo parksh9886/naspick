@@ -45,8 +45,18 @@ def run_daily_update():
             
         print(f"✅ Calendar Data saved to {output_path} ({len(calendar_data)} items)")
         
-    except Exception as e:
         print(f"❌ Calendar Update Failed: {e}")
+
+    # 3. Financials Update (New)
+    print("\n" + "="*50)
+    print("💰 STEP 3: Updating Financial Data (Smart Mode)")
+    print("="*50)
+    try:
+        # Import inside function to avoid circular imports or early failure
+        from scripts.mining.fetch_financials import update_financials
+        update_financials(mode='smart')
+    except Exception as e:
+        print(f"❌ Financials Update Failed: {e}")
 
     print(f"\n✨ [Daily Update] All tasks finished at {datetime.now()}")
 
