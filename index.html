@@ -1045,7 +1045,17 @@
 
                 if (matches.length > 0) {
                     // SEO 수정: div onclick -> a href
-                    resultsDiv.innerHTML = matches.map(d => `
+                    resultsDiv.innerHTML = matches.map(d => {
+                        let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
+                        if (d.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
+                        else if (d.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
+                        else if (d.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
+                        else if (d.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
+                        else if (d.tier === 5) tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
+
+                        const tierBadge = `<span class="px-1.5 py-0.5 text-[9px] font-bold rounded border ${tierClass}">${d.tier} Tier</span>`;
+
+                        return `
                         <a href="/stock/${d.ticker}" class="p-3 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
                             <div>
                                 <div class="flex items-center gap-2">
@@ -1056,10 +1066,11 @@
                             </div>
                             <div class="text-right">
                                 <div class="text-[#5383e8] text-xs font-bold">${d.final_score}점</div>
-                                <div class="text-[10px] text-gray-400 font-mono">${d.tier}티어</div>
+                                <div class="mt-1">${tierBadge}</div>
                             </div>
                         </a>
-                    `).join('');
+                        `;
+                    }).join('');
                     resultsDiv.classList.remove('hidden');
                 } else {
                     resultsDiv.innerHTML = '<div class="p-3 text-gray-500 text-xs">검색 결과가 없습니다.</div>';
