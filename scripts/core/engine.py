@@ -120,7 +120,18 @@ class NaspickEngine:
             
         exchange_map = self.fetcher.get_exchange_data()
         
-        final_results = []
+        # [Strategy Change] Merge with existing data instead of overwrite
+        # If we fail to fetch some stocks, we keep their old data (stale)
+        # rather than having them disappear.
+        existing_data = []
+        if os.path.exists(self.paths['OUTPUT_JSON']):
+            with open(self.paths['OUTPUT_JSON'], 'r', encoding='utf-8') as f:
+                existing_data = json.load(f)
+        
+        # Create a map for upsert {ticker: item}
+        final_map = {item['ticker']: item for item in existing_data}
+        
+        # New results list for this run (for partial tracking)
         ticker_dfs = {x: y for x, y in df_all_price.groupby('Ticker')}
         
         for idx, row in ranked_df.iterrows():
@@ -237,7 +248,11 @@ class NaspickEngine:
             item["calendar"] = cal_data
             item["related_peers"] = []
             
-            final_results.append(item)
+            # Upsert into map
+            final_map[ticker] = item
+            
+        # Reconstruct final_results from map values
+        final_results = list(final_map.values())
             
         # 7. Final Polish
         final_results.sort(key=lambda x: x['rank'])
@@ -298,6 +313,134 @@ class NaspickEngine:
         # Sitemap
         print("Running Sitemap generator...")
         generate_sitemap()
+        
+        # 9. Aggregate Signals (For Bot)
+        self.aggregate_signals(final_results, yesterday_ranks)
+        
+    def aggregate_signals(self, final_results, yesterday_ranks):
+        """
+        Aggregate useful signals (Technical, Ranking, Calendar) for notification bots
+        Saves to data/signals.json
+        """
+        print("🔍 Aggregating Daily Signals...")
+        
+        signals_data = {
+            "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "market_status": "open", # TODO: check market hours
+            "signals": {
+                "tier_up": [],        # Tier Promotion
+                "tier_down": [],      # Tier Demotion
+                "rank_up_major": [],  # Rank Up > 30
+                "rank_down_major": [],# Rank Down > 30
+                "new_tier_1": [],     # New Tier 1 Entry
+                
+                "golden_cross": [],   # MACD Golden Cross
+                "dead_cross": [],     # MACD Dead Cross (TODO)
+                "rsi_overbought": [], # RSI >= 70
+                "rsi_oversold": [],   # RSI <= 30
+                
+                "candle_bullish": [], # Bullish Candle Patterns
+                "candle_bearish": [], # Bearish Candle Patterns
+                
+                "volume_spike": [],   # Volume > 200% avg
+                "price_surge": [],    # Price > +5%
+                "price_plunge": [],   # Price < -5%
+                
+                "earnings_coming": [],# Earnings D-Day ~ D-3
+                "dividend_ex": []     # Ex-Dividend D-Day ~ D-3
+            }
+        }
+        
+        # Helper to simplify item
+        def slim_item(item, extra=None):
+            base = {
+                "ticker": item['ticker'],
+                "name": item['name'],
+                "price": item['current_price'],
+                "change": item['change_pct'],
+                "tier": item['tier'],
+                "rank": item['rank']
+            }
+            if extra: base.update(extra)
+            return base
+
+        for item in final_results:
+            ticker = item['ticker']
+            
+            # 1. Ranking & Tier Signals
+            prev_data = yesterday_ranks.get(ticker, {})
+            prev_rank = prev_data.get('rank', 0)
+            
+            # Since we don't store prev tier in yesterday_ranks, we infer it from rank roughly or skip
+            # Ideally yesterday_ranks should have tier. For now, we trust rank_change.
+            
+            # Rank Change
+            rank_change = item['rank_change']
+            if rank_change >= 30:
+                signals_data["signals"]["rank_up_major"].append(slim_item(item, {"diff": rank_change}))
+            elif rank_change <= -30:
+                signals_data["signals"]["rank_down_major"].append(slim_item(item, {"diff": rank_change}))
+                
+            # 2. Technical Signals
+            sigs = item.get('signals', [])
+            if "MACD_GoldenCross" in sigs:
+                signals_data["signals"]["golden_cross"].append(slim_item(item))
+            if "RSI_Overbought" in sigs:
+                signals_data["signals"]["rsi_overbought"].append(slim_item(item, {"rsi": item['technical_analysis']['rsi']['value']}))
+            if "RSI_Oversold" in sigs:
+                signals_data["signals"]["rsi_oversold"].append(slim_item(item, {"rsi": item['technical_analysis']['rsi']['value']}))
+                
+            # Candle
+            candle = item.get('technical_analysis', {}).get('candle_pattern')
+            if candle:
+                c_info = slim_item(item, {"pattern": candle['name_kr'], "desc": candle['desc']})
+                if candle['signal'] == 'bullish':
+                    signals_data["signals"]["candle_bullish"].append(c_info)
+                elif candle['signal'] == 'bearish':
+                    signals_data["signals"]["candle_bearish"].append(c_info)
+            
+            # 3. Price & Volume
+            if item['change_pct'] >= 5.0:
+                 signals_data["signals"]["price_surge"].append(slim_item(item))
+            elif item['change_pct'] <= -5.0:
+                 signals_data["signals"]["price_plunge"].append(slim_item(item))
+                 
+            # Volume Spike (Check score_breakdown or calc raw)
+            # We don't have raw volume ratio in final json, but scorer calculated it.
+            # Ideally fetcher/scorer should pass it. 
+            # For now, let's skip or infer from Sentiment Score (5 pts = Top 20%)
+            if item['score_breakdown']['sentiment'] >= 4.0:
+                 signals_data["signals"]["volume_spike"].append(slim_item(item, {"score": item['score_breakdown']['sentiment']}))
+
+            # 4. Calendar Signals
+            cal = item.get('calendar', {})
+            today_date = datetime.now().date()
+            
+            # Earnings
+            if cal.get('next_earnings'):
+                try:
+                    target_date = datetime.strptime(cal['next_earnings'], "%Y-%m-%d").date()
+                    days_diff = (target_date - today_date).days
+                    if 0 <= days_diff <= 3:
+                         signals_data["signals"]["earnings_coming"].append(slim_item(item, {"date": cal['next_earnings'], "d_day": days_diff}))
+                except: pass
+            
+            # Dividends
+            if cal.get('ex_dividend_date'):
+                try:
+                    ex_date = datetime.strptime(cal['ex_dividend_date'], "%Y-%m-%d").date()
+                    days_diff = (ex_date - today_date).days
+                    if 0 <= days_diff <= 3:
+                        signals_data["signals"]["dividend_ex"].append(slim_item(item, {"date": cal['ex_dividend_date'], "d_day": days_diff, "yield": cal.get('dividend_yield', 0)}))
+                except: pass
+
+        # Save to JSON
+        try:
+            with open(self.paths['SIGNALS_JSON'], 'w', encoding='utf-8') as f:
+                json.dump(signals_data, f, indent=2, ensure_ascii=False)
+            print(f"📡 Saved Aggregated Signals to {self.paths['SIGNALS_JSON']}")
+        except Exception as e:
+            print(f"❌ Failed to save signals: {e}")
 
     def save_snapshot(self):
         """Save current results as yesterday_ranks.json (For Daily Snapshot)"""

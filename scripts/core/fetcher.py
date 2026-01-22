@@ -85,24 +85,33 @@ class StockDataFetcher:
         print(f"📊 Fetching Price Data for {len(tickers)} tickers...")
         
         for idx, ticker in enumerate(tickers, 1):
-            try:
-                if idx % 50 == 0: print(f"   [{idx}/{len(tickers)}] Fetched...")
+            if idx % 50 == 0: print(f"   [{idx}/{len(tickers)}] Fetched...")
                 
-                fetch_ticker = self.fetch_map.get(ticker, ticker)
-                hist = fdr.DataReader(fetch_ticker, start_date, end_date)
-                
-                if hist.empty or len(hist) < 260: # Need ~1 year
-                    continue
+            for attempt in range(3):
+                try:
+                    fetch_ticker = self.fetch_map.get(ticker, ticker)
+                    hist = fdr.DataReader(fetch_ticker, start_date, end_date)
                     
-                hist['Ticker'] = ticker
-                hist = hist[['Ticker', 'Open', 'High', 'Low', 'Close', 'Volume']]
-                hist.index.name = 'Date'
-                hist = hist.reset_index()
-                
-                all_hist_list.append(hist)
-                
-            except Exception:
-                continue
+                    if hist.empty or len(hist) < 260: # Need ~1 year
+                        if attempt < 2: 
+                            time.sleep(1)
+                            continue
+                        else:
+                            break # Fail after 3 attempts
+                        
+                    hist['Ticker'] = ticker
+                    hist = hist[['Ticker', 'Open', 'High', 'Low', 'Close', 'Volume']]
+                    hist.index.name = 'Date'
+                    hist = hist.reset_index()
+                    
+                    all_hist_list.append(hist)
+                    break # Success
+                    
+                except Exception as e:
+                    if attempt < 2:
+                        time.sleep(1)
+                    else:
+                        print(f"   ❌ Failed to fetch {ticker}: {e}")
                 
         if not all_hist_list:
             return pd.DataFrame()

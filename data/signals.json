@@ -1,0 +1,133 @@
+{
+  "updated_at": "2026-01-22 00:06:37",
+  "market_status": "open",
+  "signals": {
+    "tier_up": [],
+    "tier_down": [],
+    "rank_up_major": [
+      {
+        "ticker": "AMD",
+        "name": "Advanced Micro Devices",
+        "price": 150.0,
+        "change": 2.0,
+        "tier": 2,
+        "rank": 10,
+        "diff": 40
+      }
+    ],
+    "rank_down_major": [
+      {
+        "ticker": "INTC",
+        "name": "Intel",
+        "price": 30.0,
+        "change": -6.0,
+        "tier": 4,
+        "rank": 80,
+        "diff": -60
+      }
+    ],
+    "new_tier_1": [],
+    "golden_cross": [
+      {
+        "ticker": "NVDA",
+        "name": "NVIDIA",
+        "price": 500.0,
+        "change": 5.5,
+        "tier": 1,
+        "rank": 1
+      }
+    ],
+    "dead_cross": [],
+    "rsi_overbought": [
+      {
+        "ticker": "NVDA",
+        "name": "NVIDIA",
+        "price": 500.0,
+        "change": 5.5,
+        "tier": 1,
+        "rank": 1,
+        "rsi": 75.0
+      }
+    ],
+    "rsi_oversold": [
+      {
+        "ticker": "INTC",
+        "name": "Intel",
+        "price": 30.0,
+        "change": -6.0,
+        "tier": 4,
+        "rank": 80,
+        "rsi": 25.0
+      }
+    ],
+    "candle_bullish": [],
+    "candle_bearish": [
+      {
+        "ticker": "INTC",
+        "name": "Intel",
+        "price": 30.0,
+        "change": -6.0,
+        "tier": 4,
+        "rank": 80,
+        "pattern": "하락 장악형",
+        "desc": "매도세 강함"
+      }
+    ],
+    "volume_spike": [
+      {
+        "ticker": "NVDA",
+        "name": "NVIDIA",
+        "price": 500.0,
+        "change": 5.5,
+        "tier": 1,
+        "rank": 1,
+        "score": 4.5
+      }
+    ],
+    "price_surge": [
+      {
+        "ticker": "NVDA",
+        "name": "NVIDIA",
+        "price": 500.0,
+        "change": 5.5,
+        "tier": 1,
+        "rank": 1
+      }
+    ],
+    "price_plunge": [
+      {
+        "ticker": "INTC",
+        "name": "Intel",
+        "price": 30.0,
+        "change": -6.0,
+        "tier": 4,
+        "rank": 80
+      }
+    ],
+    "earnings_coming": [
+      {
+        "ticker": "AMD",
+        "name": "Advanced Micro Devices",
+        "price": 150.0,
+        "change": 2.0,
+        "tier": 2,
+        "rank": 10,
+        "date": "2026-01-22",
+        "d_day": 0
+      }
+    ],
+    "dividend_ex": [
+      {
+        "ticker": "KO",
+        "name": "Coca-Cola",
+        "price": 60.0,
+        "change": 0.5,
+        "tier": 2,
+        "rank": 15,
+        "date": "2026-01-22",
+        "d_day": 0,
+        "yield": 3.0
+      }
+    ]
+  }
+}

@@ -14,6 +14,7 @@ PATHS = {
     "CONSENSUS_JSON": os.path.join(DATA_DIR, 'consensus_data.json'),
     "PORTFOLIO_STATE": os.path.join(DATA_DIR, 'portfolio_state.json'),
     "CHART_DATA": os.path.join(DATA_DIR, 'chart_data.json'),
+    "SIGNALS_JSON": os.path.join(DATA_DIR, 'signals.json'),
 }
 
 # --------------------------------------------------------------------------------

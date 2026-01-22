@@ -136,6 +136,12 @@ class PortfolioManager:
         
         print(f"✓ Loaded {len(stock_data)} stocks from data.json")
         
+        # [Safeguard] Prevent Rebalancing on Partial/Corrupted Data
+        if len(stock_data) < 400:
+            print(f"⚠️ CRITICAL: Stock data count ({len(stock_data)}) is too low! Aborting portfolio update to prevent errors.")
+            return
+
+        
         # Create lookup dictionaries
         price_map = {s['ticker']: s['current_price'] for s in stock_data}
         rank_map = {s['ticker']: s['rank'] for s in stock_data}
