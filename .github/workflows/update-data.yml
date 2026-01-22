@@ -44,6 +44,10 @@ jobs:
         run: |
           python update_portfolio_value.py
       
+      - name: Generate Static Pages (SSG)
+        run: |
+          python scripts/build_static.py
+      
       - name: Update Sitemap
         run: |
           python tools/generate_sitemap.py
