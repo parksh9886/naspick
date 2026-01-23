@@ -45,6 +45,7 @@ def run_daily_update():
             
         print(f"✅ Calendar Data saved to {output_path} ({len(calendar_data)} items)")
         
+    except Exception as e:
         print(f"❌ Calendar Update Failed: {e}")
 
     # 3. Financials Update (New)
