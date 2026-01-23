@@ -42,7 +42,7 @@ class StockDataFetcher:
             if t not in tickers:
                 tickers.append(t)
                 
-        return list(set(tickers))
+        return sorted(list(set(tickers)))
 
     def get_sector_data(self):
         """Fetch sector data mapping"""

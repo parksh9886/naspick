@@ -2,6 +2,7 @@ import yfinance as yf
 import json
 import time
 import os
+import socket
 from datetime import datetime
 from scripts.config import PATHS
 from scripts.core.fetcher import StockDataFetcher
@@ -15,6 +16,8 @@ class ConsensusManager:
     def __init__(self):
         self.fetcher = StockDataFetcher()
         self.output_path = PATHS['CONSENSUS_JSON']
+        # Set global timeout for yfinance downloads (30 seconds)
+        socket.setdefaulttimeout(30)
         
     def fetch_all_consensus(self):
         """Fetch consensus data for all S&P 500 tickers"""
@@ -112,7 +115,9 @@ class ConsensusManager:
                         fail_count += 1
                     
             except Exception as e:
-                print(f" ❌ Error: {e}")
+                print(f" ❌ Error fetching {ticker}: {e}")
+                # Reset socket timeout just in case
+                socket.setdefaulttimeout(30)
                 fail_count += 1
                 
             # Rate Limiting: 2 seconds per stock
