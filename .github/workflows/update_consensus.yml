@@ -2,10 +2,12 @@ name: Update Wall St Consensus
 
 on:
   schedule:
-    # Run at 09:00 UTC (Market Open - 30m approx, or just daily update)
-    # Yahoo data updates slowly anyway. Once a day is fine.
-    - cron: '0 9 * * 1-5' 
-  workflow_dispatch: # Allow manual trigger
+    - cron: '5 21 * * 1-5'  # 장 마감 5분 후 (21:05 UTC = 06:05 KST)
+  workflow_dispatch:
+
+concurrency:
+  group: naspick-pipeline
+  cancel-in-progress: false
 
 jobs:
   update-consensus:
@@ -22,17 +24,23 @@ jobs:
         python-version: '3.10'
 
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      run: pip install -r requirements.txt
 
     - name: Run Daily Data Update (Consensus + Calendar)
       run: python update_daily_data.py
 
+    - name: Run Stock Data Update (Reflect New Consensus)
+      run: python fetch_sp500.py
 
-    - name: Commit and push changes
+    - name: Update Portfolio
+      run: python update_portfolio_value.py
+
+    - name: Build Static Pages
+      run: python scripts/build_static.py
+
+    - name: Commit and push
       run: |
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
-        git add data/consensus_data.json data/calendar_data.json
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Update Wall St. Consensus data" && (git pull --rebase origin main || git pull origin main) && git push)
+        git add .
+        git diff --quiet && git diff --staged --quiet || (git commit -m "📊 Update Consensus + Refresh Data" && git pull --rebase origin main && git push)

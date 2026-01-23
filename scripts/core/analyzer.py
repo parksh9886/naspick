@@ -70,91 +70,92 @@ class TechnicalAnalyzer:
         }
 
     @staticmethod
-    def detect_candle_patterns(hist, lookback_days=5):
+    def detect_candle_patterns(hist, lookback_days=1):
         """
-        Detect 6 major candlestick patterns in the last N days.
+        Detect 6 major candlestick patterns in yesterday's completed candle only.
         Returns: {"pattern": str, "signal": str, "date": str, "name_kr": str} or None
         """
-        if len(hist) < lookback_days + 2:
+        if len(hist) < 3:  # Need at least 3 days for patterns
             return None
         
         patterns_found = []
         
-        for i in range(-lookback_days, 0):
-            try:
-                # Current candle
-                o = hist['Open'].iloc[i]
-                h = hist['High'].iloc[i]
-                l = hist['Low'].iloc[i]
-                c = hist['Close'].iloc[i]
+        # Only check yesterday's candle (i = -1)
+        i = -1
+        try:
+            # Current candle (yesterday)
+            o = hist['Open'].iloc[i]
+            h = hist['High'].iloc[i]
+            l = hist['Low'].iloc[i]
+            c = hist['Close'].iloc[i]
+            
+            # Previous candle (2 days ago)
+            o_prev = hist['Open'].iloc[i-1]
+            c_prev = hist['Close'].iloc[i-1]
+            
+            # Two days ago (for 3-candle patterns)
+            o_prev2 = hist['Open'].iloc[i-2] if len(hist) >= 3 else o_prev
+            c_prev2 = hist['Close'].iloc[i-2] if len(hist) >= 3 else c_prev
+            
+            body = abs(c - o)
+            upper_shadow = h - max(o, c)
+            lower_shadow = min(o, c) - l
+            body_prev = abs(c_prev - o_prev)
+            
+            date_str = str(hist['Date'].iloc[i])[:10] if 'Date' in hist.columns else str(i)
+            
+            # 1. Hammer
+            if body > 0 and lower_shadow > body * 2 and upper_shadow < body * 0.5 and c_prev < o_prev:
+                patterns_found.append({
+                    "pattern": "hammer", "signal": "bullish", "date": date_str,
+                    "name_kr": "망치형", "desc": "하락 추세에서 바닥 반전 신호",
+                    "name_en": "Hammer", "desc_en": "Bottom reversal signal in downtrend"
+                })
+            
+            # 2. Shooting Star
+            elif body > 0 and upper_shadow > body * 2 and lower_shadow < body * 0.5 and c_prev > o_prev:
+                patterns_found.append({
+                    "pattern": "shooting_star", "signal": "bearish", "date": date_str,
+                    "name_kr": "유성형", "desc": "상승 추세에서 고점 반전 신호",
+                    "name_en": "Shooting Star", "desc_en": "Top reversal signal in uptrend"
+                })
+            
+            # 3. Bullish Engulfing
+            elif c > o and c_prev < o_prev and o <= c_prev and c >= o_prev and body > body_prev:
+                patterns_found.append({
+                    "pattern": "bullish_engulfing", "signal": "bullish", "date": date_str,
+                    "name_kr": "상승 장악형", "desc": "강력한 매수세로 추세 반전",
+                    "name_en": "Bullish Engulfing", "desc_en": "Strong buying momentum reversal"
+                })
+            
+            # 4. Bearish Engulfing
+            elif c < o and c_prev > o_prev and o >= c_prev and c <= o_prev and body > body_prev:
+                patterns_found.append({
+                    "pattern": "bearish_engulfing", "signal": "bearish", "date": date_str,
+                    "name_kr": "하락 장악형", "desc": "강력한 매도세로 추세 반전",
+                    "name_en": "Bearish Engulfing", "desc_en": "Strong selling momentum reversal"
+                })
+            
+            # 5. Morning Star
+            elif (c_prev2 < o_prev2 and body_prev < abs(c_prev2 - o_prev2) * 0.3 and
+                  c > o and c > (o_prev2 + c_prev2) / 2):
+                patterns_found.append({
+                    "pattern": "morning_star", "signal": "bullish", "date": date_str,
+                    "name_kr": "샛별형", "desc": "강력한 바닥 반전 3봉 패턴",
+                    "name_en": "Morning Star", "desc_en": "Strong bottom reversal (3-bar)"
+                })
+            
+            # 6. Evening Star
+            elif (c_prev2 > o_prev2 and body_prev < abs(c_prev2 - o_prev2) * 0.3 and
+                  c < o and c < (o_prev2 + c_prev2) / 2):
+                patterns_found.append({
+                    "pattern": "evening_star", "signal": "bearish", "date": date_str,
+                    "name_kr": "석별형", "desc": "강력한 고점 반전 3봉 패턴",
+                    "name_en": "Evening Star", "desc_en": "Strong top reversal (3-bar)"
+                })
                 
-                # Previous candle
-                o_prev = hist['Open'].iloc[i-1]
-                c_prev = hist['Close'].iloc[i-1]
-                
-                # Two days ago (for 3-candle patterns)
-                o_prev2 = hist['Open'].iloc[i-2] if abs(i) < len(hist) - 2 else o_prev
-                c_prev2 = hist['Close'].iloc[i-2] if abs(i) < len(hist) - 2 else c_prev
-                
-                body = abs(c - o)
-                upper_shadow = h - max(o, c)
-                lower_shadow = min(o, c) - l
-                body_prev = abs(c_prev - o_prev)
-                
-                date_str = str(hist['Date'].iloc[i])[:10] if 'Date' in hist.columns else str(i)
-                
-                # 1. Hammer
-                if body > 0 and lower_shadow > body * 2 and upper_shadow < body * 0.5 and c_prev < o_prev:
-                    patterns_found.append({
-                        "pattern": "hammer", "signal": "bullish", "date": date_str,
-                        "name_kr": "망치형", "desc": "하락 추세에서 바닥 반전 신호",
-                        "name_en": "Hammer", "desc_en": "Bottom reversal signal in downtrend"
-                    })
-                
-                # 2. Shooting Star
-                elif body > 0 and upper_shadow > body * 2 and lower_shadow < body * 0.5 and c_prev > o_prev:
-                    patterns_found.append({
-                        "pattern": "shooting_star", "signal": "bearish", "date": date_str,
-                        "name_kr": "유성형", "desc": "상승 추세에서 고점 반전 신호",
-                        "name_en": "Shooting Star", "desc_en": "Top reversal signal in uptrend"
-                    })
-                
-                # 3. Bullish Engulfing
-                elif c > o and c_prev < o_prev and o <= c_prev and c >= o_prev and body > body_prev:
-                    patterns_found.append({
-                        "pattern": "bullish_engulfing", "signal": "bullish", "date": date_str,
-                        "name_kr": "상승 장악형", "desc": "강력한 매수세로 추세 반전",
-                        "name_en": "Bullish Engulfing", "desc_en": "Strong buying momentum reversal"
-                    })
-                
-                # 4. Bearish Engulfing
-                elif c < o and c_prev > o_prev and o >= c_prev and c <= o_prev and body > body_prev:
-                    patterns_found.append({
-                        "pattern": "bearish_engulfing", "signal": "bearish", "date": date_str,
-                        "name_kr": "하락 장악형", "desc": "강력한 매도세로 추세 반전",
-                        "name_en": "Bearish Engulfing", "desc_en": "Strong selling momentum reversal"
-                    })
-                
-                # 5. Morning Star
-                elif (c_prev2 < o_prev2 and body_prev < abs(c_prev2 - o_prev2) * 0.3 and
-                      c > o and c > (o_prev2 + c_prev2) / 2):
-                    patterns_found.append({
-                        "pattern": "morning_star", "signal": "bullish", "date": date_str,
-                        "name_kr": "샛별형", "desc": "강력한 바닥 반전 3봉 패턴",
-                        "name_en": "Morning Star", "desc_en": "Strong bottom reversal (3-bar)"
-                    })
-                
-                # 6. Evening Star
-                elif (c_prev2 > o_prev2 and body_prev < abs(c_prev2 - o_prev2) * 0.3 and
-                      c < o and c < (o_prev2 + c_prev2) / 2):
-                    patterns_found.append({
-                        "pattern": "evening_star", "signal": "bearish", "date": date_str,
-                        "name_kr": "석별형", "desc": "강력한 고점 반전 3봉 패턴",
-                        "name_en": "Evening Star", "desc_en": "Strong top reversal (3-bar)"
-                    })
-                    
-            except Exception:
-                continue
+        except Exception:
+            pass
         
         return patterns_found[-1] if patterns_found else None
 

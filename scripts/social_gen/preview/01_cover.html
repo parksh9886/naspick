@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#1c1c1f] text-white w-[1080px] h-[1080px] overflow-hidden relative flex flex-col items-center justify-center text-center p-16">
+
+    <!-- Background Decoration -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div class="absolute -top-[20%] -right-[20%] w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[150px]">
+        </div>
+        <div class="absolute -bottom-[20%] -left-[20%] w-[800px] h-[800px] bg-purple-600/20 rounded-full blur-[150px]">
+        </div>
+    </div>
+
+    <div class="z-10 relative flex flex-col items-center">
+
+        <!-- Date Badge -->
+        <div
+            class="inline-flex items-center gap-2 bg-[#282830]/80 backdrop-blur-md border border-gray-600 rounded-full px-8 py-3 text-gray-200 font-bold text-2xl mb-16 shadow-lg">
+            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+            2026.01.24 DAILY BRIEFING
+        </div>
+
+        <!-- Main Hook -->
+        <div class="relative mb-16">
+            <div class="absolute -inset-10 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl rounded-full">
+            </div>
+            <h1
+                class="text-[110px] font-black leading-[1.1] tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-100 to-gray-500 drop-shadow-2xl relative z-10">
+                어제자 미국주식<br>
+                <span class="text-[#38bdf8]">핵심 요약.JPG</span>
+            </h1>
+        </div>
+
+        <!-- Sub Points Grid (2x3) -->
+        <div class="grid grid-cols-2 gap-4 w-full max-w-[900px]">
+
+            <!-- 1. Tier -->
+            <div
+                class="bg-[#282830]/80 border border-gray-700 p-4 rounded-2xl flex items-center gap-4 shadow-lg backdrop-blur hover:border-[#38bdf8] transition">
+                <span class="bg-[#38bdf8]/10 text-[#38bdf8] p-2 rounded-lg text-3xl shrink-0">👑</span>
+                <div class="text-left overflow-hidden">
+                    <div class="text-gray-500 text-sm font-bold uppercase tracking-widest">Main League</div>
+                    <div class="text-white text-xl font-bold truncate">1티어 진입 & 탈락</div>
+                </div>
+            </div>
+
+            <!-- 2. Oversold -->
+            <div
+                class="bg-[#282830]/80 border border-gray-700 p-4 rounded-2xl flex items-center gap-4 shadow-lg backdrop-blur hover:border-[#38bdf8] transition">
+                <span class="bg-[#38bdf8]/10 text-blue-400 p-2 rounded-lg text-3xl shrink-0">📉</span>
+                <div class="text-left overflow-hidden">
+                    <div class="text-gray-500 text-sm font-bold uppercase tracking-widest">Opportunity</div>
+                    <div class="text-white text-xl font-bold truncate">과매도 줍줍 찬스</div>
+                </div>
+            </div>
+
+            <!-- 3. Golden Cross -->
+            <div
+                class="bg-[#282830]/80 border border-gray-700 p-4 rounded-2xl flex items-center gap-4 shadow-lg backdrop-blur hover:border-[#38bdf8] transition">
+                <span class="bg-[#38bdf8]/10 text-amber-400 p-2 rounded-lg text-3xl shrink-0">🚀</span>
+                <div class="text-left overflow-hidden">
+                    <div class="text-gray-500 text-sm font-bold uppercase tracking-widest">Momentum</div>
+                    <div class="text-white text-xl font-bold truncate">돈 몰리는 골든크로스</div>
+                </div>
+            </div>
+
+            <!-- 4. Candles -->
+            <div
+                class="bg-[#282830]/80 border border-gray-700 p-4 rounded-2xl flex items-center gap-4 shadow-lg backdrop-blur hover:border-[#38bdf8] transition">
+                <span class="bg-[#38bdf8]/10 text-red-400 p-2 rounded-lg text-3xl shrink-0">🕯️</span>
+                <div class="text-left overflow-hidden">
+                    <div class="text-gray-500 text-sm font-bold uppercase tracking-widest">Pattern</div>
+                    <div class="text-white text-xl font-bold truncate">상승 반전 캔들 시그널</div>
+                </div>
+            </div>
+
+            <!-- 5. Earnings Result -->
+            <div
+                class="bg-[#282830]/80 border border-gray-700 p-4 rounded-2xl flex items-center gap-4 shadow-lg backdrop-blur hover:border-[#38bdf8] transition">
+                <span class="bg-[#38bdf8]/10 text-green-400 p-2 rounded-lg text-3xl shrink-0">📊</span>
+                <div class="text-left overflow-hidden">
+                    <div class="text-gray-500 text-sm font-bold uppercase tracking-widest">Result</div>
+                    <div class="text-white text-xl font-bold truncate">따끈따끈 실적 발표</div>
+                </div>
+            </div>
+
+            <!-- 6. Earnings Schedule -->
+            <div
+                class="bg-[#282830]/80 border border-gray-700 p-4 rounded-2xl flex items-center gap-4 shadow-lg backdrop-blur hover:border-[#38bdf8] transition">
+                <span class="bg-[#38bdf8]/10 text-purple-400 p-2 rounded-lg text-3xl shrink-0">🗓️</span>
+                <div class="text-left overflow-hidden">
+                    <div class="text-gray-500 text-sm font-bold uppercase tracking-widest">Schedule</div>
+                    <div class="text-white text-xl font-bold truncate">이번주 주요 일정</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Swipe Indicator -->
+    <div class="absolute right-10 top-1/2 transform -translate-y-1/2 z-20">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="4" stroke="white"
+            class="w-20 h-20 opacity-80 drop-shadow-lg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+    </div>
+
+    <!-- Footer -->
+    <div class="absolute bottom-12 w-full text-center z-10 flex flex-col items-center gap-2">
+        <div class="w-12 h-1 bg-[#38bdf8] rounded-full"></div>
+        <div class="text-xl font-black tracking-[0.5em] text-[#5383e8] mt-2">NASPICK.COM</div>
+    </div>
+
+</body>
+
+</html>

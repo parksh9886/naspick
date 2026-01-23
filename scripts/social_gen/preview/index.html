@@ -1,0 +1,35 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Naspick Design Preview</title>
+        <style>
+            body { font-family: sans-serif; background: #111; color: white; display: flex; margin: 0; height: 100vh; }
+            #sidebar { width: 250px; background: #222; padding: 20px; border-right: 1px solid #333; overflow-y: auto; }
+            #content { flex: 1; display: flex; justify-content: center; align-items: center; background: #000; }
+            iframe { width: 1080px; height: 1080px; border: none; transform: scale(0.8); transform-origin: center; background: white; }
+            a { display: block; padding: 10px; color: #aaa; text-decoration: none; border-bottom: 1px solid #333; cursor: pointer; }
+            a:hover, a.active { color: #38bdf8; background: #333; }
+        </style>
+        <script>
+            function setFrame(url, el) {
+                document.getElementById('preview-frame').src = url;
+                document.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                el.classList.add('active');
+            }
+        </script>
+    </head>
+    <body>
+        <div id="sidebar">
+            <h2 style="color:#38bdf8; margin-top:0;">Naspick Slides</h2>
+    <a onclick="setFrame('01_cover.html', this)">01 Cover</a><a onclick="setFrame('02_tier.html', this)">02 Tier</a><a onclick="setFrame('02_tier_2.html', this)">02 Tier 2</a><a onclick="setFrame('03_oversold.html', this)">03 Oversold</a><a onclick="setFrame('04_golden.html', this)">04 Golden</a><a onclick="setFrame('04_golden_2.html', this)">04 Golden 2</a><a onclick="setFrame('05_candles.html', this)">05 Candles</a><a onclick="setFrame('05_candles_2.html', this)">05 Candles 2</a><a onclick="setFrame('06_earnings.html', this)">06 Earnings</a><a onclick="setFrame('07_cta.html', this)">07 Cta</a>
+        <div style="margin-top: 20px; border-top: 1px solid #333; padding-top: 20px;">
+            <a href="/refresh" style="color: #4ade80; border: 1px solid #4ade80; text-align: center; border-radius: 4px;">⚡ Refresh All</a>
+        </div>
+        </div>
+        <div id="content">
+            <iframe id="preview-frame" src="01_cover.html"></iframe>
+        </div>
+    </body>
+    </html>
+    

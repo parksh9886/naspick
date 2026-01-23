@@ -2,20 +2,15 @@ name: Update Stock Data
 
 on:
   schedule:
-    # Run every 15 minutes during market hours (9:30 AM - 4:00 PM EST)
-    # Cron runs in UTC, so EST = UTC-5 (14:30-21:00 UTC)
-    - cron: '30,45 14-20 * * 1-5'  # Every 15 min from 9:30 AM EST
-    - cron: '0,15 15-20 * * 1-5'   # Continue in each hour
-    - cron: '0 21 * * 1-5'          # Until 4:00 PM EST
-  
-  # Allow manual trigger
+    # 장중 15분마다 (UTC 14:30~21:00 = KST 23:30~06:00)
+    - cron: '30,45 14-20 * * 1-5'
+    - cron: '0,15 15-20 * * 1-5'
+    - cron: '0 21 * * 1-5'
   workflow_dispatch:
-  
-  # Trigger after Consensus Update completes
-  workflow_run:
-    workflows: ["Update Wall St Consensus"]
-    types:
-      - completed
+
+concurrency:
+  group: naspick-pipeline
+  cancel-in-progress: false
 
 jobs:
   update-data:
@@ -24,37 +19,51 @@ jobs:
       contents: write
     
     steps:
-      - name: Checkout repository
+      - name: Check if market is open
+        id: market_check
+        run: |
+          HOUR=$(date -u +"%H")
+          if [ "$HOUR" -ge "21" ] && [ "${{ github.event_name }}" == "schedule" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "⏭️ Market closed, skipping delayed schedule..."
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Checkout
+        if: steps.market_check.outputs.skip != 'true'
         uses: actions/checkout@v3
       
       - name: Set up Python
+        if: steps.market_check.outputs.skip != 'true'
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
       
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+        if: steps.market_check.outputs.skip != 'true'
+        run: pip install -r requirements.txt
       
       - name: Fetch stock data
-        run: |
-          python fetch_sp500.py
+        if: steps.market_check.outputs.skip != 'true'
+        run: python fetch_sp500.py
       
-      - name: Update Portfolio Value
-        run: |
-          python update_portfolio_value.py
+      - name: Update Portfolio
+        if: steps.market_check.outputs.skip != 'true'
+        run: python update_portfolio_value.py
       
-      - name: Generate Static Pages (SSG)
-        run: |
-          python scripts/build_static.py
+      - name: Build Static Pages
+        if: steps.market_check.outputs.skip != 'true'
+        run: python scripts/build_static.py
       
       - name: Update Sitemap
-        run: |
-          python tools/generate_sitemap.py
+        if: steps.market_check.outputs.skip != 'true'
+        run: python tools/generate_sitemap.py
       
-      - name: Commit and push if changed
+      - name: Commit and push
+        if: steps.market_check.outputs.skip != 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-update: Stock data $(date +'%Y-%m-%d %H:%M:%S')" && (git pull --rebase origin main || git pull origin main) && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-update: $(date +'%Y-%m-%d %H:%M:%S')" && git pull --rebase origin main && git push)
