@@ -27,6 +27,8 @@ def run_daily_update():
         print("✅ Consensus Update Completed.")
     except Exception as e:
         print(f"❌ Consensus Update Failed: {e}")
+        import traceback
+        traceback.print_exc()
 
     # 2. Calendar Update (Earnings, Dividends)
     print("\n" + "="*50)

@@ -114,18 +114,27 @@ class ConsensusManager:
                         print(f" ⚠️ No data (Info empty)")
                         fail_count += 1
                     
+                fail_count += 1
             except Exception as e:
-                print(f" ❌ Error fetching {ticker}: {e}")
-                # Reset socket timeout just in case
-                socket.setdefaulttimeout(30)
+                print(f" ❌ CRITICAL ERROR fetching {ticker}: {e}")
+                import traceback
+                traceback.print_exc()
                 fail_count += 1
                 
             # Rate Limiting: 2 seconds per stock
             time.sleep(2)
             
+        print(f"\n✅ Loop Finished. processed {len(tickers)} items.")
+        
         # Save to JSON using PATHS
-        with open(self.output_path, 'w', encoding='utf-8') as f:
-            json.dump(consensus_map, f, indent=2, ensure_ascii=False)
-            
-        print(f"\n💾 Saved consensus + financial data for {len(consensus_map)} stocks to {self.output_path}")
-        print(f"📊 Summary: Success {success_count}, Fail {fail_count} (Total {len(tickers)})")
+        try:
+            print(f"💾 Saving to {self.output_path}...")
+            with open(self.output_path, 'w', encoding='utf-8') as f:
+                json.dump(consensus_map, f, indent=2, ensure_ascii=False)
+                
+            print(f"💾 Saved consensus + financial data for {len(consensus_map)} stocks to {self.output_path}")
+            print(f"📊 Summary: Success {success_count}, Fail {fail_count} (Total {len(tickers)})")
+        except Exception as e:
+            print(f"❌ FAILED TO SAVE JSON: {e}")
+            import traceback
+            traceback.print_exc()
