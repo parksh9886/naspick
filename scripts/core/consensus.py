@@ -46,6 +46,16 @@ class ConsensusManager:
             if idx % 50 == 0:
                 gc.collect()
 
+            # [RESUME LOGIC] Check if we already have fresh data for this ticker
+            today_str = datetime.now().strftime('%Y-%m-%d')
+            if ticker in consensus_map:
+                last_updated = consensus_map[ticker].get('last_updated', '')
+                # If last_updated starts with today's date, skip it
+                if last_updated.startswith(today_str):
+                    print(f"[{idx+1}/{len(tickers)}] Skipping {ticker} (Already updated today: {last_updated})")
+                    success_count += 1 # Count as success to keep stats happy
+                    continue
+
             # Convert to Yahoo format (Dot to Hyphen)
             yf_ticker = ticker.replace('.', '-')
             
