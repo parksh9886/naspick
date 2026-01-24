@@ -8,10 +8,10 @@ import time
 # ==============================================================================
 # GitHub Actions에서는 Secrets의 환경변수를 사용하고, 로컬에서는 아래 하드코딩된 값을 사용합니다.
 # 1. 텔레그램 봇 토큰
-BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '8447711529:AAE7xlmbkAc-QWblJPDSsU0ETJV5ek63-L8') 
+BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN') 
 
 # 2. 채널/채팅방 ID
-CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', '-1003880671265')
+CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
 API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMediaGroup"
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output')
