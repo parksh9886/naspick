@@ -19,7 +19,9 @@ jobs:
     # Trigger if previous workflow succeeded AND it was the daily update (marked by commit msg)
     if: >
       github.event.workflow_run.conclusion == 'success' && 
-      (contains(github.event.workflow_run.head_commit.message, '[DAILY]') || github.event_name == 'workflow_dispatch')
+      (contains(github.event.workflow_run.head_commit.message, '[DAILY]') || 
+       github.event_name == 'workflow_dispatch' || 
+       github.event.workflow_run.event == 'workflow_dispatch')
     
     steps:
       - uses: actions/checkout@v3
