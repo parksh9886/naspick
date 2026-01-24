@@ -23,9 +23,13 @@ jobs:
         id: market_check
         run: |
           HOUR=$(date -u +"%H")
-          if [ "$HOUR" -ge "21" ] && [ "${{ github.event_name }}" == "schedule" ]; then
+          # Run logic: 
+          # 14-20: Regular Intraday
+          # 21: Daily Close (Do NOT skip, run full update)
+          
+          if [ "$HOUR" -gt "21" ] && [ "${{ github.event_name }}" == "schedule" ]; then
             echo "skip=true" >> $GITHUB_OUTPUT
-            echo "⏭️ Market closed, skipping delayed schedule..."
+            echo "⏭️ Late night, skipping..."
           else
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
@@ -43,6 +47,17 @@ jobs:
       - name: Install dependencies
         if: steps.market_check.outputs.skip != 'true'
         run: pip install -r requirements.txt
+
+      - name: Run Consensus Update (Daily Close Only)
+        if: steps.market_check.outputs.skip != 'true'
+        run: |
+          HOUR=$(date -u +"%H")
+          if [ "$HOUR" == "21" ]; then
+            echo "📢 Running Daily Consensus & Calendar Update..."
+            python update_daily_data.py
+          else
+            echo "⏭️ Intraday run, skipping consensus update."
+          fi
       
       - name: Fetch stock data
         if: steps.market_check.outputs.skip != 'true'
