@@ -59,4 +59,13 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-update: $(date +'%Y-%m-%d %H:%M:%S')" && git pull --rebase origin main && git push)
+          
+          # Check if we ran the full update to tag the commit
+          HOUR=$(date -u +"%H")
+          if [ "$HOUR" -ge "21" ] || [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+             MSG="📢 [DAILY] Update Consensus + Data: $(date +'%Y-%m-%d %H:%M:%S')"
+          else
+             MSG="🤖 Auto-update: $(date +'%Y-%m-%d %H:%M:%S')"
+          fi
+          
+          git diff --quiet && git diff --staged --quiet || (git commit -m "$MSG" && git pull --rebase origin main && git push)
