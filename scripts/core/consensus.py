@@ -44,7 +44,7 @@ class ConsensusManager:
             # Convert to Yahoo format (Dot to Hyphen)
             yf_ticker = ticker.replace('.', '-')
             
-            print(f"[{idx+1}/{len(tickers)}] Fetching {ticker} ({yf_ticker})...", end='', flush=True)
+            print(f"[{idx+1}/{len(tickers)}] Fetching {ticker} ({yf_ticker})...")
             
             # Retry Loop (Max 3 attempts)
             max_retries = 3
@@ -100,7 +100,7 @@ class ConsensusManager:
                         }
                         
                         consensus_map[ticker] = consensus_data
-                        print(f" ✅ {status} ({score}) + Financials")
+                        print(f"   ✅ {status} ({score})")
                         
                     else:
                         # Partial Data Logic
@@ -123,11 +123,11 @@ class ConsensusManager:
                                 "last_updated": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                             }
                             if target_mean:
-                                print(f" ⚠️ No rating, but saved target price ${target_mean}")
+                                print(f"   ⚠️ No rating, but saved target price ${target_mean}")
                             else:
-                                print(f" ⚠️ No consensus, but saved financials")
+                                print(f"   ⚠️ No consensus, but saved financials")
                         else:
-                            print(f" ⚠️ No data (Info empty)")
+                            print(f"   ⚠️ No data (Info empty)")
                             # Do NOT increment success/fail here yet, continue to logic end
                             pass
                     
@@ -156,11 +156,19 @@ class ConsensusManager:
             # Rate Limiting: 2 seconds per stock (Standard)
             time.sleep(2)
             
+            # Incremental Save (Every 20 stocks)
+            if (idx + 1) % 20 == 0:
+                print(f"   💾 [Auto-Save] Saving progress for {len(consensus_map)} stocks...")
+                try:
+                    with open(self.output_path, 'w', encoding='utf-8') as f:
+                        json.dump(consensus_map, f, indent=2, ensure_ascii=False)
+                except: pass
+
         print(f"\n✅ Loop Finished. processed {len(tickers)} items.")
         
-        # Save to JSON using PATHS
+        # Final Save
         try:
-            print(f"💾 Saving to {self.output_path}...")
+            print(f"💾 Saving final data to {self.output_path}...")
             with open(self.output_path, 'w', encoding='utf-8') as f:
                 json.dump(consensus_map, f, indent=2, ensure_ascii=False)
                 
