@@ -34,7 +34,8 @@ jobs:
           
           # Target Window: 21:00 ~ 21:59 UTC (06:00 ~ 06:59 KST)
           # 'Update Stock Data' runs at 21:00 UTC. 'Update Consensus' at 21:05 UTC.
-          if [ "$HOUR" == "21" ]; then
+          # Relaxed to >= 21 to handle delays
+          if [ "$HOUR" -ge "21" ]; then
              echo "✅ Inside target time window."
              echo "skip=false" >> $GITHUB_OUTPUT
           else
@@ -67,9 +68,7 @@ jobs:
         if: steps.time_check.outputs.skip != 'true'
         run: python save_daily_snapshot.py
       
-      - name: Update Sitemap
-        if: steps.time_check.outputs.skip != 'true'
-        run: python tools/generate_sitemap.py
+
 
       - name: Install Social Gen Dependencies
         if: steps.time_check.outputs.skip != 'true'
