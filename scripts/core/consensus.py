@@ -3,6 +3,7 @@ import json
 import time
 import os
 import socket
+import gc
 from datetime import datetime
 from scripts.config import PATHS
 from scripts.core.fetcher import StockDataFetcher
@@ -41,6 +42,10 @@ class ConsensusManager:
         print("⏳ This process will take time (approx 30 mins) to avoid rate limits.")
         
         for idx, ticker in enumerate(tickers):
+            # Explicit GC every 50 stocks to prevent memory leaks in GitHub Actions
+            if idx % 50 == 0:
+                gc.collect()
+
             # Convert to Yahoo format (Dot to Hyphen)
             yf_ticker = ticker.replace('.', '-')
             
@@ -162,6 +167,9 @@ class ConsensusManager:
                 try:
                     with open(self.output_path, 'w', encoding='utf-8') as f:
                         json.dump(consensus_map, f, indent=2, ensure_ascii=False)
+                    # Force flush to disk
+                    f.flush()
+                    os.fsync(f.fileno()) 
                 except: pass
 
         print(f"\n✅ Loop Finished. processed {len(tickers)} items.")
