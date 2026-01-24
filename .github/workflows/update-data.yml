@@ -52,7 +52,8 @@ jobs:
         if: steps.market_check.outputs.skip != 'true'
         run: |
           HOUR=$(date -u +"%H")
-          if [ "$HOUR" == "21" ]; then
+          # Run if 21:00 UTC (06:00 KST) OR if manually triggered
+          if [ "$HOUR" == "21" ] || [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "📢 Running Daily Consensus & Calendar Update..."
             python update_daily_data.py
           else
