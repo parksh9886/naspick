@@ -3,7 +3,12 @@ import os
 import time
 from datetime import datetime
 
+# Force line buffering for GitHub Actions
+sys.stdout.reconfigure(line_buffering=True)
+
 # Add project root to path
+print("🔄 [Init] Setting up paths...", flush=True)
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from scripts.core.consensus import ConsensusManager
@@ -15,7 +20,7 @@ def run_daily_update():
     Unified entry point for Daily Heavy Tasks (Consensus + Calendar).
     Runs once a day (e.g. 09:00 UTC) via Github Actions.
     """
-    print(f"🚀 [Daily Update] Started at {datetime.now()}")
+    print(f"🚀 [Daily Update] Started at {datetime.now()}", flush=True)
     
     # 1. Consensus Update (Targets, Recommendations, Financial Health)
     print("\n" + "="*50)
