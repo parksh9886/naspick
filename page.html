@@ -497,7 +497,7 @@
             }, pbr: { good: 1.5, warn: 3, goodLabel: '자산가치↑' , badLabel: '고평가' , higherBetter:
         false, tip: '1배 미만이면 순자산보다 저렴' , benchmark: '1~3배가 일반적' }, revenue_growth: {
                 good: 15, warn: 0, goodLabel: '고성장'
-                    , badLabel: '역성장', higherBetter: true, tip: '15% 이상이면 고성장 기업', benchmark: 'S&P500 평균 5~10%'
+                , badLabel: '역성장', higherBetter: true, tip: '15% 이상이면 고성장 기업', benchmark: 'S&P500 평균 5~10%'
             }, eps_growth: {
                 good: 20, warn: 0, goodLabel: '급성장', badLabel: '감소', higherBetter: true, tip: '20% 이상이면 이익 급증',
                 benchmark: '10% 이상이면 양호'
@@ -1296,26 +1296,25 @@
                     </a>
                     `;
                 }).join('')}
-                    ${(data.similar_score_peers || []).length === 0 ? '<div class="text-xs text-gray-600">유사 점수 종목 없음
-                    </div > ' : ''}
-                </div >
-            </div >
+                ${(data.similar_score_peers || []).length === 0 ? '<div class="text-xs text-gray-600">유사 점수 종목 없음</div>' : ''}
+            </div>
+        </div>
 
-            < !--FAQ Section-- >
-            <div id="faqSection"></div>
-        </div >
-        </div >
-            `;
+        <!-- FAQ Section -->
+        <div id="faqSection"></div>
+    </div>
+    </div>
+    `;
 
         document.getElementById('mainContent').innerHTML = html;
 
         // [New] AI Report Generation & Injection
         if (typeof generateAIReport === 'function') {
-        const aiHtml = generateAIReport(data);
-        const reportDesktop = document.querySelector('#ai-report-desktop .ai-report-content');
-        const reportMobile = document.querySelector('#ai-report-mobile .ai-report-content');
-        if (reportDesktop) reportDesktop.innerHTML = aiHtml;
-        if (reportMobile) reportMobile.innerHTML = aiHtml;
+            const aiHtml = generateAIReport(data);
+            const reportDesktop = document.querySelector('#ai-report-desktop .ai-report-content');
+            const reportMobile = document.querySelector('#ai-report-mobile .ai-report-content');
+            if (reportDesktop) reportDesktop.innerHTML = aiHtml;
+            if (reportMobile) reportMobile.innerHTML = aiHtml;
         }
 
         // [SEO] Render Dynamic FAQ
@@ -1323,184 +1322,192 @@
 
         // Initialize TradingView Widget
         if (window.TradingView) {
-        new TradingView.widget({
-        "autosize": true,
-        "symbol": (data.exchange ? data.exchange + ":" : "") + data.ticker,
-        "interval": "D",
-        "timezone": "Etc/UTC",
-        "theme": "dark",
-        "style": "1",
-        "locale": "en",
-        "enable_publishing": false,
-        "allow_symbol_change": true,
-        "container_id": "tv_chart_container",
-        "studies": ["BB@tv-basicstudies"]
-        });
+            new TradingView.widget({
+                "autosize": true,
+                "symbol": (data.exchange ? data.exchange + ":" : "") + data.ticker,
+                "interval": "D",
+                "timezone": "Etc/UTC",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "enable_publishing": false,
+                "allow_symbol_change": true,
+                "container_id": "tv_chart_container",
+                "studies": ["BB@tv-basicstudies"]
+            });
         }
         }
 
         // Tab switching for Related Stocks (SEO-friendly: CSS toggle only)
         function switchRelatedTab(type) {
-        const sectorList = document.getElementById('sectorLeaderList');
-        const similarList = document.getElementById('similarScoreList');
-        const tabSector = document.getElementById('tabSectorLeader');
-        const tabSimilar = document.getElementById('tabSimilarScore');
+            const sectorList = document.getElementById('sectorLeaderList');
+            const similarList = document.getElementById('similarScoreList');
+            const tabSector = document.getElementById('tabSectorLeader');
+            const tabSimilar = document.getElementById('tabSimilarScore');
 
-        if (!sectorList || !similarList) return;
+            if (!sectorList || !similarList) return;
 
-        if (type === 'sector') {
-        sectorList.classList.remove('hidden');
-        similarList.classList.add('hidden');
-        tabSector.classList.add('bg-[#5383e8]', 'text-white');
-        tabSector.classList.remove('text-gray-400');
-        tabSimilar.classList.remove('bg-[#5383e8]', 'text-white');
-        tabSimilar.classList.add('text-gray-400');
-        } else {
-        sectorList.classList.add('hidden');
-        similarList.classList.remove('hidden');
-        tabSimilar.classList.add('bg-[#5383e8]', 'text-white');
-        tabSimilar.classList.remove('text-gray-400');
-        tabSector.classList.remove('bg-[#5383e8]', 'text-white');
-        tabSector.classList.add('text-gray-400');
-        }
+            if (type === 'sector') {
+                sectorList.classList.remove('hidden');
+                similarList.classList.add('hidden');
+                tabSector.classList.add('bg-[#5383e8]', 'text-white');
+                tabSector.classList.remove('text-gray-400');
+                tabSimilar.classList.remove('bg-[#5383e8]', 'text-white');
+                tabSimilar.classList.add('text-gray-400');
+            } else {
+                sectorList.classList.add('hidden');
+                similarList.classList.remove('hidden');
+                tabSimilar.classList.add('bg-[#5383e8]', 'text-white');
+                tabSimilar.classList.remove('text-gray-400');
+                tabSector.classList.remove('bg-[#5383e8]', 'text-white');
+                tabSector.classList.add('text-gray-400');
+            }
         }
 
         function renderFAQ(data) {
-        const today = new Date().toISOString().split('T')[0];
-        const qnaList = [];
+            const today = new Date().toISOString().split('T')[0];
+            const qnaList = [];
 
-        // 1. Investment Score
-        let scoreAns = "";
-        if (data.final_score >= 80) scoreAns = `투자 매력도가 매우 높습니다.현재 주가 상승 모멘텀과 재무 건전성이 모두 우수한 상태입니다.`;
-        else if (data.final_score < 40) scoreAns=`다소 주의가 필요합니다.현재 주가 모멘텀이나 재무 지표가 다소 약화된 상태입니다.`; else scoreAns=`보통 수준의
-            양호한 흐름을 보이고 있습니다.`; qnaList.push({ q: `${ data.name } (${ data.ticker })의 현재 투자 등급과 점수는 ? `, a: `${ today } 기준 나스픽 AI
-            분석 결과, ${ data.name } 은(는) ** ${ data.final_score } 점(${ data.tier }티어) ** 으로 ${ scoreAns } ` }); // 2. Valuation (PER)
-            let perAns="" ; // Fix: Use data.financial_health.per const per=data.financial_health?.per; if (per) { if
-            (per < 15) perAns=`네, 그렇습니다.현재 ${ data.name }의 PER은 ** ${ per.toFixed(2) } 배 ** 로, 시장 평균 대비 ** 저평가 ** 되어 있어 가격 매력도가 높은
-        구간입니다.`; else if (per> 50) perAns = `현재 ${ data.name }의 PER은 ** ${ per.toFixed(2) } 배 ** 로, 시장 평균 대비 다소 ** 높게 평가 ** 받고
+            // 1. Investment Score
+            let scoreAns = "";
+            if (data.final_score >= 80) scoreAns = `투자 매력도가 매우 높습니다.현재 주가 상승 모멘텀과 재무 건전성이 모두 우수한 상태입니다.`;
+            else if (data.final_score < 40) scoreAns = `다소 주의가 필요합니다.현재 주가 모멘텀이나 재무 지표가 다소 약화된 상태입니다.`; else scoreAns = `보통 수준의
+            양호한 흐름을 보이고 있습니다.`; qnaList.push({
+                q: `${data.name} (${data.ticker})의 현재 투자 등급과 점수는 ? `, a: `${today} 기준 나스픽 AI
+            분석 결과, ${data.name} 은(는) ** ${data.final_score} 점(${data.tier}티어) ** 으로 ${scoreAns} `
+            }); // 2. Valuation (PER)
+            let perAns = ""; // Fix: Use data.financial_health.per const per=data.financial_health?.per; if (per) { if
+            (per < 15) perAns = `네, 그렇습니다.현재 ${data.name}의 PER은 ** ${per.toFixed(2)} 배 ** 로, 시장 평균 대비 ** 저평가 ** 되어 있어 가격 매력도가 높은
+        구간입니다.`; else if (per > 50) perAns = `현재 ${data.name}의 PER은 ** ${per.toFixed(2)} 배 ** 로, 시장 평균 대비 다소 ** 높게 평가 ** 받고
         있습니다.이는 높은 성장 기대감이 반영된 결과일 수 있습니다.`;
-            else perAns = `현재 ${ data.name }의 PER은 ** ${ per.toFixed(2) } 배 ** 로, 시장 평균과 유사한 ** 적정 가치 ** 수준에서 거래되고 있습니다.`;
+            else perAns = `현재 ${data.name}의 PER은 ** ${per.toFixed(2)} 배 ** 로, 시장 평균과 유사한 ** 적정 가치 ** 수준에서 거래되고 있습니다.`;
 
             qnaList.push({
-            q: `${ data.name } (${ data.ticker }) 주식은 현재 저평가 상태인가요 ? (PER 분석)`,
-            a: perAns
+                q: `${data.name} (${data.ticker}) 주식은 현재 저평가 상태인가요 ? (PER 분석)`,
+                a: perAns
             });
-            } else {
+        } else {
             qnaList.push({
-            q: `${ data.name } (${ data.ticker }) 주식은 현재 저평가 상태인가요 ? (PER 분석)`,
-            a: `현재 ${ data.name }에 대한 PER(주가수익비율) 데이터가 집계되지 않았습니다.`
+                q: `${data.name} (${data.ticker}) 주식은 현재 저평가 상태인가요 ? (PER 분석)`,
+                a: `현재 ${data.name}에 대한 PER(주가수익비율) 데이터가 집계되지 않았습니다.`
             });
-            }
+        }
 
-            // 3. Technical (RSI)
-            let rsiAns = "";
-            // Fix: Use data.technical_analysis.rsi.value
-            const rsiObj = data.technical_analysis?.rsi;
-            const rsi = rsiObj ? rsiObj.value : null;
+        // 3. Technical (RSI)
+        let rsiAns = "";
+        // Fix: Use data.technical_analysis.rsi.value
+        const rsiObj = data.technical_analysis?.rsi;
+        const rsi = rsiObj ? rsiObj.value : null;
 
-            if (rsi) {
-            if (rsi > 70) rsiAns = `주의가 필요합니다.현재 RSI 지표가 ** ${ rsi.toFixed(2) }** 로 ** 과매수(과열) ** 구간에 진입해 있어, 단기적으로 주가가 조정받을
+        if (rsi) {
+            if (rsi > 70) rsiAns = `주의가 필요합니다.현재 RSI 지표가 ** ${rsi.toFixed(2)}** 로 ** 과매수(과열) ** 구간에 진입해 있어, 단기적으로 주가가 조정받을
             가능성이 있습니다.`;
-            else if (rsi < 30) rsiAns=`네, 기술적으로 좋은 기회일 수 있습니다.현재 RSI 지표가 ** ${ rsi.toFixed(2) }** 로 ** 과매도 ** 구간에 있어, 기술적 반등이
-                기대되는 시점입니다.`; else rsiAns=`현재 기술적 지표는 ** 중립 ** 입니다.RSI 지표가 ** ${ rsi.toFixed(2) }** 로 안정적인 흐름을 보이고 있어, 분할 매수
-                관점에서 접근하기 좋습니다.`; qnaList.push({ q: `지금 ${ data.name } (${ data.ticker }) 주식을 사도 될까요 ? (RSI 기술적 분석)`, a:
-                rsiAns }); } else { qnaList.push({ q: `지금 ${ data.name } (${ data.ticker }) 주식을 사도 될까요 ? (RSI 기술적 분석)`, a: `현재
-                기술적 지표(RSI)를 분석할 충분한 데이터가 없습니다.` }); } // 4. Calendar (Fixed: Check for past dates) const
-                cal=data.calendar || {}; let calAnsParts=[]; // A. Dividend Logic if (cal.dividend_yield) { let
-                divMsg=`예상 배당 수익률은 ** ${ cal.dividend_yield }%** 이며, `; if (cal.ex_dividend_date && cal.ex_dividend_date
-                !=='-' ) { const todayMs=new Date().setHours(0, 0, 0, 0); const exDateMs=new
-                Date(cal.ex_dividend_date).setHours(0, 0, 0, 0); if (exDateMs>= todayMs) {
-                divMsg += `다가오는 배당락일은 ** ${ cal.ex_dividend_date }** 입니다.`;
-                } else {
-                divMsg += `가장 최근 배당락일은 ** ${ cal.ex_dividend_date }** 였습니다.`;
-                }
-                } else {
-                divMsg += `배당락일 정보는 아직 없습니다.`;
-                }
-                calAnsParts.push(divMsg);
+            else if (rsi < 30) rsiAns = `네, 기술적으로 좋은 기회일 수 있습니다.현재 RSI 지표가 ** ${rsi.toFixed(2)}** 로 ** 과매도 ** 구간에 있어, 기술적 반등이
+                기대되는 시점입니다.`; else rsiAns = `현재 기술적 지표는 ** 중립 ** 입니다.RSI 지표가 ** ${rsi.toFixed(2)}** 로 안정적인 흐름을 보이고 있어, 분할 매수
+                관점에서 접근하기 좋습니다.`; qnaList.push({
+                q: `지금 ${data.name} (${data.ticker}) 주식을 사도 될까요 ? (RSI 기술적 분석)`, a:
+                    rsiAns
+            });
+        } else {
+            qnaList.push({
+                q: `지금 ${data.name} (${data.ticker}) 주식을 사도 될까요 ? (RSI 기술적 분석)`, a: `현재
+                기술적 지표(RSI)를 분석할 충분한 데이터가 없습니다.` });
+        } // 4. Calendar (Fixed: Check for past dates) const
+        cal = data.calendar || {}; let calAnsParts = []; // A. Dividend Logic if (cal.dividend_yield) { let
+        divMsg = `예상 배당 수익률은 ** ${cal.dividend_yield}%** 이며, `; if (cal.ex_dividend_date && cal.ex_dividend_date
+            !== '-') {
+                const todayMs = new Date().setHours(0, 0, 0, 0); const exDateMs = new
+                    Date(cal.ex_dividend_date).setHours(0, 0, 0, 0); if (exDateMs >= todayMs) {
+                        divMsg += `다가오는 배당락일은 ** ${cal.ex_dividend_date}** 입니다.`;
+                    } else {
+                divMsg += `가장 최근 배당락일은 ** ${cal.ex_dividend_date}** 였습니다.`;
+            }
+        } else {
+            divMsg += `배당락일 정보는 아직 없습니다.`;
+        }
+        calAnsParts.push(divMsg);
                 }
 
-                // B. Earnings Logic
-                if (cal.next_earnings) {
-                const todayMs = new Date().setHours(0, 0, 0, 0);
-                const nextDocs = new Date(cal.next_earnings);
-                // Check if date is valid
-                if (!isNaN(nextDocs.getTime())) {
+        // B. Earnings Logic
+        if (cal.next_earnings) {
+            const todayMs = new Date().setHours(0, 0, 0, 0);
+            const nextDocs = new Date(cal.next_earnings);
+            // Check if date is valid
+            if (!isNaN(nextDocs.getTime())) {
                 const nextMs = nextDocs.setHours(0, 0, 0, 0);
                 if (nextMs >= todayMs) {
-                calAnsParts.push(`다음 실적 발표는 ** ${ cal.next_earnings }** 로 예정되어 있습니다.`);
+                    calAnsParts.push(`다음 실적 발표는 ** ${cal.next_earnings}** 로 예정되어 있습니다.`);
                 } else {
-                calAnsParts.push(`직전 실적 발표일은 ** ${ cal.next_earnings }** 였으며, `);
-                // If we have surprise data for this past date (usually in last_surprise), append it.
-                // However, cal.next_earnings might be the *just passed* one.
-                // We can just look at last_surprise generally.
-                if (cal.last_surprise) {
-                calAnsParts.push(`시장 예상치 대비 ** ${ cal.last_surprise > 0 ? '어닝 서프라이즈' : '미스' } (${ cal.last_surprise }%)** 를
+                    calAnsParts.push(`직전 실적 발표일은 ** ${cal.next_earnings}** 였으며, `);
+                    // If we have surprise data for this past date (usually in last_surprise), append it.
+                    // However, cal.next_earnings might be the *just passed* one.
+                    // We can just look at last_surprise generally.
+                    if (cal.last_surprise) {
+                        calAnsParts.push(`시장 예상치 대비 ** ${cal.last_surprise > 0 ? '어닝 서프라이즈' : '미스'} (${cal.last_surprise}%)** 를
         기록했습니다.`);
-                } else {
-                calAnsParts.push(`발표가 완료되었습니다.`);
+                    } else {
+                        calAnsParts.push(`발표가 완료되었습니다.`);
+                    }
                 }
-                }
-                } else {
-                calAnsParts.push(`다음 실적 발표는 ** ${ cal.next_earnings }** 로 예정되어 있습니다.`);
-                }
-                } else if (cal.last_surprise) {
-                calAnsParts.push(`가장 최근 실적발표(${ cal.last_earnings_date })에서는 시장 예상치를 상회하는 ** 어닝 서프라이즈(${
-            cal.last_surprise >
-                0 ? '+' : ''
-        }${ cal.last_surprise } %) ** 를 기록했습니다.`);
-                }
+            } else {
+                calAnsParts.push(`다음 실적 발표는 ** ${cal.next_earnings}** 로 예정되어 있습니다.`);
+            }
+        } else if (cal.last_surprise) {
+            calAnsParts.push(`가장 최근 실적발표(${cal.last_earnings_date})에서는 시장 예상치를 상회하는 ** 어닝 서프라이즈(${cal.last_surprise >
+                    0 ? '+' : ''
+                }${cal.last_surprise} %) ** 를 기록했습니다.`);
+        }
 
-                if (calAnsParts.length > 0) {
-                qnaList.push({
-                q: `${ data.name } (${ data.ticker })의 다음 실적 발표일과 배당금은 ? `,
+        if (calAnsParts.length > 0) {
+            qnaList.push({
+                q: `${data.name} (${data.ticker})의 다음 실적 발표일과 배당금은 ? `,
                 a: calAnsParts.join(' ')
-                });
-                } else {
-                qnaList.push({
-                q: `${ data.name } (${ data.ticker })의 다음 실적 발표일과 배당금은 ? `,
-                a: `현재 ${ data.name }의 확정된 실적 발표일이나 배당 일정 정보가 없습니다.`
-                });
-                }
+            });
+        } else {
+            qnaList.push({
+                q: `${data.name} (${data.ticker})의 다음 실적 발표일과 배당금은 ? `,
+                a: `현재 ${data.name}의 확정된 실적 발표일이나 배당 일정 정보가 없습니다.`
+            });
+        }
 
-                // 5. Price & Target
-                const consensus = data.consensus || {};
-                // Fix: target_price might be an object {mean: ...} or number
-                let tp = consensus.target_price;
-                if (tp && typeof tp === 'object') tp = tp.mean;
+        // 5. Price & Target
+        const consensus = data.consensus || {};
+        // Fix: target_price might be an object {mean: ...} or number
+        let tp = consensus.target_price;
+        if (tp && typeof tp === 'object') tp = tp.mean;
 
-                if (tp && data.current_price) {
-                const upside = ((tp - data.current_price) / data.current_price * 100).toFixed(2);
-                const upsidedown = upside > 0 ? '상승 여력' : '수준';
-                qnaList.push({
-                q: `${ data.name } (${ data.ticker })의 현재 주가와 목표주가는 얼마인가요 ? (주가 전망)`,
-                a: `${ today } 기준 ${ data.name }의 주가는 ** $${ data.current_price }** 입니다.월스트리트 전문가들의 평균 목표주가는
-            ** $${ tp.toFixed(2) }** 로, 현재가 대비 약 ** ${ upside }% 의 ${ upsidedown }** 이 있는 것으로 분석됩니다.`
-                });
-                } else {
-                qnaList.push({
-                q: `${ data.name } (${ data.ticker })의 현재 주가와 목표주가는 얼마인가요 ? (주가 전망)`,
-                a: `${ data.name }에 대한 월스트리트 전문가들의 목표주가 데이터가 현재 충분하지 않습니다.`
-                });
-                }
+        if (tp && data.current_price) {
+            const upside = ((tp - data.current_price) / data.current_price * 100).toFixed(2);
+            const upsidedown = upside > 0 ? '상승 여력' : '수준';
+            qnaList.push({
+                q: `${data.name} (${data.ticker})의 현재 주가와 목표주가는 얼마인가요 ? (주가 전망)`,
+                a: `${today} 기준 ${data.name}의 주가는 ** $${data.current_price}** 입니다.월스트리트 전문가들의 평균 목표주가는
+            ** $${tp.toFixed(2)}** 로, 현재가 대비 약 ** ${upside}% 의 ${upsidedown}** 이 있는 것으로 분석됩니다.`
+            });
+        } else {
+            qnaList.push({
+                q: `${data.name} (${data.ticker})의 현재 주가와 목표주가는 얼마인가요 ? (주가 전망)`,
+                a: `${data.name}에 대한 월스트리트 전문가들의 목표주가 데이터가 현재 충분하지 않습니다.`
+            });
+        }
 
-                // 6. Naspick AI Score & Tier (SEO: 'AI 분석', '주식 티어' 키워드)
-                let tierDescription = '';
-                if (data.tier === 1) tierDescription = '최상위 등급으로, 현재 시장에서 가장 강력한 상승 모멘텀과 우수한 펀더멘털을 보유한 종목입니다.';
-                else if (data.tier === 2) tierDescription = '우량 등급으로, 안정적인 성장성과 양호한 투자 매력도를 갖춘 종목입니다.';
-                else if (data.tier === 3) tierDescription = '보통 등급으로, 시장 평균 수준의 흐름을 보이고 있습니다.';
-                else tierDescription = '주의 등급으로, 현재 모멘텀이나 펀더멘털 개선이 필요한 상태입니다.';
+        // 6. Naspick AI Score & Tier (SEO: 'AI 분석', '주식 티어' 키워드)
+        let tierDescription = '';
+        if (data.tier === 1) tierDescription = '최상위 등급으로, 현재 시장에서 가장 강력한 상승 모멘텀과 우수한 펀더멘털을 보유한 종목입니다.';
+        else if (data.tier === 2) tierDescription = '우량 등급으로, 안정적인 성장성과 양호한 투자 매력도를 갖춘 종목입니다.';
+        else if (data.tier === 3) tierDescription = '보통 등급으로, 시장 평균 수준의 흐름을 보이고 있습니다.';
+        else tierDescription = '주의 등급으로, 현재 모멘텀이나 펀더멘털 개선이 필요한 상태입니다.';
 
-                qnaList.push({
-                q: `${ data.name } (${ data.ticker })의 나스픽 AI 점수와 티어 등급은 어떻게 되나요 ? `,
-                a: `${ today } 기준 ${ data.name }의 나스픽 AI 종합 점수는 ** ${ data.final_score } 점 ** 이며, ** ${ data.tier } 티어 ** 등급입니다.
-            ${ tierDescription } 이 점수는 기술적 분석, 펀더멘털, 시장 센티먼트를 종합하여 15분마다 실시간 업데이트됩니다.`
-                });
+        qnaList.push({
+            q: `${data.name} (${data.ticker})의 나스픽 AI 점수와 티어 등급은 어떻게 되나요 ? `,
+            a: `${today} 기준 ${data.name}의 나스픽 AI 종합 점수는 ** ${data.final_score} 점 ** 이며, ** ${data.tier} 티어 ** 등급입니다.
+            ${tierDescription} 이 점수는 기술적 분석, 펀더멘털, 시장 센티먼트를 종합하여 15분마다 실시간 업데이트됩니다.`
+        });
 
-                // Render HTML (Accordion Style)
-                const faqContainer = document.getElementById('faqSection');
-                if (faqContainer) {
-                faqContainer.innerHTML = `
+        // Render HTML (Accordion Style)
+        const faqContainer = document.getElementById('faqSection');
+        if (faqContainer) {
+            faqContainer.innerHTML = `
                 < div class="mt-8 bg-[#23232a] rounded-xl border border-gray-800 p-6" >
                     <h3 class="text-lg font-bold text-gray-200 mb-4 flex items-center gap-2">
                         💬 자주 묻는 질문 (FAQ)
@@ -1525,55 +1532,55 @@
                     </div>
                 </div >
             `;
-                }
+        }
 
-                // Inject JSON-LD Schema
-                const schemaData = {
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                "mainEntity": qnaList.map(item => ({
+        // Inject JSON-LD Schema
+        const schemaData = {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": qnaList.map(item => ({
                 "@type": "Question",
                 "name": item.q,
                 "acceptedAnswer": {
-                "@type": "Answer",
-                "text": item.a.replace(/\*\*/g, '') // Remove markdown bold for schema
+                    "@type": "Answer",
+                    "text": item.a.replace(/\*\*/g, '') // Remove markdown bold for schema
                 }
-                }))
-                };
+            }))
+        };
 
-                const script = document.createElement('script');
-                script.type = 'application/ld+json';
-                script.text = JSON.stringify(schemaData);
-                document.head.appendChild(script);
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.text = JSON.stringify(schemaData);
+        document.head.appendChild(script);
                 }
 
-                // [NEW] Favorites Logic for Page
-                function initFavorites(ticker) {
-                const favorites = new Set(JSON.parse(localStorage.getItem('naspick_favorites') || '[]'));
-                const container = document.getElementById('favoriteContainer');
-                if (!container) return;
+        // [NEW] Favorites Logic for Page
+        function initFavorites(ticker) {
+            const favorites = new Set(JSON.parse(localStorage.getItem('naspick_favorites') || '[]'));
+            const container = document.getElementById('favoriteContainer');
+            if (!container) return;
 
-                // Render Button
-                const isFav = favorites.has(ticker);
-                renderFavoriteButton(container, isFav);
+            // Render Button
+            const isFav = favorites.has(ticker);
+            renderFavoriteButton(container, isFav);
 
-                // Click Handler
-                container.onclick = (e) => {
+            // Click Handler
+            container.onclick = (e) => {
                 e.stopPropagation();
                 if (favorites.has(ticker)) {
-                favorites.delete(ticker);
+                    favorites.delete(ticker);
                 } else {
-                favorites.add(ticker);
+                    favorites.add(ticker);
                 }
                 localStorage.setItem('naspick_favorites', JSON.stringify([...favorites]));
 
                 // Update UI immediately
                 renderFavoriteButton(container, favorites.has(ticker));
-                };
-                }
+            };
+        }
 
-                function renderFavoriteButton(container, isFav) {
-                container.innerHTML = `
+        function renderFavoriteButton(container, isFav) {
+            container.innerHTML = `
             < button class="transition hover:scale-110 p-1 group" >
                 <svg class="w-6 h-6 md:w-8 md:h-8 ${isFav ? 'text-yellow-400 fill-current' : 'text-gray-500 fill-transparent group-hover:text-yellow-400'}"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
@@ -1583,102 +1590,107 @@
                 </svg>
                 </button >
             `;
-                }
+        }
 
-                function initHeaderSearch() {
-                const input = document.getElementById('headerSearch');
-                const resultsDiv = document.getElementById('headerSearchResults');
+        function initHeaderSearch() {
+            const input = document.getElementById('headerSearch');
+            const resultsDiv = document.getElementById('headerSearchResults');
 
-                input.addEventListener('input', (e) => {
+            input.addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase().replace(/\s+/g, ''); // Remove spaces
                 if (!term) {
-                resultsDiv.classList.add('hidden');
-                return;
+                    resultsDiv.classList.add('hidden');
+                    return;
                 }
 
                 // Korean Chosung Helper
                 const getChosung = (str) => {
-                const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ",
-                "ㅍ", "ㅎ"];
+                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ",
+                        "ㅍ", "ㅎ"];
+                    let result = "";
+                    for (let i = 0; i < str.length; i++) {
+                        const code = str.charCodeAt(i) - 44032; if (code > -1 && code <
+                            11172) { result += chosung[Math.floor(code / 588)]; } else { result += str.charAt(i); }
+                    } return
+                    result;
+                }; // New: Jamo Helper const getJamo=(str)=> {
+                const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ",
+                    "ㅌ", "ㅍ", "ㅎ"];
+                const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ",
+                    "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
+                const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ",
+                    "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+
                 let result = "";
-                for (let i = 0; i < str.length; i++) { const code=str.charCodeAt(i) - 44032; if (code> -1 && code <
-                        11172) { result +=chosung[Math.floor(code / 588)]; } else { result +=str.charAt(i); } } return
-                        result; }; // New: Jamo Helper const getJamo=(str)=> {
-                        const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ",
-                        "ㅌ", "ㅍ", "ㅎ"];
-                        const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ",
-                        "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
-                        const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ",
-                        "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+                for (let i = 0; i < str.length; i++) {
+                    const code = str.charCodeAt(i) - 44032; if (code > -1 &&
+                        code < 11172) {
+                            const c = Math.floor(code / 588); const j = Math.floor((code % 588) / 28); const
+                                k = code % 28; result += chosung[c] + jungsung[j]; if (k > 0) result += jongsung[k];
+                    } else {
+                        result += str.charAt(i);
+                    }
+                }
+                return result;
+            };
 
-                        let result = "";
-                        for (let i = 0; i < str.length; i++) { const code=str.charCodeAt(i) - 44032; if (code> -1 &&
-                            code < 11172) { const c=Math.floor(code / 588); const j=Math.floor((code % 588) / 28); const
-                                k=code % 28; result +=chosung[c] + jungsung[j]; if (k> 0) result += jongsung[k];
-                                } else {
-                                result += str.charAt(i);
-                                }
-                                }
-                                return result;
-                                };
+            // Helper: Decompose Compound Consonants
+            const decomposeHangul = (str) => {
+                const doubleConsonants = {
+                    'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
+                    'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
+                };
+                return str.split('').map(char => doubleConsonants[char] || char).join('');
+            };
 
-                                // Helper: Decompose Compound Consonants
-                                const decomposeHangul = (str) => {
-                                const doubleConsonants = {
-                                'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
-                                'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
-                                };
-                                return str.split('').map(char => doubleConsonants[char] || char).join('');
-                                };
+            const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
 
-                                const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
+            // Determine Search Mode
+            const hasHangulSyllable = /[가-힣]/.test(term);
+            let matches = [];
 
-                                // Determine Search Mode
-                                const hasHangulSyllable = /[가-힣]/.test(term);
-                                let matches = [];
+            if (hasHangulSyllable) {
+                // [Mode A] Hybrid Jamo Search
+                const jamoTerm = getJamo(term);
 
-                                if (hasHangulSyllable) {
-                                // [Mode A] Hybrid Jamo Search
-                                const jamoTerm = getJamo(term);
+                matches = allData.filter(d => {
+                    const normName = normalize(d.name);
+                    return d.ticker.toLowerCase().includes(term) ||
+                        normName.includes(term) ||
+                        getJamo(normName).includes(jamoTerm) ||
+                        (d.name_en && normalize(d.name_en).includes(term));
+                }).slice(0, 5);
 
-                                matches = allData.filter(d => {
-                                const normName = normalize(d.name);
-                                return d.ticker.toLowerCase().includes(term) ||
-                                normName.includes(term) ||
-                                getJamo(normName).includes(jamoTerm) ||
-                                (d.name_en && normalize(d.name_en).includes(term));
-                                }).slice(0, 5);
+            } else {
+                // [Mode B] Standard/Chosung Search
+                const normalizedTerm = decomposeHangul(term);
+                const chosungTerm = getChosung(normalizedTerm);
 
-                                } else {
-                                // [Mode B] Standard/Chosung Search
-                                const normalizedTerm = decomposeHangul(term);
-                                const chosungTerm = getChosung(normalizedTerm);
+                matches = allData.filter(d =>
+                    d.ticker.toLowerCase().includes(term) ||
+                    normalize(d.name).includes(normalizedTerm) ||
+                    getChosung(normalize(d.name)).includes(chosungTerm) ||
+                    (d.name && d.name.toLowerCase().includes(term)) ||
+                    normalize(d.name_en).includes(normalizedTerm) ||
+                    (d.name_en && d.name_en.toLowerCase().includes(term))
+                ).slice(0, 5);
+            }
 
-                                matches = allData.filter(d =>
-                                d.ticker.toLowerCase().includes(term) ||
-                                normalize(d.name).includes(normalizedTerm) ||
-                                getChosung(normalize(d.name)).includes(chosungTerm) ||
-                                (d.name && d.name.toLowerCase().includes(term)) ||
-                                normalize(d.name_en).includes(normalizedTerm) ||
-                                (d.name_en && d.name_en.toLowerCase().includes(term))
-                                ).slice(0, 5);
-                                }
+            if (matches.length > 0) {
+                // SEO 수정: div onclick -> a href
+                resultsDiv.innerHTML = matches.map(d => {
+                    let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
+                    if (d.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
+                    else if (d.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
+                    else if (d.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
+                    else if (d.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
+                    else if (d.tier === 5) tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
 
-                                if (matches.length > 0) {
-                                // SEO 수정: div onclick -> a href
-                                resultsDiv.innerHTML = matches.map(d => {
-                                let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
-                                if (d.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
-                                else if (d.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
-                                else if (d.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
-                                else if (d.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
-                                else if (d.tier === 5) tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
-
-                                const tierBadge = `< span
-        class="px-1.5 py-0.5 text-[9px] font-bold rounded border ${tierClass}" > ${ d.tier }
+                    const tierBadge = `< span
+        class="px-1.5 py-0.5 text-[9px] font-bold rounded border ${tierClass}" > ${d.tier}
                                     Tier</span > `;
 
-                                return `
+                    return `
             < a href = "/stock/${d.ticker}"
         class="p-2 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline" >
                                     <div>
@@ -1691,22 +1703,22 @@
                                     </div>
                                 </a >
                                 `;
-                                }).join('');
-                                resultsDiv.classList.remove('hidden');
-                                } else {
-                                resultsDiv.innerHTML = '<div class="p-2 text-gray-500 text-[10px]">검색 결과 없음</div>';
-                                resultsDiv.classList.remove('hidden');
-                                }
-                                });
+                }).join('');
+                resultsDiv.classList.remove('hidden');
+            } else {
+                resultsDiv.innerHTML = '<div class="p-2 text-gray-500 text-[10px]">검색 결과 없음</div>';
+                resultsDiv.classList.remove('hidden');
+            }
+        });
 
-                                document.addEventListener('click', (e) => {
-                                if (!input.contains(e.target) && !resultsDiv.contains(e.target)) {
-                                resultsDiv.classList.add('hidden');
-                                }
-                                });
+        document.addEventListener('click', (e) => {
+            if (!input.contains(e.target) && !resultsDiv.contains(e.target)) {
+                resultsDiv.classList.add('hidden');
+            }
+        });
                                 }
 
-                                init();
+        init();
     </script>
 
     <footer class="text-center text-[10px] md:text-xs text-gray-500 py-3 md:py-4 px-4 border-t border-gray-800 mt-6">
