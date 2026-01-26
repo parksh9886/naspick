@@ -64,8 +64,12 @@ jobs:
           HOUR=$(date -u +"%H")
           if [ "$HOUR" -ge "21" ] || [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
              MSG="📢 [DAILY] Update Consensus + Data: $(date +'%Y-%m-%d %H:%M:%S')"
+             # Force commit for daily/manual runs to trigger snapshot
+             git commit --allow-empty -m "$MSG"
+             git pull --rebase origin main
+             git push
           else
              MSG="🤖 Auto-update: $(date +'%Y-%m-%d %H:%M:%S')"
+             # Only commit if changes exist for intraday runs
+             git diff --quiet && git diff --staged --quiet || (git commit -m "$MSG" && git pull --rebase origin main && git push)
           fi
-          
-          git diff --quiet && git diff --staged --quiet || (git commit -m "$MSG" && git pull --rebase origin main && git push)
