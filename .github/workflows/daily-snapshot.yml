@@ -1,10 +1,6 @@
-name: Daily Rank Snapshot
+name: Manual Snapshot (Backup)
 
 on:
-  workflow_run:
-    workflows: ["Update Wall St Consensus", "Update Stock Data"]
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -16,12 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    # Trigger if previous workflow succeeded AND it was the daily update (marked by commit msg)
-    if: >
-      github.event_name == 'workflow_dispatch' ||
-      (github.event.workflow_run.conclusion == 'success' && 
-       (contains(github.event.workflow_run.head_commit.message, '[DAILY]') || 
-        github.event.workflow_run.event == 'workflow_dispatch'))
+    # Manual run only, no special conditions needed
     
     steps:
       - uses: actions/checkout@v3

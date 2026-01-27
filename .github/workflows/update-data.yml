@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      is_daily_run: ${{ steps.check_daily.outputs.is_daily }}
     
     steps:
       - name: Checkout
@@ -27,15 +29,25 @@ jobs:
         with:
           python-version: '3.10'
       
+      - name: Check if Daily Run
+        id: check_daily
+        run: |
+          HOUR=$(date -u +"%H")
+          # Daily run if >= 21:00 UTC or manual dispatch
+          if [ "$HOUR" -ge "21" ] || [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "is_daily=true" >> $GITHUB_OUTPUT
+            echo "Daily run confirmed."
+          else
+            echo "is_daily=false" >> $GITHUB_OUTPUT
+            echo "Intraday run."
+          fi
+      
       - name: Install dependencies
         run: pip install -r requirements.txt
 
       - name: Run Consensus Update (Daily Close Only)
         run: |
-          HOUR=$(date -u +"%H")
-          # Run if >= 21:00 UTC (Daily Close) OR if manually triggered
-          # Using >= handles cases where the 21:00 job is delayed to 22:00+
-          if [ "$HOUR" -ge "21" ] || [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          if [ "${{ steps.check_daily.outputs.is_daily }}" == "true" ]; then
             echo "📢 Running Daily Consensus & Calendar Update..."
             python update_daily_data.py
           else
@@ -60,9 +72,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add .
           
-          # Check if we ran the full update to tag the commit
-          HOUR=$(date -u +"%H")
-          if [ "$HOUR" -ge "21" ] || [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          if [ "${{ steps.check_daily.outputs.is_daily }}" == "true" ]; then
              MSG="📢 [DAILY] Update Consensus + Data: $(date +'%Y-%m-%d %H:%M:%S')"
              # Force commit for daily/manual runs to trigger snapshot
              git commit --allow-empty -m "$MSG"
@@ -73,3 +83,56 @@ jobs:
              # Only commit if changes exist for intraday runs
              git diff --quiet && git diff --staged --quiet || (git commit -m "$MSG" && git pull --rebase origin main && git push)
           fi
+
+  snapshot:
+    needs: update-data
+    if: needs.update-data.outputs.is_daily_run == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Pull latest changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git pull origin main
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Sync Stock Names
+        run: python tools/sync_stock_names.py
+
+      - name: Update Calendar Data
+        run: python update_calendar.py
+      
+      - name: Create Daily Snapshot
+        run: python save_daily_snapshot.py
+      
+      - name: Install Social Gen Dependencies
+        run: pip install playwright yfinance jinja2 nest_asyncio matplotlib requests pandas
+      
+      - name: Install Playwright Browsers
+        run: playwright install chromium
+      
+      - name: Generate Social Images
+        run: python scripts/social_gen/generator.py
+      
+      - name: Send to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/social_gen/telegram_bot.py
+      
+      - name: Commit and push
+        run: |
+          git add .
+          git diff --quiet && git diff --staged --quiet || (git commit -m "📸 Daily Snapshot" && git pull --rebase origin main && git push)
