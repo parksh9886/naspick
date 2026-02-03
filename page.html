@@ -1066,6 +1066,10 @@
             const tabAnalysis = document.getElementById('tabAnalysis');
             const tabChart = document.getElementById('tabChart');
 
+            // Child divs (Front: Analysis, Back: Chart)
+            const frontFace = card.children[0];
+            const backFace = card.children[1];
+
             // showBack = true -> Chart (Back)
             // showBack = false -> Analysis (Front/Default)
 
@@ -1077,6 +1081,10 @@
                 tabAnalysis.classList.add('text-gray-400');
                 tabChart.classList.add('active', 'text-white');
                 tabChart.classList.remove('text-gray-400');
+
+                // Explicit Visibility Toggle (Fix for bleeding iframe)
+                backFace.style.visibility = 'visible';
+                setTimeout(() => { frontFace.style.visibility = 'hidden'; }, 350); // Hide front halfway through flip
             } else {
                 // To Analysis (Front)
                 card.classList.remove('flipped');
@@ -1085,6 +1093,10 @@
                 tabAnalysis.classList.remove('text-gray-400');
                 tabChart.classList.remove('active', 'text-white');
                 tabChart.classList.add('text-gray-400');
+
+                // Explicit Visibility Toggle
+                frontFace.style.visibility = 'visible';
+                setTimeout(() => { backFace.style.visibility = 'hidden'; }, 350); // Hide back halfway through flip
             }
         }
 

@@ -1639,6 +1639,10 @@
                 // Ensure Back is clickable/visible via z-index
                 frontFace.style.zIndex = 0;
                 backFace.style.zIndex = 10;
+
+                // Explicit Visibility Toggle (Fix for bleeding iframe)
+                backFace.style.visibility = 'visible';
+                setTimeout(() => { frontFace.style.visibility = 'hidden'; }, 350);
             } else {
                 // To Analysis (Front)
                 flipCard.classList.remove('flipped');
@@ -1651,6 +1655,10 @@
                 // Ensure Front is clickable/visible
                 frontFace.style.zIndex = 10;
                 backFace.style.zIndex = 0;
+
+                // Explicit Visibility Toggle
+                frontFace.style.visibility = 'visible';
+                setTimeout(() => { backFace.style.visibility = 'hidden'; }, 350);
             }
         }
 
