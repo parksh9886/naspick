@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026-02-03 ALLE 주가 전망 & 목표가 | 얼리젼 AI 분석 - 나스픽</title>
-    <meta name="description" content="[2026-02-03] 얼리젼(ALLE) 적정 주가 및 월스트리트 목표가 분석. AI가 진단한 얼리젼의 투자 매력도와 실시간 티어 정보를 확인하세요.">
+    <title>2026-02-04 ALLE 주가 전망 & 목표가 | 얼리젼 AI 분석 - 나스픽</title>
+    <meta name="description" content="[2026-02-04] 얼리젼(ALLE) 적정 주가 및 월스트리트 목표가 분석. AI가 진단한 얼리젼의 투자 매력도와 실시간 티어 정보를 확인하세요.">
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -26,15 +26,15 @@
     <!-- Open Graph (기본값, JS에서 동적 업데이트) -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="나스픽">
-    <meta property="og:title" content="2026-02-03 ALLE 주가 전망 & 목표가 | 얼리젼 AI 분석 - 나스픽">
-    <meta property="og:description" content="[2026-02-03] 얼리젼(ALLE) 적정 주가 및 월스트리트 목표가 분석. AI가 진단한 얼리젼의 투자 매력도와 실시간 티어 정보를 확인하세요.">
+    <meta property="og:title" content="2026-02-04 ALLE 주가 전망 & 목표가 | 얼리젼 AI 분석 - 나스픽">
+    <meta property="og:description" content="[2026-02-04] 얼리젼(ALLE) 적정 주가 및 월스트리트 목표가 분석. AI가 진단한 얼리젼의 투자 매력도와 실시간 티어 정보를 확인하세요.">
     <meta property="og:url" content="https://naspick.com/stock/ALLE">
     <meta property="og:image" content="https://financialmodelingprep.com/image-stock/ALLE.png">
 
     <!-- Twitter Card (기본값, JS에서 동적 업데이트) -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="2026-02-03 ALLE 주가 전망 & 목표가 | 얼리젼 AI 분석 - 나스픽">
-    <meta name="twitter:description" content="[2026-02-03] 얼리젼(ALLE) 적정 주가 및 월스트리트 목표가 분석. AI가 진단한 얼리젼의 투자 매력도와 실시간 티어 정보를 확인하세요.">
+    <meta name="twitter:title" content="2026-02-04 ALLE 주가 전망 & 목표가 | 얼리젼 AI 분석 - 나스픽">
+    <meta name="twitter:description" content="[2026-02-04] 얼리젼(ALLE) 적정 주가 및 월스트리트 목표가 분석. AI가 진단한 얼리젼의 투자 매력도와 실시간 티어 정보를 확인하세요.">
     <meta name="twitter:image" content="https://financialmodelingprep.com/image-stock/ALLE.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -174,6 +174,11 @@
 
         .flip-tab:not(.active):hover {
             color: #9ca3af;
+        }
+
+        /* Fix: Slider Animation Class */
+        #segmentSlider.right {
+            transform: translateX(100%);
         }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643020932469823"
@@ -408,51 +413,51 @@
         }
 
         // --- Safe Rendering Helper ---
-function safeRender(fn, data, name = "Section") {
-    try {
-        return fn(data);
-    } catch (e) {
-        console.error(`Error rendering ${name}:`, e);
-        return `
+        function safeRender(fn, data, name = "Section") {
+            try {
+                return fn(data);
+            } catch (e) {
+                console.error(`Error rendering ${name}:`, e);
+                return `
                     <div class="p-4 bg-red-900/20 border border-red-500/50 rounded-lg text-center my-4">
                         <div class="text-red-400 font-bold text-sm mb-1">⚠️ ${name} 로드 실패</div>
                         <div class="text-gray-500 text-xs">${e.message}</div>
                     </div>
                 `;
-    }
-}
+            }
+        }
 
-// --- Component Functions ---
+        // --- Component Functions ---
 
-function renderTopSection(data) {
-    const SECTOR_SLUGS = {
-        "기술": "technology", "커뮤니케이션": "communication", "임의소비재": "consumer-discretionary",
-        "필수소비재": "consumer-staples", "에너지": "energy", "금융": "financials", "헬스케어": "healthcare",
-        "산업재": "industrials", "소재": "materials", "부동산": "real-estate", "유틸리티": "utilities"
-    };
+        function renderTopSection(data) {
+            const SECTOR_SLUGS = {
+                "기술": "technology", "커뮤니케이션": "communication", "임의소비재": "consumer-discretionary",
+                "필수소비재": "consumer-staples", "에너지": "energy", "금융": "financials", "헬스케어": "healthcare",
+                "산업재": "industrials", "소재": "materials", "부동산": "real-estate", "유틸리티": "utilities"
+            };
 
-    const formatMarketCap = (num) => {
-        if (!num) return '-';
-        if (num >= 1e12) return (num / 1e12).toFixed(2) + 'T';
-        if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
-        if (num >= 1e6) return (num / 1e6).toFixed(0) + 'M';
-        return num.toLocaleString();
-    };
+            const formatMarketCap = (num) => {
+                if (!num) return '-';
+                if (num >= 1e12) return (num / 1e12).toFixed(2) + 'T';
+                if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+                if (num >= 1e6) return (num / 1e6).toFixed(0) + 'M';
+                return num.toLocaleString();
+            };
 
-    const isPlus = data.change_pct >= 0;
-    const changeColor = isPlus ? 'text-red-400' : 'text-blue-400';
-    const changeSign = isPlus ? '▲' : '▼';
+            const isPlus = data.change_pct >= 0;
+            const changeColor = isPlus ? 'text-red-400' : 'text-blue-400';
+            const changeSign = isPlus ? '▲' : '▼';
 
-    let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
-    if (data.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
-    else if (data.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
-    else if (data.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
-    else if (data.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
-    else if (data.tier === 5) tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
+            let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
+            if (data.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
+            else if (data.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
+            else if (data.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
+            else if (data.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
+            else if (data.tier === 5) tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
 
-    const tierBadge = `<span class="px-2 py-0.5 text-sm font-bold rounded border ${tierClass}">${data.tier} TIER</span>`;
+            const tierBadge = `<span class="px-2 py-0.5 text-sm font-bold rounded border ${tierClass}">${data.tier} TIER</span>`;
 
-    return `
+            return `
                 <nav class="text-xs text-gray-500 mb-3 flex items-center gap-1" aria-label="Breadcrumb">
                     <a href="/" class="hover:text-gray-300 transition">홈</a>
                     <span class="text-gray-600">›</span>
@@ -507,72 +512,87 @@ function renderTopSection(data) {
                     </div>
                 </section>
             `;
-}
+        }
 
-function renderFlipCard(data) {
-    return `
+        function renderFlipCard(data) {
+            return `
                 <div class="flip-card-container">
-                    <div class="segmented-control">
-                        <div id="segmentSlider" class="segment-slider"></div>
-                        <button id="tabChart" onclick="toggleFlipCard(false)" class="flip-tab active">📊 차트 보기</button>
-                        <button id="tabAnalysis" onclick="toggleFlipCard(true)" class="flip-tab">💰 내 평단 분석</button>
+                    <!-- 탭 컨트롤러 -->
+                    <div class="relative w-[280px] h-11 bg-[#1c1c21] rounded-full p-1 mx-auto mb-6 flex items-center shadow-inner border border-gray-800 select-none">
+                        <div id="segmentSlider" class="absolute left-1 top-1 w-[136px] h-9 bg-[#2962ff] rounded-full shadow-[0_0_15px_rgba(41,98,255,0.4)] transition-all duration-300 ease-out z-0"></div>
+                        <button id="tabAnalysis" onclick="toggleFlipCard(false)" class="flex-1 relative z-10 text-xs font-bold text-white text-center transition-colors h-full flex items-center justify-center active">💰 내 평단 분석</button>
+                        <button id="tabChart" onclick="toggleFlipCard(true)" class="flex-1 relative z-10 text-xs font-bold text-gray-400 text-center transition-colors h-full flex items-center justify-center">📊 차트 보기</button>
                     </div>
-                    <div id="flipCard" class="flip-card rounded-b-xl h-[500px]">
-                        <div class="flip-card-front">
-                            <div id="tv_chart_container" class="bg-[#131722] rounded-b-xl border border-gray-800 border-t-0 h-[500px] relative overflow-hidden group"></div>
-                        </div>
-                        <div class="flip-card-back bg-[#131722] rounded-b-xl border border-[#2962ff]/30 border-t-0 h-[500px] p-6 flex flex-col">
-                            <div class="text-center mb-6">
-                                <h3 class="text-xl font-bold text-white mb-2">💰 내 평단가 분석</h3>
-                                <p class="text-gray-400 text-sm">평균 매수가를 입력하면 현재가 대비 손익을 분석해드립니다</p>
-                            </div>
-                            <div class="flex-1 flex flex-col items-center justify-center gap-6">
-                                <div class="w-full max-w-sm space-y-4">
-                                    <div>
-                                        <label class="block text-gray-400 text-sm mb-2">평균 매수가 ($)</label>
-                                        <input type="number" id="avgPriceInput" placeholder="예: 150.00" 
-                                            class="w-full bg-[#1e1e28] border border-gray-700 rounded-lg px-4 py-3 text-white text-lg font-mono focus:border-[#2962ff] focus:outline-none focus:ring-2 focus:ring-[#2962ff]/20 transition-all">
+
+                    <!-- Content Area (Fixed Height) -->
+                    <div class="relative w-full h-[540px] bg-[#131722] rounded-2xl border border-gray-800 overflow-hidden shadow-2xl">
+
+                        <!-- View 1: Analysis (Default: Visible) -->
+                        <div id="viewAnalysis" class="absolute inset-0 w-full h-full z-20 bg-[#131722] flex flex-col">
+                            <!-- Gradient Header -->
+                            <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#2962ff]/10 to-transparent pointer-events-none"></div>
+
+                            <!-- Input Content -->
+                            <div class="relative z-10 flex-1 flex flex-col items-center justify-center p-8 text-center">
+                                <h3 class="text-2xl font-black text-white mb-2 tracking-tight">💰 내 평단가 분석</h3>
+                                <p class="text-gray-400 text-sm mb-10 font-medium">평단가를 입력하면 AI가 현재 위치를 진단합니다</p>
+                                
+                                <div class="w-full max-w-xs space-y-6">
+                                    <div class="relative group">
+                                        <input type="number" id="avgPriceInput" placeholder=" " 
+                                            class="peer w-full bg-[#1c1c21] border border-gray-700 rounded-xl px-4 pt-6 pb-2 text-white text-xl font-bold font-mono outline-none focus:border-[#2962ff] focus:ring-1 focus:ring-[#2962ff] transition-all shadow-inner text-center">
+                                        <label class="absolute text-gray-500 text-xs font-bold top-2 left-0 right-0 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-[#2962ff]">평균 매수가 ($)</label>
                                     </div>
-                                    <div>
-                                        <label class="block text-gray-400 text-sm mb-2">보유 수량 (주)</label>
-                                        <input type="number" id="quantityInput" placeholder="예: 10" 
-                                            class="w-full bg-[#1e1e28] border border-gray-700 rounded-lg px-4 py-3 text-white text-lg font-mono focus:border-[#2962ff] focus:outline-none focus:ring-2 focus:ring-[#2962ff]/20 transition-all">
-                                    </div>
+
+                                    <button onclick="analyzeAvgPrice()" 
+                                        class="w-full bg-gradient-to-r from-[#2962ff] to-[#0039cb] hover:from-[#448aff] hover:to-[#2962ff] text-white font-bold py-4 rounded-xl shadow-[0_10px_20px_rgba(41,98,255,0.3)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 group">
+                                        <span>분석 시작하기</span>
+                                        <svg class="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                                    </button>
+                                    
+                                    <p class="text-[10px] text-gray-500 text-center bg-[#1c1c21] py-2 px-3 rounded-lg border border-gray-800">
+                                        * 과거 4년치 매물대 데이터 기반 분석
+                                    </p>
                                 </div>
-                                <button id="analyzeBtn" onclick="analyzeAvgPrice()" 
-                                    class="bg-gradient-to-r from-[#2962ff] to-[#1e4bd8] text-white font-bold py-3 px-8 rounded-lg hover:shadow-[0_0_25px_rgba(41,98,255,0.5)] transition-all duration-300 hover:scale-105">
-                                    🔍 분석하기
-                                </button>
                             </div>
-                            <div id="analysisResult" class="hidden mt-4 p-4 bg-[#1e1e28] rounded-lg border border-gray-700"></div>
+
+                            <!-- Result Overlay (Hidden Default) -->
+                            <div id="analysisResult" class="absolute inset-0 bg-[#131722] z-30 hidden flex flex-col animate-fade-in">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- View 2: Chart (Default: Hidden) -->
+                        <div id="viewChart" class="absolute inset-0 w-full h-full z-10 hidden bg-[#131722]">
+                            <div id="tv_chart_container" class="w-full h-full"></div>
                         </div>
                     </div>
                 </div>
             `;
-}
+        }
 
-function renderConsensus(data) {
-    const cons = data.consensus;
-    if (!cons || !cons.target_price) return '<div class="text-xs text-gray-500">데이터 없음</div>';
+        function renderConsensus(data) {
+            const cons = data.consensus;
+            if (!cons || !cons.target_price) return '<div class="text-xs text-gray-500">데이터 없음</div>';
 
-    const current = data.current_price;
-    const target = cons.target_price.mean;
-    const low = cons.target_price.low;
-    const high = cons.target_price.high;
-    const score = cons.recommendation ? cons.recommendation.score : 0;
-    const status = cons.recommendation ? cons.recommendation.status : 'N/A';
+            const current = data.current_price;
+            const target = cons.target_price.mean;
+            const low = cons.target_price.low;
+            const high = cons.target_price.high;
+            const score = cons.recommendation ? cons.recommendation.score : 0;
+            const status = cons.recommendation ? cons.recommendation.status : 'N/A';
 
-    const upside = ((target - current) / current * 100).toFixed(1);
-    const isUpsidePositive = upside >= 0;
-    const upsideColor = isUpsidePositive ? 'text-green-400' : 'text-red-400';
-    const upsideSign = isUpsidePositive ? '+' : '';
+            const upside = ((target - current) / current * 100).toFixed(1);
+            const isUpsidePositive = upside >= 0;
+            const upsideColor = isUpsidePositive ? 'text-green-400' : 'text-red-400';
+            const upsideSign = isUpsidePositive ? '+' : '';
 
-    const valMin = Math.min(low, current, target) * 0.95;
-    const valMax = Math.max(high, current, target) * 1.05;
-    const fullRange = valMax - valMin;
-    const getPos = (val) => ((val - valMin) / fullRange * 100);
+            const valMin = Math.min(low, current, target) * 0.95;
+            const valMax = Math.max(high, current, target) * 1.05;
+            const fullRange = valMax - valMin;
+            const getPos = (val) => ((val - valMin) / fullRange * 100);
 
-    return `
+            return `
                 <div class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
                     <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     월스트리트 시장 예상치
@@ -613,42 +633,42 @@ function renderConsensus(data) {
                      </div>
                 </div>
             `;
-}
+        }
 
-function renderFinancialHealth(data) {
-    const fh = data.financial_health;
-    if (!fh) return '<div class="text-center text-gray-500 text-sm py-4">재무 데이터가 없습니다.</div>';
+        function renderFinancialHealth(data) {
+            const fh = data.financial_health;
+            if (!fh) return '<div class="text-center text-gray-500 text-sm py-4">재무 데이터가 없습니다.</div>';
 
-    const thresholds = {
-        per: { good: 15, warn: 25, goodLabel: '저평가', badLabel: '고평가', higherBetter: false, tip: '10배 미만이면 저평가' },
-        pbr: { good: 1.5, warn: 3, goodLabel: '자산가치↑', badLabel: '고평가', higherBetter: false, tip: '1배 미만 저평가' },
-        revenue_growth: { good: 15, warn: 0, goodLabel: '고성장', badLabel: '역성장', higherBetter: true, tip: '매출 증가율' },
-        eps_growth: { good: 20, warn: 0, goodLabel: '급성장', badLabel: '감소', higherBetter: true, tip: '이익 증가율' },
-        roe: { good: 15, warn: 8, goodLabel: '고수익', badLabel: '저효율', higherBetter: true, tip: '자기자본 이익률' },
-        operating_margin: { good: 15, warn: 5, goodLabel: '마진우수', badLabel: '저마진', higherBetter: true, tip: '영업이익률' },
-        debt_ratio: { good: 100, warn: 200, goodLabel: '안정', badLabel: '위험', higherBetter: false, tip: '부채 비율' },
-        current_ratio: { good: 1.5, warn: 1, goodLabel: '유동성↑', badLabel: '주의', higherBetter: true, tip: '단기 지급능력' }
-    };
+            const thresholds = {
+                per: { good: 15, warn: 25, goodLabel: '저평가', badLabel: '고평가', higherBetter: false, tip: '10배 미만이면 저평가' },
+                pbr: { good: 1.5, warn: 3, goodLabel: '자산가치↑', badLabel: '고평가', higherBetter: false, tip: '1배 미만 저평가' },
+                revenue_growth: { good: 15, warn: 0, goodLabel: '고성장', badLabel: '역성장', higherBetter: true, tip: '매출 증가율' },
+                eps_growth: { good: 20, warn: 0, goodLabel: '급성장', badLabel: '감소', higherBetter: true, tip: '이익 증가율' },
+                roe: { good: 15, warn: 8, goodLabel: '고수익', badLabel: '저효율', higherBetter: true, tip: '자기자본 이익률' },
+                operating_margin: { good: 15, warn: 5, goodLabel: '마진우수', badLabel: '저마진', higherBetter: true, tip: '영업이익률' },
+                debt_ratio: { good: 100, warn: 200, goodLabel: '안정', badLabel: '위험', higherBetter: false, tip: '부채 비율' },
+                current_ratio: { good: 1.5, warn: 1, goodLabel: '유동성↑', badLabel: '주의', higherBetter: true, tip: '단기 지급능력' }
+            };
 
-    const evaluate = (val, t) => {
-        if (val === null || val === undefined) return { color: 'text-gray-500', badge: null };
-        const good = t.higherBetter ? val >= t.good : val <= t.good;
-        const warn = t.higherBetter ? val >= t.warn : val <= t.warn;
-        if (good) return { color: 'text-green-400', badge: t.goodLabel, badgeColor: 'bg-green-500/20 text-green-400' };
-        if (warn) return { color: 'text-gray-300', badge: null };
-        return { color: 'text-red-400', badge: t.badLabel, badgeColor: 'bg-red-500/20 text-red-400' };
-    };
+            const evaluate = (val, t) => {
+                if (val === null || val === undefined) return { color: 'text-gray-500', badge: null };
+                const good = t.higherBetter ? val >= t.good : val <= t.good;
+                const warn = t.higherBetter ? val >= t.warn : val <= t.warn;
+                if (good) return { color: 'text-green-400', badge: t.goodLabel, badgeColor: 'bg-green-500/20 text-green-400' };
+                if (warn) return { color: 'text-gray-300', badge: null };
+                return { color: 'text-red-400', badge: t.badLabel, badgeColor: 'bg-red-500/20 text-red-400' };
+            };
 
-    const format = (key, val, suffix = '') => {
-        if (val === null || val === undefined) return '<span class="text-gray-500">-</span>';
-        const status = evaluate(val, thresholds[key]);
-        const badge = status.badge ? `<span class="ml-1 text-[9px] px-1.5 py-0.5 rounded ${status.badgeColor}">${status.badge}</span>` : '';
-        return `<span class="${status.color} font-bold">${val}${suffix}</span>${badge}`;
-    };
+            const format = (key, val, suffix = '') => {
+                if (val === null || val === undefined) return '<span class="text-gray-500">-</span>';
+                const status = evaluate(val, thresholds[key]);
+                const badge = status.badge ? `<span class="ml-1 text-[9px] px-1.5 py-0.5 rounded ${status.badgeColor}">${status.badge}</span>` : '';
+                return `<span class="${status.color} font-bold">${val}${suffix}</span>${badge}`;
+            };
 
-    const tooltip = (key) => `<span class="text-gray-500 text-[10px] ml-1 cursor-help" title="${thresholds[key].tip}">ⓘ</span>`;
+            const tooltip = (key) => `<span class="text-gray-500 text-[10px] ml-1 cursor-help" title="${thresholds[key].tip}">ⓘ</span>`;
 
-    return `
+            return `
                  <div class="bg-[#1e1e24] rounded-lg p-4 border border-gray-700 mb-3">
                      <span class="text-sm font-bold text-gray-200 mb-2 block">가치 평가</span>
                      <div class="grid grid-cols-2 gap-4">
@@ -670,20 +690,20 @@ function renderFinancialHealth(data) {
                      </div>
                  </div>
             `;
-}
+        }
 
-function renderNaspickScore(data) {
-    const stats = data.stats_bar || { fundamentals: 0, value: 0, momentum: 0, stability: 0, risk: 0, consensus: 0 };
-    const bars = [
-        { k: 'Fundamentals', label: '📈 Fundamentals (실적/성장)', c: 'blue' },
-        { k: 'Value', label: '💰 Value (가치평가)', c: 'amber' },
-        { k: 'Momentum', label: '🚀 Momentum (상승탄력)', c: 'rose' },
-        { k: 'Stability', label: '🛡️ Stability (재무안정)', c: 'cyan' },
-        { k: 'Risk', label: '⚡ Risk (저변동성)', c: 'purple' },
-        { k: 'Consensus', label: '🌐 Consensus (월가전망)', c: 'green' }
-    ];
+        function renderNaspickScore(data) {
+            const stats = data.stats_bar || { fundamentals: 0, value: 0, momentum: 0, stability: 0, risk: 0, consensus: 0 };
+            const bars = [
+                { k: 'Fundamentals', label: '📈 Fundamentals (실적/성장)', c: 'blue' },
+                { k: 'Value', label: '💰 Value (가치평가)', c: 'amber' },
+                { k: 'Momentum', label: '🚀 Momentum (상승탄력)', c: 'rose' },
+                { k: 'Stability', label: '🛡️ Stability (재무안정)', c: 'cyan' },
+                { k: 'Risk', label: '⚡ Risk (저변동성)', c: 'purple' },
+                { k: 'Consensus', label: '🌐 Consensus (월가전망)', c: 'green' }
+            ];
 
-    return `
+            return `
                  <h2 class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
                      <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
                      나스픽 점수 분석
@@ -694,13 +714,13 @@ function renderNaspickScore(data) {
                  </div>
                  <div class="space-y-4">
                      ${bars.map(item => {
-        const val = stats[item.k.toLowerCase()] || 0;
-        // Tailwind colors need to be safelisted or full strings, but here we construct class strings
-        // assuming standard palette is available
-        const textColor = `text-${item.c}-400`;
-        const barColor = `from-${item.c}-600 to-${item.c}-400`;
-        const shadow = `shadow-${item.c}-500/50`; // approximation for shadow color
-        return `
+                const val = stats[item.k.toLowerCase()] || 0;
+                // Tailwind colors need to be safelisted or full strings, but here we construct class strings
+                // assuming standard palette is available
+                const textColor = `text-${item.c}-400`;
+                const barColor = `from-${item.c}-600 to-${item.c}-400`;
+                const shadow = `shadow-${item.c}-500/50`; // approximation for shadow color
+                return `
                              <div>
                                  <div class="flex justify-between text-xs mb-1.5">
                                      <span class="text-gray-300 font-bold">${item.label}</span>
@@ -711,24 +731,24 @@ function renderNaspickScore(data) {
                                  </div>
                              </div>
                          `;
-    }).join('')}
+            }).join('')}
                  </div>
             `;
-}
+        }
 
-// [RESTORED] Full Technical Analysis Logic
-function renderTechnical(data) {
-    const ta = data.technical_analysis || {};
-    let html = `<h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
+        // [RESTORED] Full Technical Analysis Logic
+        function renderTechnical(data) {
+            const ta = data.technical_analysis || {};
+            let html = `<h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
                 <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                 기술적 분석
              </h3><div class="space-y-4">`;
 
-    // 1. Candle Pattern
-    const cp = ta.candle_pattern;
-    if (cp) {
-        const imgPath = '/images/candle_patterns/' + cp.pattern + '.png';
-        html += `
+            // 1. Candle Pattern
+            const cp = ta.candle_pattern;
+            if (cp) {
+                const imgPath = '/images/candle_patterns/' + cp.pattern + '.png';
+                html += `
                     <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
                         <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">캔들 패턴</div>
                         <div class="flex items-center gap-3">
@@ -740,21 +760,21 @@ function renderTechnical(data) {
                         </div>
                     </div>
                 `;
-    } else {
-        html += `
+            } else {
+                html += `
                     <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
                         <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">캔들 패턴</div>
                         <div class="text-xs text-gray-500">최근 5일 내 특이 패턴 없음</div>
                     </div>
                 `;
-    }
+            }
 
-    // 2. RSI (Restored Full Gauge)
-    const rsi = ta.rsi || { value: 50, status: 'neutral' };
-    const rsiColor = rsi.status === 'overbought' ? 'text-red-400' : rsi.status === 'oversold' ? 'text-blue-400' : 'text-gray-400';
-    const rsiLabel = rsi.status === 'overbought' ? '과매수' : rsi.status === 'oversold' ? '과매도' : '중립';
+            // 2. RSI (Restored Full Gauge)
+            const rsi = ta.rsi || { value: 50, status: 'neutral' };
+            const rsiColor = rsi.status === 'overbought' ? 'text-red-400' : rsi.status === 'oversold' ? 'text-blue-400' : 'text-gray-400';
+            const rsiLabel = rsi.status === 'overbought' ? '과매수' : rsi.status === 'oversold' ? '과매도' : '중립';
 
-    html += `
+            html += `
                 <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
                     <div class="flex justify-between items-center mb-3">
                         <div class="text-[10px] text-gray-500 uppercase tracking-wider">RSI (14)</div>
@@ -777,11 +797,11 @@ function renderTechnical(data) {
                 </div>
              `;
 
-    // 3. Volume
-    const vol = ta.volume || { pct_change: 0 };
-    const volColor = vol.pct_change >= 0 ? 'text-red-400' : 'text-blue-400';
-    const volSign = vol.pct_change >= 0 ? '+' : '';
-    html += `
+            // 3. Volume
+            const vol = ta.volume || { pct_change: 0 };
+            const volColor = vol.pct_change >= 0 ? 'text-red-400' : 'text-blue-400';
+            const volSign = vol.pct_change >= 0 ? '+' : '';
+            html += `
                 <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
                     <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">거래량 <span class="normal-case">(전일)</span></div>
                     <div class="flex items-center gap-2">
@@ -790,45 +810,45 @@ function renderTechnical(data) {
                 </div>
              `;
 
-    html += '</div>';
-    return html;
-}
-
-// [RESTORED] Full Calendar Logic
-function renderCalendar(data) {
-    const cal = data.calendar || {};
-
-    // Earnings Logic
-    let earningsHtml = '';
-    let nextHtml = '';
-    if (cal.next_earnings) {
-        const todayMs = new Date().setHours(0, 0, 0, 0);
-        const nextDate = new Date(cal.next_earnings);
-        const diffDays = Math.ceil((nextDate.setHours(0, 0, 0, 0) - todayMs) / (1000 * 60 * 60 * 24));
-
-        let dDay = '';
-        let alertIcon = '';
-        if (diffDays >= 0) {
-            if (diffDays <= 7) { dDay = `<span class="text-orange-400 font-bold ml-2">D-${diffDays}</span>`; alertIcon = '🔔'; }
-            else if (diffDays <= 14) { dDay = `<span class="text-gray-400 ml-2">D-${diffDays}</span>`; }
-
-            nextHtml = `<div class="text-xs text-gray-400 mb-1 flex items-center">다음 실적 발표 ${dDay}</div>
-                                 <div class="text-sm font-bold text-gray-200 flex items-center gap-2">${cal.next_earnings} ${alertIcon}</div>`;
-        } else {
-            nextHtml = `<div class="text-xs text-gray-400 mb-1 flex items-center">직전 실적 발표 <span class="text-gray-600 ml-2 text-[10px]">(종료)</span></div>
-                                 <div class="text-sm font-bold text-gray-500 flex items-center gap-2">${cal.next_earnings}</div>`;
+            html += '</div>';
+            return html;
         }
-    } else {
-        nextHtml = `<div class="text-xs text-gray-400 mb-1">실적 발표</div><div class="text-sm text-gray-500">일정 미정</div>`;
-    }
 
-    // Past Earnings Surprise
-    let pastHtml = '';
-    if (cal.last_earnings_date && cal.last_surprise !== undefined) {
-        const isBeat = cal.last_surprise > 0;
-        const color = isBeat ? 'text-green-400' : 'text-red-400';
-        const label = isBeat ? '어닝 서프라이즈' : '어닝 쇼크';
-        pastHtml = `
+        // [RESTORED] Full Calendar Logic
+        function renderCalendar(data) {
+            const cal = data.calendar || {};
+
+            // Earnings Logic
+            let earningsHtml = '';
+            let nextHtml = '';
+            if (cal.next_earnings) {
+                const todayMs = new Date().setHours(0, 0, 0, 0);
+                const nextDate = new Date(cal.next_earnings);
+                const diffDays = Math.ceil((nextDate.setHours(0, 0, 0, 0) - todayMs) / (1000 * 60 * 60 * 24));
+
+                let dDay = '';
+                let alertIcon = '';
+                if (diffDays >= 0) {
+                    if (diffDays <= 7) { dDay = `<span class="text-orange-400 font-bold ml-2">D-${diffDays}</span>`; alertIcon = '🔔'; }
+                    else if (diffDays <= 14) { dDay = `<span class="text-gray-400 ml-2">D-${diffDays}</span>`; }
+
+                    nextHtml = `<div class="text-xs text-gray-400 mb-1 flex items-center">다음 실적 발표 ${dDay}</div>
+                                 <div class="text-sm font-bold text-gray-200 flex items-center gap-2">${cal.next_earnings} ${alertIcon}</div>`;
+                } else {
+                    nextHtml = `<div class="text-xs text-gray-400 mb-1 flex items-center">직전 실적 발표 <span class="text-gray-600 ml-2 text-[10px]">(종료)</span></div>
+                                 <div class="text-sm font-bold text-gray-500 flex items-center gap-2">${cal.next_earnings}</div>`;
+                }
+            } else {
+                nextHtml = `<div class="text-xs text-gray-400 mb-1">실적 발표</div><div class="text-sm text-gray-500">일정 미정</div>`;
+            }
+
+            // Past Earnings Surprise
+            let pastHtml = '';
+            if (cal.last_earnings_date && cal.last_surprise !== undefined) {
+                const isBeat = cal.last_surprise > 0;
+                const color = isBeat ? 'text-green-400' : 'text-red-400';
+                const label = isBeat ? '어닝 서프라이즈' : '어닝 쇼크';
+                pastHtml = `
                     <div class="mt-3 pt-3 border-t border-gray-700/50">
                         <div class="text-xs text-gray-400 mb-1 flex justify-between">
                             <span>직전 실적 (${cal.last_earnings_date})</span>
@@ -840,26 +860,26 @@ function renderCalendar(data) {
                         </div>
                     </div>
                  `;
-    }
-    earningsHtml = nextHtml + pastHtml;
+            }
+            earningsHtml = nextHtml + pastHtml;
 
-    // Dividend Logic
-    let divHtml = '';
-    const exDate = cal.ex_dividend_date;
-    const amount = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
+            // Dividend Logic
+            let divHtml = '';
+            const exDate = cal.ex_dividend_date;
+            const amount = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
 
-    if (!exDate || exDate === '-') {
-        divHtml = '<div><div class="text-xs text-gray-400 mb-2">배당</div><div class="text-xs text-gray-500 text-center py-2">배당 정보 없음</div></div>';
-    } else {
-        const todayMs = new Date().setHours(0, 0, 0, 0);
-        const exMs = new Date(exDate).setHours(0, 0, 0, 0);
-        const isFuture = exMs >= todayMs;
+            if (!exDate || exDate === '-') {
+                divHtml = '<div><div class="text-xs text-gray-400 mb-2">배당</div><div class="text-xs text-gray-500 text-center py-2">배당 정보 없음</div></div>';
+            } else {
+                const todayMs = new Date().setHours(0, 0, 0, 0);
+                const exMs = new Date(exDate).setHours(0, 0, 0, 0);
+                const isFuture = exMs >= todayMs;
 
-        let statusBadge = isFuture ? '<span class="text-blue-400 text-[10px] ml-1 bg-blue-500/10 px-1 rounded border border-blue-500/30">예정</span>'
-            : '<span class="text-gray-500 text-[10px] ml-1 bg-gray-700/50 px-1 rounded">지급완료</span>'; // Simplified for safety
-        let dateColor = isFuture ? 'text-gray-200' : 'text-gray-500';
+                let statusBadge = isFuture ? '<span class="text-blue-400 text-[10px] ml-1 bg-blue-500/10 px-1 rounded border border-blue-500/30">예정</span>'
+                    : '<span class="text-gray-500 text-[10px] ml-1 bg-gray-700/50 px-1 rounded">지급완료</span>'; // Simplified for safety
+                let dateColor = isFuture ? 'text-gray-200' : 'text-gray-500';
 
-        divHtml = `
+                divHtml = `
                     <div>
                         <div class="text-xs text-gray-400 mb-2">배당</div>
                         <div class="space-y-4">
@@ -880,9 +900,9 @@ function renderCalendar(data) {
                         </div>
                     </div>
                  `;
-    }
+            }
 
-    return `
+            return `
                  <div class="bg-[#282830] rounded-xl border border-gray-800 p-5">
                     <h4 class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
                         <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -895,21 +915,21 @@ function renderCalendar(data) {
                     </div>
                  </div>
              `;
-}
+        }
 
-// [RESTORED] Full Related Stocks Logic with Tabs
-function renderRelatedStocks(data) {
-    const peers = data.related_peers || [];
-    const similars = data.similar_score_peers || [];
-    // We need full data for name lookups, assume window.allData is available
-    const allData = window.allData || [];
+        // [RESTORED] Full Related Stocks Logic with Tabs
+        function renderRelatedStocks(data) {
+            const peers = data.related_peers || [];
+            const similars = data.similar_score_peers || [];
+            // We need full data for name lookups, assume window.allData is available
+            const allData = window.allData || [];
 
-    const renderList = (list, emptyMsg) => {
-        if (!list.length) return `<div class="text-xs text-gray-600">${emptyMsg}</div>`;
-        return list.map(p => {
-            const d = allData.find(x => x.ticker === p.ticker) || { name: p.ticker };
-            const isPlus = p.change_pct >= 0;
-            return `
+            const renderList = (list, emptyMsg) => {
+                if (!list.length) return `<div class="text-xs text-gray-600">${emptyMsg}</div>`;
+                return list.map(p => {
+                    const d = allData.find(x => x.ticker === p.ticker) || { name: p.ticker };
+                    const isPlus = p.change_pct >= 0;
+                    return `
                         <a href="/stock/${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
@@ -926,10 +946,10 @@ function renderRelatedStocks(data) {
                             <span class="${isPlus ? 'text-red-400' : 'text-blue-400'} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${isPlus ? '+' : ''}${p.change_pct}%</span>
                         </a>
                     `;
-        }).join('');
-    };
+                }).join('');
+            };
 
-    return `
+            return `
                  <div class="bg-[#23232a] rounded-xl border border-gray-800 p-5">
                      <div class="flex items-center justify-between mb-4 border-b border-gray-700 pb-3">
                          <h4 class="text-sm font-bold text-gray-200 flex items-center gap-2">
@@ -945,26 +965,26 @@ function renderRelatedStocks(data) {
                      <div id="similarScoreList" class="space-y-3 hidden">${renderList(similars, '유사 점수 종목 없음')}</div>
                  </div>
             `;
-}
+        }
 
-function renderPage(data) {
-    console.log("Rendering page for:", data.ticker);
-    window.currentStockPrice = data.current_price;
-    const main = document.getElementById('mainContent');
+        function renderPage(data) {
+            console.log("Rendering page for:", data.ticker);
+            window.currentStockPrice = data.current_price;
+            const main = document.getElementById('mainContent');
 
-    // Assemble sections safely
-    const topHtml = safeRender(renderTopSection, data, "상단 정보");
-    const flipCardHtml = safeRender(renderFlipCard, data, "차트/분석 카드");
+            // Assemble sections safely
+            const topHtml = safeRender(renderTopSection, data, "상단 정보");
+            const flipCardHtml = safeRender(renderFlipCard, data, "차트/분석 카드");
 
-    // Grid Layout
-    const consensusHtml = safeRender(renderConsensus, data, "월가 전망");
-    const financialHtml = safeRender(renderFinancialHealth, data, "재무 건전성");
-    const scoreHtml = safeRender(renderNaspickScore, data, "나스픽 점수");
-    const technicalHtml = safeRender(renderTechnical, data, "기술적 분석");
-    const calendarHtml = safeRender(renderCalendar, data, "캘린더");
-    const relatedHtml = safeRender(renderRelatedStocks, data, "관련 종목");
+            // Grid Layout
+            const consensusHtml = safeRender(renderConsensus, data, "월가 전망");
+            const financialHtml = safeRender(renderFinancialHealth, data, "재무 건전성");
+            const scoreHtml = safeRender(renderNaspickScore, data, "나스픽 점수");
+            const technicalHtml = safeRender(renderTechnical, data, "기술적 분석");
+            const calendarHtml = safeRender(renderCalendar, data, "캘린더");
+            const relatedHtml = safeRender(renderRelatedStocks, data, "관련 종목");
 
-    const html = `
+            const html = `
                 ${topHtml}
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 flex flex-col gap-6 lg:gap-4">
@@ -974,31 +994,32 @@ function renderPage(data) {
                         <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 hidden lg:block">
                             ${consensusHtml}
                         </div>
-                         <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 hidden lg:block">
+                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 hidden lg:block">
                             <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
                                 <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                                 재무 건전성 점검
                             </h3>
                             <div class="space-y-3">${financialHtml}</div>
                         </div>
-
-                        <!-- Mobile View -->
-                         <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 block lg:hidden">
-                            ${consensusHtml}
-                        </div>
-                         <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 block lg:hidden">
-                            <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">재무 건전성 점검</h3>
-                            <div class="space-y-3">${financialHtml}</div>
-                        </div>
-                        
-                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-5">
-                            ${technicalHtml}
-                        </div>
                     </div>
 
                     <div class="flex flex-col gap-4">
                         <div class="bg-[#282830] rounded-xl border border-gray-700 p-6 relative overflow-hidden shadow-2xl">
                             ${scoreHtml}
+                        </div>
+
+                        <!-- Mobile View -->
+                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 block lg:hidden">
+                            ${consensusHtml}
+                        </div>
+
+                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-5">
+                            ${technicalHtml}
+                        </div>
+
+                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 block lg:hidden">
+                            <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">재무 건전성 점검</h3>
+                            <div class="space-y-3">${financialHtml}</div>
                         </div>
                         
                         ${calendarHtml}
@@ -1010,127 +1031,144 @@ function renderPage(data) {
                 </div>
             `;
 
-    main.innerHTML = html;
+            main.innerHTML = html;
 
-    // Post-render actions
-    safeRender(renderFAQ, data, "FAQ");
-    safeRender(initFavorites, data.ticker, "Favorites");
-    if (window.TradingView) {
-        try {
-            new TradingView.widget({
-                "autosize": true,
-                "symbol": (data.exchange ? data.exchange + ":" : "") + data.ticker,
-                "interval": "D",
-                "timezone": "Etc/UTC",
-                "theme": "dark",
-                "style": "1",
-                "locale": "en",
-                "enable_publishing": false,
-                "allow_symbol_change": true,
-                "container_id": "tv_chart_container",
-                "studies": ["BB@tv-basicstudies"]
-            });
-        } catch (e) { console.error("TradingView Error:", e); }
-    }
-}
+            // Post-render actions
+            safeRender(renderFAQ, data, "FAQ");
+            safeRender(initFavorites, data.ticker, "Favorites");
+            if (window.TradingView) {
+                try {
+                    new TradingView.widget({
+                        "autosize": true,
+                        "symbol": (data.exchange ? data.exchange + ":" : "") + data.ticker,
+                        "interval": "D",
+                        "timezone": "Etc/UTC",
+                        "theme": "dark",
+                        "style": "1",
+                        "locale": "en",
+                        "enable_publishing": false,
+                        "allow_symbol_change": true,
+                        "container_id": "tv_chart_container",
+                        "studies": ["BB@tv-basicstudies"]
+                    });
+                } catch (e) { console.error("TradingView Error:", e); }
+            }
+        }
 
 
-// --- Global Event Handlers ---
+        // --- Global Event Handlers ---
 
-function toggleFlipCard(showBack) {
-    const card = document.getElementById('flipCard');
-    const slider = document.getElementById('segmentSlider');
-    const tabChart = document.getElementById('tabChart');
-    const tabAnalysis = document.getElementById('tabAnalysis');
-    
-    if (showBack) {
-        card.classList.add('flipped');
-        slider.style.transform = 'translateX(100%)';
-        tabChart.classList.remove('active');
-        tabAnalysis.classList.add('active');
-    } else {
-        card.classList.remove('flipped');
-        slider.style.transform = 'translateX(0)';
-        tabChart.classList.add('active');
-        tabAnalysis.classList.remove('active');
-    }
-}
+        function toggleFlipCard(showChart) {
+            const viewAnalysis = document.getElementById('viewAnalysis');
+            const viewChart = document.getElementById('viewChart');
+            const slider = document.getElementById('segmentSlider');
+            const tabAnalysis = document.getElementById('tabAnalysis');
+            const tabChart = document.getElementById('tabChart');
 
-function switchRelatedTab(type) {
-    const sectorList = document.getElementById('sectorLeaderList');
-    const similarList = document.getElementById('similarScoreList');
-    const tabSector = document.getElementById('tabSectorLeader');
-    const tabSimilar = document.getElementById('tabSimilarScore');
+            if (showChart) {
+                // Show Chart
+                viewAnalysis.classList.add('hidden');
+                viewAnalysis.style.display = 'none';
+                viewChart.classList.remove('hidden');
+                viewChart.style.display = 'block';
 
-    if (!sectorList || !similarList) return;
+                // UI Update
+                slider.classList.add('right');
+                tabAnalysis.classList.remove('active', 'text-white');
+                tabAnalysis.classList.add('text-gray-400');
+                tabChart.classList.add('active', 'text-white');
+                tabChart.classList.remove('text-gray-400');
+            } else {
+                // Show Analysis
+                viewAnalysis.classList.remove('hidden');
+                viewAnalysis.style.display = 'flex';
+                viewChart.classList.add('hidden');
+                viewChart.style.display = 'none';
 
-    if (type === 'sector') {
-        sectorList.classList.remove('hidden');
-        similarList.classList.add('hidden');
-        
-        tabSector.classList.remove('text-gray-400', 'hover:text-gray-200');
-        tabSector.classList.add('bg-[#5383e8]', 'text-white');
-        
-        tabSimilar.classList.remove('bg-[#5383e8]', 'text-white');
-        tabSimilar.classList.add('text-gray-400', 'hover:text-gray-200');
-    } else {
-        sectorList.classList.add('hidden');
-        similarList.classList.remove('hidden');
-        
-        tabSimilar.classList.remove('text-gray-400', 'hover:text-gray-200');
-        tabSimilar.classList.add('bg-[#5383e8]', 'text-white');
-        
-        tabSector.classList.remove('bg-[#5383e8]', 'text-white');
-        tabSector.classList.add('text-gray-400', 'hover:text-gray-200');
-    }
-}
+                // UI Update
+                slider.classList.remove('right');
+                tabAnalysis.classList.add('active', 'text-white');
+                tabAnalysis.classList.remove('text-gray-400');
+                tabChart.classList.remove('active', 'text-white');
+                tabChart.classList.add('text-gray-400');
+            }
+        }
 
-function analyzeAvgPrice() {
-    const avgInput = document.getElementById('avgPriceInput');
-    const qtyInput = document.getElementById('quantityInput');
-    const resultDiv = document.getElementById('analysisResult');
-    
-    if (!avgInput || !qtyInput || !resultDiv) return;
+        function switchRelatedTab(type) {
+            const sectorList = document.getElementById('sectorLeaderList');
+            const similarList = document.getElementById('similarScoreList');
+            const tabSector = document.getElementById('tabSectorLeader');
+            const tabSimilar = document.getElementById('tabSimilarScore');
 
-    const avgPrice = parseFloat(avgInput.value);
-    const quantity = parseFloat(qtyInput.value);
+            if (!sectorList || !similarList) return;
 
-    if (!avgPrice || avgPrice <= 0) {
-        alert('유효한 매수가를 입력해주세요.'); 
-        return;
-    }
+            if (type === 'sector') {
+                sectorList.classList.remove('hidden');
+                similarList.classList.add('hidden');
 
-    // Try global var first, then DOM fallback
-    let cp = window.currentStockPrice;
-    if (!cp) {
-         const priceEl = document.querySelector('.text-4xl'); // Desktop price
-         if(priceEl) {
-             const txt = priceEl.textContent.replace('$','').replace(',','');
-             cp = parseFloat(txt);
-         }
-    }
-    
-    if (!cp) {
-        resultDiv.innerHTML = '<div class="text-red-400 text-center">현재가 정보를 불러올 수 없습니다.</div>';
-        resultDiv.classList.remove('hidden');
-        return;
-    }
+                tabSector.classList.remove('text-gray-400', 'hover:text-gray-200');
+                tabSector.classList.add('bg-[#5383e8]', 'text-white');
 
-    const pnlPercent = ((cp - avgPrice) / avgPrice * 100).toFixed(2);
-    const pnlAmount = quantity ? ((cp - avgPrice) * quantity).toFixed(2) : null;
-    const isProfit = pnlPercent >= 0;
-    const color = isProfit ? 'text-green-400' : 'text-red-400';
-    const sign = isProfit ? '+' : '';
+                tabSimilar.classList.remove('bg-[#5383e8]', 'text-white');
+                tabSimilar.classList.add('text-gray-400', 'hover:text-gray-200');
+            } else {
+                sectorList.classList.add('hidden');
+                similarList.classList.remove('hidden');
 
-    resultDiv.innerHTML = `
+                tabSimilar.classList.remove('text-gray-400', 'hover:text-gray-200');
+                tabSimilar.classList.add('bg-[#5383e8]', 'text-white');
+
+                tabSector.classList.remove('bg-[#5383e8]', 'text-white');
+                tabSector.classList.add('text-gray-400', 'hover:text-gray-200');
+            }
+        }
+
+        function analyzeAvgPrice() {
+            const avgInput = document.getElementById('avgPriceInput');
+            const qtyInput = document.getElementById('quantityInput');
+            const resultDiv = document.getElementById('analysisResult');
+
+            if (!avgInput || !qtyInput || !resultDiv) return;
+
+            const avgPrice = parseFloat(avgInput.value);
+            const quantity = parseFloat(qtyInput.value);
+
+            if (!avgPrice || avgPrice <= 0) {
+                alert('유효한 매수가를 입력해주세요.');
+                return;
+            }
+
+            // Try global var first, then DOM fallback
+            let cp = window.currentStockPrice;
+            if (!cp) {
+                const priceEl = document.querySelector('.text-4xl'); // Desktop price
+                if (priceEl) {
+                    const txt = priceEl.textContent.replace('$', '').replace(',', '');
+                    cp = parseFloat(txt);
+                }
+            }
+
+            if (!cp) {
+                resultDiv.innerHTML = '<div class="text-red-400 text-center">현재가 정보를 불러올 수 없습니다.</div>';
+                resultDiv.classList.remove('hidden');
+                return;
+            }
+
+            const pnlPercent = ((cp - avgPrice) / avgPrice * 100).toFixed(2);
+            const pnlAmount = quantity ? ((cp - avgPrice) * quantity).toFixed(2) : null;
+            const isProfit = pnlPercent >= 0;
+            const color = isProfit ? 'text-green-400' : 'text-red-400';
+            const sign = isProfit ? '+' : '';
+
+            resultDiv.innerHTML = `
         <div class="text-center">
              <div class="text-gray-400 text-xs mb-1">현재가 $${cp} / 평단가 $${avgPrice}</div>
              <div class="text-3xl font-bold ${color} mb-1">${sign}${pnlPercent}%</div>
              ${pnlAmount ? `<div class="text-lg ${color} font-bold">${sign}$${pnlAmount}</div>` : ''}
         </div>
     `;
-    resultDiv.classList.remove('hidden');
-}
+            resultDiv.classList.remove('hidden');
+        }
 
 
 
@@ -1161,63 +1199,343 @@ function analyzeAvgPrice() {
             }
         }
 
-        // 3D Flip Card Toggle with Sliding Segment Control
-        function toggleFlipCard(showBack) {
-            const flipCard = document.getElementById('flipCard');
-            const tabChart = document.getElementById('tabChart');
-            const tabAnalysis = document.getElementById('tabAnalysis');
-            const slider = document.getElementById('segmentSlider');
 
-            if (!flipCard) return;
 
-            if (showBack) {
-                flipCard.classList.add('flipped');
-                slider?.classList.add('right');
-                tabChart.classList.remove('active');
-                tabAnalysis.classList.add('active');
+        // --- Average Price Analysis Logic ---
+        const ANALYSIS_MESSAGES = {
+            MEGA_PROFIT: { // +30% 이상
+                top: { emoji: "🐋", title: "혹시... 고래십니까?", sub: "상위 {rank}% 진입! 수익률 {pnl}%... 기관 투자자 아니세요?" },
+                mid: { emoji: "🏆", title: "전설의 평단가", sub: "대부분이 ${peak}에 물려있는데 혼자 축제입니다." },
+                bottom: { emoji: "🎯", title: "매수의 신", sub: "기가 막힌 타이밍이네요. 조금만 더 일찍 샀으면 워런 버핏!" }
+            },
+            PROFIT: { // +10~30%
+                top: { emoji: "💎", title: "다이아몬드 핸즈", sub: "상위 {rank}%! 흔들리지 않는 편안함을 즐기세요." },
+                mid: { emoji: "😎", title: "나름 선방했습니다", sub: "남들보다 싸게 샀으니 오늘 커피 한 잔 더 드셔도 됩니다." },
+                bottom: { emoji: "👍", title: "평균 이상의 실력", sub: "피크 매물대 ${peak}보다 저렴하게 잘 잡으셨네요." }
+            },
+            SMALL_PROFIT: { // 0~10%
+                top: { emoji: "🙂", title: "기분 좋은 출발", sub: "상위 {rank}%! 이제부터 시작입니다. 꽉 잡으세요." },
+                mid: { emoji: "⚖️", title: "숨 참고 관전 중", sub: "아직은 간당간당합니다. 팝콘 뜯으며 지켜보시죠." },
+                bottom: { emoji: "😐", title: "방심은 금물", sub: "수익권이지만 안심하긴 이릅니다. 추세를 지켜봐야 해요." }
+            },
+            SMALL_LOSS: { // -10~0%
+                top: { emoji: "💪", title: "아직 희망이 있습니다", sub: "손실이지만 상위 {rank}%! ${peak}에 물린 사람들보다 훨씬 낫습니다." },
+                mid: { emoji: "🤝", title: "동지가 많습니다", sub: "가장 많은 사람들이 물린 가격대(${peak}) 근처입니다. 외롭지 않아요." },
+                bottom: { emoji: "😅", title: "조금만 더 참으세요", sub: "월스트리트 목표가까지 +{upside}% 남았습니다. 존버는 승리합니다." }
+            },
+            LOSS: { // -30~-10%
+                top: { emoji: "🩹", title: "버틸 수 있습니다", sub: "상위 {rank}%... 많이 아프지만 최악은 면했습니다." },
+                mid: { emoji: "😰", title: "고점 판독기 의심", sub: "혹시... 급등할 때 추격 매수 하셨나요? (뜨끔)" },
+                bottom: { emoji: "😭", title: "눈물이 앞을 가립니다", sub: "힘든 구간입니다. 하지만 목표가 ${target}를 믿어봅시다." }
+            },
+            MEGA_LOSS: { // -30% 이하
+                top: { emoji: "🆘", title: "그래도 상위권이에요", sub: "손실 {pnl}%지만 상위 {rank}%... 다들 같이 죽어가고 있습니다." },
+                mid: { emoji: "💀", title: "고통 분담 중", sub: "수많은 전우들이 함께하고 있습니다. 힘내세요." },
+                bottom: { emoji: "☠️", title: "구조대 급파 요청", sub: "역대급 고점... 하지만 워런 버핏도 -50% 경험이 있답니다." }
+            }
+        };
+
+        async function analyzeAvgPrice() {
+            const avgInput = document.getElementById('avgPriceInput');
+            const resultDiv = document.getElementById('analysisResult');
+
+            if (!avgInput || !resultDiv) return;
+
+            const avgPrice = parseFloat(avgInput.value);
+
+            if (!avgPrice || avgPrice <= 0) {
+                alert('유효한 매수가를 입력해주세요.');
+                return;
+            }
+
+            // 1. Loading Animation (Overlay)
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = `
+                <div class="flex-1 flex flex-col items-center justify-center h-full">
+                    <div class="w-16 h-16 border-4 border-[#2962ff]/20 border-t-[#2962ff] rounded-full animate-spin mb-6"></div>
+                    <div class="text-lg font-bold text-white mb-2 animate-pulse" id="loadingText">데이터 분석 중...</div>
+                    <div class="text-xs text-gray-500">과거 4년치 매물대 대조 중</div>
+                </div>
+            `;
+
+            const delay = (ms) => new Promise(r => setTimeout(r, ms));
+            const updateMsg = async (msg, ms) => {
+                const el = document.getElementById('loadingText');
+                if (el) el.textContent = msg;
+                await delay(ms);
+            };
+
+            await updateMsg("📊 거래 데이터 스캔 중...", 800);
+            await updateMsg("🔍 매물대 분포 계산 중...", 800);
+            await updateMsg("✅ 분석 완료!", 500);
+
+            // 2. Get Data
+            let ticker = null;
+            const pathSegments = window.location.pathname.split('/');
+            ticker = pathSegments[pathSegments.length - 1];
+            if (!ticker) ticker = pathSegments[pathSegments.length - 2];
+            if (!ticker && window.location.search) ticker = new URLSearchParams(window.location.search).get('ticker');
+            if (ticker) ticker = ticker.toUpperCase();
+
+            const stockData = (window.allData || []).find(d => d.ticker === ticker);
+            let currentPrice = window.currentStockPrice;
+            if (stockData) currentPrice = stockData.current_price;
+
+            if (!currentPrice) {
+                resultDiv.innerHTML = `
+                    <div class="flex-1 flex flex-col items-center justify-center text-center p-6">
+                        <div class="text-red-400 font-bold mb-4">데이터 로드 실패</div>
+                        <button onclick="resetAnalysis()" class="text-sm text-gray-400 underline">돌아가기</button>
+                    </div>`;
+                return;
+            }
+
+            // 3. Calculation
+            const pnlPercent = ((currentPrice - avgPrice) / avgPrice * 100);
+            const targetPrice = stockData?.consensus?.target_price?.mean || (currentPrice * 1.15);
+
+            // Volume Profile Logic
+            let myRank = 50;
+            let peakPrice = currentPrice;
+            let totalVolume = 0;
+            const vp = stockData?.volume_profile;
+            const buckets = vp?.buckets;
+            if (buckets) {
+                let volumeAboveMe = 0;
+                totalVolume = 0; // Reset to strict bucket sum
+                let maxVol = 0;
+                Object.entries(buckets).forEach(([pStr, vol]) => {
+                    const price = Number(pStr);
+                    totalVolume += vol;
+                    if (price > avgPrice) volumeAboveMe += vol;
+                    if (vol > maxVol) { maxVol = vol; peakPrice = price; }
+                });
+                // Removed: if (vp.total_volume) totalVolume = vp.total_volume;  <-- Corrects the ratio issue
+
+                if (totalVolume > 0) {
+                    // Logic: Higher volume above me = Worse entry = High Rank Number?
+                    // No. volumeAboveMe/totalVolume = % worse than me.
+                    // If 90% is worse (above), I am Top 10%.
+                    // myRank should be 10.
+                    // volumeAboveMe includes prices > avgPrice (higher).
+                    // If I buy low, most prices are > avgPrice. volumeAboveMe is HIGH.
+                    // If volumeAboveMe is 100% of volume.
+                    // myRank = 100 - 100 = 0 (Top 1%). Correct.
+                    myRank = 100 - (volumeAboveMe / totalVolume * 100);
+                }
             } else {
-                flipCard.classList.remove('flipped');
-                slider?.classList.remove('right');
-                tabChart.classList.add('active');
-                tabAnalysis.classList.remove('active');
+                const diff = (avgPrice - currentPrice) / currentPrice;
+                // If diff is negative (My Price < Current Price), I am in profit.
+                // Better entry -> Lower Rank number.
+                myRank = 50 + (diff * 100);
+            }
+            if (myRank < 1) myRank = 1.0;
+            if (myRank > 99) myRank = 99.0;
+
+            // 4. Case Determination
+            let tier = 'LOSS';
+            if (pnlPercent >= 30) tier = 'MEGA_PROFIT';
+            else if (pnlPercent >= 10) tier = 'PROFIT';
+            else if (pnlPercent >= 0) tier = 'SMALL_PROFIT';
+            else if (pnlPercent >= -10) tier = 'SMALL_LOSS';
+            else if (pnlPercent >= -30) tier = 'LOSS';
+            else tier = 'MEGA_LOSS';
+
+            let rankTier = 'bottom';
+            if (myRank <= 20) rankTier = 'top';
+            else if (myRank <= 50) rankTier = 'mid';
+
+            const msgObj = ANALYSIS_MESSAGES[tier][rankTier];
+            const upside = ((targetPrice - currentPrice) / currentPrice * 100).toFixed(1);
+            const formattedRank = myRank.toFixed(1);
+            const formattedPnl = Math.abs(pnlPercent).toFixed(2);
+
+            const title = msgObj.title;
+            const sub = msgObj.sub
+                .replace('{rank}', formattedRank)
+                .replace('{pnl}', formattedPnl)
+                .replace('${peak}', `$${peakPrice}`)
+                .replace('{upside}', upside)
+                .replace('${target}', `$${targetPrice.toFixed(2)}`);
+
+            const isPlus = pnlPercent >= 0;
+            const mainColor = isPlus ? 'text-[#ff3b30]' : 'text-[#007aff]'; // TradingView Red/Blue
+            const sign = isPlus ? '+' : '';
+            const badgeColor = isPlus ? 'bg-[#ff3b30]/10 text-[#ff3b30] border-[#ff3b30]/30' : 'bg-[#007aff]/10 text-[#007aff] border-[#007aff]/30';
+
+            // 5. Render Result (Overlay UI - No Scroll, Compact)
+            resultDiv.innerHTML = `
+                <!-- Header (Fixed) -->
+                <div class="flex items-center justify-between p-4 border-b border-gray-800 bg-[#1c1c21] shrink-0">
+                    <button onclick="resetAnalysis()" class="text-gray-400 hover:text-white transition flex items-center gap-1 group">
+                        <svg class="w-5 h-5 group-hover:-translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        <span class="text-sm font-bold">다시 입력</span>
+                    </button>
+                    <div class="text-xs font-bold text-gray-500">NASPICK AI ✨</div>
+                </div>
+
+                <!-- Main Content (Flex Column) -->
+                <div class="flex-1 flex flex-col justify-between p-5 overflow-hidden">
+                    
+                    <!-- 1. Emoji & Title -->
+                    <div class="flex flex-col items-center justify-center animate-fade-in-up mt-1">
+                        <div class="text-5xl mb-6 drop-shadow-2xl grayscale-0">${msgObj.emoji}</div>
+                        <h2 class="text-3xl font-black text-white text-center leading-tight mb-2 tracking-tight">${title}</h2>
+                    </div>
+
+                    <!-- 2. Message Box -->
+                    <div class="bg-[#1c1c21] rounded-xl p-4 border border-gray-800 relative overflow-hidden shadow-lg animate-fade-in-up" style="animation-delay: 0.1s;">
+                        <div class="absolute top-0 left-0 w-1 h-full ${isPlus ? 'bg-[#ff3b30]' : 'bg-[#007aff]'}"></div>
+                        <p class="text-gray-300 text-sm font-medium leading-relaxed text-center break-keep">"${sub}"</p>
+                    </div>
+
+                    <!-- 3. Stats Grid (Rank | PnL) -->
+                    <div class="grid grid-cols-2 gap-3 animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="bg-[#1c1c21] rounded-xl p-3 border border-gray-800 text-center flex flex-col justify-center">
+                            <div class="text-[10px] text-gray-500 font-bold mb-1">상위(Rank)</div>
+                            <div class="inline-flex items-center justify-center px-2 py-0.5 rounded text-sm font-bold ${badgeColor}">
+                                Top ${formattedRank}%
+                            </div>
+                        </div>
+                        <div class="bg-[#1c1c21] rounded-xl p-3 border border-gray-800 text-center flex flex-col justify-center">
+                            <div class="text-[10px] text-gray-500 font-bold mb-1">수익률(PnL)</div>
+                            <div class="text-2xl font-black ${mainColor} font-mono tracking-tight">${sign}${formattedPnl}%</div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Search Section (Bottom) -->
+                    <div class="border-t border-gray-800 pt-4 animate-fade-in-up" style="animation-delay: 0.3s;">
+                        <h4 class="text-sm font-bold text-gray-400 mb-3 text-center">🤔 내 다른 종목은 괜찮을까?</h4>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                            <input type="text" placeholder="종목 검색 (예: 테슬라, Apple)" onkeyup="handleAnalysisSearch(this)"
+                                class="w-full bg-[#1c1c21] border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white focus:border-[#2962ff] focus:ring-1 focus:ring-[#2962ff] transition-colors outline-none font-bold placeholder-gray-600">
+                            <!-- Dropdown -->
+                            <div id="analysisSearchResults" class="absolute bottom-full left-0 right-0 mb-2 bg-[#2a2a35] border border-gray-700 rounded-lg shadow-xl hidden max-h-40 overflow-y-auto z-50"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function resetAnalysis() {
+            const resultDiv = document.getElementById('analysisResult');
+            if (resultDiv) {
+                resultDiv.classList.add('hidden');
+                resultDiv.innerHTML = '';
             }
         }
 
-        // Average Price Analysis (Placeholder - shell only)
-        function analyzeAvgPrice() {
-            const avgPrice = parseFloat(document.getElementById('avgPriceInput').value);
-            const quantity = parseFloat(document.getElementById('quantityInput').value);
-            const resultDiv = document.getElementById('analysisResult');
+        // --- Shared Hangul Search Helpers ---
+        const getChosung = (str) => {
+            const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+            let result = "";
+            for (let i = 0; i < str.length; i++) {
+                const code = str.charCodeAt(i) - 44032;
+                if (code > -1 && code < 11172) {
+                    result += chosung[Math.floor(code / 588)];
+                } else {
+                    result += str.charAt(i);
+                }
+            }
+            return result;
+        };
 
-            if (!avgPrice || avgPrice <= 0) {
-                alert('평균 매수가를 입력해주세요.');
+        const getJamo = (str) => {
+            const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+            const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
+            const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+
+            let result = "";
+            for (let i = 0; i < str.length; i++) {
+                const code = str.charCodeAt(i) - 44032;
+                if (code > -1 && code < 11172) {
+                    const c = Math.floor(code / 588);
+                    const j = Math.floor((code % 588) / 28);
+                    const k = code % 28;
+                    result += chosung[c] + jungsung[j];
+                    if (k > 0) result += jongsung[k];
+                } else {
+                    result += str.charAt(i);
+                }
+            }
+            return result;
+        };
+
+        const decomposeHangul = (str) => {
+            const doubleConsonants = {
+                'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
+                'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
+            };
+            return str.split('').map(char => doubleConsonants[char] || char).join('');
+        };
+
+        const normalizeStr = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
+
+        // Helper to check data availability
+        function getSearchData() {
+            return window.allData || [];
+        }
+
+        function handleAnalysisSearch(input) {
+            // Force focus to keep keyboard open on mobile
+            // input.focus(); 
+
+            const term = input.value.trim().toLowerCase().replace(/\s+/g, '');
+            const resultsDiv = document.getElementById('analysisSearchResults');
+            const data = getSearchData();
+
+            if (!term) {
+                resultsDiv.classList.add('hidden');
+                resultsDiv.innerHTML = '';
                 return;
             }
 
-            // 현재가 가져오기 (페이지에서)
-            const currentPriceText = document.querySelector('.font-mono')?.textContent;
-            const currentPrice = parseFloat(currentPriceText?.replace('$', '')) || 0;
+            // Determine Combined/Chosung/Jamo Search Mode
+            const hasHangulSyllable = /[가-힣]/.test(term);
+            let matches = [];
 
-            if (!currentPrice) {
-                alert('현재가를 불러올 수 없습니다.');
-                return;
+            if (hasHangulSyllable) {
+                const jamoTerm = getJamo(term);
+                matches = data.filter(d => {
+                    const normName = normalizeStr(d.name);
+                    return d.ticker.toLowerCase().includes(term) ||
+                        normName.includes(term) ||
+                        getJamo(normName).includes(jamoTerm) ||
+                        (d.name_en && normalizeStr(d.name_en).includes(term));
+                }).slice(0, 5);
+            } else {
+                const normalizedTerm = decomposeHangul(term);
+                const chosungTerm = getChosung(normalizedTerm);
+                matches = data.filter(d =>
+                    d.ticker.toLowerCase().includes(term) ||
+                    normalizeStr(d.name).includes(normalizedTerm) ||
+                    getChosung(normalizeStr(d.name)).includes(chosungTerm) ||
+                    (d.name && d.name.toLowerCase().includes(term)) ||
+                    normalizeStr(d.name_en).includes(normalizedTerm) ||
+                    (d.name_en && d.name_en.toLowerCase().includes(term))
+                ).slice(0, 5);
             }
 
-            const pnlPercent = ((currentPrice - avgPrice) / avgPrice * 100).toFixed(2);
-            const pnlAmount = quantity ? ((currentPrice - avgPrice) * quantity).toFixed(2) : null;
-            const isProfit = pnlPercent >= 0;
-            const color = isProfit ? 'text-green-400' : 'text-red-400';
-            const sign = isProfit ? '+' : '';
-
-            resultDiv.innerHTML = `
-                <div class="text-center">
-                    <div class="text-gray-400 text-sm mb-2">현재 손익률</div>
-                    <div class="text-3xl font-bold ${color}">${sign}${pnlPercent}%</div>
-                    ${pnlAmount ? `<div class="text-lg ${color} mt-1">${sign}$${pnlAmount}</div>` : ''}
-                    <div class="text-xs text-gray-500 mt-3">현재가 $${currentPrice} / 평단가 $${avgPrice}</div>
-                </div>
-            `;
-            resultDiv.classList.remove('hidden');
+            if (matches.length === 0) {
+                resultsDiv.innerHTML = '<div class="p-3 text-center text-gray-500 text-xs">검색 결과가 없습니다</div>';
+            } else {
+                resultsDiv.innerHTML = matches.map(d => {
+                    const isUp = d.change_pct >= 0;
+                    return `
+                        <a href="/stock/${d.ticker}" class="flex items-center justify-between p-3 hover:bg-gray-700 transition cursor-pointer border-b border-gray-700 last:border-0 text-decoration-none">
+                            <div class="flex items-center gap-2">
+                                <div class="font-bold text-white text-sm">${d.ticker}</div>
+                                <div class="text-xs text-gray-400 truncate max-w-[100px]">${d.name}</div>
+                            </div>
+                            <div class="text-xs font-bold ${isUp ? 'text-red-400' : 'text-blue-400'}">${isUp ? '+' : ''}${d.change_pct}%</div>
+                        </a>
+                    `;
+                }).join('');
+            }
+            resultsDiv.classList.remove('hidden');
         }
 
 
@@ -1456,60 +1774,17 @@ function analyzeAvgPrice() {
             const input = document.getElementById('headerSearch');
             const resultsDiv = document.getElementById('headerSearchResults');
 
+            // Expose allData globally for Analysis Search
+            if (typeof allData !== 'undefined') {
+                window.allData = allData;
+            }
+
             input.addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase().replace(/\s+/g, ''); // Remove spaces
                 if (!term) {
                     resultsDiv.classList.add('hidden');
                     return;
                 }
-
-                // Korean Chosung Helper
-                const getChosung = (str) => {
-                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-                    let result = "";
-                    for (let i = 0; i < str.length; i++) {
-                        const code = str.charCodeAt(i) - 44032;
-                        if (code > -1 && code < 11172) {
-                            result += chosung[Math.floor(code / 588)];
-                        } else {
-                            result += str.charAt(i);
-                        }
-                    }
-                    return result;
-                };
-
-                // New: Jamo Helper
-                const getJamo = (str) => {
-                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-                    const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
-                    const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-
-                    let result = "";
-                    for (let i = 0; i < str.length; i++) {
-                        const code = str.charCodeAt(i) - 44032;
-                        if (code > -1 && code < 11172) {
-                            const c = Math.floor(code / 588);
-                            const j = Math.floor((code % 588) / 28);
-                            const k = code % 28;
-                            result += chosung[c] + jungsung[j];
-                            if (k > 0) result += jongsung[k];
-                        } else {
-                            result += str.charAt(i);
-                        }
-                    }
-                    return result;
-                };
-
-                // Helper: Decompose Compound Consonants
-                const decomposeHangul = (str) => {
-                    const doubleConsonants = {
-                        'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
-                        'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
-                    };
-                    return str.split('').map(char => doubleConsonants[char] || char).join('');
-                };
-
-                const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
 
                 // Determine Search Mode
                 const hasHangulSyllable = /[가-힣]/.test(term);
@@ -1520,11 +1795,11 @@ function analyzeAvgPrice() {
                     const jamoTerm = getJamo(term);
 
                     matches = allData.filter(d => {
-                        const normName = normalize(d.name);
+                        const normName = normalizeStr(d.name);
                         return d.ticker.toLowerCase().includes(term) ||
                             normName.includes(term) ||
                             getJamo(normName).includes(jamoTerm) ||
-                            (d.name_en && normalize(d.name_en).includes(term));
+                            (d.name_en && normalizeStr(d.name_en).includes(term));
                     }).slice(0, 5);
 
                 } else {
@@ -1534,10 +1809,10 @@ function analyzeAvgPrice() {
 
                     matches = allData.filter(d =>
                         d.ticker.toLowerCase().includes(term) ||
-                        normalize(d.name).includes(normalizedTerm) ||
-                        getChosung(normalize(d.name)).includes(chosungTerm) ||
+                        normalizeStr(d.name).includes(normalizedTerm) ||
+                        getChosung(normalizeStr(d.name)).includes(chosungTerm) ||
                         (d.name && d.name.toLowerCase().includes(term)) ||
-                        normalize(d.name_en).includes(normalizedTerm) ||
+                        normalizeStr(d.name_en).includes(normalizedTerm) ||
                         (d.name_en && d.name_en.toLowerCase().includes(term))
                     ).slice(0, 5);
                 }

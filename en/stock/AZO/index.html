@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AZO Stock Price Forecast & Target | AutoZone AI Analysis - NASPICK</title>
-    <meta name="description" content="[2026-02-03] AutoZone (AZO) stock price target and AI analysis. Check AutoZone's investment rating and real-time tier score.">
+    <meta name="description" content="[2026-02-04] AutoZone (AZO) stock price target and AI analysis. Check AutoZone's investment rating and real-time tier score.">
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -27,14 +27,14 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="NASPICK">
     <meta property="og:title" content="AZO Stock Price Forecast & Target | AutoZone AI Analysis - NASPICK">
-    <meta property="og:description" content="[2026-02-03] AutoZone (AZO) stock price target and AI analysis. Check AutoZone's investment rating and real-time tier score.">
+    <meta property="og:description" content="[2026-02-04] AutoZone (AZO) stock price target and AI analysis. Check AutoZone's investment rating and real-time tier score.">
     <meta property="og:url" content="https://naspick.com/en/stock/AZO">
     <meta property="og:image" content="https://financialmodelingprep.com/image-stock/AZO.png">
 
     <!-- Twitter Card (Default, updated dynamically via JS) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="AZO Stock Price Forecast & Target | AutoZone AI Analysis - NASPICK">
-    <meta name="twitter:description" content="[2026-02-03] AutoZone (AZO) stock price target and AI analysis. Check AutoZone's investment rating and real-time tier score.">
+    <meta name="twitter:description" content="[2026-02-04] AutoZone (AZO) stock price target and AI analysis. Check AutoZone's investment rating and real-time tier score.">
     <meta name="twitter:image" content="https://financialmodelingprep.com/image-stock/AZO.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -58,6 +58,11 @@
 
         .stat-bar {
             animation: loadBar 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        /* Fix: Slider Animation Class */
+        #segmentSlider.right {
+            transform: translateX(100%);
         }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643020932469823"
@@ -118,8 +123,67 @@
         </div>
     </main>
 
+
     <script>
         let allData = [];
+
+        function renderFlipCard(data) {
+            return `
+                <div class="flip-card-container">
+                    <!-- Tab Controller -->
+                    <div class="relative w-[300px] h-11 bg-[#1c1c21] rounded-full p-1 mx-auto mb-6 flex items-center shadow-inner border border-gray-800 select-none">
+                        <div id="segmentSlider" class="absolute left-1 top-1 w-[146px] h-9 bg-[#2962ff] rounded-full shadow-[0_0_15px_rgba(41,98,255,0.4)] transition-all duration-300 ease-out z-0"></div>
+                        <button onclick="toggleFlipCard(false)" id="tabAnalysis" class="flex-1 relative z-10 text-xs font-bold text-white text-center transition-colors h-full flex items-center justify-center active">💰 Analysis</button>
+                        <button onclick="toggleFlipCard(true)" id="tabChart" class="flex-1 relative z-10 text-xs font-bold text-gray-400 text-center transition-colors h-full flex items-center justify-center">📊 Chart</button>
+                    </div>
+
+                    <!-- Content Area (Fixed Height) -->
+                    <div class="relative w-full h-[540px] bg-[#131722] rounded-2xl border border-gray-800 overflow-hidden shadow-2xl">
+
+                        <!-- View 1: Analysis (Default: Visible) -->
+                        <div id="viewAnalysis" class="absolute inset-0 w-full h-full z-20 bg-[#131722] flex flex-col">
+                            <!-- Gradient Header -->
+                            <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#2962ff]/10 to-transparent pointer-events-none"></div>
+
+                            <!-- Input Content -->
+                            <div class="relative z-10 flex-1 flex flex-col items-center justify-center p-8 text-center">
+                                <h3 class="text-2xl font-black text-white mb-2 tracking-tight">💰 Position Analysis</h3>
+                                <p class="text-gray-400 text-sm mb-10 font-medium">Enter your average price for AI diagnosis</p>
+                                
+                                <div class="w-full max-w-xs space-y-6">
+                                    <div class="relative group">
+                                        <input type="number" id="avgPriceInput" placeholder=" " 
+                                            class="peer w-full bg-[#1c1c21] border border-gray-700 rounded-xl px-4 pt-6 pb-2 text-white text-xl font-bold font-mono outline-none focus:border-[#2962ff] focus:ring-1 focus:ring-[#2962ff] transition-all shadow-inner text-center">
+                                        <label class="absolute text-gray-500 text-xs font-bold top-2 left-0 right-0 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-[#2962ff]">Average Cost ($)</label>
+                                    </div>
+
+                                    <button onclick="analyzeAvgPrice()" 
+                                        class="w-full bg-gradient-to-r from-[#2962ff] to-[#0039cb] hover:from-[#448aff] hover:to-[#2962ff] text-white font-bold py-4 rounded-xl shadow-[0_10px_20px_rgba(41,98,255,0.3)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 group">
+                                        <span>Start Analysis</span>
+                                        <svg class="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                                    </button>
+                                    
+                                    <p class="text-[10px] text-gray-500 text-center bg-[#1c1c21] py-2 px-3 rounded-lg border border-gray-800">
+                                        * Analysis based on 4-year Volume Profile
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Result Overlay (Hidden Default) -->
+                            <div id="analysisResult" class="absolute inset-0 bg-[#131722] z-30 hidden flex flex-col animate-fade-in">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- View 2: Chart (Default: Hidden) -->
+                        <div id="viewChart" class="absolute inset-0 w-full h-full z-10 hidden bg-[#131722]">
+                            <div id="tv_chart_container" class="w-full h-full"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
 
         // Korean to English sector mapping
         const SECTOR_KR_TO_EN = {
@@ -306,6 +370,8 @@
         }
 
         function renderPage(data) {
+            window.currentStockPrice = data.current_price;
+
             const SECTOR_SLUGS = {
                 "기술": "technology",
                 "커뮤니케이션": "communication",
@@ -746,7 +812,8 @@
                     
                     <div class="lg:col-span-2 flex flex-col gap-6 lg:gap-4">
                         
-                        <div id="tv_chart_container" class="bg-[#282830] rounded-xl border border-gray-800 h-[500px] relative overflow-hidden group"></div>
+                        <!-- Flip Card Container -->
+                        ${renderFlipCard(data)}
 
                         <!-- Wall St. Consensus (Desktop Only) -->
                         <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 hidden lg:block">
@@ -1399,6 +1466,59 @@
             };
         }
 
+
+
+        // --- Shared Search Helpers (Global) ---
+        const getChosung = (str) => {
+            const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+            let result = "";
+            for (let i = 0; i < str.length; i++) {
+                const code = str.charCodeAt(i) - 44032;
+                if (code > -1 && code < 11172) {
+                    result += chosung[Math.floor(code / 588)];
+                } else {
+                    result += str.charAt(i);
+                }
+            }
+            return result;
+        };
+
+        const getJamo = (str) => {
+            const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+            const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
+            const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+
+            let result = "";
+            for (let i = 0; i < str.length; i++) {
+                const code = str.charCodeAt(i) - 44032;
+                if (code > -1 && code < 11172) {
+                    const c = Math.floor(code / 588);
+                    const j = Math.floor((code % 588) / 28);
+                    const k = code % 28;
+                    result += chosung[c] + jungsung[j];
+                    if (k > 0) result += jongsung[k];
+                } else {
+                    result += str.charAt(i);
+                }
+            }
+            return result;
+        };
+
+        const decomposeHangul = (str) => {
+            const doubleConsonants = {
+                'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
+                'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
+            };
+            return str.split('').map(char => doubleConsonants[char] || char).join('');
+        };
+
+        const normalizeStr = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
+
+        // Helper to check data availability
+        function getSearchData() {
+            return window.allData || [];
+        }
+
         function renderFavoriteButton(container, isFav) {
             container.innerHTML = `
                 <button class="transition hover:scale-110 p-1 group">
@@ -1414,60 +1534,17 @@
             const input = document.getElementById('headerSearch');
             const resultsDiv = document.getElementById('headerSearchResults');
 
+            // Expose allData globally for Analysis Search
+            if (typeof allData !== 'undefined') {
+                window.allData = allData;
+            }
+
             input.addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase().replace(/\s+/g, '');
                 if (!term) {
                     resultsDiv.classList.add('hidden');
                     return;
                 }
-
-                const getChosung = (str) => {
-                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-                    let result = "";
-                    for (let i = 0; i < str.length; i++) {
-                        const code = str.charCodeAt(i) - 44032;
-                        if (code > -1 && code < 11172) {
-                            result += chosung[Math.floor(code / 588)];
-                        } else {
-                            result += str.charAt(i);
-                        }
-                    }
-                    return result;
-                };
-
-                // New: Jamo Helper
-                const getJamo = (str) => {
-                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-                    const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
-                    const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-
-                    let result = "";
-                    for (let i = 0; i < str.length; i++) {
-                        const code = str.charCodeAt(i) - 44032;
-                        if (code > -1 && code < 11172) {
-                            const c = Math.floor(code / 588);
-                            const j = Math.floor((code % 588) / 28);
-                            const k = code % 28;
-                            result += chosung[c] + jungsung[j];
-                            if (k > 0) result += jongsung[k];
-                        } else {
-                            result += str.charAt(i);
-                        }
-                    }
-                    return result;
-                };
-
-
-                // Helper: Decompose
-                const decomposeHangul = (str) => {
-                    const doubleConsonants = {
-                        'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
-                        'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
-                    };
-                    return str.split('').map(char => doubleConsonants[char] || char).join('');
-                };
-
-                const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
 
                 // Determine Search Mode
                 const hasHangulSyllable = /[가-힣]/.test(term);
@@ -1476,23 +1553,21 @@
                 if (hasHangulSyllable) {
                     const jamoTerm = getJamo(term);
                     matches = allData.filter(d => {
-                        const normName = normalize(d.name);
-                        // Note: For English site, d.name is Korean name. d.name_en is English.
-                        // We check both.
+                        const normName = normalizeStr(d.name);
                         return d.ticker.toLowerCase().includes(term) ||
                             normName.includes(term) ||
                             getJamo(normName).includes(jamoTerm) ||
-                            (d.name_en && normalize(d.name_en).includes(term));
+                            (d.name_en && normalizeStr(d.name_en).includes(term));
                     }).slice(0, 5);
                 } else {
                     const normalizedTerm = decomposeHangul(term);
                     const chosungTerm = getChosung(normalizedTerm);
                     matches = allData.filter(d =>
                         d.ticker.toLowerCase().includes(term) ||
-                        normalize(d.name).includes(normalizedTerm) ||
-                        getChosung(normalize(d.name)).includes(chosungTerm) ||
+                        normalizeStr(d.name).includes(normalizedTerm) ||
+                        getChosung(normalizeStr(d.name)).includes(chosungTerm) ||
                         (d.name && d.name.toLowerCase().includes(term)) ||
-                        normalize(d.name_en).includes(normalizedTerm) ||
+                        normalizeStr(d.name_en).includes(normalizedTerm) ||
                         (d.name_en && d.name_en.toLowerCase().includes(term))
                     ).slice(0, 5);
                 }
@@ -1534,6 +1609,330 @@
                     resultsDiv.classList.add('hidden');
                 }
             });
+        }
+
+        // --- 3D Flip Card Logic ---
+        // --- 3D Flip Card Logic ---
+        function toggleFlipCard(showChart) {
+            const viewAnalysis = document.getElementById('viewAnalysis');
+            const viewChart = document.getElementById('viewChart');
+            const slider = document.getElementById('segmentSlider');
+            const tabAnalysis = document.getElementById('tabAnalysis');
+            const tabChart = document.getElementById('tabChart');
+
+            if (showChart) {
+                // Show Chart
+                viewAnalysis.classList.add('hidden');
+                viewAnalysis.style.display = 'none';
+                viewChart.classList.remove('hidden');
+                viewChart.style.display = 'block';
+
+                // UI Update
+                slider.classList.add('right');
+                tabAnalysis.classList.remove('active', 'text-white');
+                tabAnalysis.classList.add('text-gray-400');
+                tabChart.classList.add('active', 'text-white');
+                tabChart.classList.remove('text-gray-400');
+            } else {
+                // Show Analysis
+                viewAnalysis.classList.remove('hidden');
+                viewAnalysis.style.display = 'flex';
+                viewChart.classList.add('hidden');
+                viewChart.style.display = 'none';
+
+                // UI Update
+                slider.classList.remove('right');
+                tabAnalysis.classList.add('active', 'text-white');
+                tabAnalysis.classList.remove('text-gray-400');
+                tabChart.classList.remove('active', 'text-white');
+                tabChart.classList.add('text-gray-400');
+            }
+        }
+
+        // --- Average Price Analysis Logic (English) ---
+        const ANALYSIS_MESSAGES = {
+            MEGA_PROFIT: {
+                top: { emoji: "🐋", title: "Are you a Whale?", sub: "Top {rank}%! With {pnl}% profit... Are you an institutional investor?" },
+                mid: { emoji: "🏆", title: "Legendary Entry", sub: "While others are stuck at ${peak}, you are celebrating." },
+                bottom: { emoji: "🎯", title: "Timing Master", sub: "Perfect timing. A bit earlier and you'd be Warren Buffett!" }
+            },
+            PROFIT: {
+                top: { emoji: "💎", title: "Diamond Hands", sub: "Top {rank}%! Enjoy the comfort of a solid position." },
+                mid: { emoji: "😎", title: "Doing Great", sub: "You bought cheaper than average. Treat yourself to a coffee." },
+                bottom: { emoji: "👍", title: "Above Average", sub: "Better entry than the peak volume at ${peak}. Good job!" }
+            },
+            SMALL_PROFIT: {
+                top: { emoji: "🙂", title: "Good Start", sub: "Top {rank}%! Just getting started. Hold tight." },
+                mid: { emoji: "⚖️", title: "Holding Steady", sub: "Still close to the edge. Watch the trend while eating popcorn." },
+                bottom: { emoji: "😐", title: "Stay Alert", sub: "In profit, but too early to relax. Keep watching." }
+            },
+            SMALL_LOSS: {
+                top: { emoji: "💪", title: "Still Hopeful", sub: "Loss, but Top {rank}%! Much better than those at ${peak}." },
+                mid: { emoji: "🤝", title: "Many Comrades", sub: "You are near the most crowded price level (${peak}). You are not alone." },
+                bottom: { emoji: "😅", title: "Hold On", sub: "+{upside}% left to Wall St target. Patience pays off." }
+            },
+            LOSS: {
+                top: { emoji: "🩹", title: "Can Survive", sub: "Top {rank}%... It hurts, but could be worse." },
+                mid: { emoji: "😰", title: "FOMO Victim?", sub: "Did you buy the pump? Still, there is hope." },
+                bottom: { emoji: "😭", title: "Painful Zone", sub: "Tough times. But let's believe in the target price ${target}." }
+            },
+            MEGA_LOSS: {
+                top: { emoji: "🆘", title: "Still Top Tier", sub: "{pnl}% loss but Top {rank}%... Others are suffering more." },
+                mid: { emoji: "💀", title: "Shared Pain", sub: "Many comrades are suffering with you. Stay strong." },
+                bottom: { emoji: "☠️", title: "Need Rescue", sub: "Historic high... Even Buffett has -50% days." }
+            }
+        };
+
+        async function analyzeAvgPrice() {
+            const avgInput = document.getElementById('avgPriceInput');
+            const resultDiv = document.getElementById('analysisResult');
+
+            if (!avgInput || !resultDiv) return;
+
+            const avgPrice = parseFloat(avgInput.value);
+
+            if (!avgPrice || avgPrice <= 0) {
+                alert('Please enter a valid average price.');
+                return;
+            }
+
+            // 1. Loading Animation
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = `
+                <div class="flex-1 flex flex-col items-center justify-center h-full">
+                    <div class="w-16 h-16 border-4 border-[#2962ff]/20 border-t-[#2962ff] rounded-full animate-spin mb-6"></div>
+                    <div class="text-lg font-bold text-white mb-2 animate-pulse" id="loadingText">Analyzing Data...</div>
+                    <div class="text-xs text-gray-500">Checking 4-year Volume Profile</div>
+                </div>
+            `;
+
+            const delay = (ms) => new Promise(r => setTimeout(r, ms));
+            const updateMsg = async (msg, ms) => {
+                const el = document.getElementById('loadingText');
+                if (el) el.textContent = msg;
+                await delay(ms);
+            };
+
+            await updateMsg("📊 Scanning trade data...", 800);
+            await updateMsg("🔍 Calculating volume profile...", 800);
+            await updateMsg("✅ Diagnosis Complete!", 500);
+
+            // 2. Get Data
+            let ticker = null;
+            const pathSegments = window.location.pathname.split('/');
+            ticker = pathSegments[pathSegments.length - 1];
+            if (!ticker) ticker = pathSegments[pathSegments.length - 2];
+            if (!ticker && window.location.search) ticker = new URLSearchParams(window.location.search).get('ticker');
+            if (ticker) ticker = ticker.toUpperCase();
+
+            const stockData = (window.allData || []).find(d => d.ticker === ticker);
+            let currentPrice = window.currentStockPrice;
+            if (stockData) currentPrice = stockData.current_price;
+
+            if (!currentPrice) {
+                resultDiv.innerHTML = `
+                    <div class="flex-1 flex flex-col items-center justify-center text-center p-6">
+                        <div class="text-red-400 font-bold mb-4">Data Load Failed</div>
+                        <button onclick="resetAnalysis()" class="text-sm text-gray-400 underline">Go Back</button>
+                    </div>`;
+                return;
+            }
+
+            // 3. Calculation
+            const pnlPercent = ((currentPrice - avgPrice) / avgPrice * 100);
+            const targetPrice = stockData?.consensus?.target_price?.mean || (currentPrice * 1.15);
+
+            // Volume Profile Logic
+            let myRank = 50;
+            let peakPrice = currentPrice;
+            let totalVolume = 0;
+            const vp = stockData?.volume_profile;
+            const buckets = vp?.buckets;
+            if (buckets) {
+                let volumeAboveMe = 0;
+                totalVolume = 0; // Reset to strict bucket sum
+                let maxVol = 0;
+                Object.entries(buckets).forEach(([pStr, vol]) => {
+                    const price = Number(pStr);
+                    totalVolume += vol;
+                    if (price > avgPrice) volumeAboveMe += vol;
+                    if (vol > maxVol) { maxVol = vol; peakPrice = price; }
+                });
+
+                if (totalVolume > 0) {
+                    // volumeAboveMe: Volume at prices HIGHER than avgPrice (Bad entry for them, good for me)
+                    // If I buy at bottom, volumeAboveMe is nearly 100% (everyone bought higher).
+                    // Ratio -> 1.0
+                    // myRank = 100 - 100 = 0 (Top 1%). Correct.
+                    myRank = 100 - (volumeAboveMe / totalVolume * 100);
+                }
+            } else {
+                const diff = (avgPrice - currentPrice) / currentPrice;
+                // If diff is negative (My Price < Current Price), I am in profit.
+                // Better entry -> Lower Rank number.
+                myRank = 50 + (diff * 100);
+            }
+            if (myRank < 1) myRank = 1.0;
+            if (myRank > 99) myRank = 99.0;
+
+            // 4. Case Determination
+            let tier = 'LOSS';
+            if (pnlPercent >= 30) tier = 'MEGA_PROFIT';
+            else if (pnlPercent >= 10) tier = 'PROFIT';
+            else if (pnlPercent >= 0) tier = 'SMALL_PROFIT';
+            else if (pnlPercent >= -10) tier = 'SMALL_LOSS';
+            else if (pnlPercent >= -30) tier = 'LOSS';
+            else tier = 'MEGA_LOSS';
+
+            let rankTier = 'bottom';
+            if (myRank <= 20) rankTier = 'top';
+            else if (myRank <= 50) rankTier = 'mid';
+
+            const msgObj = ANALYSIS_MESSAGES[tier][rankTier];
+            const upside = ((targetPrice - currentPrice) / currentPrice * 100).toFixed(1);
+            const formattedRank = myRank.toFixed(1);
+            const formattedPnl = Math.abs(pnlPercent).toFixed(2);
+
+            const title = msgObj.title;
+            const sub = msgObj.sub
+                .replace('{rank}', formattedRank)
+                .replace('{pnl}', formattedPnl)
+                .replace('${peak}', `$${peakPrice}`)
+                .replace('{upside}', upside)
+                .replace('${target}', `$${targetPrice.toFixed(2)}`);
+
+            const isPlus = pnlPercent >= 0;
+            const mainColor = isPlus ? 'text-[#ff3b30]' : 'text-[#007aff]';
+            const sign = isPlus ? '+' : '';
+            const badgeColor = isPlus ? 'bg-[#ff3b30]/10 text-[#ff3b30] border-[#ff3b30]/30' : 'bg-[#007aff]/10 text-[#007aff] border-[#007aff]/30';
+
+            // 5. Render Result
+            // 5. Render Result (Overlay UI - No Scroll, Compact)
+            resultDiv.innerHTML = `
+                <!-- Header (Fixed) -->
+                <div class="flex items-center justify-between p-4 border-b border-gray-800 bg-[#1c1c21] shrink-0">
+                    <button onclick="resetAnalysis()" class="text-gray-400 hover:text-white transition flex items-center gap-1 group">
+                        <svg class="w-5 h-5 group-hover:-translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        <span class="text-sm font-bold">Try Again</span>
+                    </button>
+                    <div class="text-xs font-bold text-gray-500">NASPICK AI ✨</div>
+                </div>
+
+                <!-- Main Content (Flex Column) -->
+                <div class="flex-1 flex flex-col justify-between p-5 overflow-hidden">
+                    
+                    <!-- 1. Emoji & Title -->
+                    <div class="flex flex-col items-center justify-center animate-fade-in-up mt-1">
+                        <div class="text-5xl mb-6 drop-shadow-2xl grayscale-0">${msgObj.emoji}</div>
+                        <h2 class="text-3xl font-black text-white text-center leading-tight mb-2 tracking-tight">${title}</h2>
+                    </div>
+
+                    <!-- 2. Message Box -->
+                    <div class="bg-[#1c1c21] rounded-xl p-4 border border-gray-800 relative overflow-hidden shadow-lg animate-fade-in-up" style="animation-delay: 0.1s;">
+                        <div class="absolute top-0 left-0 w-1 h-full ${isPlus ? 'bg-[#ff3b30]' : 'bg-[#007aff]'}"></div>
+                        <p class="text-gray-300 text-sm font-medium leading-relaxed text-center break-keep">"${sub}"</p>
+                    </div>
+
+                    <!-- 3. Stats Grid (Rank | PnL) -->
+                    <div class="grid grid-cols-2 gap-3 animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="bg-[#1c1c21] rounded-xl p-3 border border-gray-800 text-center flex flex-col justify-center">
+                            <div class="text-[10px] text-gray-500 font-bold mb-1">Rank</div>
+                            <div class="inline-flex items-center justify-center px-2 py-0.5 rounded text-sm font-bold ${badgeColor}">
+                                Top ${formattedRank}%
+                            </div>
+                        </div>
+                        <div class="bg-[#1c1c21] rounded-xl p-3 border border-gray-800 text-center flex flex-col justify-center">
+                            <div class="text-[10px] text-gray-500 font-bold mb-1">PnL Rate</div>
+                            <div class="text-2xl font-black ${mainColor} font-mono tracking-tight">${sign}${formattedPnl}%</div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Search Section (Bottom) -->
+                    <div class="border-t border-gray-800 pt-4 animate-fade-in-up" style="animation-delay: 0.3s;">
+                        <h4 class="text-sm font-bold text-gray-400 mb-3 text-center">🤔 Check Other Stocks?</h4>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                            <input type="text" placeholder="Search Ticker (e.g. TSLA)" onkeyup="handleAnalysisSearch(this)"
+                                class="w-full bg-[#1c1c21] border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white focus:border-[#2962ff] focus:ring-1 focus:ring-[#2962ff] transition-colors outline-none font-bold placeholder-gray-600">
+                            <!-- Dropdown -->
+                            <div id="analysisSearchResults" class="absolute bottom-full left-0 right-0 mb-2 bg-[#2a2a35] border border-gray-700 rounded-lg shadow-xl hidden max-h-40 overflow-y-auto z-50"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function resetAnalysis() {
+            const resultDiv = document.getElementById('analysisResult');
+            if (resultDiv) {
+                resultDiv.classList.add('hidden');
+                resultDiv.innerHTML = '';
+            }
+        }
+
+        // Helper to check data availability
+        function getSearchData() {
+            return window.allData || [];
+        }
+
+        function handleAnalysisSearch(input) {
+            // Force focus to keep keyboard open on mobile
+            // input.focus(); 
+
+            const term = input.value.trim().toLowerCase().replace(/\s+/g, '');
+            const resultsDiv = document.getElementById('analysisSearchResults');
+            const data = getSearchData();
+
+            if (!term) {
+                resultsDiv.classList.add('hidden');
+                resultsDiv.innerHTML = '';
+                return;
+            }
+
+            // Determine Combined/Chosung/Jamo Search Mode
+            // For English page, we mainly focus on English search if possible, but keep Korean logic as fallback
+            const hasHangulSyllable = /[가-힣]/.test(term);
+            let matches = [];
+
+            if (hasHangulSyllable) {
+                // If user types Korean in English page
+                const jamoTerm = getJamo(term);
+                matches = data.filter(d => {
+                    const normName = normalizeStr(d.name); // Korean Name
+                    return d.ticker.toLowerCase().includes(term) ||
+                        normName.includes(term) ||
+                        getJamo(normName).includes(jamoTerm) ||
+                        (d.name_en && normalizeStr(d.name_en).includes(term));
+                }).slice(0, 5);
+            } else {
+                // English Search
+                const normalizedTerm = decomposeHangul(term);
+                matches = data.filter(d =>
+                    d.ticker.toLowerCase().includes(term) ||
+                    (d.name_en && d.name_en.toLowerCase().includes(term)) ||
+                    normalizeStr(d.name).includes(normalizedTerm)
+                ).slice(0, 5);
+            }
+
+            if (matches.length === 0) {
+                resultsDiv.innerHTML = '<div class="p-3 text-center text-gray-500 text-xs">No results found</div>';
+            } else {
+                resultsDiv.innerHTML = matches.map(d => {
+                    const isUp = d.change_pct >= 0;
+                    return `
+                        <a href="/en/stock/${d.ticker}" class="flex items-center justify-between p-3 hover:bg-gray-700 transition cursor-pointer border-b border-gray-700 last:border-0 text-decoration-none">
+                            <div class="flex items-center gap-2">
+                                <div class="font-bold text-white text-sm">${d.ticker}</div>
+                                <div class="text-xs text-gray-400 truncate max-w-[100px]">${d.name_en || d.name}</div>
+                            </div>
+                            <div class="text-xs font-bold ${isUp ? 'text-red-400' : 'text-blue-400'}">${isUp ? '+' : ''}${d.change_pct}%</div>
+                        </a>
+                    `;
+                }).join('');
+            }
+            resultsDiv.classList.remove('hidden');
         }
 
         init();
