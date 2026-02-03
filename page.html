@@ -107,19 +107,61 @@
                 14px 14px 0px 0px rgba(41, 98, 255, 0.25);
         }
 
-        /* Tab Switch Styles */
+        /* Apple/Toss Style Segmented Control */
+        .segmented-control {
+            position: relative;
+            display: flex;
+            background: #1e1e28;
+            border-radius: 12px;
+            padding: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .segment-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: #ffffff;
+            border-radius: 10px;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .segment-slider.right {
+            transform: translateX(100%);
+        }
+
         .flip-tab {
-            transition: all 0.25s ease;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .flip-tab.active {
-            background: linear-gradient(135deg, #2962ff 0%, #1e4bd8 100%);
-            color: white;
-            box-shadow: 0 0 20px rgba(41, 98, 255, 0.5);
+            color: #131722;
+        }
+
+        .flip-tab:not(.active) {
+            color: #6b7280;
         }
 
         .flip-tab:not(.active):hover {
-            background: rgba(41, 98, 255, 0.15);
+            color: #9ca3af;
         }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643020932469823"
@@ -712,12 +754,14 @@
                         
                         <!-- 3D Flip Card for Chart + Average Price Analysis -->
                         <div class="flip-card-container">
-                            <!-- Tab Switch Controller -->
-                            <div class="flex mb-3 bg-[#131722] rounded-lg p-1 border border-gray-700">
-                                <button id="tabChart" onclick="toggleFlipCard(false)" class="flip-tab active flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-md text-sm font-bold">
+                            <!-- Tab Switch Controller (Apple/Toss Style Segmented Control) -->
+                            <div class="segmented-control mb-3">
+                                <!-- Sliding Indicator -->
+                                <div id="segmentSlider" class="segment-slider"></div>
+                                <button id="tabChart" onclick="toggleFlipCard(false)" class="flip-tab active">
                                     📊 차트 보기
                                 </button>
-                                <button id="tabAnalysis" onclick="toggleFlipCard(true)" class="flip-tab flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-md text-sm font-bold text-gray-400">
+                                <button id="tabAnalysis" onclick="toggleFlipCard(true)" class="flip-tab">
                                     💰 내 평단 분석
                                 </button>
                             </div>
@@ -1326,26 +1370,25 @@
             }
         }
 
-        // 3D Flip Card Toggle
+        // 3D Flip Card Toggle with Sliding Segment Control
         function toggleFlipCard(showBack) {
             const flipCard = document.getElementById('flipCard');
             const tabChart = document.getElementById('tabChart');
             const tabAnalysis = document.getElementById('tabAnalysis');
+            const slider = document.getElementById('segmentSlider');
 
             if (!flipCard) return;
 
             if (showBack) {
                 flipCard.classList.add('flipped');
+                slider?.classList.add('right');
                 tabChart.classList.remove('active');
-                tabChart.classList.add('text-gray-400');
                 tabAnalysis.classList.add('active');
-                tabAnalysis.classList.remove('text-gray-400');
             } else {
                 flipCard.classList.remove('flipped');
+                slider?.classList.remove('right');
                 tabChart.classList.add('active');
-                tabChart.classList.remove('text-gray-400');
                 tabAnalysis.classList.remove('active');
-                tabAnalysis.classList.add('text-gray-400');
             }
         }
 
