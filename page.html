@@ -178,6 +178,7 @@
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643020932469823"
         crossorigin="anonymous"></script>
+    <script src="/js/stock-analysis.js"></script>
 </head>
 
 <body class="bg-[#1c1c1f] text-white min-h-screen flex flex-col">
@@ -1264,857 +1265,822 @@
                 기술적 분석
             </h3>
             <div class="space-y-4">
-                ${(() => {
-                const ta = data.technical_analysis || {};
-                let html = '';
+                ${renderTechnicalAnalysis(data.technical_analysis)}
+    </div>
+    </div>
 
-                // 1. Candle Pattern
-                const cp = ta.candle_pattern;
-                if (cp) {
-                const imgPath = '/images/candle_patterns/' + cp.pattern + '.png';
-                const signalColor = cp.signal === 'bullish' ? 'text-green-400' : 'text-red-400';
-                html += '<div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">' +
-                    '<div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">캔들 패턴</div>' +
-                    '<div class="flex items-center gap-3">' +
-                        '<img src="' + imgPath + '" alt="' + cp.name_kr + '" class="w-12 h-12 object-contain"
-                            onerror="this.style.display=\'none\'">' +
-                        '<div>' +
-                            '<div class="text-sm font-bold ' + signalColor + '">' + cp.name_kr + '</div>' +
-                            '<div class="text-[10px] text-gray-500">' + cp.desc + ' (' + cp.date + ')</div>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>';
-                } else {
-                html += '<div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">' +
-                    '<div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">캔들 패턴</div>' +
-                    '<div class="text-xs text-gray-500">최근 5일 내 특이 패턴 없음</div>' +
-                    '</div>';
+    <!-- Financial Health (Mobile Only) -->
+    <div class="bg-[#282830] rounded-xl border border-gray-800 p-5 block lg:hidden">
+        <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
+            <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
+                </path>
+            </svg>
+            재무 건전성 점검
+        </h3>
+        <div class="space-y-3">
+            ${financialHealthHtml}
+        </div>
+    </div>
+
+    <!-- 3. Investment Calendar HTML Generation -->
+    ${(() => {
+    const cal = data.calendar || {};
+    const earningsDate = cal.next_earnings || '미정';
+    const exDivDate = cal.ex_dividend_date || '-';
+    const payDate = cal.dividend_payment_date || '-';
+    const divAmt = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
+
+    // Earnings Logic
+    let earningsAlert = '';
+    let earningsDday = '';
+    if (earningsDate !== '미정') {
+    const todayMs = new Date().setHours(0, 0, 0, 0);
+    const targetMs = new Date(earningsDate).setHours(0, 0, 0, 0);
+    const diffDays = Math.ceil((targetMs - todayMs) / (1000 * 60 * 60 * 24));
+
+    if (diffDays >= 0 && diffDays <= 7) { earningsDday=`<span class="text-orange-400 font-bold ml-2">
+        D-${diffDays}</span>`;
+        earningsAlert = '🔔';
+        } else if (diffDays > 7 && diffDays <= 14) { earningsDday=`<span class="text-gray-400 ml-2">
+            D-${diffDays}</span>`;
+            } else if (diffDays < 0) { earningsDday=`<span class="text-gray-600 ml-2 text-[10px]">(종료)</span>`;
+                }
                 }
 
-                // 2. RSI (Gauge Chart Style)
-                const rsi = ta.rsi || { value: 50, status: 'neutral' };
-                const rsiColor = rsi.status === 'overbought' ? 'text-red-400' :
-                rsi.status === 'oversold' ? 'text-blue-400' : 'text-gray-400';
-                const rsiLabel = rsi.status === 'overbought' ? '과매수' :
-                rsi.status === 'oversold' ? '과매도' :
-                rsi.status === 'bullish' ? '강세' : '약세';
-
-                html += '<div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">' +
-                    '<div class="flex justify-between items-center mb-3">' +
-                        '<div class="text-[10px] text-gray-500 uppercase tracking-wider">RSI (14)</div>' +
-                        '<div class="' + rsiColor + ' text-xs font-bold">' + rsiLabel + '</div>' +
-                        '</div>' +
-                    '<div class="relative">' +
-                        '<div class="h-3 rounded-full overflow-hidden flex">' +
-                            '<div class="w-[30%] bg-gradient-to-r from-blue-600 to-blue-500"></div>' +
-                            '<div class="w-[40%] bg-gradient-to-r from-blue-500 via-gray-600 to-red-500"></div>' +
-                            '<div class="w-[30%] bg-gradient-to-r from-red-500 to-red-600"></div>' +
-                            '</div>' +
-                        '<div class="absolute top-0 h-3 flex items-center"
-                            style="left: ' + rsi.value + '%; transform: translateX(-50%);">' +
-                            '<div class="w-1 h-5 bg-white rounded shadow-lg shadow-white/50"></div>' +
-                            '</div>' +
-                        '<div class="flex justify-between text-[8px] text-gray-600 mt-1">' +
-                            '<span>0</span><span class="text-blue-500">30</span><span
-                                class="text-gray-400">50</span><span class="text-red-500">70</span><span>100</span>' +
-                            '</div>' +
-                        '</div>' +
-                    '<div class="text-center mt-2">' +
-                        '<span class="text-2xl font-bold ' + rsiColor + '">' + rsi.value + '</span>' +
-                        '</div>' +
-                    '</div>';
-
-                // 3. Volume
-                const vol = ta.volume || { pct_change: 0, status: 'normal' };
-                const volColor = vol.pct_change >= 0 ? 'text-red-400' : 'text-blue-400';
-                const volSign = vol.pct_change >= 0 ? '+' : '';
-
-                html += '<div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">' +
-                    '<div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">거래량 <span
-                            class="normal-case">(전일)</span></div>' +
-                    '<div class="flex items-center gap-2">' +
-                        '<div class="' + volColor + ' text-sm font-bold">평균 대비 ' + volSign + vol.pct_change + '%</div>'
-                        +
-                        '</div>' +
-                    '</div>';
-
-                return html;
-                })()}
-            </div>
-        </div>
-
-        <!-- Financial Health (Mobile Only) -->
-        <div class="bg-[#282830] rounded-xl border border-gray-800 p-5 block lg:hidden">
-            <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
-                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
-                    </path>
-                </svg>
-                재무 건전성 점검
-            </h3>
-            <div class="space-y-3">
-                ${financialHealthHtml}
-            </div>
-        </div>
-
-        <!-- 3. Investment Calendar HTML Generation -->
-        ${(() => {
-        const cal = data.calendar || {};
-        const earningsDate = cal.next_earnings || '미정';
-        const exDivDate = cal.ex_dividend_date || '-';
-        const payDate = cal.dividend_payment_date || '-';
-        const divAmt = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
-
-        // Earnings Logic
-        let earningsAlert = '';
-        let earningsDday = '';
-        if (earningsDate !== '미정') {
-        const todayMs = new Date().setHours(0, 0, 0, 0);
-        const targetMs = new Date(earningsDate).setHours(0, 0, 0, 0);
-        const diffDays = Math.ceil((targetMs - todayMs) / (1000 * 60 * 60 * 24));
-
-        if (diffDays >= 0 && diffDays <= 7) { earningsDday=`<span class="text-orange-400 font-bold ml-2">
-            D-${diffDays}</span>`;
-            earningsAlert = '🔔';
-            } else if (diffDays > 7 && diffDays <= 14) { earningsDday=`<span class="text-gray-400 ml-2">
-                D-${diffDays}</span>`;
-                } else if (diffDays < 0) { earningsDday=`<span class="text-gray-600 ml-2 text-[10px]">(종료)</span>`;
-                    }
-                    }
-
-                    // Dividend Logic Helper
-                    const getDateStatus = (dateStr) => {
-                    if (!dateStr || dateStr === '-') return '';
-                    const todayMs = new Date().setHours(0, 0, 0, 0);
-                    const targetMs = new Date(dateStr).setHours(0, 0, 0, 0);
-                    return targetMs < todayMs ? '<span class="text-gray-500 text-[10px] ml-1">(지났음)</span>'
-                        : '<span class="text-blue-400 text-[10px] ml-1">(예정)</span>' ; }; return ` <div
-                        class="bg-[#282830] rounded-xl border border-gray-800 p-5">
-                        <h4
-                            class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
-                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                </path>
-                            </svg>
-                            투자 캘린더
-                        </h4>
-                        <div class="space-y-4">
-                            <!-- Earnings -->
-                            <div>
-                                ${(() => {
-                                // 1. Earnings Logic
-                                let nextHtml = '';
-                                if (cal.next_earnings) {
-                                const todayMs = new Date().setHours(0, 0, 0, 0);
-                                const nextDate = new Date(cal.next_earnings);
-                                const nextMs = nextDate.setHours(0, 0, 0, 0);
-                                const diffDays = Math.ceil((nextMs - todayMs) / (1000 * 60 * 60 * 24));
-
-                                let dDay = '';
-                                let alert = '';
-                                const isFuture = diffDays >= 0;
-
-                                if (isFuture) {
-                                if (diffDays <= 7) { dDay=`<span class="text-orange-400 font-bold ml-2">
-                                    D-${diffDays}</span>`;
-                                    alert = '🔔';
-                                    } else if (diffDays <= 14) { dDay=`<span class="text-gray-400 ml-2">
-                                        D-${diffDays}</span>`;
-                                        }
-
-                                        nextHtml = `
-                                        <div class="text-xs text-gray-400 mb-1 flex items-center">
-                                            다음 실적 발표 ${dDay}
-                                        </div>
-                                        <div class="text-sm font-bold text-gray-200 flex items-center gap-2">
-                                            ${cal.next_earnings} ${alert}
-                                        </div>
-                                        `;
-                                        } else {
-                                        // Date passed
-                                        nextHtml = `
-                                        <div class="text-xs text-gray-400 mb-1 flex items-center">
-                                            직전 실적 발표 <span class="text-gray-600 ml-2 text-[10px]">(종료)</span>
-                                        </div>
-                                        <div class="text-sm font-bold text-gray-500 flex items-center gap-2">
-                                            ${cal.next_earnings}
-                                        </div>
-                                        `;
-                                        }
-
-                                        } else {
-                                        nextHtml = `
-                                        <div class="text-xs text-gray-400 mb-1">실적 발표</div>
-                                        <div class="text-sm text-gray-500">일정 미정</div>
-                                        `;
-                                        }
-
-                                        // 2. Past Earnings Logic (Surprise)
-                                        let pastHtml = '';
-                                        if (cal.last_earnings_date && cal.last_surprise !== undefined) {
-                                        const isBeat = cal.last_surprise > 0;
-                                        const color = isBeat ? 'text-green-400' : 'text-red-400';
-                                        const label = isBeat ? '어닝 서프라이즈' : '어닝 쇼크';
-                                        const sign = isBeat ? '+' : '';
-
-                                        pastHtml = `
-                                        <div class="mt-3 pt-3 border-t border-gray-700/50">
-                                            <div class="text-xs text-gray-400 mb-1 flex justify-between">
-                                                <span>직전 실적 (${cal.last_earnings_date})</span>
-                                                <span
-                                                    class="${color} font-bold text-[10px] bg-gray-700/50 px-1.5 rounded">${label}</span>
-                                            </div>
-                                            <div class="flex justify-between items-end">
-                                                <div class="text-[10px] text-gray-500">
-                                                    예상 ${cal.last_eps_est ? Number(cal.last_eps_est).toFixed(2) : '-'} /
-                                                    실제 <span
-                                                        class="text-gray-200 font-bold">${Number(cal.last_eps_act).toFixed(2)}</span>
-                                                </div>
-                                                <div class="${color} font-bold text-sm">
-                                                    ${sign}${Number(cal.last_surprise).toFixed(2)}%
-                                                </div>
-                                            </div>
-                                        </div>
-                                        `;
-                                        }
-
-                                        return nextHtml + pastHtml;
-                                        })()}
-                            </div>
-
-                            <div class="w-full h-px bg-gray-700/50 my-2"></div>
-
-                            <!-- Dividend -->
+                // Dividend Logic Helper
+                const getDateStatus = (dateStr) => {
+                if (!dateStr || dateStr === '-') return '';
+                const todayMs = new Date().setHours(0, 0, 0, 0);
+                const targetMs = new Date(dateStr).setHours(0, 0, 0, 0);
+                return targetMs < todayMs ? '<span class="text-gray-500 text-[10px] ml-1">(지났음)</span>'
+                    : '<span class="text-blue-400 text-[10px] ml-1">(예정)</span>' ; }; return ` <div
+                    class="bg-[#282830] rounded-xl border border-gray-800 p-5">
+                    <h4
+                        class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        투자 캘린더
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- Earnings -->
+                        <div>
                             ${(() => {
-                            const exDate = cal.ex_dividend_date;
-                            const payDate = cal.dividend_payment_date;
-                            const amount = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
-
-                            if (!exDate || exDate === '-') {
-                            return `
-                            <div>
-                                <div class="text-xs text-gray-400 mb-2">배당</div>
-                                <div class="text-xs text-gray-500 text-center py-2">배당 정보 없음</div>
-                            </div>
-                            `;
-                            }
-
+                            // 1. Earnings Logic
+                            let nextHtml = '';
+                            if (cal.next_earnings) {
                             const todayMs = new Date().setHours(0, 0, 0, 0);
-                            const targetExMs = new Date(exDate).setHours(0, 0, 0, 0);
-                            const isExFuture = targetExMs >= todayMs;
+                            const nextDate = new Date(cal.next_earnings);
+                            const nextMs = nextDate.setHours(0, 0, 0, 0);
+                            const diffDays = Math.ceil((nextMs - todayMs) / (1000 * 60 * 60 * 24));
 
-                            let label = '';
-                            let statusBadge = '';
-                            let dateColor = '';
+                            let dDay = '';
+                            let alert = '';
+                            const isFuture = diffDays >= 0;
 
-                            if (isExFuture) {
-                            // Case 1: Before Ex-Dividend Date
-                            label = '다음 배당락일';
-                            statusBadge = `<span
-                                class="text-blue-400 text-[10px] ml-1 bg-blue-500/10 px-1 rounded border border-blue-500/30">예정</span>`;
-                            dateColor = 'text-gray-200';
-                            } else {
-                            // Case 2: After Ex-Dividend Date
-                            label = '최근 배당락일';
-                            dateColor = 'text-gray-500';
+                            if (isFuture) {
+                            if (diffDays <= 7) { dDay=`<span class="text-orange-400 font-bold ml-2">
+                                D-${diffDays}</span>`;
+                                alert = '🔔';
+                                } else if (diffDays <= 14) { dDay=`<span class="text-gray-400 ml-2">
+                                    D-${diffDays}</span>`;
+                                    }
 
-                            // Check Payment Status
-                            let isPayFuture = false;
-                            if (payDate && payDate !== '-') {
-                            const targetPayMs = new Date(payDate).setHours(0, 0, 0, 0);
-                            isPayFuture = targetPayMs >= todayMs;
-                            }
+                                    nextHtml = `
+                                    <div class="text-xs text-gray-400 mb-1 flex items-center">
+                                        다음 실적 발표 ${dDay}
+                                    </div>
+                                    <div class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                                        ${cal.next_earnings} ${alert}
+                                    </div>
+                                    `;
+                                    } else {
+                                    // Date passed
+                                    nextHtml = `
+                                    <div class="text-xs text-gray-400 mb-1 flex items-center">
+                                        직전 실적 발표 <span class="text-gray-600 ml-2 text-[10px]">(종료)</span>
+                                    </div>
+                                    <div class="text-sm font-bold text-gray-500 flex items-center gap-2">
+                                        ${cal.next_earnings}
+                                    </div>
+                                    `;
+                                    }
 
-                            if (isPayFuture) {
-                            // Ex-Div passed, but Payment is future
-                            statusBadge = `<span
-                                class="text-amber-400 text-[10px] ml-1 bg-amber-500/10 px-1 rounded border border-amber-500/30">지급
-                                예정</span>`;
-                            } else {
-                            // Payment also passed
-                            statusBadge = `<span
-                                class="text-gray-500 text-[10px] ml-1 bg-gray-700/50 px-1 rounded">지급완료</span>`;
-                            }
-                            }
+                                    } else {
+                                    nextHtml = `
+                                    <div class="text-xs text-gray-400 mb-1">실적 발표</div>
+                                    <div class="text-sm text-gray-500">일정 미정</div>
+                                    `;
+                                    }
 
-                            const payDateStyle = (payDate && new Date(payDate).setHours(0, 0, 0, 0) >= todayMs) ?
-                            'text-amber-400 font-bold' : 'text-gray-500';
+                                    // 2. Past Earnings Logic (Surprise)
+                                    let pastHtml = '';
+                                    if (cal.last_earnings_date && cal.last_surprise !== undefined) {
+                                    const isBeat = cal.last_surprise > 0;
+                                    const color = isBeat ? 'text-green-400' : 'text-red-400';
+                                    const label = isBeat ? '어닝 서프라이즈' : '어닝 쇼크';
+                                    const sign = isBeat ? '+' : '';
 
-                            return `
-                            <div>
-                                <div class="text-xs text-gray-400 mb-2">배당</div>
-                                <div class="space-y-4">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <div class="text-[10px] text-gray-500 mb-0.5 flex items-center">
-                                                ${label} ${statusBadge}
-                                            </div>
-                                            <div class="text-sm font-bold ${dateColor}">
-                                                ${exDate}
-                                            </div>
+                                    pastHtml = `
+                                    <div class="mt-3 pt-3 border-t border-gray-700/50">
+                                        <div class="text-xs text-gray-400 mb-1 flex justify-between">
+                                            <span>직전 실적 (${cal.last_earnings_date})</span>
+                                            <span
+                                                class="${color} font-bold text-[10px] bg-gray-700/50 px-1.5 rounded">${label}</span>
                                         </div>
-                                        <div class="text-right">
-                                            <div class="text-[10px] text-gray-500 mb-0.5">배당금 (1주당)</div>
-                                            <div class="text-sm font-bold text-gray-200">${amount}</div>
+                                        <div class="flex justify-between items-end">
+                                            <div class="text-[10px] text-gray-500">
+                                                예상 ${cal.last_eps_est ? Number(cal.last_eps_est).toFixed(2) : '-'} /
+                                                실제 <span
+                                                    class="text-gray-200 font-bold">${Number(cal.last_eps_act).toFixed(2)}</span>
+                                            </div>
+                                            <div class="${color} font-bold text-sm">
+                                                ${sign}${Number(cal.last_surprise).toFixed(2)}%
+                                            </div>
                                         </div>
                                     </div>
+                                    `;
+                                    }
 
-                                    <div
-                                        class="flex justify-between items-center text-[10px] text-gray-500 bg-gray-800/50 p-2 rounded">
-                                        <div class="flex gap-2">
-                                            <span>지급일: <span class="${payDateStyle}">${payDate || '-'}</span></span>
+                                    return nextHtml + pastHtml;
+                                    })()}
+                        </div>
+
+                        <div class="w-full h-px bg-gray-700/50 my-2"></div>
+
+                        <!-- Dividend -->
+                        ${(() => {
+                        const exDate = cal.ex_dividend_date;
+                        const payDate = cal.dividend_payment_date;
+                        const amount = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
+
+                        if (!exDate || exDate === '-') {
+                        return `
+                        <div>
+                            <div class="text-xs text-gray-400 mb-2">배당</div>
+                            <div class="text-xs text-gray-500 text-center py-2">배당 정보 없음</div>
+                        </div>
+                        `;
+                        }
+
+                        const todayMs = new Date().setHours(0, 0, 0, 0);
+                        const targetExMs = new Date(exDate).setHours(0, 0, 0, 0);
+                        const isExFuture = targetExMs >= todayMs;
+
+                        let label = '';
+                        let statusBadge = '';
+                        let dateColor = '';
+
+                        if (isExFuture) {
+                        // Case 1: Before Ex-Dividend Date
+                        label = '다음 배당락일';
+                        statusBadge = `<span
+                            class="text-blue-400 text-[10px] ml-1 bg-blue-500/10 px-1 rounded border border-blue-500/30">예정</span>`;
+                        dateColor = 'text-gray-200';
+                        } else {
+                        // Case 2: After Ex-Dividend Date
+                        label = '최근 배당락일';
+                        dateColor = 'text-gray-500';
+
+                        // Check Payment Status
+                        let isPayFuture = false;
+                        if (payDate && payDate !== '-') {
+                        const targetPayMs = new Date(payDate).setHours(0, 0, 0, 0);
+                        isPayFuture = targetPayMs >= todayMs;
+                        }
+
+                        if (isPayFuture) {
+                        // Ex-Div passed, but Payment is future
+                        statusBadge = `<span
+                            class="text-amber-400 text-[10px] ml-1 bg-amber-500/10 px-1 rounded border border-amber-500/30">지급
+                            예정</span>`;
+                        } else {
+                        // Payment also passed
+                        statusBadge = `<span
+                            class="text-gray-500 text-[10px] ml-1 bg-gray-700/50 px-1 rounded">지급완료</span>`;
+                        }
+                        }
+
+                        const payDateStyle = (payDate && new Date(payDate).setHours(0, 0, 0, 0) >= todayMs) ?
+                        'text-amber-400 font-bold' : 'text-gray-500';
+
+                        return `
+                        <div>
+                            <div class="text-xs text-gray-400 mb-2">배당</div>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <div class="text-[10px] text-gray-500 mb-0.5 flex items-center">
+                                            ${label} ${statusBadge}
                                         </div>
-                                        <div>
-                                            수익률: <span class="text-gray-300 font-bold">${cal.dividend_yield ?
-                                                cal.dividend_yield + '%' : '-'}</span>
+                                        <div class="text-sm font-bold ${dateColor}">
+                                            ${exDate}
                                         </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-[10px] text-gray-500 mb-0.5">배당금 (1주당)</div>
+                                        <div class="text-sm font-bold text-gray-200">${amount}</div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="flex justify-between items-center text-[10px] text-gray-500 bg-gray-800/50 p-2 rounded">
+                                    <div class="flex gap-2">
+                                        <span>지급일: <span class="${payDateStyle}">${payDate || '-'}</span></span>
+                                    </div>
+                                    <div>
+                                        수익률: <span class="text-gray-300 font-bold">${cal.dividend_yield ?
+                                            cal.dividend_yield + '%' : '-'}</span>
                                     </div>
                                 </div>
                             </div>
-                            `;
-                            })()}
                         </div>
-    </div>
-    `;
-    })()}
-
-    <div class="bg-[#23232a] rounded-xl border border-gray-800 p-5">
-        <!-- Header with Segmented Control -->
-        <div class="flex items-center justify-between mb-4 border-b border-gray-700 pb-3">
-            <h4 class="text-sm font-bold text-gray-200 flex items-center gap-2">
-                <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                    </path>
-                </svg>
-                관련 종목
-            </h4>
-            <!-- iOS Style Pill Tabs -->
-            <div class="flex bg-gray-700/50 rounded-lg p-0.5">
-                <button id="tabSectorLeader" onclick="switchRelatedTab('sector')"
-                    class="px-2.5 py-1 text-[10px] font-bold rounded-md transition-all bg-[#5383e8] text-white">
-                    섹터 TOP3
-                </button>
-                <button id="tabSimilarScore" onclick="switchRelatedTab('similar')"
-                    class="px-2.5 py-1 text-[10px] font-bold rounded-md transition-all text-gray-400 hover:text-gray-200">
-                    유사 점수
-                </button>
-            </div>
-        </div>
-
-        <!-- SEO: 두 리스트 모두 HTML에 렌더링 (CSS로 토글) -->
-        <!-- Sector Leaders List -->
-        <div id="sectorLeaderList" class="space-y-3">
-            ${(data.related_peers || []).map(p => {
-            const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker };
-            return `
-            <a href="/stock/${p.ticker}"
-                class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
-                        <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png"
-                            alt="${peerData.name}(${p.ticker}) 관련주" loading="lazy"
-                            onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'"
-                            style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
+                        `;
+                        })()}
                     </div>
-                    <div>
-                        <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">
-                            ${peerData.name}</div>
-                        <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
                     </div>
-                </div>
-                <span
-                    class="${p.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct
-                    > 0 ? '+' : ''}${p.change_pct}%</span>
-            </a>
-            `;
-            }).join('')}
-            ${(data.related_peers || []).length === 0 ? '<div class="text-xs text-gray-600">관련 종목 없음</div>' : ''}
-        </div>
+                    `;
+                    })()}
 
-        <!-- Similar Score List (Hidden by default, but in HTML for SEO) -->
-        <div id="similarScoreList" class="space-y-3 hidden">
-            ${(data.similar_score_peers || []).map(p => {
-            const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker };
-            return `
-            <a href="/stock/${p.ticker}"
-                class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
-                        <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png"
-                            alt="${peerData.name}(${p.ticker}) 유사점수" loading="lazy"
-                            onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'"
-                            style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
-                    </div>
-                    <div>
-                        <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">
-                            ${peerData.name}</div>
-                        <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
-                    </div>
-                </div>
-                <span
-                    class="${p.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct
-                    > 0 ? '+' : ''}${p.change_pct}%</span>
-            </a>
-            `;
-            }).join('')}
-            ${(data.similar_score_peers || []).length === 0 ? '<div class="text-xs text-gray-600">유사 점수 종목 없음</div>' :
-            ''}
-        </div>
-    </div>
-
-    <!-- FAQ Section -->
-    <div id="faqSection"></div>
-    </div>
-    </div>
-    `;
-
-    document.getElementById('mainContent').innerHTML = html;
-
-    // [SEO] Render Dynamic FAQ
-    renderFAQ(data);
-
-    // Initialize TradingView Widget
-    if (window.TradingView) {
-    new TradingView.widget({
-    "autosize": true,
-    "symbol": (data.exchange ? data.exchange + ":" : "") + data.ticker,
-    "interval": "D",
-    "timezone": "Etc/UTC",
-    "theme": "dark",
-    "style": "1",
-    "locale": "en",
-    "enable_publishing": false,
-    "allow_symbol_change": true,
-    "container_id": "tv_chart_container",
-    "studies": ["BB@tv-basicstudies"]
-    });
-    }
-    }
-
-    // Tab switching for Related Stocks (SEO-friendly: CSS toggle only)
-    function switchRelatedTab(type) {
-    const sectorList = document.getElementById('sectorLeaderList');
-    const similarList = document.getElementById('similarScoreList');
-    const tabSector = document.getElementById('tabSectorLeader');
-    const tabSimilar = document.getElementById('tabSimilarScore');
-
-    if (!sectorList || !similarList) return;
-
-    if (type === 'sector') {
-    sectorList.classList.remove('hidden');
-    similarList.classList.add('hidden');
-    tabSector.classList.add('bg-[#5383e8]', 'text-white');
-    tabSector.classList.remove('text-gray-400');
-    tabSimilar.classList.remove('bg-[#5383e8]', 'text-white');
-    tabSimilar.classList.add('text-gray-400');
-    } else {
-    sectorList.classList.add('hidden');
-    similarList.classList.remove('hidden');
-    tabSimilar.classList.add('bg-[#5383e8]', 'text-white');
-    tabSimilar.classList.remove('text-gray-400');
-    tabSector.classList.remove('bg-[#5383e8]', 'text-white');
-    tabSector.classList.add('text-gray-400');
-    }
-    }
-
-    // 3D Flip Card Toggle with Sliding Segment Control
-    function toggleFlipCard(showBack) {
-    const flipCard = document.getElementById('flipCard');
-    const tabChart = document.getElementById('tabChart');
-    const tabAnalysis = document.getElementById('tabAnalysis');
-    const slider = document.getElementById('segmentSlider');
-
-    if (!flipCard) return;
-
-    if (showBack) {
-    flipCard.classList.add('flipped');
-    slider?.classList.add('right');
-    tabChart.classList.remove('active');
-    tabAnalysis.classList.add('active');
-    } else {
-    flipCard.classList.remove('flipped');
-    slider?.classList.remove('right');
-    tabChart.classList.add('active');
-    tabAnalysis.classList.remove('active');
-    }
-    }
-
-    // Average Price Analysis (Placeholder - shell only)
-    function analyzeAvgPrice() {
-    const avgPrice = parseFloat(document.getElementById('avgPriceInput').value);
-    const quantity = parseFloat(document.getElementById('quantityInput').value);
-    const resultDiv = document.getElementById('analysisResult');
-
-    if (!avgPrice || avgPrice <= 0) { alert('평균 매수가를 입력해주세요.'); return; } // 현재가 가져오기 (페이지에서) const
-        currentPriceText=document.querySelector('.font-mono')?.textContent; const
-        currentPrice=parseFloat(currentPriceText?.replace('$', '' )) || 0; if (!currentPrice) { alert('현재가를 불러올 수
-        없습니다.'); return; } const pnlPercent=((currentPrice - avgPrice) / avgPrice * 100).toFixed(2); const
-        pnlAmount=quantity ? ((currentPrice - avgPrice) * quantity).toFixed(2) : null; const isProfit=pnlPercent>= 0;
-        const color = isProfit ? 'text-green-400' : 'text-red-400';
-        const sign = isProfit ? '+' : '';
-
-        resultDiv.innerHTML = `
-        <div class="text-center">
-            <div class="text-gray-400 text-sm mb-2">현재 손익률</div>
-            <div class="text-3xl font-bold ${color}">${sign}${pnlPercent}%</div>
-            ${pnlAmount ? `<div class="text-lg ${color} mt-1">${sign}$${pnlAmount}</div>` : ''}
-            <div class="text-xs text-gray-500 mt-3">현재가 $${currentPrice} / 평단가 $${avgPrice}</div>
-        </div>
-        `;
-        resultDiv.classList.remove('hidden');
-        }
-
-
-        function renderFAQ(data) {
-        const today = new Date().toISOString().split('T')[0];
-        const qnaList = [];
-
-        // 1. Investment Score
-        let scoreAns = "";
-        if (data.final_score >= 80) scoreAns = `투자 매력도가 매우 높습니다. 현재 주가 상승 모멘텀과 재무 건전성이 모두 우수한 상태입니다.`;
-        else if (data.final_score < 40) scoreAns=`다소 주의가 필요합니다. 현재 주가 모멘텀이나 재무 지표가 다소 약화된 상태입니다.`; else scoreAns=`보통 수준의
-            양호한 흐름을 보이고 있습니다.`; qnaList.push({ q: `${data.name}(${data.ticker})의 현재 투자 등급과 점수는?`, a: `${today} 기준 나스픽 AI
-            분석 결과, ${data.name}은(는) **${data.final_score}점(${data.tier}티어)**으로 ${scoreAns}` }); // 2. Valuation (PER)
-            let perAns="" ; // Fix: Use data.financial_health.per const per=data.financial_health?.per; if (per) { if
-            (per < 15) perAns=`네, 그렇습니다. 현재 ${data.name}의 PER은 **${per.toFixed(2)}배**로, 시장 평균 대비 **저평가**되어 있어 가격 매력도가 높은
-            구간입니다.`; else if (per> 50) perAns = `현재 ${data.name}의 PER은 **${per.toFixed(2)}배**로, 시장 평균 대비 다소 **높게 평가**받고
-            있습니다. 이는 높은 성장 기대감이 반영된 결과일 수 있습니다.`;
-            else perAns = `현재 ${data.name}의 PER은 **${per.toFixed(2)}배**로, 시장 평균과 유사한 **적정 가치** 수준에서 거래되고 있습니다.`;
-
-            qnaList.push({
-            q: `${data.name}(${data.ticker}) 주식은 현재 저평가 상태인가요? (PER 분석)`,
-            a: perAns
-            });
-            } else {
-            qnaList.push({
-            q: `${data.name}(${data.ticker}) 주식은 현재 저평가 상태인가요? (PER 분석)`,
-            a: `현재 ${data.name}에 대한 PER(주가수익비율) 데이터가 집계되지 않았습니다.`
-            });
-            }
-
-            // 3. Technical (RSI)
-            let rsiAns = "";
-            // Fix: Use data.technical_analysis.rsi.value
-            const rsiObj = data.technical_analysis?.rsi;
-            const rsi = rsiObj ? rsiObj.value : null;
-
-            if (rsi) {
-            if (rsi > 70) rsiAns = `주의가 필요합니다. 현재 RSI 지표가 **${rsi.toFixed(2)}**로 **과매수(과열)** 구간에 진입해 있어, 단기적으로 주가가 조정받을
-            가능성이 있습니다.`;
-            else if (rsi < 30) rsiAns=`네, 기술적으로 좋은 기회일 수 있습니다. 현재 RSI 지표가 **${rsi.toFixed(2)}**로 **과매도** 구간에 있어, 기술적 반등이
-                기대되는 시점입니다.`; else rsiAns=`현재 기술적 지표는 **중립**입니다. RSI 지표가 **${rsi.toFixed(2)}**로 안정적인 흐름을 보이고 있어, 분할 매수
-                관점에서 접근하기 좋습니다.`; qnaList.push({ q: `지금 ${data.name}(${data.ticker}) 주식을 사도 될까요? (RSI 기술적 분석)`, a:
-                rsiAns }); } else { qnaList.push({ q: `지금 ${data.name}(${data.ticker}) 주식을 사도 될까요? (RSI 기술적 분석)`, a: `현재
-                기술적 지표(RSI)를 분석할 충분한 데이터가 없습니다.` }); } // 4. Calendar (Fixed: Check for past dates) const
-                cal=data.calendar || {}; let calAnsParts=[]; // A. Dividend Logic if (cal.dividend_yield) { let
-                divMsg=`예상 배당 수익률은 **${cal.dividend_yield}%**이며, `; if (cal.ex_dividend_date && cal.ex_dividend_date
-                !=='-' ) { const todayMs=new Date().setHours(0, 0, 0, 0); const exDateMs=new
-                Date(cal.ex_dividend_date).setHours(0, 0, 0, 0); if (exDateMs>= todayMs) {
-                divMsg += `다가오는 배당락일은 **${cal.ex_dividend_date}**입니다.`;
-                } else {
-                divMsg += `가장 최근 배당락일은 **${cal.ex_dividend_date}**였습니다.`;
-                }
-                } else {
-                divMsg += `배당락일 정보는 아직 없습니다.`;
-                }
-                calAnsParts.push(divMsg);
-                }
-
-                // B. Earnings Logic
-                if (cal.next_earnings) {
-                const todayMs = new Date().setHours(0, 0, 0, 0);
-                const nextDocs = new Date(cal.next_earnings);
-                // Check if date is valid
-                if (!isNaN(nextDocs.getTime())) {
-                const nextMs = nextDocs.setHours(0, 0, 0, 0);
-                if (nextMs >= todayMs) {
-                calAnsParts.push(`다음 실적 발표는 **${cal.next_earnings}**로 예정되어 있습니다.`);
-                } else {
-                calAnsParts.push(`직전 실적 발표일은 **${cal.next_earnings}**였으며,`);
-                // If we have surprise data for this past date (usually in last_surprise), append it.
-                // However, cal.next_earnings might be the *just passed* one.
-                // We can just look at last_surprise generally.
-                if (cal.last_surprise) {
-                calAnsParts.push(`시장 예상치 대비 **${cal.last_surprise > 0 ? '어닝 서프라이즈' : '미스'}(${cal.last_surprise}%)**를
-                기록했습니다.`);
-                } else {
-                calAnsParts.push(`발표가 완료되었습니다.`);
-                }
-                }
-                } else {
-                calAnsParts.push(`다음 실적 발표는 **${cal.next_earnings}**로 예정되어 있습니다.`);
-                }
-                } else if (cal.last_surprise) {
-                calAnsParts.push(`가장 최근 실적발표(${cal.last_earnings_date})에서는 시장 예상치를 상회하는 **어닝 서프라이즈(${cal.last_surprise >
-                0 ? '+' : ''}${cal.last_surprise}%)**를 기록했습니다.`);
-                }
-
-                if (calAnsParts.length > 0) {
-                qnaList.push({
-                q: `${data.name}(${data.ticker})의 다음 실적 발표일과 배당금은?`,
-                a: calAnsParts.join(' ')
-                });
-                } else {
-                qnaList.push({
-                q: `${data.name}(${data.ticker})의 다음 실적 발표일과 배당금은?`,
-                a: `현재 ${data.name}의 확정된 실적 발표일이나 배당 일정 정보가 없습니다.`
-                });
-                }
-
-                // 5. Price & Target
-                const consensus = data.consensus || {};
-                // Fix: target_price might be an object {mean: ...} or number
-                let tp = consensus.target_price;
-                if (tp && typeof tp === 'object') tp = tp.mean;
-
-                if (tp && data.current_price) {
-                const upside = ((tp - data.current_price) / data.current_price * 100).toFixed(2);
-                const upsidedown = upside > 0 ? '상승 여력' : '수준';
-                qnaList.push({
-                q: `${data.name}(${data.ticker})의 현재 주가와 목표주가는 얼마인가요? (주가 전망)`,
-                a: `${today} 기준 ${data.name}의 주가는 **$${data.current_price}**입니다. 월스트리트 전문가들의 평균 목표주가는
-                **$${tp.toFixed(2)}**로, 현재가 대비 약 **${upside}%의 ${upsidedown}**이 있는 것으로 분석됩니다.`
-                });
-                } else {
-                qnaList.push({
-                q: `${data.name}(${data.ticker})의 현재 주가와 목표주가는 얼마인가요? (주가 전망)`,
-                a: `${data.name}에 대한 월스트리트 전문가들의 목표주가 데이터가 현재 충분하지 않습니다.`
-                });
-                }
-
-                // 6. Naspick AI Score & Tier (SEO: 'AI 분석', '주식 티어' 키워드)
-                let tierDescription = '';
-                if (data.tier === 1) tierDescription = '최상위 등급으로, 현재 시장에서 가장 강력한 상승 모멘텀과 우수한 펀더멘털을 보유한 종목입니다.';
-                else if (data.tier === 2) tierDescription = '우량 등급으로, 안정적인 성장성과 양호한 투자 매력도를 갖춘 종목입니다.';
-                else if (data.tier === 3) tierDescription = '보통 등급으로, 시장 평균 수준의 흐름을 보이고 있습니다.';
-                else tierDescription = '주의 등급으로, 현재 모멘텀이나 펀더멘털 개선이 필요한 상태입니다.';
-
-                qnaList.push({
-                q: `${data.name}(${data.ticker})의 나스픽 AI 점수와 티어 등급은 어떻게 되나요?`,
-                a: `${today} 기준 ${data.name}의 나스픽 AI 종합 점수는 **${data.final_score}점**이며, **${data.tier}티어** 등급입니다.
-                ${tierDescription} 이 점수는 기술적 분석, 펀더멘털, 시장 센티먼트를 종합하여 15분마다 실시간 업데이트됩니다.`
-                });
-
-                // Render HTML (Accordion Style)
-                const faqContainer = document.getElementById('faqSection');
-                if (faqContainer) {
-                faqContainer.innerHTML = `
-                <div class="mt-8 bg-[#23232a] rounded-xl border border-gray-800 p-6">
-                    <h3 class="text-lg font-bold text-gray-200 mb-4 flex items-center gap-2">
-                        💬 자주 묻는 질문 (FAQ)
-                    </h3>
-                    <div class="space-y-3">
-                        ${qnaList.map(item => `
-                        <details
-                            class="group bg-[#1c1c1f] rounded-lg border border-gray-800/50 open:border-gray-700 transition-all">
-                            <summary class="flex justify-between items-center p-4 cursor-pointer list-none">
-                                <h4 class="font-bold text-gray-300 text-sm">Q. ${item.q}</h4>
-                                <svg class="w-4 h-4 text-gray-500 transition-transform group-open:rotate-180"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-[#23232a] rounded-xl border border-gray-800 p-5">
+                        <!-- Header with Segmented Control -->
+                        <div class="flex items-center justify-between mb-4 border-b border-gray-700 pb-3">
+                            <h4 class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7"></path>
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                                    </path>
                                 </svg>
-                            </summary>
-                            <p class="px-4 pb-4 text-sm text-gray-400 leading-relaxed border-t border-gray-800/50 pt-3">
-                                ${item.a.replace(/\*\*(.*?)\*\*/g, '<span class="text-gray-200 font-bold">$1</span>')}
-                            </p>
-                        </details>
-                        `).join('')}
-                    </div>
-                </div>
-                `;
-                }
+                                관련 종목
+                            </h4>
+                            <!-- iOS Style Pill Tabs -->
+                            <div class="flex bg-gray-700/50 rounded-lg p-0.5">
+                                <button id="tabSectorLeader" onclick="switchRelatedTab('sector')"
+                                    class="px-2.5 py-1 text-[10px] font-bold rounded-md transition-all bg-[#5383e8] text-white">
+                                    섹터 TOP3
+                                </button>
+                                <button id="tabSimilarScore" onclick="switchRelatedTab('similar')"
+                                    class="px-2.5 py-1 text-[10px] font-bold rounded-md transition-all text-gray-400 hover:text-gray-200">
+                                    유사 점수
+                                </button>
+                            </div>
+                        </div>
 
-                // Inject JSON-LD Schema
-                const schemaData = {
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                "mainEntity": qnaList.map(item => ({
-                "@type": "Question",
-                "name": item.q,
-                "acceptedAnswer": {
-                "@type": "Answer",
-                "text": item.a.replace(/\*\*/g, '') // Remove markdown bold for schema
-                }
-                }))
-                };
-
-                const script = document.createElement('script');
-                script.type = 'application/ld+json';
-                script.text = JSON.stringify(schemaData);
-                document.head.appendChild(script);
-                }
-
-                // [NEW] Favorites Logic for Page
-                function initFavorites(ticker) {
-                const favorites = new Set(JSON.parse(localStorage.getItem('naspick_favorites') || '[]'));
-                const container = document.getElementById('favoriteContainer');
-                if (!container) return;
-
-                // Render Button
-                const isFav = favorites.has(ticker);
-                renderFavoriteButton(container, isFav);
-
-                // Click Handler
-                container.onclick = (e) => {
-                e.stopPropagation();
-                if (favorites.has(ticker)) {
-                favorites.delete(ticker);
-                } else {
-                favorites.add(ticker);
-                }
-                localStorage.setItem('naspick_favorites', JSON.stringify([...favorites]));
-
-                // Update UI immediately
-                renderFavoriteButton(container, favorites.has(ticker));
-                };
-                }
-
-                function renderFavoriteButton(container, isFav) {
-                container.innerHTML = `
-                <button class="transition hover:scale-110 p-1 group">
-                    <svg class="w-6 h-6 md:w-8 md:h-8 ${isFav ? 'text-yellow-400 fill-current' : 'text-gray-500 fill-transparent group-hover:text-yellow-400'}"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                    </svg>
-                </button>
-                `;
-                }
-
-                function initHeaderSearch() {
-                const input = document.getElementById('headerSearch');
-                const resultsDiv = document.getElementById('headerSearchResults');
-
-                input.addEventListener('input', (e) => {
-                const term = e.target.value.toLowerCase().replace(/\s+/g, ''); // Remove spaces
-                if (!term) {
-                resultsDiv.classList.add('hidden');
-                return;
-                }
-
-                // Korean Chosung Helper
-                const getChosung = (str) => {
-                const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ",
-                "ㅍ", "ㅎ"];
-                let result = "";
-                for (let i = 0; i < str.length; i++) { const code=str.charCodeAt(i) - 44032; if (code> -1 && code <
-                        11172) { result +=chosung[Math.floor(code / 588)]; } else { result +=str.charAt(i); } } return
-                        result; }; // New: Jamo Helper const getJamo=(str)=> {
-                        const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ",
-                        "ㅌ", "ㅍ", "ㅎ"];
-                        const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ",
-                        "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
-                        const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ",
-                        "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-
-                        let result = "";
-                        for (let i = 0; i < str.length; i++) { const code=str.charCodeAt(i) - 44032; if (code> -1 &&
-                            code < 11172) { const c=Math.floor(code / 588); const j=Math.floor((code % 588) / 28); const
-                                k=code % 28; result +=chosung[c] + jungsung[j]; if (k> 0) result += jongsung[k];
-                                } else {
-                                result += str.charAt(i);
-                                }
-                                }
-                                return result;
-                                };
-
-                                // Helper: Decompose Compound Consonants
-                                const decomposeHangul = (str) => {
-                                const doubleConsonants = {
-                                'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
-                                'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
-                                };
-                                return str.split('').map(char => doubleConsonants[char] || char).join('');
-                                };
-
-                                const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
-
-                                // Determine Search Mode
-                                const hasHangulSyllable = /[가-힣]/.test(term);
-                                let matches = [];
-
-                                if (hasHangulSyllable) {
-                                // [Mode A] Hybrid Jamo Search
-                                const jamoTerm = getJamo(term);
-
-                                matches = allData.filter(d => {
-                                const normName = normalize(d.name);
-                                return d.ticker.toLowerCase().includes(term) ||
-                                normName.includes(term) ||
-                                getJamo(normName).includes(jamoTerm) ||
-                                (d.name_en && normalize(d.name_en).includes(term));
-                                }).slice(0, 5);
-
-                                } else {
-                                // [Mode B] Standard/Chosung Search
-                                const normalizedTerm = decomposeHangul(term);
-                                const chosungTerm = getChosung(normalizedTerm);
-
-                                matches = allData.filter(d =>
-                                d.ticker.toLowerCase().includes(term) ||
-                                normalize(d.name).includes(normalizedTerm) ||
-                                getChosung(normalize(d.name)).includes(chosungTerm) ||
-                                (d.name && d.name.toLowerCase().includes(term)) ||
-                                normalize(d.name_en).includes(normalizedTerm) ||
-                                (d.name_en && d.name_en.toLowerCase().includes(term))
-                                ).slice(0, 5);
-                                }
-
-                                if (matches.length > 0) {
-                                // SEO 수정: div onclick -> a href
-                                resultsDiv.innerHTML = matches.map(d => {
-                                let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
-                                if (d.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10';
-                                else if (d.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
-                                else if (d.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
-                                else if (d.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
-                                else if (d.tier === 5) tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
-
-                                const tierBadge = `<span
-                                    class="px-1.5 py-0.5 text-[9px] font-bold rounded border ${tierClass}">${d.tier}
-                                    Tier</span>`;
-
-                                return `
-                                <a href="/stock/${d.ticker}"
-                                    class="p-2 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
+                        <!-- SEO: 두 리스트 모두 HTML에 렌더링 (CSS로 토글) -->
+                        <!-- Sector Leaders List -->
+                        <div id="sectorLeaderList" class="space-y-3">
+                            ${(data.related_peers || []).map(p => {
+                            const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker };
+                            return `
+                            <a href="/stock/${p.ticker}"
+                                class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
+                                        <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png"
+                                            alt="${peerData.name}(${p.ticker}) 관련주" loading="lazy"
+                                            onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'"
+                                            style="filter: invert(1) hue-rotate(180deg);"
+                                            class="w-full h-full object-contain">
+                                    </div>
                                     <div>
-                                        <span class="font-bold text-xs text-white">${d.ticker}</span>
-                                        <span class="text-[10px] text-gray-400 ml-1">${d.name}</span>
+                                        <div
+                                            class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">
+                                            ${peerData.name}</div>
+                                        <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
                                     </div>
-                                    <div class="text-right">
-                                        <span class="text-[#5383e8] text-[10px] font-bold block">${d.final_score}</span>
-                                        <div class="mt-0.5">${tierBadge}</div>
+                                </div>
+                                <span
+                                    class="${p.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct
+                                    > 0 ? '+' : ''}${p.change_pct}%</span>
+                            </a>
+                            `;
+                            }).join('')}
+                            ${(data.related_peers || []).length === 0 ? '<div class="text-xs text-gray-600">관련 종목 없음
+                            </div>' : ''}
+                        </div>
+
+                        <!-- Similar Score List (Hidden by default, but in HTML for SEO) -->
+                        <div id="similarScoreList" class="space-y-3 hidden">
+                            ${(data.similar_score_peers || []).map(p => {
+                            const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker };
+                            return `
+                            <a href="/stock/${p.ticker}"
+                                class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
+                                        <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png"
+                                            alt="${peerData.name}(${p.ticker}) 유사점수" loading="lazy"
+                                            onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'"
+                                            style="filter: invert(1) hue-rotate(180deg);"
+                                            class="w-full h-full object-contain">
                                     </div>
-                                </a>
-                                `;
-                                }).join('');
-                                resultsDiv.classList.remove('hidden');
+                                    <div>
+                                        <div
+                                            class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">
+                                            ${peerData.name}</div>
+                                        <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
+                                    </div>
+                                </div>
+                                <span
+                                    class="${p.change_pct >= 0 ? 'text-red-400' : 'text-blue-400'} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct
+                                    > 0 ? '+' : ''}${p.change_pct}%</span>
+                            </a>
+                            `;
+                            }).join('')}
+                            ${(data.similar_score_peers || []).length === 0 ? '<div class="text-xs text-gray-600">유사 점수
+                                종목 없음</div>' :
+                            ''}
+                        </div>
+                    </div>
+
+                    <!-- FAQ Section -->
+                    <div id="faqSection"></div>
+                    </div>
+                    </div>
+                    `;
+
+                    document.getElementById('mainContent').innerHTML = html;
+
+                    // [SEO] Render Dynamic FAQ
+                    renderFAQ(data);
+
+                    // Initialize TradingView Widget
+                    if (window.TradingView) {
+                    new TradingView.widget({
+                    "autosize": true,
+                    "symbol": (data.exchange ? data.exchange + ":" : "") + data.ticker,
+                    "interval": "D",
+                    "timezone": "Etc/UTC",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "en",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "tv_chart_container",
+                    "studies": ["BB@tv-basicstudies"]
+                    });
+                    }
+                    }
+
+                    // Tab switching for Related Stocks (SEO-friendly: CSS toggle only)
+                    function switchRelatedTab(type) {
+                    const sectorList = document.getElementById('sectorLeaderList');
+                    const similarList = document.getElementById('similarScoreList');
+                    const tabSector = document.getElementById('tabSectorLeader');
+                    const tabSimilar = document.getElementById('tabSimilarScore');
+
+                    if (!sectorList || !similarList) return;
+
+                    if (type === 'sector') {
+                    sectorList.classList.remove('hidden');
+                    similarList.classList.add('hidden');
+                    tabSector.classList.add('bg-[#5383e8]', 'text-white');
+                    tabSector.classList.remove('text-gray-400');
+                    tabSimilar.classList.remove('bg-[#5383e8]', 'text-white');
+                    tabSimilar.classList.add('text-gray-400');
+                    } else {
+                    sectorList.classList.add('hidden');
+                    similarList.classList.remove('hidden');
+                    tabSimilar.classList.add('bg-[#5383e8]', 'text-white');
+                    tabSimilar.classList.remove('text-gray-400');
+                    tabSector.classList.remove('bg-[#5383e8]', 'text-white');
+                    tabSector.classList.add('text-gray-400');
+                    }
+                    }
+
+                    // 3D Flip Card Toggle with Sliding Segment Control
+                    function toggleFlipCard(showBack) {
+                    const flipCard = document.getElementById('flipCard');
+                    const tabChart = document.getElementById('tabChart');
+                    const tabAnalysis = document.getElementById('tabAnalysis');
+                    const slider = document.getElementById('segmentSlider');
+
+                    if (!flipCard) return;
+
+                    if (showBack) {
+                    flipCard.classList.add('flipped');
+                    slider?.classList.add('right');
+                    tabChart.classList.remove('active');
+                    tabAnalysis.classList.add('active');
+                    } else {
+                    flipCard.classList.remove('flipped');
+                    slider?.classList.remove('right');
+                    tabChart.classList.add('active');
+                    tabAnalysis.classList.remove('active');
+                    }
+                    }
+
+                    // Average Price Analysis (Placeholder - shell only)
+                    function analyzeAvgPrice() {
+                    const avgPrice = parseFloat(document.getElementById('avgPriceInput').value);
+                    const quantity = parseFloat(document.getElementById('quantityInput').value);
+                    const resultDiv = document.getElementById('analysisResult');
+
+                    if (!avgPrice || avgPrice <= 0) { alert('평균 매수가를 입력해주세요.'); return; } // 현재가 가져오기 (페이지에서) const
+                        currentPriceText=document.querySelector('.font-mono')?.textContent; const
+                        currentPrice=parseFloat(currentPriceText?.replace('$', '' )) || 0; if (!currentPrice) {
+                        alert('현재가를 불러올 수 없습니다.'); return; } const pnlPercent=((currentPrice - avgPrice) / avgPrice *
+                        100).toFixed(2); const pnlAmount=quantity ? ((currentPrice - avgPrice) * quantity).toFixed(2) :
+                        null; const isProfit=pnlPercent>= 0;
+                        const color = isProfit ? 'text-green-400' : 'text-red-400';
+                        const sign = isProfit ? '+' : '';
+
+                        resultDiv.innerHTML = `
+                        <div class="text-center">
+                            <div class="text-gray-400 text-sm mb-2">현재 손익률</div>
+                            <div class="text-3xl font-bold ${color}">${sign}${pnlPercent}%</div>
+                            ${pnlAmount ? `<div class="text-lg ${color} mt-1">${sign}$${pnlAmount}</div>` : ''}
+                            <div class="text-xs text-gray-500 mt-3">현재가 $${currentPrice} / 평단가 $${avgPrice}</div>
+                        </div>
+                        `;
+                        resultDiv.classList.remove('hidden');
+                        }
+
+
+                        function renderFAQ(data) {
+                        const today = new Date().toISOString().split('T')[0];
+                        const qnaList = [];
+
+                        // 1. Investment Score
+                        let scoreAns = "";
+                        if (data.final_score >= 80) scoreAns = `투자 매력도가 매우 높습니다. 현재 주가 상승 모멘텀과 재무 건전성이 모두 우수한 상태입니다.`;
+                        else if (data.final_score < 40) scoreAns=`다소 주의가 필요합니다. 현재 주가 모멘텀이나 재무 지표가 다소 약화된 상태입니다.`; else
+                            scoreAns=`보통 수준의 양호한 흐름을 보이고 있습니다.`; qnaList.push({ q: `${data.name}(${data.ticker})의 현재 투자
+                            등급과 점수는?`, a: `${today} 기준 나스픽 AI 분석 결과, ${data.name}은(는)
+                            **${data.final_score}점(${data.tier}티어)**으로 ${scoreAns}` }); // 2. Valuation (PER) let
+                            perAns="" ; // Fix: Use data.financial_health.per const per=data.financial_health?.per; if
+                            (per) { if (per < 15) perAns=`네, 그렇습니다. 현재 ${data.name}의 PER은 **${per.toFixed(2)}배**로, 시장 평균
+                            대비 **저평가**되어 있어 가격 매력도가 높은 구간입니다.`; else if (per> 50) perAns = `현재 ${data.name}의 PER은
+                            **${per.toFixed(2)}배**로, 시장 평균 대비 다소 **높게 평가**받고
+                            있습니다. 이는 높은 성장 기대감이 반영된 결과일 수 있습니다.`;
+                            else perAns = `현재 ${data.name}의 PER은 **${per.toFixed(2)}배**로, 시장 평균과 유사한 **적정 가치** 수준에서 거래되고
+                            있습니다.`;
+
+                            qnaList.push({
+                            q: `${data.name}(${data.ticker}) 주식은 현재 저평가 상태인가요? (PER 분석)`,
+                            a: perAns
+                            });
+                            } else {
+                            qnaList.push({
+                            q: `${data.name}(${data.ticker}) 주식은 현재 저평가 상태인가요? (PER 분석)`,
+                            a: `현재 ${data.name}에 대한 PER(주가수익비율) 데이터가 집계되지 않았습니다.`
+                            });
+                            }
+
+                            // 3. Technical (RSI)
+                            let rsiAns = "";
+                            // Fix: Use data.technical_analysis.rsi.value
+                            const rsiObj = data.technical_analysis?.rsi;
+                            const rsi = rsiObj ? rsiObj.value : null;
+
+                            if (rsi) {
+                            if (rsi > 70) rsiAns = `주의가 필요합니다. 현재 RSI 지표가 **${rsi.toFixed(2)}**로 **과매수(과열)** 구간에 진입해 있어,
+                            단기적으로 주가가 조정받을
+                            가능성이 있습니다.`;
+                            else if (rsi < 30) rsiAns=`네, 기술적으로 좋은 기회일 수 있습니다. 현재 RSI 지표가 **${rsi.toFixed(2)}**로 **과매도**
+                                구간에 있어, 기술적 반등이 기대되는 시점입니다.`; else rsiAns=`현재 기술적 지표는 **중립**입니다. RSI 지표가
+                                **${rsi.toFixed(2)}**로 안정적인 흐름을 보이고 있어, 분할 매수 관점에서 접근하기 좋습니다.`; qnaList.push({ q: `지금
+                                ${data.name}(${data.ticker}) 주식을 사도 될까요? (RSI 기술적 분석)`, a: rsiAns }); } else {
+                                qnaList.push({ q: `지금 ${data.name}(${data.ticker}) 주식을 사도 될까요? (RSI 기술적 분석)`, a: `현재 기술적
+                                지표(RSI)를 분석할 충분한 데이터가 없습니다.` }); } // 4. Calendar (Fixed: Check for past dates) const
+                                cal=data.calendar || {}; let calAnsParts=[]; // A. Dividend Logic if
+                                (cal.dividend_yield) { let divMsg=`예상 배당 수익률은 **${cal.dividend_yield}%**이며, `; if
+                                (cal.ex_dividend_date && cal.ex_dividend_date !=='-' ) { const todayMs=new
+                                Date().setHours(0, 0, 0, 0); const exDateMs=new Date(cal.ex_dividend_date).setHours(0,
+                                0, 0, 0); if (exDateMs>= todayMs) {
+                                divMsg += `다가오는 배당락일은 **${cal.ex_dividend_date}**입니다.`;
                                 } else {
-                                resultsDiv.innerHTML = '<div class="p-2 text-gray-500 text-[10px]">검색 결과 없음</div>';
-                                resultsDiv.classList.remove('hidden');
+                                divMsg += `가장 최근 배당락일은 **${cal.ex_dividend_date}**였습니다.`;
                                 }
+                                } else {
+                                divMsg += `배당락일 정보는 아직 없습니다.`;
+                                }
+                                calAnsParts.push(divMsg);
+                                }
+
+                                // B. Earnings Logic
+                                if (cal.next_earnings) {
+                                const todayMs = new Date().setHours(0, 0, 0, 0);
+                                const nextDocs = new Date(cal.next_earnings);
+                                // Check if date is valid
+                                if (!isNaN(nextDocs.getTime())) {
+                                const nextMs = nextDocs.setHours(0, 0, 0, 0);
+                                if (nextMs >= todayMs) {
+                                calAnsParts.push(`다음 실적 발표는 **${cal.next_earnings}**로 예정되어 있습니다.`);
+                                } else {
+                                calAnsParts.push(`직전 실적 발표일은 **${cal.next_earnings}**였으며,`);
+                                // If we have surprise data for this past date (usually in last_surprise), append it.
+                                // However, cal.next_earnings might be the *just passed* one.
+                                // We can just look at last_surprise generally.
+                                if (cal.last_surprise) {
+                                calAnsParts.push(`시장 예상치 대비 **${cal.last_surprise > 0 ? '어닝 서프라이즈' :
+                                '미스'}(${cal.last_surprise}%)**를
+                                기록했습니다.`);
+                                } else {
+                                calAnsParts.push(`발표가 완료되었습니다.`);
+                                }
+                                }
+                                } else {
+                                calAnsParts.push(`다음 실적 발표는 **${cal.next_earnings}**로 예정되어 있습니다.`);
+                                }
+                                } else if (cal.last_surprise) {
+                                calAnsParts.push(`가장 최근 실적발표(${cal.last_earnings_date})에서는 시장 예상치를 상회하는 **어닝
+                                서프라이즈(${cal.last_surprise >
+                                0 ? '+' : ''}${cal.last_surprise}%)**를 기록했습니다.`);
+                                }
+
+                                if (calAnsParts.length > 0) {
+                                qnaList.push({
+                                q: `${data.name}(${data.ticker})의 다음 실적 발표일과 배당금은?`,
+                                a: calAnsParts.join(' ')
+                                });
+                                } else {
+                                qnaList.push({
+                                q: `${data.name}(${data.ticker})의 다음 실적 발표일과 배당금은?`,
+                                a: `현재 ${data.name}의 확정된 실적 발표일이나 배당 일정 정보가 없습니다.`
+                                });
+                                }
+
+                                // 5. Price & Target
+                                const consensus = data.consensus || {};
+                                // Fix: target_price might be an object {mean: ...} or number
+                                let tp = consensus.target_price;
+                                if (tp && typeof tp === 'object') tp = tp.mean;
+
+                                if (tp && data.current_price) {
+                                const upside = ((tp - data.current_price) / data.current_price * 100).toFixed(2);
+                                const upsidedown = upside > 0 ? '상승 여력' : '수준';
+                                qnaList.push({
+                                q: `${data.name}(${data.ticker})의 현재 주가와 목표주가는 얼마인가요? (주가 전망)`,
+                                a: `${today} 기준 ${data.name}의 주가는 **$${data.current_price}**입니다. 월스트리트 전문가들의 평균 목표주가는
+                                **$${tp.toFixed(2)}**로, 현재가 대비 약 **${upside}%의 ${upsidedown}**이 있는 것으로 분석됩니다.`
+                                });
+                                } else {
+                                qnaList.push({
+                                q: `${data.name}(${data.ticker})의 현재 주가와 목표주가는 얼마인가요? (주가 전망)`,
+                                a: `${data.name}에 대한 월스트리트 전문가들의 목표주가 데이터가 현재 충분하지 않습니다.`
+                                });
+                                }
+
+                                // 6. Naspick AI Score & Tier (SEO: 'AI 분석', '주식 티어' 키워드)
+                                let tierDescription = '';
+                                if (data.tier === 1) tierDescription = '최상위 등급으로, 현재 시장에서 가장 강력한 상승 모멘텀과 우수한 펀더멘털을 보유한
+                                종목입니다.';
+                                else if (data.tier === 2) tierDescription = '우량 등급으로, 안정적인 성장성과 양호한 투자 매력도를 갖춘 종목입니다.';
+                                else if (data.tier === 3) tierDescription = '보통 등급으로, 시장 평균 수준의 흐름을 보이고 있습니다.';
+                                else tierDescription = '주의 등급으로, 현재 모멘텀이나 펀더멘털 개선이 필요한 상태입니다.';
+
+                                qnaList.push({
+                                q: `${data.name}(${data.ticker})의 나스픽 AI 점수와 티어 등급은 어떻게 되나요?`,
+                                a: `${today} 기준 ${data.name}의 나스픽 AI 종합 점수는 **${data.final_score}점**이며,
+                                **${data.tier}티어** 등급입니다.
+                                ${tierDescription} 이 점수는 기술적 분석, 펀더멘털, 시장 센티먼트를 종합하여 15분마다 실시간 업데이트됩니다.`
                                 });
 
-                                document.addEventListener('click', (e) => {
-                                if (!input.contains(e.target) && !resultsDiv.contains(e.target)) {
+                                // Render HTML (Accordion Style)
+                                const faqContainer = document.getElementById('faqSection');
+                                if (faqContainer) {
+                                faqContainer.innerHTML = `
+                                <div class="mt-8 bg-[#23232a] rounded-xl border border-gray-800 p-6">
+                                    <h3 class="text-lg font-bold text-gray-200 mb-4 flex items-center gap-2">
+                                        💬 자주 묻는 질문 (FAQ)
+                                    </h3>
+                                    <div class="space-y-3">
+                                        ${qnaList.map(item => `
+                                        <details
+                                            class="group bg-[#1c1c1f] rounded-lg border border-gray-800/50 open:border-gray-700 transition-all">
+                                            <summary
+                                                class="flex justify-between items-center p-4 cursor-pointer list-none">
+                                                <h4 class="font-bold text-gray-300 text-sm">Q. ${item.q}</h4>
+                                                <svg class="w-4 h-4 text-gray-500 transition-transform group-open:rotate-180"
+                                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                                </svg>
+                                            </summary>
+                                            <p
+                                                class="px-4 pb-4 text-sm text-gray-400 leading-relaxed border-t border-gray-800/50 pt-3">
+                                                ${item.a.replace(/\*\*(.*?)\*\*/g, '<span
+                                                    class="text-gray-200 font-bold">$1</span>')}
+                                            </p>
+                                        </details>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                `;
+                                }
+
+                                // Inject JSON-LD Schema
+                                const schemaData = {
+                                "@context": "https://schema.org",
+                                "@type": "FAQPage",
+                                "mainEntity": qnaList.map(item => ({
+                                "@type": "Question",
+                                "name": item.q,
+                                "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": item.a.replace(/\*\*/g, '') // Remove markdown bold for schema
+                                }
+                                }))
+                                };
+
+                                const script = document.createElement('script');
+                                script.type = 'application/ld+json';
+                                script.text = JSON.stringify(schemaData);
+                                document.head.appendChild(script);
+                                }
+
+                                // [NEW] Favorites Logic for Page
+                                function initFavorites(ticker) {
+                                const favorites = new Set(JSON.parse(localStorage.getItem('naspick_favorites') ||
+                                '[]'));
+                                const container = document.getElementById('favoriteContainer');
+                                if (!container) return;
+
+                                // Render Button
+                                const isFav = favorites.has(ticker);
+                                renderFavoriteButton(container, isFav);
+
+                                // Click Handler
+                                container.onclick = (e) => {
+                                e.stopPropagation();
+                                if (favorites.has(ticker)) {
+                                favorites.delete(ticker);
+                                } else {
+                                favorites.add(ticker);
+                                }
+                                localStorage.setItem('naspick_favorites', JSON.stringify([...favorites]));
+
+                                // Update UI immediately
+                                renderFavoriteButton(container, favorites.has(ticker));
+                                };
+                                }
+
+                                function renderFavoriteButton(container, isFav) {
+                                container.innerHTML = `
+                                <button class="transition hover:scale-110 p-1 group">
+                                    <svg class="w-6 h-6 md:w-8 md:h-8 ${isFav ? 'text-yellow-400 fill-current' : 'text-gray-500 fill-transparent group-hover:text-yellow-400'}"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                    </svg>
+                                </button>
+                                `;
+                                }
+
+                                function initHeaderSearch() {
+                                const input = document.getElementById('headerSearch');
+                                const resultsDiv = document.getElementById('headerSearchResults');
+
+                                input.addEventListener('input', (e) => {
+                                const term = e.target.value.toLowerCase().replace(/\s+/g, ''); // Remove spaces
+                                if (!term) {
                                 resultsDiv.classList.add('hidden');
-                                }
-                                });
+                                return;
                                 }
 
-                                init();
-                                </script>
+                                // Korean Chosung Helper
+                                const getChosung = (str) => {
+                                const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ",
+                                "ㅊ", "ㅋ", "ㅌ",
+                                "ㅍ", "ㅎ"];
+                                let result = "";
+                                for (let i = 0; i < str.length; i++) { const code=str.charCodeAt(i) - 44032; if (code>
+                                    -1 && code < 11172) { result +=chosung[Math.floor(code / 588)]; } else { result
+                                        +=str.charAt(i); } } return result; }; // New: Jamo Helper const getJamo=(str)=>
+                                        {
+                                        const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ",
+                                        "ㅈ", "ㅉ", "ㅊ", "ㅋ",
+                                        "ㅌ", "ㅍ", "ㅎ"];
+                                        const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ",
+                                        "ㅛ", "ㅜ", "ㅝ",
+                                        "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
+                                        const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ",
+                                        "ㄽ", "ㄾ", "ㄿ", "ㅀ",
+                                        "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
 
-                                <footer
-                                    class="text-center text-[10px] md:text-xs text-gray-500 py-3 md:py-4 px-4 border-t border-gray-800 mt-6">
-                                    <p>본 사이트의 정보는 투자 참고용이며, 투자 결정과 손익에 대한 책임은 투자자 본인에게 있습니다.</p>
-                                    <p class="mt-1">© 2026 나스픽(NASPICK)</p>
-                                </footer>
+                                        let result = "";
+                                        for (let i = 0; i < str.length; i++) { const code=str.charCodeAt(i) - 44032; if
+                                            (code> -1 &&
+                                            code < 11172) { const c=Math.floor(code / 588); const j=Math.floor((code %
+                                                588) / 28); const k=code % 28; result +=chosung[c] + jungsung[j]; if (k>
+                                                0) result += jongsung[k];
+                                                } else {
+                                                result += str.charAt(i);
+                                                }
+                                                }
+                                                return result;
+                                                };
+
+                                                // Helper: Decompose Compound Consonants
+                                                const decomposeHangul = (str) => {
+                                                const doubleConsonants = {
+                                                'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
+                                                'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
+                                                };
+                                                return str.split('').map(char => doubleConsonants[char] ||
+                                                char).join('');
+                                                };
+
+                                                const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') :
+                                                '';
+
+                                                // Determine Search Mode
+                                                const hasHangulSyllable = /[가-힣]/.test(term);
+                                                let matches = [];
+
+                                                if (hasHangulSyllable) {
+                                                // [Mode A] Hybrid Jamo Search
+                                                const jamoTerm = getJamo(term);
+
+                                                matches = allData.filter(d => {
+                                                const normName = normalize(d.name);
+                                                return d.ticker.toLowerCase().includes(term) ||
+                                                normName.includes(term) ||
+                                                getJamo(normName).includes(jamoTerm) ||
+                                                (d.name_en && normalize(d.name_en).includes(term));
+                                                }).slice(0, 5);
+
+                                                } else {
+                                                // [Mode B] Standard/Chosung Search
+                                                const normalizedTerm = decomposeHangul(term);
+                                                const chosungTerm = getChosung(normalizedTerm);
+
+                                                matches = allData.filter(d =>
+                                                d.ticker.toLowerCase().includes(term) ||
+                                                normalize(d.name).includes(normalizedTerm) ||
+                                                getChosung(normalize(d.name)).includes(chosungTerm) ||
+                                                (d.name && d.name.toLowerCase().includes(term)) ||
+                                                normalize(d.name_en).includes(normalizedTerm) ||
+                                                (d.name_en && d.name_en.toLowerCase().includes(term))
+                                                ).slice(0, 5);
+                                                }
+
+                                                if (matches.length > 0) {
+                                                // SEO 수정: div onclick -> a href
+                                                resultsDiv.innerHTML = matches.map(d => {
+                                                let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
+                                                if (d.tier === 1) tierClass = 'text-[#0093ff] border-[#0093ff]
+                                                bg-[#0093ff]/10';
+                                                else if (d.tier === 2) tierClass = 'text-[#00bba3] border-[#00bba3]
+                                                bg-[#00bba3]/10';
+                                                else if (d.tier === 3) tierClass = 'text-[#ffb900] border-[#ffb900]
+                                                bg-[#ffb900]/10';
+                                                else if (d.tier === 4) tierClass = 'text-[#9aa4af] border-[#9aa4af]
+                                                bg-[#9aa4af]/10';
+                                                else if (d.tier === 5) tierClass = 'text-[#a07557] border-[#a07557]
+                                                bg-[#a07557]/10';
+
+                                                const tierBadge = `<span
+                                                    class="px-1.5 py-0.5 text-[9px] font-bold rounded border ${tierClass}">${d.tier}
+                                                    Tier</span>`;
+
+                                                return `
+                                                <a href="/stock/${d.ticker}"
+                                                    class="p-2 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
+                                                    <div>
+                                                        <span class="font-bold text-xs text-white">${d.ticker}</span>
+                                                        <span class="text-[10px] text-gray-400 ml-1">${d.name}</span>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <span
+                                                            class="text-[#5383e8] text-[10px] font-bold block">${d.final_score}</span>
+                                                        <div class="mt-0.5">${tierBadge}</div>
+                                                    </div>
+                                                </a>
+                                                `;
+                                                }).join('');
+                                                resultsDiv.classList.remove('hidden');
+                                                } else {
+                                                resultsDiv.innerHTML = '<div class="p-2 text-gray-500 text-[10px]">검색 결과
+                                                    없음</div>';
+                                                resultsDiv.classList.remove('hidden');
+                                                }
+                                                });
+
+                                                document.addEventListener('click', (e) => {
+                                                if (!input.contains(e.target) && !resultsDiv.contains(e.target)) {
+                                                resultsDiv.classList.add('hidden');
+                                                }
+                                                });
+                                                }
+
+                                                init();
+                                                </script>
+
+                                                <footer
+                                                    class="text-center text-[10px] md:text-xs text-gray-500 py-3 md:py-4 px-4 border-t border-gray-800 mt-6">
+                                                    <p>본 사이트의 정보는 투자 참고용이며, 투자 결정과 손익에 대한 책임은 투자자 본인에게 있습니다.</p>
+                                                    <p class="mt-1">© 2026 나스픽(NASPICK)</p>
+                                                </footer>
 </body>
 
 </html>
