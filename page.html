@@ -520,20 +520,16 @@
                     <!-- 탭 컨트롤러 -->
                     <div class="relative w-[280px] h-11 bg-[#1c1c21] rounded-full p-1 mx-auto mb-6 flex items-center shadow-inner border border-gray-800 select-none">
                         <div id="segmentSlider" class="absolute left-1 top-1 w-[136px] h-9 bg-[#2962ff] rounded-full shadow-[0_0_15px_rgba(41,98,255,0.4)] transition-all duration-300 ease-out z-0"></div>
-                        <button id="tabChart" onclick="toggleFlipCard(false)" class="flex-1 relative z-10 text-xs font-bold text-white text-center transition-colors h-full flex items-center justify-center">📊 차트 보기</button>
-                        <button id="tabAnalysis" onclick="toggleFlipCard(true)" class="flex-1 relative z-10 text-xs font-bold text-gray-400 text-center transition-colors h-full flex items-center justify-center">💰 내 평단 분석</button>
+                        <button id="tabAnalysis" onclick="toggleFlipCard(false)" class="flex-1 relative z-10 text-xs font-bold text-white text-center transition-colors h-full flex items-center justify-center active">💰 내 평단 분석</button>
+                        <button id="tabChart" onclick="toggleFlipCard(true)" class="flex-1 relative z-10 text-xs font-bold text-gray-400 text-center transition-colors h-full flex items-center justify-center">📊 차트 보기</button>
                     </div>
 
                     <!-- Flip Card Area -->
                     <div class="perspective-1000 w-full h-[540px]">
                         <div id="flipCard" class="relative w-full h-full transition-transform duration-700 transform-style-3d">
-                            <!-- Front: Chart -->
-                            <div class="absolute w-full h-full backface-hidden rounded-2xl overflow-hidden border border-gray-800 bg-[#131722] shadow-2xl">
-                                <div id="tv_chart_container" class="w-full h-full"></div>
-                            </div>
                             
-                            <!-- Back: Analysis -->
-                            <div class="absolute w-full h-full backface-hidden rounded-2xl overflow-hidden border border-[#2962ff]/30 bg-[#131722] shadow-[0_0_50px_rgba(41,98,255,0.05)] rotate-y-180 flex flex-col relative">
+                            <!-- Front: Analysis (Default) -->
+                            <div class="absolute w-full h-full backface-hidden rounded-2xl overflow-hidden border border-[#2962ff]/30 bg-[#131722] shadow-[0_0_50px_rgba(41,98,255,0.05)] flex flex-col relative z-20">
                                 <!-- Gradient Header -->
                                 <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#2962ff]/10 to-transparent pointer-events-none"></div>
 
@@ -562,9 +558,14 @@
                                 </div>
 
                                 <!-- Result Overlay (Hidden Default) -->
-                                <div id="analysisResult" class="absolute inset-0 bg-[#131722] z-20 hidden flex flex-col animate-fade-in">
+                                <div id="analysisResult" class="absolute inset-0 bg-[#131722] z-30 hidden flex flex-col animate-fade-in">
                                     <!-- Injected by JS -->
                                 </div>
+                            </div>
+
+                            <!-- Back: Chart -->
+                            <div class="absolute w-full h-full backface-hidden rounded-2xl overflow-hidden border border-gray-800 bg-[#131722] shadow-2xl rotate-y-180 z-10">
+                                <div id="tv_chart_container" class="w-full h-full"></div>
                             </div>
                         </div>
                     </div>
@@ -1062,19 +1063,28 @@
         function toggleFlipCard(showBack) {
             const card = document.getElementById('flipCard');
             const slider = document.getElementById('segmentSlider');
-            const tabChart = document.getElementById('tabChart');
             const tabAnalysis = document.getElementById('tabAnalysis');
+            const tabChart = document.getElementById('tabChart');
+
+            // showBack = true -> Chart (Back)
+            // showBack = false -> Analysis (Front/Default)
 
             if (showBack) {
+                // To Chart (Back)
                 card.classList.add('flipped');
-                slider.style.transform = 'translateX(100%)';
-                tabChart.classList.remove('active');
-                tabAnalysis.classList.add('active');
+                slider.classList.add('right'); // Use class for transform
+                tabAnalysis.classList.remove('active', 'text-white');
+                tabAnalysis.classList.add('text-gray-400');
+                tabChart.classList.add('active', 'text-white');
+                tabChart.classList.remove('text-gray-400');
             } else {
+                // To Analysis (Front)
                 card.classList.remove('flipped');
-                slider.style.transform = 'translateX(0)';
-                tabChart.classList.add('active');
-                tabAnalysis.classList.remove('active');
+                slider.classList.remove('right');
+                tabAnalysis.classList.add('active', 'text-white');
+                tabAnalysis.classList.remove('text-gray-400');
+                tabChart.classList.remove('active', 'text-white');
+                tabChart.classList.add('text-gray-400');
             }
         }
 
@@ -1328,9 +1338,17 @@
                     if (vol > maxVol) { maxVol = vol; peakPrice = price; }
                 });
                 if (vp.total_volume) totalVolume = vp.total_volume;
-                if (totalVolume > 0) myRank = (volumeAboveMe / totalVolume * 100);
+                if (totalVolume > 0) {
+                    // Logic Update: 
+                    // volumeAboveMe = Volume of people who bought at higher price (Worse entry)
+                    // If 90% bought higher, I am better than 90%. So Top 10%.
+                    // myRank should be low number (Top X).
+                    myRank = 100 - (volumeAboveMe / totalVolume * 100);
+                }
             } else {
                 const diff = (avgPrice - currentPrice) / currentPrice;
+                // If diff is negative (My Price < Current Price), I am in profit.
+                // Better entry -> Lower Rank number.
                 myRank = 50 + (diff * 100);
             }
             if (myRank < 1) myRank = 1.0;
