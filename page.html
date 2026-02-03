@@ -641,14 +641,14 @@
             if (!fh) return '<div class="text-center text-gray-500 text-sm py-4">재무 데이터가 없습니다.</div>';
 
             const thresholds = {
-                per: { good: 15, warn: 25, goodLabel: '저평가', badLabel: '고평가', higherBetter: false, tip: '10배 미만이면 저평가' },
-                pbr: { good: 1.5, warn: 3, goodLabel: '자산가치↑', badLabel: '고평가', higherBetter: false, tip: '1배 미만 저평가' },
-                revenue_growth: { good: 15, warn: 0, goodLabel: '고성장', badLabel: '역성장', higherBetter: true, tip: '매출 증가율' },
-                eps_growth: { good: 20, warn: 0, goodLabel: '급성장', badLabel: '감소', higherBetter: true, tip: '이익 증가율' },
-                roe: { good: 15, warn: 8, goodLabel: '고수익', badLabel: '저효율', higherBetter: true, tip: '자기자본 이익률' },
-                operating_margin: { good: 15, warn: 5, goodLabel: '마진우수', badLabel: '저마진', higherBetter: true, tip: '영업이익률' },
-                debt_ratio: { good: 100, warn: 200, goodLabel: '안정', badLabel: '위험', higherBetter: false, tip: '부채 비율' },
-                current_ratio: { good: 1.5, warn: 1, goodLabel: '유동성↑', badLabel: '주의', higherBetter: true, tip: '단기 지급능력' }
+                per: { good: 15, warn: 25, goodLabel: '저평가', badLabel: '고평가', higherBetter: false, tip: 'PER(주가수익비율): 주가÷주당순이익. 10배 미만이면 저평가, 25배 이상이면 고평가로 판단.' },
+                pbr: { good: 1.5, warn: 3, goodLabel: '자산가치↑', badLabel: '고평가', higherBetter: false, tip: 'PBR(주가순자산비율): 주가÷주당순자산. 1배 미만이면 자산가치 대비 저평가.' },
+                revenue_growth: { good: 15, warn: 0, goodLabel: '고성장', badLabel: '역성장', higherBetter: true, tip: '매출성장률: 전년대비 매출 증가율. 15% 이상이면 고성장 기업.' },
+                eps_growth: { good: 20, warn: 0, goodLabel: '급성장', badLabel: '감소', higherBetter: true, tip: 'EPS성장률: 주당순이익 증가율. 20% 이상이면 급성장 중.' },
+                roe: { good: 15, warn: 8, goodLabel: '고수익', badLabel: '저효율', higherBetter: true, tip: 'ROE(자기자본이익률): 순이익÷자기자본. 15% 이상이면 자본을 효율적으로 운용.' },
+                operating_margin: { good: 15, warn: 5, goodLabel: '마진우수', badLabel: '저마진', higherBetter: true, tip: '영업이익률: 영업이익÷매출. 15% 이상이면 수익성 우수.' },
+                debt_ratio: { good: 100, warn: 200, goodLabel: '안정', badLabel: '위험', higherBetter: false, tip: '부채비율: 부채÷자기자본. 100% 미만이면 재무구조 안정.' },
+                current_ratio: { good: 1.5, warn: 1, goodLabel: '유동성↑', badLabel: '주의', higherBetter: true, tip: '유동비율: 유동자산÷유동부채. 1.5배 이상이면 단기 지급능력 양호.' }
             };
 
             const evaluate = (val, t) => {
@@ -667,7 +667,14 @@
                 return `<span class="${status.color} font-bold">${val}${suffix}</span>${badge}`;
             };
 
-            const tooltip = (key) => `<span class="text-gray-500 text-[10px] ml-1 cursor-help" title="${thresholds[key].tip}">ⓘ</span>`;
+            const tooltip = (key) => `
+                <span class="relative group">
+                    <span class="text-gray-500 text-[10px] ml-1 cursor-help">ⓘ</span>
+                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-gray-200 text-[11px] rounded-lg shadow-xl border border-gray-700 whitespace-normal w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 leading-relaxed pointer-events-none">
+                        ${thresholds[key].tip}
+                        <span class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800"></span>
+                    </span>
+                </span>`;
 
             return `
                  <div class="bg-[#1e1e24] rounded-lg p-4 border border-gray-700 mb-3">
@@ -1205,7 +1212,7 @@
         // --- Average Price Analysis Logic ---
         const ANALYSIS_MESSAGES = {
             MEGA_PROFIT: { // +30% 이상
-                top: { emoji: "🐋", title: "에이 진짜에요? 인증 ㄱ", sub: "상위 {rank}%에 수익 {pnl}%... 실례가 안된다면 치킨 한마리만.." },
+                top: { emoji: "🐋", title: "당신의 평단가는 세력수준입니다", sub: "상위 {rank}%에 수익 {pnl}%... 실례가 안된다면 치킨 한마리만.." },
                 mid: { emoji: "🏆", title: "레전드자리 진입", sub: "다음 종목 저한테만 몰래 DM주세요." },
                 bottom: { emoji: "🎯", title: "타이밍 좋았다", sub: "수익률 확실하네요, 좀 더 일찍 샀으면 전설이었어요." }
             },
