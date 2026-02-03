@@ -801,19 +801,9 @@
                                     </div>
 
                                     <!-- Back: Chart (Hidden initially) -->
-                                    <div class="absolute w-full h-full backface-hidden rounded-2xl overflow-hidden border border-gray-800 bg-[#131722] shadow-2xl rotate-y-180 z-10" style="display: none;">
+                                    <div class="absolute w-full h-full backface-hidden rounded-2xl overflow-hidden border border-gray-800 bg-[#131722] shadow-2xl rotate-y-180 z-10" style="visibility: hidden;">
                                         <div id="tv_chart_container" class="w-full h-full"></div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                                        <!-- Result Overlay (Hidden Default) -->
-                                        <div id="analysisResult" class="absolute inset-0 bg-[#131722] z-20 hidden flex flex-col animate-fade-in">
-                                            <!-- Injected by JS -->
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -1640,9 +1630,9 @@
                 frontFace.style.zIndex = 0;
                 backFace.style.zIndex = 10;
 
-                // Stronger Fix: display:none
-                backFace.style.display = 'block';
-                setTimeout(() => { frontFace.style.display = 'none'; }, 350);
+                // Explicit Visibility Toggle (Fix for bleeding iframe)
+                backFace.style.visibility = 'visible';
+                setTimeout(() => { frontFace.style.visibility = 'hidden'; }, 350);
             } else {
                 // To Analysis (Front)
                 flipCard.classList.remove('flipped');
@@ -1656,9 +1646,9 @@
                 frontFace.style.zIndex = 10;
                 backFace.style.zIndex = 0;
 
-                // Stronger Fix
-                frontFace.style.display = 'flex';
-                setTimeout(() => { backFace.style.display = 'none'; }, 350);
+                // Explicit Visibility Toggle
+                frontFace.style.visibility = 'visible';
+                setTimeout(() => { backFace.style.visibility = 'hidden'; }, 350);
             }
         }
 
