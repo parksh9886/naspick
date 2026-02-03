@@ -301,7 +301,7 @@
                 let metaEarnings = cal.next_earnings ? `다음 실적: ${cal.next_earnings}.` : '';
                 if (metaDesc) {
                     metaDesc.setAttribute('content',
-                        `[${dateString}] ${stockData.name}(${stockData.ticker}) 적정 주가 및 월스트리트 목표가 분석. 현재가 $${stockData.current_price}, 나스픽 AI 점수 ${stockData.final_score}점(${stockData.tier}티어). ${metaDividend} ${metaEarnings}`.trim()
+                        `[${dateString}] ${stockData.name}(${stockData.ticker}) 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단! 월가 목표주가와 실시간 티어까지 한눈에 확인하세요.`.trim()
                     );
                 }
 
@@ -338,7 +338,7 @@
                 else if (cal.last_surprise) seoExtra += ` 직전 실적: ${cal.last_surprise > 0 ? '어닝서프라이즈' : '미스'}(${cal.last_surprise}%).`;
 
                 const ogDesc = document.querySelector('meta[property="og:description"]');
-                if (ogDesc) ogDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 나스픽 점수 ${stockData.final_score}점(${stockData.tier}티어).${seoExtra}`);
+                if (ogDesc) ogDesc.setAttribute('content', `[${dateString}] ${stockData.name}(${stockData.ticker}) 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단! 월가 목표주가와 실시간 티어까지 한눈에 확인하세요.`);
 
                 const ogUrl = document.querySelector('meta[property="og:url"]');
                 if (ogUrl) ogUrl.setAttribute('content', `https://naspick.com/stock/${stockData.ticker}`);
@@ -347,7 +347,7 @@
                 if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.ticker} 주가 전망 & 목표가 | ${stockData.name} AI 분석 - 나스픽`);
 
                 const twitterDesc = document.querySelector('meta[name="twitter:description"]');
-                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 점수 ${stockData.final_score}점.${seoExtra}`);
+                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString}] ${stockData.name}(${stockData.ticker}) 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단! 월가 목표주가와 실시간 티어까지 한눈에 확인하세요.`);
 
                 // 6. Schema.org 구조화 데이터 (Corporation)
                 const schemaScript = document.createElement('script');
@@ -1228,7 +1228,7 @@
             },
             SMALL_LOSS: { // -10~0%
                 top: { emoji: "💪", title: "자신감을 가져요!", sub: "손실이지만 상위 {rank}%! 대부분보다 낫습니다." },
-                mid: { emoji: "🤝", title: "동지가 많네요", sub: "수많은 전우들과 함께합니다." },
+                mid: { emoji: "🐜", title: "동지가 많네요", sub: "수많은 개미들과 함께합니다." },
                 bottom: { emoji: "😅", title: "느낌이 쎄한데요?", sub: "힘든 구간이지만.. 팔기 전엔 손실 아니니까요" }
             },
             LOSS: { // -30~-10%

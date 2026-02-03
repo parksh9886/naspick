@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HST Stock Price Forecast & Target | Host Hotels & Resorts AI Analysis - NASPICK</title>
-    <meta name="description" content="[2026-02-03] Host Hotels & Resorts (HST) stock price target and AI analysis. Check Host Hotels & Resorts's investment rating and real-time tier score.">
+    <meta name="description" content="[2026-02-04] Host Hotels & Resorts (HST) stock price target and AI analysis. Check Host Hotels & Resorts's investment rating and real-time tier score.">
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -27,14 +27,14 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="NASPICK">
     <meta property="og:title" content="HST Stock Price Forecast & Target | Host Hotels & Resorts AI Analysis - NASPICK">
-    <meta property="og:description" content="[2026-02-03] Host Hotels & Resorts (HST) stock price target and AI analysis. Check Host Hotels & Resorts's investment rating and real-time tier score.">
+    <meta property="og:description" content="[2026-02-04] Host Hotels & Resorts (HST) stock price target and AI analysis. Check Host Hotels & Resorts's investment rating and real-time tier score.">
     <meta property="og:url" content="https://naspick.com/en/stock/HST">
     <meta property="og:image" content="https://financialmodelingprep.com/image-stock/HST.png">
 
     <!-- Twitter Card (Default, updated dynamically via JS) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="HST Stock Price Forecast & Target | Host Hotels & Resorts AI Analysis - NASPICK">
-    <meta name="twitter:description" content="[2026-02-03] Host Hotels & Resorts (HST) stock price target and AI analysis. Check Host Hotels & Resorts's investment rating and real-time tier score.">
+    <meta name="twitter:description" content="[2026-02-04] Host Hotels & Resorts (HST) stock price target and AI analysis. Check Host Hotels & Resorts's investment rating and real-time tier score.">
     <meta name="twitter:image" content="https://financialmodelingprep.com/image-stock/HST.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -249,7 +249,7 @@
                     <!-- Tab Controller -->
                     <div class="relative w-[300px] h-11 bg-[#1c1c21] rounded-full p-1 mx-auto mb-6 flex items-center shadow-inner border border-gray-800 select-none">
                         <div id="segmentSlider" class="absolute left-1 top-1 w-[146px] h-9 bg-[#2962ff] rounded-full shadow-[0_0_15px_rgba(41,98,255,0.4)] transition-all duration-300 ease-out z-0"></div>
-                        <button onclick="toggleFlipCard(false)" id="tabAnalysis" class="flex-1 relative z-10 text-xs font-bold text-white text-center transition-colors h-full flex items-center justify-center active">💰 Analysis (v2)</button>
+                        <button onclick="toggleFlipCard(false)" id="tabAnalysis" class="flex-1 relative z-10 text-xs font-bold text-white text-center transition-colors h-full flex items-center justify-center active">💰 Analysis</button>
                         <button onclick="toggleFlipCard(true)" id="tabChart" class="flex-1 relative z-10 text-xs font-bold text-gray-400 text-center transition-colors h-full flex items-center justify-center">📊 Chart</button>
                     </div>
 
@@ -268,7 +268,8 @@
                                 
                                 <div class="w-full max-w-xs space-y-6">
                                     <div class="relative group">
-                                        <input type="number" id="avgPriceInput" placeholder=" " 
+                                        <input type="number" id="avgPriceInput" placeholder=" " min="0.01" step="0.01"
+                                            oninput="if(this.value < 0) this.value = ''; if(this.value.includes('.') && this.value.split('.')[1]?.length > 2) this.value = parseFloat(this.value).toFixed(2);"
                                             class="peer w-full bg-[#1c1c21] border border-gray-700 rounded-xl px-4 pt-6 pb-2 text-white text-xl font-bold font-mono outline-none focus:border-[#2962ff] focus:ring-1 focus:ring-[#2962ff] transition-all shadow-inner text-center">
                                         <label class="absolute text-gray-500 text-xs font-bold top-2 left-0 right-0 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-[#2962ff]">Average Cost ($)</label>
                                     </div>
@@ -280,7 +281,7 @@
                                     </button>
                                     
                                     <p class="text-[10px] text-gray-500 text-center bg-[#1c1c21] py-2 px-3 rounded-lg border border-gray-800">
-                                        * Analysis based on 4-year Volume Profile
+                                        * Analysis based on 6 months Volume Profile
                                     </p>
                                 </div>
                             </div>
@@ -1768,34 +1769,34 @@
         // --- Average Price Analysis Logic (English) ---
         const ANALYSIS_MESSAGES = {
             MEGA_PROFIT: {
-                top: { emoji: "🐋", title: "Are you a Whale?", sub: "Top {rank}%! With {pnl}% profit... Are you an institutional investor?" },
-                mid: { emoji: "🏆", title: "Legendary Entry", sub: "While others are stuck at ${peak}, you are celebrating." },
-                bottom: { emoji: "🎯", title: "Timing Master", sub: "Perfect timing. A bit earlier and you'd be Warren Buffett!" }
+                top: { emoji: "🐋", title: "Wait, is this real?", sub: "Top {rank}% with {pnl}% gains... Proof or it didn't happen. Dinner's on you." },
+                mid: { emoji: "🏆", title: "Absolute Legend", sub: "Slide into my DMs with your next ticker. Seriously." },
+                bottom: { emoji: "🎯", title: "Impeccable Timing", sub: "Solid gains. If you bought earlier, you'd be retired by now." }
             },
             PROFIT: {
-                top: { emoji: "💎", title: "Diamond Hands", sub: "Top {rank}%! Enjoy the comfort of a solid position." },
-                mid: { emoji: "😎", title: "Doing Great", sub: "You bought cheaper than average. Treat yourself to a coffee." },
-                bottom: { emoji: "👍", title: "Above Average", sub: "Better entry than the peak volume at ${peak}. Good job!" }
+                top: { emoji: "💎", title: "Diamond Hands", sub: "Top {rank}%! You're officially the 'I told you so' friend in the group chat." },
+                mid: { emoji: "😎", title: "Solid Play", sub: "Bought the dip perfectly. Go treat yourself to something nice." },
+                bottom: { emoji: "👍", title: "In the Green", sub: "Better than a loss. Green is green!" }
             },
             SMALL_PROFIT: {
-                top: { emoji: "🙂", title: "Good Start", sub: "Top {rank}%! Just getting started. Hold tight." },
-                mid: { emoji: "⚖️", title: "Holding Steady", sub: "Still close to the edge. Watch the trend while eating popcorn." },
-                bottom: { emoji: "😐", title: "Stay Alert", sub: "In profit, but too early to relax. Keep watching." }
+                top: { emoji: "🙂", title: "Off to a Good Start", sub: "Top {rank}%! Not bad, but we're just getting started." },
+                mid: { emoji: "⚖️", title: "HODLing Tight", sub: "Heart racing a bit? That means you're alive." },
+                bottom: { emoji: "😐", title: "Living on the Edge", sub: "A bit shaky, but you're hanging in there. Stay strong!" }
             },
             SMALL_LOSS: {
-                top: { emoji: "💪", title: "Still Hopeful", sub: "Loss, but Top {rank}%! Much better than those at ${peak}." },
-                mid: { emoji: "🤝", title: "Many Comrades", sub: "You are near the most crowded price level (${peak}). You are not alone." },
-                bottom: { emoji: "😅", title: "Hold On", sub: "+{upside}% left to Wall St target. Patience pays off." }
+                top: { emoji: "💪", title: "Chin Up!", sub: "Down, but still Top {rank}%. You're actually outperforming most people." },
+                mid: { emoji: "🤝", title: "You Are Not Alone", sub: "Safety in numbers? There's a whole army down here with you." },
+                bottom: { emoji: "😅", title: "Spidey Senses Tingling?", sub: "Rough patch... but hey, it's not a loss until you sell." }
             },
             LOSS: {
-                top: { emoji: "🩹", title: "Can Survive", sub: "Top {rank}%... It hurts, but could be worse." },
-                mid: { emoji: "😰", title: "FOMO Victim?", sub: "Did you buy the pump? Still, there is hope." },
-                bottom: { emoji: "😭", title: "Painful Zone", sub: "Tough times. But let's believe in the target price ${target}." }
+                top: { emoji: "🩹", title: "Just a Flesh Wound", sub: "In the red, but Top {rank}%... Could be way worse." },
+                mid: { emoji: "😰", title: "Bought the Top?", sub: "Smells like FOMO... but there's still hope. Maybe." },
+                bottom: { emoji: "😭", title: "Rescue Team?", sub: "\"Here to save me?\" \"...Nah, I'm stuck down here too.\"" }
             },
             MEGA_LOSS: {
-                top: { emoji: "🆘", title: "Still Top Tier", sub: "{pnl}% loss but Top {rank}%... Others are suffering more." },
-                mid: { emoji: "💀", title: "Shared Pain", sub: "Many comrades are suffering with you. Stay strong." },
-                bottom: { emoji: "☠️", title: "Need Rescue", sub: "Historic high... Even Buffett has -50% days." }
+                top: { emoji: "💀", title: "Technically Top Tier", sub: "Down {pnl}%, but somehow Top {rank}%... A confusing victory." },
+                mid: { emoji: "🆘", title: "Send Help!", sub: "Mayday! Mayday! Someone throw me a rope!" },
+                bottom: { emoji: "📞", title: "Calling Warren Buffett...", sub: "He said... 'Here's an application for McDonald's'?" }
             }
         };
 
@@ -1818,7 +1819,7 @@
                 <div class="flex-1 flex flex-col items-center justify-center h-full">
                     <div class="w-16 h-16 border-4 border-[#2962ff]/20 border-t-[#2962ff] rounded-full animate-spin mb-6"></div>
                     <div class="text-lg font-bold text-white mb-2 animate-pulse" id="loadingText">Analyzing Data...</div>
-                    <div class="text-xs text-gray-500">Checking 4-year Volume Profile</div>
+                    <div class="text-xs text-gray-500">Checking 6 months Volume Profile</div>
                 </div>
             `;
 

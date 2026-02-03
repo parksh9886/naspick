@@ -119,7 +119,7 @@ def generate_stock_pages(data):
         url_en = f"https://naspick.com/en/stock/{ticker}"
         
         title_ko = f"{today} {ticker} 주가 전망 & 목표가 | {name_ko} AI 분석 - 나스픽"
-        desc_ko = f"[{today}] {name_ko}({ticker}) 적정 주가 및 월스트리트 목표가 분석. AI가 진단한 {name_ko}의 투자 매력도와 실시간 티어 정보를 확인하세요."
+        desc_ko = f"[{today}] {name_ko}({ticker}) 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단! 월가 목표주가와 실시간 티어까지 한눈에 확인하세요."
         
         meta_ko = {
             "title": title_ko,

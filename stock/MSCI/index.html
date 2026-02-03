@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026-02-03 MSCI 주가 전망 & 목표가 | MSCI AI 분석 - 나스픽</title>
-    <meta name="description" content="[2026-02-03] MSCI(MSCI) 적정 주가 및 월스트리트 목표가 분석. AI가 진단한 MSCI의 투자 매력도와 실시간 티어 정보를 확인하세요.">
+    <title>2026-02-04 MSCI 주가 전망 & 목표가 | MSCI AI 분석 - 나스픽</title>
+    <meta name="description" content="[2026-02-04] MSCI(MSCI) 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단! 월가 목표주가와 실시간 티어까지 한눈에 확인하세요.">
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -26,15 +26,15 @@
     <!-- Open Graph (기본값, JS에서 동적 업데이트) -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="나스픽">
-    <meta property="og:title" content="2026-02-03 MSCI 주가 전망 & 목표가 | MSCI AI 분석 - 나스픽">
-    <meta property="og:description" content="[2026-02-03] MSCI(MSCI) 적정 주가 및 월스트리트 목표가 분석. AI가 진단한 MSCI의 투자 매력도와 실시간 티어 정보를 확인하세요.">
+    <meta property="og:title" content="2026-02-04 MSCI 주가 전망 & 목표가 | MSCI AI 분석 - 나스픽">
+    <meta property="og:description" content="[2026-02-04] MSCI(MSCI) 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단! 월가 목표주가와 실시간 티어까지 한눈에 확인하세요.">
     <meta property="og:url" content="https://naspick.com/stock/MSCI">
     <meta property="og:image" content="https://financialmodelingprep.com/image-stock/MSCI.png">
 
     <!-- Twitter Card (기본값, JS에서 동적 업데이트) -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="2026-02-03 MSCI 주가 전망 & 목표가 | MSCI AI 분석 - 나스픽">
-    <meta name="twitter:description" content="[2026-02-03] MSCI(MSCI) 적정 주가 및 월스트리트 목표가 분석. AI가 진단한 MSCI의 투자 매력도와 실시간 티어 정보를 확인하세요.">
+    <meta name="twitter:title" content="2026-02-04 MSCI 주가 전망 & 목표가 | MSCI AI 분석 - 나스픽">
+    <meta name="twitter:description" content="[2026-02-04] MSCI(MSCI) 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단! 월가 목표주가와 실시간 티어까지 한눈에 확인하세요.">
     <meta name="twitter:image" content="https://financialmodelingprep.com/image-stock/MSCI.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -301,7 +301,7 @@
                 let metaEarnings = cal.next_earnings ? `다음 실적: ${cal.next_earnings}.` : '';
                 if (metaDesc) {
                     metaDesc.setAttribute('content',
-                        `[${dateString}] ${stockData.name}(${stockData.ticker}) 적정 주가 및 월스트리트 목표가 분석. 현재가 $${stockData.current_price}, 나스픽 AI 점수 ${stockData.final_score}점(${stockData.tier}티어). ${metaDividend} ${metaEarnings}`.trim()
+                        `[${dateString}] ${stockData.name}(${stockData.ticker}) 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단! 월가 목표주가와 실시간 티어까지 한눈에 확인하세요.`.trim()
                     );
                 }
 
@@ -338,7 +338,7 @@
                 else if (cal.last_surprise) seoExtra += ` 직전 실적: ${cal.last_surprise > 0 ? '어닝서프라이즈' : '미스'}(${cal.last_surprise}%).`;
 
                 const ogDesc = document.querySelector('meta[property="og:description"]');
-                if (ogDesc) ogDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 나스픽 점수 ${stockData.final_score}점(${stockData.tier}티어).${seoExtra}`);
+                if (ogDesc) ogDesc.setAttribute('content', `[${dateString}] ${stockData.name}(${stockData.ticker}) 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단! 월가 목표주가와 실시간 티어까지 한눈에 확인하세요.`);
 
                 const ogUrl = document.querySelector('meta[property="og:url"]');
                 if (ogUrl) ogUrl.setAttribute('content', `https://naspick.com/stock/${stockData.ticker}`);
@@ -347,7 +347,7 @@
                 if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.ticker} 주가 전망 & 목표가 | ${stockData.name} AI 분석 - 나스픽`);
 
                 const twitterDesc = document.querySelector('meta[name="twitter:description"]');
-                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString} 기준] ${stockData.name}(${stockData.ticker}) AI 정밀 분석. 현재가 $${stockData.current_price}, 점수 ${stockData.final_score}점.${seoExtra}`);
+                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString}] ${stockData.name}(${stockData.ticker}) 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단! 월가 목표주가와 실시간 티어까지 한눈에 확인하세요.`);
 
                 // 6. Schema.org 구조화 데이터 (Corporation)
                 const schemaScript = document.createElement('script');
@@ -539,7 +539,8 @@
                                 
                                 <div class="w-full max-w-xs space-y-6">
                                     <div class="relative group">
-                                        <input type="number" id="avgPriceInput" placeholder=" " 
+                                        <input type="number" id="avgPriceInput" placeholder=" " min="0.01" step="0.01"
+                                            oninput="if(this.value < 0) this.value = ''; if(this.value.includes('.') && this.value.split('.')[1]?.length > 2) this.value = parseFloat(this.value).toFixed(2);"
                                             class="peer w-full bg-[#1c1c21] border border-gray-700 rounded-xl px-4 pt-6 pb-2 text-white text-xl font-bold font-mono outline-none focus:border-[#2962ff] focus:ring-1 focus:ring-[#2962ff] transition-all shadow-inner text-center">
                                         <label class="absolute text-gray-500 text-xs font-bold top-2 left-0 right-0 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-[#2962ff]">평균 매수가 ($)</label>
                                     </div>
@@ -551,7 +552,7 @@
                                     </button>
                                     
                                     <p class="text-[10px] text-gray-500 text-center bg-[#1c1c21] py-2 px-3 rounded-lg border border-gray-800">
-                                        * 과거 4년치 매물대 데이터 기반 분석
+                                        * 과거 6개월치 매물대 데이터 기반 분석
                                     </p>
                                 </div>
                             </div>
@@ -640,14 +641,14 @@
             if (!fh) return '<div class="text-center text-gray-500 text-sm py-4">재무 데이터가 없습니다.</div>';
 
             const thresholds = {
-                per: { good: 15, warn: 25, goodLabel: '저평가', badLabel: '고평가', higherBetter: false, tip: '10배 미만이면 저평가' },
-                pbr: { good: 1.5, warn: 3, goodLabel: '자산가치↑', badLabel: '고평가', higherBetter: false, tip: '1배 미만 저평가' },
-                revenue_growth: { good: 15, warn: 0, goodLabel: '고성장', badLabel: '역성장', higherBetter: true, tip: '매출 증가율' },
-                eps_growth: { good: 20, warn: 0, goodLabel: '급성장', badLabel: '감소', higherBetter: true, tip: '이익 증가율' },
-                roe: { good: 15, warn: 8, goodLabel: '고수익', badLabel: '저효율', higherBetter: true, tip: '자기자본 이익률' },
-                operating_margin: { good: 15, warn: 5, goodLabel: '마진우수', badLabel: '저마진', higherBetter: true, tip: '영업이익률' },
-                debt_ratio: { good: 100, warn: 200, goodLabel: '안정', badLabel: '위험', higherBetter: false, tip: '부채 비율' },
-                current_ratio: { good: 1.5, warn: 1, goodLabel: '유동성↑', badLabel: '주의', higherBetter: true, tip: '단기 지급능력' }
+                per: { good: 15, warn: 25, goodLabel: '저평가', badLabel: '고평가', higherBetter: false, tip: 'PER(주가수익비율): 주가÷주당순이익. 10배 미만이면 저평가, 25배 이상이면 고평가로 판단.' },
+                pbr: { good: 1.5, warn: 3, goodLabel: '자산가치↑', badLabel: '고평가', higherBetter: false, tip: 'PBR(주가순자산비율): 주가÷주당순자산. 1배 미만이면 자산가치 대비 저평가.' },
+                revenue_growth: { good: 15, warn: 0, goodLabel: '고성장', badLabel: '역성장', higherBetter: true, tip: '매출성장률: 전년대비 매출 증가율. 15% 이상이면 고성장 기업.' },
+                eps_growth: { good: 20, warn: 0, goodLabel: '급성장', badLabel: '감소', higherBetter: true, tip: 'EPS성장률: 주당순이익 증가율. 20% 이상이면 급성장 중.' },
+                roe: { good: 15, warn: 8, goodLabel: '고수익', badLabel: '저효율', higherBetter: true, tip: 'ROE(자기자본이익률): 순이익÷자기자본. 15% 이상이면 자본을 효율적으로 운용.' },
+                operating_margin: { good: 15, warn: 5, goodLabel: '마진우수', badLabel: '저마진', higherBetter: true, tip: '영업이익률: 영업이익÷매출. 15% 이상이면 수익성 우수.' },
+                debt_ratio: { good: 100, warn: 200, goodLabel: '안정', badLabel: '위험', higherBetter: false, tip: '부채비율: 부채÷자기자본. 100% 미만이면 재무구조 안정.' },
+                current_ratio: { good: 1.5, warn: 1, goodLabel: '유동성↑', badLabel: '주의', higherBetter: true, tip: '유동비율: 유동자산÷유동부채. 1.5배 이상이면 단기 지급능력 양호.' }
             };
 
             const evaluate = (val, t) => {
@@ -666,7 +667,14 @@
                 return `<span class="${status.color} font-bold">${val}${suffix}</span>${badge}`;
             };
 
-            const tooltip = (key) => `<span class="text-gray-500 text-[10px] ml-1 cursor-help" title="${thresholds[key].tip}">ⓘ</span>`;
+            const tooltip = (key) => `
+                <span class="relative group">
+                    <span class="text-gray-500 text-[10px] ml-1 cursor-help">ⓘ</span>
+                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-gray-200 text-[11px] rounded-lg shadow-xl border border-gray-700 whitespace-normal w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 leading-relaxed pointer-events-none">
+                        ${thresholds[key].tip}
+                        <span class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-800"></span>
+                    </span>
+                </span>`;
 
             return `
                  <div class="bg-[#1e1e24] rounded-lg p-4 border border-gray-700 mb-3">
@@ -1204,34 +1212,34 @@
         // --- Average Price Analysis Logic ---
         const ANALYSIS_MESSAGES = {
             MEGA_PROFIT: { // +30% 이상
-                top: { emoji: "🐋", title: "혹시... 고래십니까?", sub: "상위 {rank}% 진입! 수익률 {pnl}%... 기관 투자자 아니세요?" },
-                mid: { emoji: "🏆", title: "전설의 평단가", sub: "대부분이 ${peak}에 물려있는데 혼자 축제입니다." },
-                bottom: { emoji: "🎯", title: "매수의 신", sub: "기가 막힌 타이밍이네요. 조금만 더 일찍 샀으면 워런 버핏!" }
+                top: { emoji: "🐋", title: "당신의 평단가는 세력수준입니다", sub: "상위 {rank}%에 수익 {pnl}%... 실례가 안된다면 치킨 한마리만.." },
+                mid: { emoji: "🏆", title: "레전드자리 진입", sub: "다음 종목 저한테만 몰래 DM주세요." },
+                bottom: { emoji: "🎯", title: "타이밍 좋았다", sub: "수익률 확실하네요, 좀 더 일찍 샀으면 전설이었어요." }
             },
             PROFIT: { // +10~30%
-                top: { emoji: "💎", title: "다이아몬드 핸즈", sub: "상위 {rank}%! 흔들리지 않는 편안함을 즐기세요." },
-                mid: { emoji: "😎", title: "나름 선방했습니다", sub: "남들보다 싸게 샀으니 오늘 커피 한 잔 더 드셔도 됩니다." },
-                bottom: { emoji: "👍", title: "평균 이상의 실력", sub: "피크 매물대 ${peak}보다 저렴하게 잘 잡으셨네요." }
+                top: { emoji: "💎", title: "다이아몬드 손", sub: "상위 {rank}%! 단톡방에서 '니 말 들을걸' 소리 듣는 타입." },
+                mid: { emoji: "😎", title: "나름 선방", sub: "평균보다 싸게 사셨네요. 익절하면 비싼 밥 드셔도 돼요." },
+                bottom: { emoji: "👍", title: "평균 이상", sub: "손실보다는 낫습니다. 합격!" }
             },
             SMALL_PROFIT: { // 0~10%
-                top: { emoji: "🙂", title: "기분 좋은 출발", sub: "상위 {rank}%! 이제부터 시작입니다. 꽉 잡으세요." },
-                mid: { emoji: "⚖️", title: "숨 참고 관전 중", sub: "아직은 간당간당합니다. 팝콘 뜯으며 지켜보시죠." },
-                bottom: { emoji: "😐", title: "방심은 금물", sub: "수익권이지만 안심하긴 이릅니다. 추세를 지켜봐야 해요." }
+                top: { emoji: "🙂", title: "좋은 출발", sub: "상위 {rank}%! 아직 시작일 뿐입니다." },
+                mid: { emoji: "⚖️", title: "숨 참고 관전 중", sub: "심장이 뛰고 있다면... 정상입니다." },
+                bottom: { emoji: "😐", title: "아슬아슬", sub: "간당간당하네요. 화이팅!" }
             },
             SMALL_LOSS: { // -10~0%
-                top: { emoji: "💪", title: "아직 희망이 있습니다", sub: "손실이지만 상위 {rank}%! ${peak}에 물린 사람들보다 훨씬 낫습니다." },
-                mid: { emoji: "🤝", title: "동지가 많습니다", sub: "가장 많은 사람들이 물린 가격대(${peak}) 근처입니다. 외롭지 않아요." },
-                bottom: { emoji: "😅", title: "조금만 더 참으세요", sub: "월스트리트 목표가까지 +{upside}% 남았습니다. 존버는 승리합니다." }
+                top: { emoji: "💪", title: "자신감을 가져요!", sub: "손실이지만 상위 {rank}%! 대부분보다 낫습니다." },
+                mid: { emoji: "🐜", title: "동지가 많네요", sub: "수많은 개미들과 함께합니다." },
+                bottom: { emoji: "😅", title: "느낌이 쎄한데요?", sub: "힘든 구간이지만.. 팔기 전엔 손실 아니니까요" }
             },
             LOSS: { // -30~-10%
-                top: { emoji: "🩹", title: "버틸 수 있습니다", sub: "상위 {rank}%... 많이 아프지만 최악은 면했습니다." },
-                mid: { emoji: "😰", title: "고점 판독기 의심", sub: "혹시... 급등할 때 추격 매수 하셨나요? (뜨끔)" },
-                bottom: { emoji: "😭", title: "눈물이 앞을 가립니다", sub: "힘든 구간입니다. 하지만 목표가 ${target}를 믿어봅시다." }
+                top: { emoji: "🩹", title: "그래도 버틸만 하죠?", sub: "손해지만 상위 {rank}%... 더 아픈 분들도 많아요." },
+                mid: { emoji: "😰", title: "고층에 입주하셨군요", sub: "혹시... FOMO는 아니였죠? 그래도 희망은 있어요." },
+                bottom: { emoji: "😭", title: "아무래도 물린 것 같아요", sub: "어라.. 나 왜 눈물이..?" }
             },
             MEGA_LOSS: { // -30% 이하
-                top: { emoji: "🆘", title: "그래도 상위권이에요", sub: "손실 {pnl}%지만 상위 {rank}%... 다들 같이 죽어가고 있습니다." },
-                mid: { emoji: "💀", title: "고통 분담 중", sub: "수많은 전우들이 함께하고 있습니다. 힘내세요." },
-                bottom: { emoji: "☠️", title: "구조대 급파 요청", sub: "역대급 고점... 하지만 워런 버핏도 -50% 경험이 있답니다." }
+                top: { emoji: "💀", title: "그래도 상위권이에요", sub: "손실 {pnl}%지만 상위 {rank}%... 작은 위안이라도..." },
+                mid: { emoji: "🆘", title: "여기 사람 있어요", sub: "누가 119좀 불러주세요!" },
+                bottom: { emoji: "📞", title: "워렌버핏 형님께 전화해볼게요", sub: "네 형님! 아 알바몬 깔으라고 전해달라고요..?" }
             }
         };
 
@@ -1254,7 +1262,7 @@
                 <div class="flex-1 flex flex-col items-center justify-center h-full">
                     <div class="w-16 h-16 border-4 border-[#2962ff]/20 border-t-[#2962ff] rounded-full animate-spin mb-6"></div>
                     <div class="text-lg font-bold text-white mb-2 animate-pulse" id="loadingText">데이터 분석 중...</div>
-                    <div class="text-xs text-gray-500">과거 4년치 매물대 대조 중</div>
+                    <div class="text-xs text-gray-500">과거 6개월치 매물대 대조 중</div>
                 </div>
             `;
 
