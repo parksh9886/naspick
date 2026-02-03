@@ -175,6 +175,11 @@
         .flip-tab:not(.active):hover {
             color: #9ca3af;
         }
+
+        /* Fix: Slider Animation Class */
+        #segmentSlider.right {
+            transform: translateX(100%);
+        }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643020932469823"
         crossorigin="anonymous"></script>
@@ -1378,8 +1383,8 @@
                     
                     <!-- 1. Emoji & Title -->
                     <div class="flex flex-col items-center justify-center animate-fade-in-up mt-1">
-                        <div class="text-5xl mb-2 drop-shadow-2xl grayscale-0">${msgObj.emoji}</div>
-                        <h2 class="text-xl font-black text-white text-center leading-tight mb-4">${title}</h2>
+                        <div class="text-5xl mb-6 drop-shadow-2xl grayscale-0">${msgObj.emoji}</div>
+                        <h2 class="text-3xl font-black text-white text-center leading-tight mb-2 tracking-tight">${title}</h2>
                     </div>
 
                     <!-- 2. Message Box -->
@@ -1773,60 +1778,17 @@
             const input = document.getElementById('headerSearch');
             const resultsDiv = document.getElementById('headerSearchResults');
 
+            // Expose allData globally for Analysis Search
+            if (typeof allData !== 'undefined') {
+                window.allData = allData;
+            }
+
             input.addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase().replace(/\s+/g, ''); // Remove spaces
                 if (!term) {
                     resultsDiv.classList.add('hidden');
                     return;
                 }
-
-                // Korean Chosung Helper
-                const getChosung = (str) => {
-                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-                    let result = "";
-                    for (let i = 0; i < str.length; i++) {
-                        const code = str.charCodeAt(i) - 44032;
-                        if (code > -1 && code < 11172) {
-                            result += chosung[Math.floor(code / 588)];
-                        } else {
-                            result += str.charAt(i);
-                        }
-                    }
-                    return result;
-                };
-
-                // New: Jamo Helper
-                const getJamo = (str) => {
-                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-                    const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
-                    const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-
-                    let result = "";
-                    for (let i = 0; i < str.length; i++) {
-                        const code = str.charCodeAt(i) - 44032;
-                        if (code > -1 && code < 11172) {
-                            const c = Math.floor(code / 588);
-                            const j = Math.floor((code % 588) / 28);
-                            const k = code % 28;
-                            result += chosung[c] + jungsung[j];
-                            if (k > 0) result += jongsung[k];
-                        } else {
-                            result += str.charAt(i);
-                        }
-                    }
-                    return result;
-                };
-
-                // Helper: Decompose Compound Consonants
-                const decomposeHangul = (str) => {
-                    const doubleConsonants = {
-                        'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
-                        'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
-                    };
-                    return str.split('').map(char => doubleConsonants[char] || char).join('');
-                };
-
-                const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
 
                 // Determine Search Mode
                 const hasHangulSyllable = /[가-힣]/.test(term);
@@ -1837,11 +1799,11 @@
                     const jamoTerm = getJamo(term);
 
                     matches = allData.filter(d => {
-                        const normName = normalize(d.name);
+                        const normName = normalizeStr(d.name);
                         return d.ticker.toLowerCase().includes(term) ||
                             normName.includes(term) ||
                             getJamo(normName).includes(jamoTerm) ||
-                            (d.name_en && normalize(d.name_en).includes(term));
+                            (d.name_en && normalizeStr(d.name_en).includes(term));
                     }).slice(0, 5);
 
                 } else {
@@ -1851,10 +1813,10 @@
 
                     matches = allData.filter(d =>
                         d.ticker.toLowerCase().includes(term) ||
-                        normalize(d.name).includes(normalizedTerm) ||
-                        getChosung(normalize(d.name)).includes(chosungTerm) ||
+                        normalizeStr(d.name).includes(normalizedTerm) ||
+                        getChosung(normalizeStr(d.name)).includes(chosungTerm) ||
                         (d.name && d.name.toLowerCase().includes(term)) ||
-                        normalize(d.name_en).includes(normalizedTerm) ||
+                        normalizeStr(d.name_en).includes(normalizedTerm) ||
                         (d.name_en && d.name_en.toLowerCase().includes(term))
                     ).slice(0, 5);
                 }

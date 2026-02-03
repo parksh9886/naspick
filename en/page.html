@@ -59,6 +59,11 @@
         .stat-bar {
             animation: loadBar 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
+
+        /* Fix: Slider Animation Class */
+        #segmentSlider.right {
+            transform: translateX(100%);
+        }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643020932469823"
         crossorigin="anonymous"></script>
@@ -1520,6 +1525,11 @@
             const input = document.getElementById('headerSearch');
             const resultsDiv = document.getElementById('headerSearchResults');
 
+            // Expose allData globally for Analysis Search
+            if (typeof allData !== 'undefined') {
+                window.allData = allData;
+            }
+
             input.addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase().replace(/\s+/g, '');
                 if (!term) {
@@ -1796,8 +1806,8 @@
                     
                     <!-- 1. Emoji & Title -->
                     <div class="flex flex-col items-center justify-center animate-fade-in-up mt-1">
-                        <div class="text-5xl mb-2 drop-shadow-2xl grayscale-0">${msgObj.emoji}</div>
-                        <h2 class="text-xl font-black text-white text-center leading-tight mb-4">${title}</h2>
+                        <div class="text-5xl mb-6 drop-shadow-2xl grayscale-0">${msgObj.emoji}</div>
+                        <h2 class="text-3xl font-black text-white text-center leading-tight mb-2 tracking-tight">${title}</h2>
                     </div>
 
                     <!-- 2. Message Box -->
