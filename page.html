@@ -1329,7 +1329,7 @@
             const buckets = vp?.buckets;
             if (buckets) {
                 let volumeAboveMe = 0;
-                totalVolume = vp.total_volume || 0;
+                totalVolume = 0; // Reset to strict bucket sum
                 let maxVol = 0;
                 Object.entries(buckets).forEach(([pStr, vol]) => {
                     const price = Number(pStr);
@@ -1337,12 +1337,17 @@
                     if (price > avgPrice) volumeAboveMe += vol;
                     if (vol > maxVol) { maxVol = vol; peakPrice = price; }
                 });
-                if (vp.total_volume) totalVolume = vp.total_volume;
+                // Removed: if (vp.total_volume) totalVolume = vp.total_volume;  <-- Corrects the ratio issue
+
                 if (totalVolume > 0) {
-                    // Logic Update: 
-                    // volumeAboveMe = Volume of people who bought at higher price (Worse entry)
-                    // If 90% bought higher, I am better than 90%. So Top 10%.
-                    // myRank should be low number (Top X).
+                    // Logic: Higher volume above me = Worse entry = High Rank Number?
+                    // No. volumeAboveMe/totalVolume = % worse than me.
+                    // If 90% is worse (above), I am Top 10%.
+                    // myRank should be 10.
+                    // volumeAboveMe includes prices > avgPrice (higher).
+                    // If I buy low, most prices are > avgPrice. volumeAboveMe is HIGH.
+                    // If volumeAboveMe is 100% of volume.
+                    // myRank = 100 - 100 = 0 (Top 1%). Correct.
                     myRank = 100 - (volumeAboveMe / totalVolume * 100);
                 }
             } else {
