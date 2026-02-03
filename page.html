@@ -1205,40 +1205,7 @@
             }
         }
 
-        // 3D Flip Card Toggle with Sliding Segment Control
-        // 3D Flip Card Toggle with Sliding Segment Control and z-index mgmt
-        function toggleFlipCard(showBack) {
-            const flipCard = document.getElementById('flipCard');
-            const tabChart = document.getElementById('tabChart');
-            const tabAnalysis = document.getElementById('tabAnalysis');
-            const slider = document.getElementById('segmentSlider');
 
-            if (!flipCard) return;
-
-            // Child divs (Front: 0, Back: 1)
-            const frontFace = flipCard.children[0];
-            const backFace = flipCard.children[1];
-
-            if (showBack) {
-                flipCard.classList.add('flipped');
-                slider?.classList.add('right');
-                tabChart.classList.remove('active');
-                tabAnalysis.classList.add('active');
-
-                // Ensure Back is clickable/visible via z-index if 3d fails visually
-                frontFace.style.zIndex = 0;
-                backFace.style.zIndex = 10;
-            } else {
-                flipCard.classList.remove('flipped');
-                slider?.classList.remove('right');
-                tabChart.classList.add('active');
-                tabAnalysis.classList.remove('active');
-
-                // Ensure Front is clickable/visible
-                frontFace.style.zIndex = 10;
-                backFace.style.zIndex = 0;
-            }
-        }
 
         // --- Average Price Analysis Logic ---
         const ANALYSIS_MESSAGES = {

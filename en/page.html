@@ -311,6 +311,8 @@
         }
 
         function renderPage(data) {
+            window.currentStockPrice = data.current_price;
+
             const SECTOR_SLUGS = {
                 "기술": "technology",
                 "커뮤니케이션": "communication",
