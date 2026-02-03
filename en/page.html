@@ -1237,7 +1237,7 @@
         const earningsDate = cal.next_earnings || 'TBD';
         const exDivDate = cal.ex_dividend_date || '-';
         const payDate = cal.dividend_payment_date || '-';
-        const divAmt = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
+        const divAmt = cal.dividend_amount ? '$' + cal.dividend_amount.toFixed(2) : '-';
 
         // Earnings Logic
         let earningsAlert = '';
@@ -1247,208 +1247,202 @@
         const targetMs = new Date(earningsDate).setHours(0, 0, 0, 0);
         const diffDays = Math.ceil((targetMs - todayMs) / (1000 * 60 * 60 * 24));
 
-        if (diffDays >= 0 && diffDays <= 7) { earningsDday=`<span class="text-orange-400 font-bold ml-2">
-            D-${diffDays}</span>`;
-            earningsAlert = '🔔';
-            } else if (diffDays > 7 && diffDays <= 14) { earningsDday=`<span class="text-gray-400 ml-2">
-                D-${diffDays}</span>`;
-                } else if (diffDays < 0) { earningsDday=`<span class="text-gray-600 ml-2 text-[10px]">(Passed)</span>`;
-                    }
-                    }
-
-                    // Dividend Logic Helper
-                    const getDateStatus = (dateStr) => {
-                    if (!dateStr || dateStr === '-') return '';
-                    const todayMs = new Date().setHours(0, 0, 0, 0);
-                    const targetMs = new Date(dateStr).setHours(0, 0, 0, 0);
-                    return targetMs < todayMs ? '<span class="text-gray-500 text-[10px] ml-1">(Passed)</span>'
-                        : '<span class="text-blue-400 text-[10px] ml-1">(Scheduled)</span>' ; }; return ` <div
-                        class="bg-[#282830] rounded-xl border border-gray-800 p-5">
-                        <h4
-                            class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
-                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                </path>
-                            </svg>
-                            Investment Calendar
-                        </h4>
-                        <div class="space-y-4">
-                            <!-- Earnings -->
-                            <div>
-                                ${(() => {
-                                // 1. Earnings Logic
-                                let nextHtml = '';
-                                if (cal.next_earnings) {
-                                const todayMs = new Date().setHours(0, 0, 0, 0);
-                                const nextDate = new Date(cal.next_earnings);
-                                const nextMs = nextDate.setHours(0, 0, 0, 0);
-                                const diffDays = Math.ceil((nextMs - todayMs) / (1000 * 60 * 60 * 24));
-
-                                let dDay = '';
-                                let alert = '';
-                                const isFuture = diffDays >= 0;
-
-                                if (isFuture) {
-                                if (diffDays <= 7) { dDay=`<span class="text-orange-400 font-bold ml-2">in ${diffDays}
-                                    days</span>`;
-                                    alert = '🔔';
-                                    } else if (diffDays <= 14) { dDay=`<span class="text-gray-400 ml-2">in ${diffDays}
-                                        days</span>`;
-                                        }
-
-                                        nextHtml = `
-                                        <div class="text-xs text-gray-400 mb-1 flex items-center">
-                                            Next Earnings ${dDay}
-                                        </div>
-                                        <div class="text-sm font-bold text-gray-200 flex items-center gap-2">
-                                            ${cal.next_earnings} ${alert}
-                                        </div>
-                                        `;
-                                        } else {
-                                        // Date passed
-                                        nextHtml = `
-                                        <div class="text-xs text-gray-400 mb-1 flex items-center">
-                                            Last Earnings Release <span
-                                                class="text-gray-600 ml-2 text-[10px]">(Ended)</span>
-                                        </div>
-                                        <div class="text-sm font-bold text-gray-500 flex items-center gap-2">
-                                            ${cal.next_earnings}
-                                        </div>
-                                        `;
-                                        }
-
-                                        } else {
-                                        nextHtml = `
-                                        <div class="text-xs text-gray-400 mb-1">Earnings Release</div>
-                                        <div class="text-sm text-gray-500">Date TBD</div>
-                                        `;
-                                        }
-
-                                        // 2. Past Earnings Logic
-                                        let pastHtml = '';
-                                        if (cal.last_earnings_date && cal.last_surprise !== undefined) {
-                                        const isBeat = cal.last_surprise > 0;
-                                        const color = isBeat ? 'text-green-400' : 'text-red-400';
-                                        const label = isBeat ? 'Earnings Beat' : 'Earnings Miss';
-                                        const sign = isBeat ? '+' : '';
-
-                                        pastHtml = `
-                                        <div class="mt-3 pt-3 border-t border-gray-700/50">
-                                            <div class="text-xs text-gray-400 mb-1 flex justify-between">
-                                                <span>Last Earnings (${cal.last_earnings_date})</span>
-                                                <span
-                                                    class="${color} font-bold text-[10px] bg-gray-700/50 px-1.5 rounded">${label}</span>
-                                            </div>
-                                            <div class="flex justify-between items-end">
-                                                <div class="text-[10px] text-gray-500">
-                                                    Est ${cal.last_eps_est ? Number(cal.last_eps_est).toFixed(2) : '-'}
-                                                    / Act <span
-                                                        class="text-gray-200 font-bold">${Number(cal.last_eps_act).toFixed(2)}</span>
-                                                </div>
-                                                <div class="${color} font-bold text-sm">
-                                                    ${sign}${Number(cal.last_surprise).toFixed(2)}%
-                                                </div>
-                                            </div>
-                                        </div>
-                                        `;
-                                        }
-
-                                        return nextHtml + pastHtml;
-                                        })()}
-                            </div>
-
-                            <div class="w-full h-px bg-gray-700/50 my-2"></div>
-
-                            <!-- Dividend -->
+        if (diffDays >= 0 && diffDays <= 7) { earningsDday='<span class="text-orange-400 font-bold ml-2">D-' + diffDays
+            + '</span>' ; earningsAlert='🔔' ; } else if (diffDays> 7 && diffDays <= 14) {
+                earningsDday='<span class="text-gray-400 ml-2">D-' + diffDays + '</span>' ; } else if (diffDays < 0) {
+                earningsDday='<span class="text-gray-600 ml-2 text-[10px]">(Passed)</span>' ; } } // Dividend Logic
+                Helper const getDateStatus=(dateStr)=> {
+                if (!dateStr || dateStr === '-') return '';
+                const todayMs = new Date().setHours(0, 0, 0, 0);
+                const targetMs = new Date(dateStr).setHours(0, 0, 0, 0);
+                return targetMs < todayMs ? '<span class="text-gray-500 text-[10px] ml-1">(Passed)</span>'
+                    : '<span class="text-blue-400 text-[10px] ml-1">(Scheduled)</span>' ; }; return ` <div
+                    class="bg-[#282830] rounded-xl border border-gray-800 p-5">
+                    <h4
+                        class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        Investment Calendar
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- Earnings -->
+                        <div>
                             ${(() => {
-                            const exDate = cal.ex_dividend_date;
-                            const payDate = cal.dividend_payment_date;
-                            const amount = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
-
-                            if (!exDate || exDate === '-') {
-                            return `
-                            <div>
-                                <div class="text-xs text-gray-400 mb-2">Dividend</div>
-                                <div class="text-xs text-gray-500 text-center py-2">No Dividend Info</div>
-                            </div>
-                            `;
-                            }
-
+                            // 1. Earnings Logic
+                            let nextHtml = '';
+                            if (cal.next_earnings) {
                             const todayMs = new Date().setHours(0, 0, 0, 0);
-                            const targetExMs = new Date(exDate).setHours(0, 0, 0, 0);
-                            const isExFuture = targetExMs >= todayMs;
+                            const nextDate = new Date(cal.next_earnings);
+                            const nextMs = nextDate.setHours(0, 0, 0, 0);
+                            const diffDays = Math.ceil((nextMs - todayMs) / (1000 * 60 * 60 * 24));
 
-                            let label = '';
-                            let statusBadge = '';
-                            let dateColor = '';
+                            let dDay = '';
+                            let alert = '';
+                            const isFuture = diffDays >= 0;
 
-                            if (isExFuture) {
-                            // Case 1: Before Ex-Dividend Date
-                            label = 'Next Ex-Div';
-                            statusBadge = `<span
-                                class="text-blue-400 text-[10px] ml-1 bg-blue-500/10 px-1 rounded border border-blue-500/30">Scheduled</span>`;
-                            dateColor = 'text-gray-200';
-                            } else {
-                            // Case 2: After Ex-Dividend Date
-                            label = 'Last Ex-Div';
-                            dateColor = 'text-gray-500';
+                            if (isFuture) {
+                            if (diffDays <= 7) { dDay=`<span class="text-orange-400 font-bold ml-2">in ${diffDays}
+                                days</span>`;
+                                alert = '🔔';
+                                } else if (diffDays <= 14) { dDay=`<span class="text-gray-400 ml-2">in ${diffDays}
+                                    days</span>`;
+                                    }
 
-                            // Check Payment Status
-                            let isPayFuture = false;
-                            if (payDate && payDate !== '-') {
-                            const targetPayMs = new Date(payDate).setHours(0, 0, 0, 0);
-                            isPayFuture = targetPayMs >= todayMs;
-                            }
+                                    nextHtml = `
+                                    <div class="text-xs text-gray-400 mb-1 flex items-center">
+                                        Next Earnings ${dDay}
+                                    </div>
+                                    <div class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                                        ${cal.next_earnings} ${alert}
+                                    </div>
+                                    `;
+                                    } else {
+                                    // Date passed
+                                    nextHtml = `
+                                    <div class="text-xs text-gray-400 mb-1 flex items-center">
+                                        Last Earnings Release <span
+                                            class="text-gray-600 ml-2 text-[10px]">(Ended)</span>
+                                    </div>
+                                    <div class="text-sm font-bold text-gray-500 flex items-center gap-2">
+                                        ${cal.next_earnings}
+                                    </div>
+                                    `;
+                                    }
 
-                            if (isPayFuture) {
-                            // Ex-Div passed, but Payment is future
-                            statusBadge = `<span
-                                class="text-amber-400 text-[10px] ml-1 bg-amber-500/10 px-1 rounded border border-amber-500/30">Pending</span>`;
-                            } else {
-                            statusBadge = `<span
-                                class="text-gray-500 text-[10px] ml-1 bg-gray-700/50 px-1 rounded">Paid</span>`;
-                            }
-                            }
+                                    } else {
+                                    nextHtml = `
+                                    <div class="text-xs text-gray-400 mb-1">Earnings Release</div>
+                                    <div class="text-sm text-gray-500">Date TBD</div>
+                                    `;
+                                    }
 
-                            const payDateStyle = (payDate && new Date(payDate).setHours(0, 0, 0, 0) >= todayMs) ?
-                            'text-amber-400 font-bold' : 'text-gray-500';
+                                    // 2. Past Earnings Logic
+                                    let pastHtml = '';
+                                    if (cal.last_earnings_date && cal.last_surprise !== undefined) {
+                                    const isBeat = cal.last_surprise > 0;
+                                    const color = isBeat ? 'text-green-400' : 'text-red-400';
+                                    const label = isBeat ? 'Earnings Beat' : 'Earnings Miss';
+                                    const sign = isBeat ? '+' : '';
 
-                            return `
-                            <div>
-                                <div class="text-xs text-gray-400 mb-2">Dividend</div>
-                                <div class="space-y-4">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <div class="text-[10px] text-gray-500 mb-0.5 flex items-center">
-                                                ${label} ${statusBadge}
-                                            </div>
-                                            <div class="text-sm font-bold ${dateColor}">
-                                                ${exDate}
-                                            </div>
+                                    pastHtml = `
+                                    <div class="mt-3 pt-3 border-t border-gray-700/50">
+                                        <div class="text-xs text-gray-400 mb-1 flex justify-between">
+                                            <span>Last Earnings (${cal.last_earnings_date})</span>
+                                            <span
+                                                class="${color} font-bold text-[10px] bg-gray-700/50 px-1.5 rounded">${label}</span>
                                         </div>
-                                        <div class="text-right">
-                                            <div class="text-[10px] text-gray-500 mb-0.5">Amount (Per Share)</div>
-                                            <div class="text-sm font-bold text-gray-200">${amount}</div>
+                                        <div class="flex justify-between items-end">
+                                            <div class="text-[10px] text-gray-500">
+                                                Est ${cal.last_eps_est ? Number(cal.last_eps_est).toFixed(2) : '-'}
+                                                / Act <span
+                                                    class="text-gray-200 font-bold">${Number(cal.last_eps_act).toFixed(2)}</span>
+                                            </div>
+                                            <div class="${color} font-bold text-sm">
+                                                ${sign}${Number(cal.last_surprise).toFixed(2)}%
+                                            </div>
                                         </div>
                                     </div>
+                                    `;
+                                    }
 
-                                    <div
-                                        class="flex justify-between items-center text-[10px] text-gray-500 bg-gray-800/50 p-2 rounded">
-                                        <div class="flex gap-2">
-                                            <span>Pay Date: <span class="${payDateStyle}">${payDate ||
-                                                    '-'}</span></span>
+                                    return nextHtml + pastHtml;
+                                    })()}
+                        </div>
+
+                        <div class="w-full h-px bg-gray-700/50 my-2"></div>
+
+                        <!-- Dividend -->
+                        ${(() => {
+                        const exDate = cal.ex_dividend_date;
+                        const payDate = cal.dividend_payment_date;
+                        const amount = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
+
+                        if (!exDate || exDate === '-') {
+                        return `
+                        <div>
+                            <div class="text-xs text-gray-400 mb-2">Dividend</div>
+                            <div class="text-xs text-gray-500 text-center py-2">No Dividend Info</div>
+                        </div>
+                        `;
+                        }
+
+                        const todayMs = new Date().setHours(0, 0, 0, 0);
+                        const targetExMs = new Date(exDate).setHours(0, 0, 0, 0);
+                        const isExFuture = targetExMs >= todayMs;
+
+                        let label = '';
+                        let statusBadge = '';
+                        let dateColor = '';
+
+                        if (isExFuture) {
+                        // Case 1: Before Ex-Dividend Date
+                        label = 'Next Ex-Div';
+                        statusBadge = `<span
+                            class="text-blue-400 text-[10px] ml-1 bg-blue-500/10 px-1 rounded border border-blue-500/30">Scheduled</span>`;
+                        dateColor = 'text-gray-200';
+                        } else {
+                        // Case 2: After Ex-Dividend Date
+                        label = 'Last Ex-Div';
+                        dateColor = 'text-gray-500';
+
+                        // Check Payment Status
+                        let isPayFuture = false;
+                        if (payDate && payDate !== '-') {
+                        const targetPayMs = new Date(payDate).setHours(0, 0, 0, 0);
+                        isPayFuture = targetPayMs >= todayMs;
+                        }
+
+                        if (isPayFuture) {
+                        // Ex-Div passed, but Payment is future
+                        statusBadge = `<span
+                            class="text-amber-400 text-[10px] ml-1 bg-amber-500/10 px-1 rounded border border-amber-500/30">Pending</span>`;
+                        } else {
+                        statusBadge = `<span
+                            class="text-gray-500 text-[10px] ml-1 bg-gray-700/50 px-1 rounded">Paid</span>`;
+                        }
+                        }
+
+                        const payDateStyle = (payDate && new Date(payDate).setHours(0, 0, 0, 0) >= todayMs) ?
+                        'text-amber-400 font-bold' : 'text-gray-500';
+
+                        return `
+                        <div>
+                            <div class="text-xs text-gray-400 mb-2">Dividend</div>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <div class="text-[10px] text-gray-500 mb-0.5 flex items-center">
+                                            ${label} ${statusBadge}
                                         </div>
-                                        <div>
-                                            Yield: <span class="text-gray-300 font-bold">${cal.dividend_yield ?
-                                                cal.dividend_yield + '%' : '-'}</span>
+                                        <div class="text-sm font-bold ${dateColor}">
+                                            ${exDate}
                                         </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-[10px] text-gray-500 mb-0.5">Amount (Per Share)</div>
+                                        <div class="text-sm font-bold text-gray-200">${amount}</div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="flex justify-between items-center text-[10px] text-gray-500 bg-gray-800/50 p-2 rounded">
+                                    <div class="flex gap-2">
+                                        <span>Pay Date: <span class="${payDateStyle}">${payDate ||
+                                                '-'}</span></span>
+                                    </div>
+                                    <div>
+                                        Yield: <span class="text-gray-300 font-bold">${cal.dividend_yield ?
+                                            cal.dividend_yield + '%' : '-'}</span>
                                     </div>
                                 </div>
                             </div>
-                            `;
-                            })()}
                         </div>
+                        `;
+                        })()}
+                    </div>
     </div>
     `;
     })()}

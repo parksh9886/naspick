@@ -1272,87 +1272,71 @@
                 const cp = ta.candle_pattern;
                 if (cp) {
                 const imgPath = '/images/candle_patterns/' + cp.pattern + '.png';
-                html += `
-                <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
-                    <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">캔들 패턴</div>
-                    <div class="flex items-center gap-3">
-                        <img src="${imgPath}" alt="${cp.name_kr}" class="w-12 h-12 object-contain"
-                            onerror="this.style.display='none'">
-                        <div>
-                            <div
-                                class="text-sm font-bold ${cp.signal === 'bullish' ? 'text-green-400' : 'text-red-400'}">
-                                ${cp.name_kr}</div>
-                            <div class="text-[10px] text-gray-500">${cp.desc} (${cp.date})</div>
-                        </div>
-                    </div>
-                </div>
-                `;
+                const signalColor = cp.signal === 'bullish' ? 'text-green-400' : 'text-red-400';
+                html += '<div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">' +
+                    '<div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">캔들 패턴</div>' +
+                    '<div class="flex items-center gap-3">' +
+                        '<img src="' + imgPath + '" alt="' + cp.name_kr + '" class="w-12 h-12 object-contain"
+                            onerror="this.style.display=\'none\'">' +
+                        '<div>' +
+                            '<div class="text-sm font-bold ' + signalColor + '">' + cp.name_kr + '</div>' +
+                            '<div class="text-[10px] text-gray-500">' + cp.desc + ' (' + cp.date + ')</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
                 } else {
-                html += `
-                <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
-                    <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">캔들 패턴</div>
-                    <div class="text-xs text-gray-500">최근 5일 내 특이 패턴 없음</div>
-                </div>
-                `;
+                html += '<div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">' +
+                    '<div class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">캔들 패턴</div>' +
+                    '<div class="text-xs text-gray-500">최근 5일 내 특이 패턴 없음</div>' +
+                    '</div>';
                 }
 
                 // 2. RSI (Gauge Chart Style)
                 const rsi = ta.rsi || { value: 50, status: 'neutral' };
-                // Color logic: Overbought=Red, Oversold=Blue, Others=Gray
                 const rsiColor = rsi.status === 'overbought' ? 'text-red-400' :
                 rsi.status === 'oversold' ? 'text-blue-400' : 'text-gray-400';
                 const rsiLabel = rsi.status === 'overbought' ? '과매수' :
                 rsi.status === 'oversold' ? '과매도' :
                 rsi.status === 'bullish' ? '강세' : '약세';
 
-                html += `
-                <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
-                    <div class="flex justify-between items-center mb-3">
-                        <div class="text-[10px] text-gray-500 uppercase tracking-wider">RSI (14)</div>
-                        <div class="${rsiColor} text-xs font-bold">${rsiLabel}</div>
-                    </div>
-                    <div class="relative">
-                        <!-- RSI Gauge Background with zones -->
-                        <div class="h-3 rounded-full overflow-hidden flex">
-                            <div class="w-[30%] bg-gradient-to-r from-blue-600 to-blue-500"></div>
-                            <div class="w-[40%] bg-gradient-to-r from-blue-500 via-gray-600 to-red-500"></div>
-                            <div class="w-[30%] bg-gradient-to-r from-red-500 to-red-600"></div>
-                        </div>
-                        <!-- RSI Marker -->
-                        <div class="absolute top-0 h-3 flex items-center"
-                            style="left: ${rsi.value}%; transform: translateX(-50%);">
-                            <div class="w-1 h-5 bg-white rounded shadow-lg shadow-white/50"></div>
-                        </div>
-                        <!-- Zone Labels -->
-                        <div class="flex justify-between text-[8px] text-gray-600 mt-1">
-                            <span>0</span>
-                            <span class="text-blue-500">30</span>
-                            <span class="text-gray-400">50</span>
-                            <span class="text-red-500">70</span>
-                            <span>100</span>
-                        </div>
-                    </div>
-                    <div class="text-center mt-2">
-                        <span class="text-2xl font-bold ${rsiColor}">${rsi.value}</span>
-                    </div>
-                </div>
-                `;
+                html += '<div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">' +
+                    '<div class="flex justify-between items-center mb-3">' +
+                        '<div class="text-[10px] text-gray-500 uppercase tracking-wider">RSI (14)</div>' +
+                        '<div class="' + rsiColor + ' text-xs font-bold">' + rsiLabel + '</div>' +
+                        '</div>' +
+                    '<div class="relative">' +
+                        '<div class="h-3 rounded-full overflow-hidden flex">' +
+                            '<div class="w-[30%] bg-gradient-to-r from-blue-600 to-blue-500"></div>' +
+                            '<div class="w-[40%] bg-gradient-to-r from-blue-500 via-gray-600 to-red-500"></div>' +
+                            '<div class="w-[30%] bg-gradient-to-r from-red-500 to-red-600"></div>' +
+                            '</div>' +
+                        '<div class="absolute top-0 h-3 flex items-center"
+                            style="left: ' + rsi.value + '%; transform: translateX(-50%);">' +
+                            '<div class="w-1 h-5 bg-white rounded shadow-lg shadow-white/50"></div>' +
+                            '</div>' +
+                        '<div class="flex justify-between text-[8px] text-gray-600 mt-1">' +
+                            '<span>0</span><span class="text-blue-500">30</span><span
+                                class="text-gray-400">50</span><span class="text-red-500">70</span><span>100</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '<div class="text-center mt-2">' +
+                        '<span class="text-2xl font-bold ' + rsiColor + '">' + rsi.value + '</span>' +
+                        '</div>' +
+                    '</div>';
 
                 // 3. Volume
                 const vol = ta.volume || { pct_change: 0, status: 'normal' };
-                // Color logic: Rise=Red, Fall=Blue
                 const volColor = vol.pct_change >= 0 ? 'text-red-400' : 'text-blue-400';
                 const volSign = vol.pct_change >= 0 ? '+' : '';
 
-                html += `
-                <div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">
-                    <div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">거래량 <span
-                            class="normal-case">(전일)</span></div>
-                    <div class="flex items-center gap-2">
-                        <div class="${volColor} text-sm font-bold">평균 대비 ${volSign}${vol.pct_change}%</div>
-                    </div>
-                </div>
-                `;
+                html += '<div class="bg-[#1e1e24] rounded-lg p-3 border border-gray-700">' +
+                    '<div class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">거래량 <span
+                            class="normal-case">(전일)</span></div>' +
+                    '<div class="flex items-center gap-2">' +
+                        '<div class="' + volColor + ' text-sm font-bold">평균 대비 ' + volSign + vol.pct_change + '%</div>'
+                        +
+                        '</div>' +
+                    '</div>';
 
                 return html;
                 })()}
