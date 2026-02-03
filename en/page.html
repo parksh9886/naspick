@@ -1064,11 +1064,11 @@
         const pnlSign = pnlRate >= 0 ? '+' : '';
         const pnlClass = pnlRate >= 0 ? 'text-red-400' : 'text-blue-400';
 
-        let pnlText = `<span class="${pnlClass}">${pnlSign}${pnlRate.toFixed(2)}%</span>`;
+        let pnlText = '<span class="' + pnlClass + '">' + pnlSign + pnlRate.toFixed(2) + '%</span>';
         if (quantity > 0) {
             const profit = (currentPrice - myPrice) * quantity;
             const profitSign = profit >= 0 ? '+' : '';
-            pnlText += `<div class="text-sm text-gray-400 mt-1">${profitSign}$${Math.abs(profit).toLocaleString()}</div>`;
+            pnlText += '<div class="text-sm text-gray-400 mt-1">' + profitSign + '$' + Math.abs(profit).toLocaleString() + '</div>';
         }
         pnlEl.innerHTML = pnlText;
 
