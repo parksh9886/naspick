@@ -746,540 +746,188 @@
                     
                     <div class="lg:col-span-2 flex flex-col gap-6 lg:gap-4">
                         
-                        <style>
-                            .perspective-1000 { perspective: 1000px; }
-                            .transform-style-3d { transform-style: preserve-3d; }
-                            .backface-hidden { backface-visibility: hidden; }
-                            .rotate-y-180 { transform: rotateY(180deg); }
-                            .flip-card-back { transform: rotateY(180deg); }
-                            .flipped { transform: rotateY(180deg); }
-                            #segmentSlider.right { transform: translateX(100%); left: 0px; }
-                            .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-                            .custom-scrollbar::-webkit-scrollbar-track { background: #131722; }
-                            .custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
-                        </style>
+                        <div id="tv_chart_container" class="bg-[#282830] rounded-xl border border-gray-800 h-[500px] relative overflow-hidden group"></div>
 
-                        <div class="perspective-1000 w-full h-[500px]">
-                            <div id="flipCard" class="relative w-full h-full transition-transform duration-700 transform-style-3d">
-                                
-                                <!-- Front: Chart -->
-                                <div class="flip-card-front absolute w-full h-full backface-hidden bg-[#1e1e24] rounded-xl border border-gray-800 overflow-hidden">
-                                    
-                                    <!-- Tab Switcher -->
-                                    <div class="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex bg-[#2a2a35]/90 backdrop-blur-md rounded-full p-1 border border-gray-700 shadow-xl">
-                                        <!-- Sliding Background -->
-                                        <div id="segmentSlider" class="absolute top-1 left-1 w-[calc(50%-4px)] h-[calc(100%-8px)] bg-[#2962ff] rounded-full transition-all duration-300 ease-out shadow-lg z-0"></div>
-                                        
-                                        <button id="tabChart" onclick="toggleFlipCard(false)" class="relative z-10 px-5 py-2 text-xs font-bold rounded-full transition-colors duration-200 text-white active flex items-center gap-2">
-                                            <span>📊 Chart Analysis</span>
-                                        </button>
-                                        <button id="tabAnalysis" onclick="toggleFlipCard(true)" class="relative z-10 px-5 py-2 text-xs font-bold rounded-full transition-colors duration-200 text-gray-400 hover:text-white flex items-center gap-2">
-                                            <span>💰 My Price Analysis</span>
-                                        </button>
+                        <!-- Wall St. Consensus (Desktop Only) -->
+                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 hidden lg:block">
+                            ${consensusHtml}
+                        </div>
+
+                        <!-- Financial Health (Desktop Only) -->
+                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 hidden lg:block">
+                            <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
+                                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                                </svg>
+                                Financial Health
+                            </h3>
+                            <div class="space-y-3">
+                                ${financialHealthHtml}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                           </div>
+                    </div>
+
+                    <div class="flex flex-col gap-4">
+                        
+                        <div class="bg-[#282830] rounded-xl border border-gray-700 p-6 relative overflow-hidden shadow-2xl">
+                            
+                            <h2 class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                                </svg>
+                                NASPICK Score
+                            </h2>
+                            
+                            <div class="flex items-end gap-2 mb-6">
+                                <span class="text-5xl font-extrabold text-[#5383e8] tracking-tighter">${data.final_score}</span>
+                                <span class="text-lg font-bold text-gray-500 mb-2">/ 100</span>
+                            </div>
+                        
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1.5">
+                                        <span class="text-gray-300 font-bold">📈 Fundamentals</span>
+                                        <span class="text-blue-400 font-bold">${stats.fundamentals || 0}%</span>
                                     </div>
-
-                                    <div id="tv_chart_container" class="w-full h-full"></div>
+                                    <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
+                                        <div class="stat-bar bg-gradient-to-r from-blue-600 to-blue-400 h-full shadow-[0_0_10px_rgba(59,130,246,0.5)]" style="--width: ${stats.fundamentals || 0}%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1.5">
+                                        <span class="text-gray-300 font-bold">💰 Value</span>
+                                        <span class="text-amber-400 font-bold">${stats.value || 0}%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
+                                        <div class="stat-bar bg-gradient-to-r from-amber-600 to-amber-400 h-full shadow-[0_0_10px_rgba(245,158,11,0.5)]" style="--width: ${stats.value || 0}%"></div>
+                                    </div>
                                 </div>
 
-                                <!-- Back: Analysis UI -->
-                                <div class="flip-card-back bg-[#131722] rounded-b-xl border border-[#2962ff]/30 border-t-0 h-[500px] p-6 flex flex-col absolute w-full h-full backface-hidden rounded-xl overflow-hidden relative">
-                                    
-                                    <!-- Analysis Input State -->
-                                    <div id="analysisInputState" class="flex-1 flex flex-col h-full transition-all duration-300">
-                                        <div class="text-center mb-8 mt-12">
-                                            <div class="inline-block p-3 rounded-full bg-blue-500/10 mb-4 animate-pulse">
-                                                <span class="text-3xl">🔍</span>
-                                            </div>
-                                            <h3 class="text-xl font-bold text-white mb-2">My Position Analysis</h3>
-                                            <p class="text-gray-400 text-sm">Analyze your position with 4-year Volume Profile data.<br>AI diagnostics for your entry price.</p>
-                                        </div>
-                                        
-                                        <div class="flex-1 flex flex-col items-center justify-start gap-6 w-full max-w-sm mx-auto">
-                                            <div class="w-full space-y-4">
-                                                <div>
-                                                    <label class="block text-gray-400 text-xs font-bold mb-1.5 ml-1">Avg. Buy Price ($)</label>
-                                                    <div class="relative">
-                                                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">$</span>
-                                                        <input type="number" id="avgPriceInput" placeholder="e.g. 150.00" inputmode="decimal"
-                                                            class="w-full bg-[#1e1e28] border border-gray-700 rounded-xl pl-8 pr-4 py-4 text-white text-xl font-mono focus:border-[#2962ff] focus:outline-none focus:ring-2 focus:ring-[#2962ff]/20 transition-all shadow-inner">
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <label class="block text-gray-400 text-xs font-bold mb-1.5 ml-1">Quantity (Optional)</label>
-                                                    <div class="relative">
-                                                        <input type="number" id="quantityInput" placeholder="e.g. 10" inputmode="numeric"
-                                                            class="w-full bg-[#1e1e28] border border-gray-700 rounded-xl px-4 py-3 text-white text-lg font-mono focus:border-[#2962ff] focus:outline-none focus:ring-2 focus:ring-[#2962ff]/20 transition-all shadow-inner">
-                                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">shares</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <button id="analyzeBtn" onclick="analyzeAvgPrice()" 
-                                                class="w-full bg-gradient-to-r from-[#2962ff] to-[#1e4bd8] text-white font-bold py-4 rounded-xl shadow-[0_4px_14px_0_rgba(41,98,255,0.39)] hover:shadow-[0_6px_20px_rgba(41,98,255,0.23)] hover:scale-[1.02] transition-all duration-200 mt-2 flex items-center justify-center gap-2 group">
-                                                <span>🚀 Start AI Analysis</span>
-                                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                                            </button>
-                                        </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1.5">
+                                        <span class="text-gray-300 font-bold">🚀 Momentum</span>
+                                        <span class="text-rose-400 font-bold">${stats.momentum || 0}%</span>
                                     </div>
-
-                                    <!-- Loading State -->
-                                    <div id="analysisLoading" class="absolute inset-0 bg-[#131722]/95 backdrop-blur-sm z-20 flex flex-col items-center justify-center hidden">
-                                        <div class="w-16 h-16 relative mb-6">
-                                            <div class="absolute inset-0 border-4 border-gray-700 rounded-full"></div>
-                                            <div class="absolute inset-0 border-4 border-t-[#2962ff] rounded-full animate-spin"></div>
-                                        </div>
-                                        <div id="loadingText" class="text-xl font-bold text-white mb-2 animate-pulse">Analyzing Data...</div>
-                                        <div class="w-64 h-2 bg-gray-800 rounded-full overflow-hidden mt-4">
-                                            <div id="loadingBar" class="h-full bg-gradient-to-r from-blue-600 to-purple-500 w-0 transition-all duration-300 ease-out"></div>
-                                        </div>
+                                    <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
+                                        <div class="stat-bar bg-gradient-to-r from-rose-600 to-rose-400 h-full shadow-[0_0_10px_rgba(244,63,94,0.5)]" style="--width: ${stats.momentum || 0}%"></div>
                                     </div>
+                                </div>
 
-                                    <!-- Result State -->
-                                    <div id="analysisResult" class="hidden absolute inset-0 bg-[#131722] z-10 flex flex-col h-full overflow-y-auto custom-scrollbar">
-                                        <div class="p-6 pb-20">
-                                            <button onclick="resetAnalysis()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-2">
-                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                            </button>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1.5">
+                                        <span class="text-gray-300 font-bold">🛡️ Stability</span>
+                                        <span class="text-cyan-400 font-bold">${stats.stability || 0}%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
+                                        <div class="stat-bar bg-gradient-to-r from-cyan-600 to-cyan-400 h-full shadow-[0_0_10px_rgba(34,211,238,0.5)]" style="--width: ${stats.stability || 0}%"></div>
+                                    </div>
+                                </div>
 
-                                            <!-- Verdict Header -->
-                                            <div class="text-center mb-6 mt-2">
-                                                <div id="resultEmoji" class="text-4xl mb-3 animate-[bounce_1s_infinite]"></div>
-                                                <h2 id="resultTitle" class="text-2xl font-black text-white mb-2 leading-tight"></h2>
-                                                <p id="resultSub" class="text-gray-400 text-sm px-4 break-keep"></p>
-                                            </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1.5">
+                                        <span class="text-gray-300 font-bold">⚡ Low Risk</span>
+                                        <span class="text-purple-400 font-bold">${stats.risk || 0}%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
+                                        <div class="stat-bar bg-gradient-to-r from-purple-600 to-purple-400 h-full shadow-[0_0_10px_rgba(168,85,247,0.5)]" style="--width: ${stats.risk || 0}%"></div>
+                                    </div>
+                                </div>
 
-                                            <!-- Stats Grid -->
-                                            <div class="grid grid-cols-2 gap-3 mb-6">
-                                                <div class="bg-[#1e1e28] p-4 rounded-xl border border-gray-800 text-center">
-                                                    <div class="text-gray-500 text-xs font-bold mb-1">Your Rank</div>
-                                                    <div class="text-lg font-bold text-white flex items-end justify-center gap-1">
-                                                        <span class="text-sm text-gray-400 mb-1">Top</span>
-                                                        <span id="resultRank" class="text-2xl text-[#2962ff]"></span>
-                                                        <span class="text-sm text-gray-400 mb-1">%</span>
-                                                    </div>
-                                                </div>
-                                                <div class="bg-[#1e1e28] p-4 rounded-xl border border-gray-800 text-center">
-                                                    <div class="text-gray-500 text-xs font-bold mb-1">Current P&L</div>
-                                                    <div id="resultPnl" class="text-lg font-bold"></div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Volume Profile Gauge -->
-                                            <div class="bg-[#1e1e28] p-5 rounded-xl border border-gray-800 mb-6 relative overflow-hidden">
-                                                <h4 class="text-xs font-bold text-gray-400 mb-4 flex items-center gap-2">
-                                                    📊 Volume Profile Distribution
-                                                </h4>
-                                                
-                                                <div class="relative h-4 bg-gray-700 rounded-full mb-8">
-                                                    <div class="absolute inset-0 bg-gradient-to-r from-green-500 via-gray-400 to-red-500 opacity-20 rounded-full"></div>
-                                                    
-                                                    <div id="currentPriceMarker" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-[#1e1e28] rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)] z-20 flex flex-col items-center cursor-help group" style="left: 50%">
-                                                        <div class="absolute -top-8 bg-gray-800 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Current</div>
-                                                    </div>
-
-                                                    <div id="myPriceMarker" class="absolute top-1/2 -translate-y-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[10px] border-b-[#2962ff] z-20 transition-all duration-1000" style="left: 30%; top: 18px;">
-                                                        <div class="absolute top-3 left-1/2 -translate-x-1/2 bg-[#2962ff] text-white text-[10px] font-bold px-1.5 py-0.5 rounded whitespace-nowrap shadow-lg">Me</div>
-                                                    </div>
-
-                                                    <div id="peakPriceMarker" class="absolute top-0 bottom-0 w-1 bg-red-500/50 z-10" style="left: 70%">
-                                                        <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] text-red-400 whitespace-nowrap">Peak Vol</div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="text-xs text-center text-gray-500">
-                                                    *Left: Good Entry (Low), Right: FOMO Entry (High)
-                                                </div>
-                                            </div>
-
-                                            <!-- Other Stocks -->
-                                            <div class="text-center">
-                                                <div class="text-gray-400 text-xs mb-3">🤔 Check other stocks?</div>
-                                                <div class="flex flex-wrap justify-center gap-2">
-                                                    <a href="/en/stock/TSLA" class="px-3 py-1.5 bg-[#2a2a35] hover:bg-[#353545] rounded-full text-xs font-bold text-gray-300 transition-colors border border-gray-700">TSLA</a>
-                                                    <a href="/en/stock/NVDA" class="px-3 py-1.5 bg-[#2a2a35] hover:bg-[#353545] rounded-full text-xs font-bold text-gray-300 transition-colors border border-gray-700">NVDA</a>
-                                                    <a href="/en/stock/AAPL" class="px-3 py-1.5 bg-[#2a2a35] hover:bg-[#353545] rounded-full text-xs font-bold text-gray-300 transition-colors border border-gray-700">AAPL</a>
-                                                    <button onclick="document.getElementById('headerSearch').focus()" class="px-3 py-1.5 bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 rounded-full text-xs font-bold transition-colors border border-blue-600/30">
-                                                        🔎 Search
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                        </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1.5">
+                                        <span class="text-gray-300 font-bold">🌐 Consensus</span>
+                                        <span class="text-green-400 font-bold">${stats.consensus || 0}%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
+                                        <div class="stat-bar bg-gradient-to-r from-green-600 to-green-400 h-full shadow-[0_0_10px_rgba(34,197,94,0.5)]" style="--width: ${stats.consensus || 0}%"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <script>
-                            function toggleFlipCard(showBack) {
-                                const card = document.getElementById('flipCard');
-                                const slider = document.getElementById('segmentSlider');
-                                const tabChart = document.getElementById('tabChart');
-                                const tabAnalysis = document.getElementById('tabAnalysis');
+                        <!-- Wall St. Consensus (Mobile Only) -->
+                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 block lg:hidden">
+                            ${consensusHtml}
+                        </div>
 
-                                if (showBack) {
-                                    card.classList.add('flipped');
-                                    slider.classList.add('right');
-                                    tabChart.classList.remove('active', 'text-white');
-                                    tabChart.classList.add('text-gray-400');
-                                    tabAnalysis.classList.add('active', 'text-white');
-                                    tabAnalysis.classList.remove('text-gray-400');
-                                    setTimeout(() => document.getElementById('avgPriceInput').focus(), 300);
-                                } else {
-                                    card.classList.remove('flipped');
-                                    slider.classList.remove('right');
-                                    tabChart.classList.add('active', 'text-white');
-                                    tabChart.classList.remove('text-gray-400');
-                                    tabAnalysis.classList.remove('active', 'text-white');
-                                    tabAnalysis.classList.add('text-gray-400');
-                                }
-                            }
+                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-5">
+                            <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
+                                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                                Technical Analysis
+                            </h3>
+                            <div class="space-y-4">
+                                ${technicalHtml}
+                            </div>
+                        </div>
 
-                            function resetAnalysis() {
-                                document.getElementById('analysisResult').classList.add('hidden');
-                                document.getElementById('analysisInputState').classList.remove('opacity-0', 'pointer-events-none');
-                                document.getElementById('avgPriceInput').value = '';
-                                document.getElementById('quantityInput').value = '';
-                            }
+                        <!-- Financial Health (Mobile Only) -->
+                        <div class="bg-[#282830] rounded-xl border border-gray-800 p-5 block lg:hidden">
+                            <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
+                                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                                </svg>
+                                Financial Health
+                            </h3>
+                            <div class="space-y-3">
+                                ${financialHealthHtml}
+                            </div>
+                        </div>
 
-                            async function analyzeAvgPrice() {
-                                const avgPrice = parseFloat(document.getElementById('avgPriceInput').value);
-                                const quantity = parseFloat(document.getElementById('quantityInput').value) || 0;
-                                
-                                if (!avgPrice || avgPrice <= 0) {
-                                    alert('Please enter a valid price.');
-                                    return;
-                                }
+                        <!-- 3. Investment Calendar HTML Generation -->
+                        ${(() => {
+                    const cal = data.calendar || {};
+                    const earningsDate = cal.next_earnings || 'TBD';
+                    const exDivDate = cal.ex_dividend_date || '-';
+                    const payDate = cal.dividend_payment_date || '-';
+                    const divAmt = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
 
-                                const loading = document.getElementById('analysisLoading');
-                                const loadingBar = document.getElementById('loadingBar');
-                                const loadingText = document.getElementById('loadingText');
-                                
-                                loading.classList.remove('hidden');
-                                loading.classList.add('flex');
-                                
-                                const steps = [
-                                    { t: 0, w: '0%', text: 'Connecting Data...' },
-                                    { t: 500, w: '30%', text: 'Scanning 4-year Price History...' },
-                                    { t: 1200, w: '65%', text: 'Analyzing Volume Profile...' },
-                                    { t: 2000, w: '90%', text: 'Generating AI Verdict...' },
-                                    { t: 2500, w: '100%', text: 'Analysis Complete!' }
-                                ];
+                    // Earnings Logic
+                    let earningsAlert = '';
+                    let earningsDday = '';
+                    if (earningsDate !== 'TBD') {
+                        const todayMs = new Date().setHours(0, 0, 0, 0);
+                        const targetMs = new Date(earningsDate).setHours(0, 0, 0, 0);
+                        const diffDays = Math.ceil((targetMs - todayMs) / (1000 * 60 * 60 * 24));
 
-                                for (const step of steps) {
-                                    setTimeout(() => {
-                                        loadingBar.style.width = step.w;
-                                        loadingText.innerText = step.text;
-                                    }, step.t);
-                                }
-
-                                setTimeout(() => {
-                                    showResult(avgPrice, quantity);
-                                    loading.classList.add('hidden');
-                                    loading.classList.remove('flex');
-                                }, 2500);
-                            }
-
-                            function showResult(myPrice, quantity) {
-                                const currentTicker = window.location.pathname.split('/').pop().toUpperCase() || 'AAPL'; 
-                                const stock = allData.find(d => d.ticker === currentTicker);
-                                
-                                if (!stock || !stock.volume_profile) {
-                                    alert('Volume profile data is not available.');
-                                    return;
-                                }
-
-                                const currentPrice = stock.current_price;
-                                const pnlRate = ((currentPrice - myPrice) / myPrice * 100);
-                                
-                                const buckets = stock.volume_profile.buckets;
-                                const totalVol = stock.volume_profile.total_volume;
-                                const peakPrice = stock.volume_profile.peak_price;
-                                
-                                let volAboveMe = 0;
-                                for (const [pStr, vol] of Object.entries(buckets)) {
-                                    if (Number(pStr) > myPrice) {
-                                        volAboveMe += vol;
-                                    }
-                                }
-                                
-                                const rankPct = (volAboveMe / totalVol * 100);
-                                const myRank = (100 - rankPct).toFixed(1);
-
-                                const getCase = (pnl, rank) => {
-                                    const r = parseFloat(rank);
-                                    if (pnl >= 30) return { t: 'MEGA_PROFIT', r };
-                                    if (pnl >= 10) return { t: 'PROFIT', r };
-                                    if (pnl >= 0)  return { t: 'SMALL_PROFIT', r };
-                                    if (pnl >= -10) return { t: 'SMALL_LOSS', r };
-                                    if (pnl >= -30) return { t: 'LOSS', r };
-                                    return { t: 'MEGA_LOSS', r };
-                                };
-
-                                const msgData = {
-                                    MEGA_PROFIT: {
-                                        top: { e: "🐋", t: "Are you a Whale?", s: `Top ${ myRank }%... Are you an institutional investor ? Show this off!` },
-                                        mid: { e: "🏆", t: "Legendary Entry", s: `People stuck at $${ peakPrice } are jealous of you.` },
-                                        bot: { e: "🎯", t: "Timing Master", s: "Great profit. A little earlier and you'd be Buffett!" }
-                                    },
-                                    PROFIT: {
-                                        top: { e: "💎", t: "Diamond Hands", s: `Top ${ myRank }% !You are the master of timing.` },
-                                        mid: { e: "😎", t: "Solid Play", s: "Bought much cheaper than average. Have an extra coffee today." },
-                                        bot: { e: "👍", t: "Above Average", s: `Better position than the peak volume at $${ peakPrice }. Good job!` }
-                                    },
-                                    SMALL_PROFIT: {
-                                        top: { e: "🙂", t: "Good Start", s: `Top ${ myRank }% !A great beginning.Enjoy the trend.` },
-                                        mid: { e: "⚖️", t: "Hold & Watch", s: "If your heart is racing... that's normal. Grab some popcorn." },
-                                        bot: { e: "😐", t: "On the Edge", s: "Profitable but close to the line. Stay focused." }
-                                    },
-                                    SMALL_LOSS: {
-                                        top: { e: "💪", t: "Still Hopeful", s: `Down but Top ${ myRank }%.You're better off than most.` },
-            mid: { e: "🤝", t: "You're Not Alone", s: `Comrades stuck at $${peakPrice} are with you.` },
-            bot: { e: "😅", t: "Just a Scratch", s: "A small slip. Totally recoverable." }
-        },
-        LOSS: {
-            top: { e: "🩹", t: "You Can Hold", s: `Painful but Top ${myRank}%... Many bought higher than you.` },
-            mid: { e: "😰", t: "FOMO Check", s: "Was it FOMO? Check the Wall St. targets and stay calm." },
-            bot: { e: "😭", t: "Tough Times", s: "It's a hard phase. 'HODL' is your mantra now." }
-        },
-        MEGA_LOSS: {
-            top: { e: "🆘", t: "Still Top Rank..?", s: `Huge loss but Top ${myRank}%... How much did this stock drop?` },
-            mid: { e: "💀", t: "Shared Pain", s: "Many are suffering together. Waiting for the rescue team." },
-            bot: { e: "☠️", t: "Call 911", s: "Historic high buy... But Buffett lost 50% once too. Stay strong." }
-        }
-                                };
-
-        const c = getCase(pnlRate, myRank);
-        let m;
-        if (c.r <= 20) m = msgData[c.t].top;
-        else if (c.r <= 50) m = msgData[c.t].mid;
-        else m = msgData[c.t].bot;
-
-        document.getElementById('resultEmoji').innerText = m.e;
-        document.getElementById('resultTitle').innerText = m.t;
-        document.getElementById('resultSub').innerText = m.s;
-        document.getElementById('resultRank').innerText = myRank;
-
-        const pnlEl = document.getElementById('resultPnl');
-        const pnlSign = pnlRate >= 0 ? '+' : '';
-        const pnlClass = pnlRate >= 0 ? 'text-red-400' : 'text-blue-400';
-
-        let pnlText = `<span class="${pnlClass}">${pnlSign}${pnlRate.toFixed(2)}%</span>`;
-        if (quantity > 0) {
-            const profit = (currentPrice - myPrice) * quantity;
-            const profitSign = profit >= 0 ? '+' : '';
-            pnlText += `<div class="text-sm text-gray-400 mt-1">${profitSign}$${Math.abs(profit).toLocaleString()}</div>`;
-        }
-        pnlEl.innerHTML = pnlText;
-
-        const minP = Math.min(myPrice, currentPrice, peakPrice) * 0.8;
-        const maxP = Math.max(myPrice, currentPrice, peakPrice) * 1.2;
-        const range = maxP - minP;
-        const getPos = (val) => ((val - minP) / range * 100);
-
-        document.getElementById('myPriceMarker').style.left = getPos(myPrice) + '%';
-        document.getElementById('currentPriceMarker').style.left = getPos(currentPrice) + '%';
-        document.getElementById('peakPriceMarker').style.left = getPos(peakPrice) + '%';
-
-        document.getElementById('analysisInputState').classList.add('opacity-0', 'pointer-events-none');
-        document.getElementById('analysisResult').classList.remove('hidden');
-                            }
-    </script>
-
-    <!-- Wall St. Consensus (Desktop Only) -->
-    <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 hidden lg:block">
-        ${consensusHtml}
-    </div>
-
-    <!-- Financial Health (Desktop Only) -->
-    <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 hidden lg:block">
-        <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
-            <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
-                </path>
-            </svg>
-            Financial Health
-        </h3>
-        <div class="space-y-3">
-            ${financialHealthHtml}
-        </div>
-    </div>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-    </div>
-    </div>
-
-    <div class="flex flex-col gap-4">
-
-        <div class="bg-[#282830] rounded-xl border border-gray-700 p-6 relative overflow-hidden shadow-2xl">
-
-            <h2 class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
-                <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
-                    </path>
-                </svg>
-                NASPICK Score
-            </h2>
-
-            <div class="flex items-end gap-2 mb-6">
-                <span class="text-5xl font-extrabold text-[#5383e8] tracking-tighter">${data.final_score}</span>
-                <span class="text-lg font-bold text-gray-500 mb-2">/ 100</span>
-            </div>
-
-            <div class="space-y-4">
-                <div>
-                    <div class="flex justify-between text-xs mb-1.5">
-                        <span class="text-gray-300 font-bold">📈 Fundamentals</span>
-                        <span class="text-blue-400 font-bold">${stats.fundamentals || 0}%</span>
-                    </div>
-                    <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
-                        <div class="stat-bar bg-gradient-to-r from-blue-600 to-blue-400 h-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"
-                            style="--width: ${stats.fundamentals || 0}%"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between text-xs mb-1.5">
-                        <span class="text-gray-300 font-bold">💰 Value</span>
-                        <span class="text-amber-400 font-bold">${stats.value || 0}%</span>
-                    </div>
-                    <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
-                        <div class="stat-bar bg-gradient-to-r from-amber-600 to-amber-400 h-full shadow-[0_0_10px_rgba(245,158,11,0.5)]"
-                            style="--width: ${stats.value || 0}%"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between text-xs mb-1.5">
-                        <span class="text-gray-300 font-bold">🚀 Momentum</span>
-                        <span class="text-rose-400 font-bold">${stats.momentum || 0}%</span>
-                    </div>
-                    <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
-                        <div class="stat-bar bg-gradient-to-r from-rose-600 to-rose-400 h-full shadow-[0_0_10px_rgba(244,63,94,0.5)]"
-                            style="--width: ${stats.momentum || 0}%"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between text-xs mb-1.5">
-                        <span class="text-gray-300 font-bold">🛡️ Stability</span>
-                        <span class="text-cyan-400 font-bold">${stats.stability || 0}%</span>
-                    </div>
-                    <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
-                        <div class="stat-bar bg-gradient-to-r from-cyan-600 to-cyan-400 h-full shadow-[0_0_10px_rgba(34,211,238,0.5)]"
-                            style="--width: ${stats.stability || 0}%"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between text-xs mb-1.5">
-                        <span class="text-gray-300 font-bold">⚡ Low Risk</span>
-                        <span class="text-purple-400 font-bold">${stats.risk || 0}%</span>
-                    </div>
-                    <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
-                        <div class="stat-bar bg-gradient-to-r from-purple-600 to-purple-400 h-full shadow-[0_0_10px_rgba(168,85,247,0.5)]"
-                            style="--width: ${stats.risk || 0}%"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between text-xs mb-1.5">
-                        <span class="text-gray-300 font-bold">🌐 Consensus</span>
-                        <span class="text-green-400 font-bold">${stats.consensus || 0}%</span>
-                    </div>
-                    <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
-                        <div class="stat-bar bg-gradient-to-r from-green-600 to-green-400 h-full shadow-[0_0_10px_rgba(34,197,94,0.5)]"
-                            style="--width: ${stats.consensus || 0}%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Wall St. Consensus (Mobile Only) -->
-        <div class="bg-[#282830] rounded-xl border border-gray-800 p-6 block lg:hidden">
-            ${consensusHtml}
-        </div>
-
-        <div class="bg-[#282830] rounded-xl border border-gray-800 p-5">
-            <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
-                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-                    </path>
-                </svg>
-                Technical Analysis
-            </h3>
-            <div class="space-y-4">
-                ${technicalHtml}
-            </div>
-        </div>
-
-        <!-- Financial Health (Mobile Only) -->
-        <div class="bg-[#282830] rounded-xl border border-gray-800 p-5 block lg:hidden">
-            <h3 class="flex items-center gap-2 text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
-                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
-                    </path>
-                </svg>
-                Financial Health
-            </h3>
-            <div class="space-y-3">
-                ${financialHealthHtml}
-            </div>
-        </div>
-
-        <!-- 3. Investment Calendar HTML Generation -->
-        ${(() => {
-        const cal = data.calendar || {};
-        const earningsDate = cal.next_earnings || 'TBD';
-        const exDivDate = cal.ex_dividend_date || '-';
-        const payDate = cal.dividend_payment_date || '-';
-        const divAmt = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
-
-        // Earnings Logic
-        let earningsAlert = '';
-        let earningsDday = '';
-        if (earningsDate !== 'TBD') {
-        const todayMs = new Date().setHours(0, 0, 0, 0);
-        const targetMs = new Date(earningsDate).setHours(0, 0, 0, 0);
-        const diffDays = Math.ceil((targetMs - todayMs) / (1000 * 60 * 60 * 24));
-
-        if (diffDays >= 0 && diffDays <= 7) { earningsDday=`<span class="text-orange-400 font-bold ml-2">
-            D-${diffDays}</span>`;
-            earningsAlert = '🔔';
-            } else if (diffDays > 7 && diffDays <= 14) { earningsDday=`<span class="text-gray-400 ml-2">
-                D-${diffDays}</span>`;
-                } else if (diffDays < 0) { earningsDday=`<span class="text-gray-600 ml-2 text-[10px]">(Passed)</span>`;
-                    }
+                        if (diffDays >= 0 && diffDays <= 7) {
+                            earningsDday = `<span class="text-orange-400 font-bold ml-2">D-${diffDays}</span>`;
+                            earningsAlert = '🔔';
+                        } else if (diffDays > 7 && diffDays <= 14) {
+                            earningsDday = `<span class="text-gray-400 ml-2">D-${diffDays}</span>`;
+                        } else if (diffDays < 0) {
+                            earningsDday = `<span class="text-gray-600 ml-2 text-[10px]">(Passed)</span>`;
+                        }
                     }
 
                     // Dividend Logic Helper
                     const getDateStatus = (dateStr) => {
-                    if (!dateStr || dateStr === '-') return '';
-                    const todayMs = new Date().setHours(0, 0, 0, 0);
-                    const targetMs = new Date(dateStr).setHours(0, 0, 0, 0);
-                    return targetMs < todayMs ? '<span class="text-gray-500 text-[10px] ml-1">(Passed)</span>'
-                        : '<span class="text-blue-400 text-[10px] ml-1">(Scheduled)</span>' ; }; return ` <div
-                        class="bg-[#282830] rounded-xl border border-gray-800 p-5">
-                        <h4
-                            class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
-                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                </path>
-                            </svg>
-                            Investment Calendar
-                        </h4>
-                        <div class="space-y-4">
-                            <!-- Earnings -->
-                            <div>
-                                ${(() => {
-                                // 1. Earnings Logic
-                                let nextHtml = '';
-                                if (cal.next_earnings) {
+                        if (!dateStr || dateStr === '-') return '';
+                        const todayMs = new Date().setHours(0, 0, 0, 0);
+                        const targetMs = new Date(dateStr).setHours(0, 0, 0, 0);
+                        return targetMs < todayMs ? '<span class="text-gray-500 text-[10px] ml-1">(Passed)</span>' : '<span class="text-blue-400 text-[10px] ml-1">(Scheduled)</span>';
+                    };
+
+                    return `
+                                <div class="bg-[#282830] rounded-xl border border-gray-800 p-5">
+                                    <h4 class="text-sm font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        Investment Calendar
+                                    </h4>
+                                    <div class="space-y-4">
+                                        <!-- Earnings -->
+                                        <div>
+                                            ${(() => {
+                            // 1. Earnings Logic
+                            let nextHtml = '';
+                            if (cal.next_earnings) {
                                 const todayMs = new Date().setHours(0, 0, 0, 0);
                                 const nextDate = new Date(cal.next_earnings);
                                 const nextMs = nextDate.setHours(0, 0, 0, 0);
@@ -1290,89 +938,85 @@
                                 const isFuture = diffDays >= 0;
 
                                 if (isFuture) {
-                                if (diffDays <= 7) { dDay=`<span class="text-orange-400 font-bold ml-2">in ${diffDays}
-                                    days</span>`;
-                                    alert = '🔔';
-                                    } else if (diffDays <= 14) { dDay=`<span class="text-gray-400 ml-2">in ${diffDays}
-                                        days</span>`;
-                                        }
+                                    if (diffDays <= 7) {
+                                        dDay = `<span class="text-orange-400 font-bold ml-2">in ${diffDays} days</span>`;
+                                        alert = '🔔';
+                                    } else if (diffDays <= 14) {
+                                        dDay = `<span class="text-gray-400 ml-2">in ${diffDays} days</span>`;
+                                    }
 
-                                        nextHtml = `
+                                    nextHtml = `
                                         <div class="text-xs text-gray-400 mb-1 flex items-center">
                                             Next Earnings ${dDay}
                                         </div>
                                         <div class="text-sm font-bold text-gray-200 flex items-center gap-2">
                                             ${cal.next_earnings} ${alert}
                                         </div>
-                                        `;
-                                        } else {
-                                        // Date passed
-                                        nextHtml = `
+                                    `;
+                                } else {
+                                    // Date passed
+                                    nextHtml = `
                                         <div class="text-xs text-gray-400 mb-1 flex items-center">
-                                            Last Earnings Release <span
-                                                class="text-gray-600 ml-2 text-[10px]">(Ended)</span>
+                                            Last Earnings Release <span class="text-gray-600 ml-2 text-[10px]">(Ended)</span>
                                         </div>
                                         <div class="text-sm font-bold text-gray-500 flex items-center gap-2">
                                             ${cal.next_earnings}
                                         </div>
-                                        `;
-                                        }
+                                    `;
+                                }
 
-                                        } else {
-                                        nextHtml = `
+                            } else {
+                                nextHtml = `
                                         <div class="text-xs text-gray-400 mb-1">Earnings Release</div>
                                         <div class="text-sm text-gray-500">Date TBD</div>
-                                        `;
-                                        }
+                                    `;
+                            }
 
-                                        // 2. Past Earnings Logic
-                                        let pastHtml = '';
-                                        if (cal.last_earnings_date && cal.last_surprise !== undefined) {
-                                        const isBeat = cal.last_surprise > 0;
-                                        const color = isBeat ? 'text-green-400' : 'text-red-400';
-                                        const label = isBeat ? 'Earnings Beat' : 'Earnings Miss';
-                                        const sign = isBeat ? '+' : '';
+                            // 2. Past Earnings Logic
+                            let pastHtml = '';
+                            if (cal.last_earnings_date && cal.last_surprise !== undefined) {
+                                const isBeat = cal.last_surprise > 0;
+                                const color = isBeat ? 'text-green-400' : 'text-red-400';
+                                const label = isBeat ? 'Earnings Beat' : 'Earnings Miss';
+                                const sign = isBeat ? '+' : '';
 
-                                        pastHtml = `
-                                        <div class="mt-3 pt-3 border-t border-gray-700/50">
-                                            <div class="text-xs text-gray-400 mb-1 flex justify-between">
-                                                <span>Last Earnings (${cal.last_earnings_date})</span>
-                                                <span
-                                                    class="${color} font-bold text-[10px] bg-gray-700/50 px-1.5 rounded">${label}</span>
-                                            </div>
-                                            <div class="flex justify-between items-end">
-                                                <div class="text-[10px] text-gray-500">
-                                                    Est ${cal.last_eps_est ? Number(cal.last_eps_est).toFixed(2) : '-'}
-                                                    / Act <span
-                                                        class="text-gray-200 font-bold">${Number(cal.last_eps_act).toFixed(2)}</span>
-                                                </div>
-                                                <div class="${color} font-bold text-sm">
-                                                    ${sign}${Number(cal.last_surprise).toFixed(2)}%
-                                                </div>
-                                            </div>
+                                pastHtml = `
+                                                        <div class="mt-3 pt-3 border-t border-gray-700/50">
+                                                            <div class="text-xs text-gray-400 mb-1 flex justify-between">
+                                                                <span>Last Earnings (${cal.last_earnings_date})</span>
+                                                                <span class="${color} font-bold text-[10px] bg-gray-700/50 px-1.5 rounded">${label}</span>
+                                                            </div>
+                                                            <div class="flex justify-between items-end">
+                                                                <div class="text-[10px] text-gray-500">
+                                                                    Est ${cal.last_eps_est ? Number(cal.last_eps_est).toFixed(2) : '-'} / Act <span class="text-gray-200 font-bold">${Number(cal.last_eps_act).toFixed(2)}</span>
+                                                                </div>
+                                                                <div class="${color} font-bold text-sm">
+                                                                    ${sign}${Number(cal.last_surprise).toFixed(2)}%
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    `;
+                            }
+
+                            return nextHtml + pastHtml;
+                        })()}
                                         </div>
-                                        `;
-                                        }
 
-                                        return nextHtml + pastHtml;
-                                        })()}
-                            </div>
+                                        <div class="w-full h-px bg-gray-700/50 my-2"></div>
 
-                            <div class="w-full h-px bg-gray-700/50 my-2"></div>
-
-                            <!-- Dividend -->
-                            ${(() => {
+                                        <!-- Dividend -->
+                                        ${(() => {
                             const exDate = cal.ex_dividend_date;
                             const payDate = cal.dividend_payment_date;
                             const amount = cal.dividend_amount ? `$${cal.dividend_amount.toFixed(2)}` : '-';
 
                             if (!exDate || exDate === '-') {
-                            return `
-                            <div>
-                                <div class="text-xs text-gray-400 mb-2">Dividend</div>
-                                <div class="text-xs text-gray-500 text-center py-2">No Dividend Info</div>
-                            </div>
-                            `;
+                                return `
+                                                    <div>
+                                                        <div class="text-xs text-gray-400 mb-2">Dividend</div>
+                                                        <div class="text-xs text-gray-500 text-center py-2">No Dividend Info</div>
+                                                    </div>
+                                                `;
                             }
 
                             const todayMs = new Date().setHours(0, 0, 0, 0);
@@ -1384,286 +1028,277 @@
                             let dateColor = '';
 
                             if (isExFuture) {
-                            // Case 1: Before Ex-Dividend Date
-                            label = 'Next Ex-Div';
-                            statusBadge = `<span
-                                class="text-blue-400 text-[10px] ml-1 bg-blue-500/10 px-1 rounded border border-blue-500/30">Scheduled</span>`;
-                            dateColor = 'text-gray-200';
+                                // Case 1: Before Ex-Dividend Date
+                                label = 'Next Ex-Div';
+                                statusBadge = `<span class="text-blue-400 text-[10px] ml-1 bg-blue-500/10 px-1 rounded border border-blue-500/30">Scheduled</span>`;
+                                dateColor = 'text-gray-200';
                             } else {
-                            // Case 2: After Ex-Dividend Date
-                            label = 'Last Ex-Div';
-                            dateColor = 'text-gray-500';
+                                // Case 2: After Ex-Dividend Date
+                                label = 'Last Ex-Div';
+                                dateColor = 'text-gray-500';
 
-                            // Check Payment Status
-                            let isPayFuture = false;
-                            if (payDate && payDate !== '-') {
-                            const targetPayMs = new Date(payDate).setHours(0, 0, 0, 0);
-                            isPayFuture = targetPayMs >= todayMs;
+                                // Check Payment Status
+                                let isPayFuture = false;
+                                if (payDate && payDate !== '-') {
+                                    const targetPayMs = new Date(payDate).setHours(0, 0, 0, 0);
+                                    isPayFuture = targetPayMs >= todayMs;
+                                }
+
+                                if (isPayFuture) {
+                                    // Ex-Div passed, but Payment is future
+                                    statusBadge = `<span class="text-amber-400 text-[10px] ml-1 bg-amber-500/10 px-1 rounded border border-amber-500/30">Pending</span>`;
+                                } else {
+                                    statusBadge = `<span class="text-gray-500 text-[10px] ml-1 bg-gray-700/50 px-1 rounded">Paid</span>`;
+                                }
                             }
 
-                            if (isPayFuture) {
-                            // Ex-Div passed, but Payment is future
-                            statusBadge = `<span
-                                class="text-amber-400 text-[10px] ml-1 bg-amber-500/10 px-1 rounded border border-amber-500/30">Pending</span>`;
-                            } else {
-                            statusBadge = `<span
-                                class="text-gray-500 text-[10px] ml-1 bg-gray-700/50 px-1 rounded">Paid</span>`;
-                            }
-                            }
-
-                            const payDateStyle = (payDate && new Date(payDate).setHours(0, 0, 0, 0) >= todayMs) ?
-                            'text-amber-400 font-bold' : 'text-gray-500';
+                            const payDateStyle = (payDate && new Date(payDate).setHours(0, 0, 0, 0) >= todayMs) ? 'text-amber-400 font-bold' : 'text-gray-500';
 
                             return `
-                            <div>
-                                <div class="text-xs text-gray-400 mb-2">Dividend</div>
-                                <div class="space-y-4">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <div class="text-[10px] text-gray-500 mb-0.5 flex items-center">
-                                                ${label} ${statusBadge}
-                                            </div>
-                                            <div class="text-sm font-bold ${dateColor}">
-                                                ${exDate}
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="text-[10px] text-gray-500 mb-0.5">Amount (Per Share)</div>
-                                            <div class="text-sm font-bold text-gray-200">${amount}</div>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        class="flex justify-between items-center text-[10px] text-gray-500 bg-gray-800/50 p-2 rounded">
-                                        <div class="flex gap-2">
-                                            <span>Pay Date: <span class="${payDateStyle}">${payDate ||
-                                                    '-'}</span></span>
-                                        </div>
-                                        <div>
-                                            Yield: <span class="text-gray-300 font-bold">${cal.dividend_yield ?
-                                                cal.dividend_yield + '%' : '-'}</span>
-                                        </div>
+                                                <div>
+                                                    <div class="text-xs text-gray-400 mb-2">Dividend</div>
+                                                    <div class="space-y-4">
+                                                        <div class="flex justify-between items-start">
+                                                            <div>
+                                                                <div class="text-[10px] text-gray-500 mb-0.5 flex items-center">
+                                                                    ${label} ${statusBadge}
+                                                                </div>
+                                                                <div class="text-sm font-bold ${dateColor}">
+                                                                    ${exDate}
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-right">
+                                                                <div class="text-[10px] text-gray-500 mb-0.5">Amount (Per Share)</div>
+                                                                <div class="text-sm font-bold text-gray-200">${amount}</div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="flex justify-between items-center text-[10px] text-gray-500 bg-gray-800/50 p-2 rounded">
+                                                            <div class="flex gap-2">
+                                                                <span>Pay Date: <span class="${payDateStyle}">${payDate || '-'}</span></span>
+                                                            </div>
+                                                            <div>
+                                                                Yield: <span class="text-gray-300 font-bold">${cal.dividend_yield ? cal.dividend_yield + '%' : '-'}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `;
+                        })()}
                                     </div>
                                 </div>
-                            </div>
                             `;
-                            })()}
+                })()}
+
+                        <div class="bg-[#23232a] rounded-xl border border-gray-800 p-5">
+                            <!-- Header with Segmented Control -->
+                            <div class="flex items-center justify-between mb-4 border-b border-gray-700 pb-3">
+                                <h4 class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                    Related Stocks
+                                </h4>
+                                <!-- iOS Style Pill Tabs -->
+                                <div class="flex bg-gray-700/50 rounded-lg p-0.5">
+                                    <button id="tabSectorLeader" onclick="switchRelatedTab('sector')" 
+                                            class="px-2.5 py-1 text-[10px] font-bold rounded-md transition-all bg-[#5383e8] text-white">
+                                        Sector
+                                    </button>
+                                    <button id="tabSimilarScore" onclick="switchRelatedTab('similar')"
+                                            class="px-2.5 py-1 text-[10px] font-bold rounded-md transition-all text-gray-400 hover:text-gray-200">
+                                        Similar
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- SEO: Both lists rendered in HTML (CSS toggle) -->
+                            <!-- Sector Leaders List -->
+                            <div id="sectorLeaderList" class="space-y-3">
+                                ${(data.related_peers || []).map(p => {
+                    const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker, name_en: p.ticker };
+                    const peerChangeColor = p.change_pct >= 0 ? 'text-green-400' : 'text-red-400';
+                    return `
+                                    <a href="/en/stock/${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
+                                                <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" 
+                                                     alt="${peerData.name_en || peerData.name} (${p.ticker}) related stock"
+                                                     loading="lazy"
+                                                     onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" 
+                                                     style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
+                                            </div>
+                                            <div>
+                                                <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">${peerData.name_en || peerData.name}</div>
+                                                <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
+                                            </div>
+                                        </div>
+                                        <span class="${peerChangeColor} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct > 0 ? '+' : ''}${p.change_pct}%</span>
+                                    </a>
+                                `;
+                }).join('')}
+                                ${(data.related_peers || []).length === 0 ? '<div class="text-xs text-gray-600">No related stocks found</div>' : ''}
+                            </div>
+                            
+                            <!-- Similar Score List (Hidden by default, but in HTML for SEO) -->
+                            <div id="similarScoreList" class="space-y-3 hidden">
+                                ${(data.similar_score_peers || []).map(p => {
+                    const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker, name_en: p.ticker };
+                    const peerChangeColor = p.change_pct >= 0 ? 'text-green-400' : 'text-red-400';
+                    return `
+                                    <a href="/en/stock/${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
+                                                <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png" 
+                                                     alt="${peerData.name_en || peerData.name} (${p.ticker}) similar stock"
+                                                     loading="lazy"
+                                                     onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'" 
+                                                     style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
+                                            </div>
+                                            <div>
+                                                <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">${peerData.name_en || peerData.name}</div>
+                                                <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
+                                            </div>
+                                        </div>
+                                        <span class="${peerChangeColor} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct > 0 ? '+' : ''}${p.change_pct}%</span>
+                                    </a>
+                                `;
+                }).join('')}
+                                ${(data.similar_score_peers || []).length === 0 ? '<div class="text-xs text-gray-600">No similar stocks found</div>' : ''}
+                            </div>
                         </div>
-    </div>
-    `;
-    })()}
 
-    <div class="bg-[#23232a] rounded-xl border border-gray-800 p-5">
-        <!-- Header with Segmented Control -->
-        <div class="flex items-center justify-between mb-4 border-b border-gray-700 pb-3">
-            <h4 class="text-sm font-bold text-gray-200 flex items-center gap-2">
-                <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                    </path>
-                </svg>
-                Related Stocks
-            </h4>
-            <!-- iOS Style Pill Tabs -->
-            <div class="flex bg-gray-700/50 rounded-lg p-0.5">
-                <button id="tabSectorLeader" onclick="switchRelatedTab('sector')"
-                    class="px-2.5 py-1 text-[10px] font-bold rounded-md transition-all bg-[#5383e8] text-white">
-                    Sector
-                </button>
-                <button id="tabSimilarScore" onclick="switchRelatedTab('similar')"
-                    class="px-2.5 py-1 text-[10px] font-bold rounded-md transition-all text-gray-400 hover:text-gray-200">
-                    Similar
-                </button>
-            </div>
-        </div>
-
-        <!-- SEO: Both lists rendered in HTML (CSS toggle) -->
-        <!-- Sector Leaders List -->
-        <div id="sectorLeaderList" class="space-y-3">
-            ${(data.related_peers || []).map(p => {
-            const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker, name_en: p.ticker };
-            const peerChangeColor = p.change_pct >= 0 ? 'text-green-400' : 'text-red-400';
-            return `
-            <a href="/en/stock/${p.ticker}"
-                class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
-                        <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png"
-                            alt="${peerData.name_en || peerData.name} (${p.ticker}) related stock" loading="lazy"
-                            onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'"
-                            style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
-                    </div>
-                    <div>
-                        <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">
-                            ${peerData.name_en || peerData.name}</div>
-                        <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
+                        <!-- FAQ Section -->
+                        <div id="faqSection"></div> 
                     </div>
                 </div>
-                <span
-                    class="${peerChangeColor} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct
-                    > 0 ? '+' : ''}${p.change_pct}%</span>
-            </a>
             `;
-            }).join('')}
-            ${(data.related_peers || []).length === 0 ? '<div class="text-xs text-gray-600">No related stocks found
-            </div>' : ''}
-        </div>
 
-        <!-- Similar Score List (Hidden by default, but in HTML for SEO) -->
-        <div id="similarScoreList" class="space-y-3 hidden">
-            ${(data.similar_score_peers || []).map(p => {
-            const peerData = allData.find(d => d.ticker === p.ticker) || { name: p.ticker, name_en: p.ticker };
-            const peerChangeColor = p.change_pct >= 0 ? 'text-green-400' : 'text-red-400';
-            return `
-            <a href="/en/stock/${p.ticker}"
-                class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded flex items-center justify-center p-0.5 shrink-0 overflow-hidden">
-                        <img src="https://financialmodelingprep.com/image-stock/${p.ticker.replace('.', '-')}.png"
-                            alt="${peerData.name_en || peerData.name} (${p.ticker}) similar stock" loading="lazy"
-                            onerror="this.src='https://ui-avatars.com/api/?name=${p.ticker}&background=5383e8&color=fff&size=128'"
-                            style="filter: invert(1) hue-rotate(180deg);" class="w-full h-full object-contain">
-                    </div>
-                    <div>
-                        <div class="font-bold text-gray-200 text-sm group-hover:text-blue-400 transition">
-                            ${peerData.name_en || peerData.name}</div>
-                        <div class="text-xs text-gray-500 font-medium">${p.ticker}</div>
-                    </div>
-                </div>
-                <span
-                    class="${peerChangeColor} font-mono text-sm font-bold bg-[#1c1c1f] px-2 py-1 rounded">${p.change_pct
-                    > 0 ? '+' : ''}${p.change_pct}%</span>
-            </a>
-            `;
-            }).join('')}
-            ${(data.similar_score_peers || []).length === 0 ? '<div class="text-xs text-gray-600">No similar stocks
-                found</div>' : ''}
-        </div>
-    </div>
+            document.getElementById('mainContent').innerHTML = html;
 
-    <!-- FAQ Section -->
-    <div id="faqSection"></div>
-    </div>
-    </div>
-    `;
+            // [SEO] Render Dynamic FAQ
+            renderFAQ(data);
 
-    document.getElementById('mainContent').innerHTML = html;
-
-    // [SEO] Render Dynamic FAQ
-    renderFAQ(data);
-
-    // Initialize TradingView Widget
-    if (window.TradingView) {
-    new TradingView.widget({
-    "autosize": true,
-    "symbol": (data.exchange ? data.exchange + ":" : "") + data.ticker,
-    "interval": "D",
-    "timezone": "Etc/UTC",
-    "theme": "dark",
-    "style": "1",
-    "locale": "en",
-    "enable_publishing": false,
-    "allow_symbol_change": true,
-    "container_id": "tv_chart_container",
-    "studies": ["BB@tv-basicstudies"]
-    });
-    }
-    }
-
-    // Tab switching for Related Stocks (SEO-friendly: CSS toggle only)
-    function switchRelatedTab(type) {
-    const sectorList = document.getElementById('sectorLeaderList');
-    const similarList = document.getElementById('similarScoreList');
-    const tabSector = document.getElementById('tabSectorLeader');
-    const tabSimilar = document.getElementById('tabSimilarScore');
-
-    if (!sectorList || !similarList) return;
-
-    if (type === 'sector') {
-    sectorList.classList.remove('hidden');
-    similarList.classList.add('hidden');
-    tabSector.classList.add('bg-[#5383e8]', 'text-white');
-    tabSector.classList.remove('text-gray-400');
-    tabSimilar.classList.remove('bg-[#5383e8]', 'text-white');
-    tabSimilar.classList.add('text-gray-400');
-    } else {
-    sectorList.classList.add('hidden');
-    similarList.classList.remove('hidden');
-    tabSimilar.classList.add('bg-[#5383e8]', 'text-white');
-    tabSimilar.classList.remove('text-gray-400');
-    tabSector.classList.remove('bg-[#5383e8]', 'text-white');
-    tabSector.classList.add('text-gray-400');
-    }
-    }
-
-    function renderFAQ(data) {
-    const today = new Date().toISOString().split('T')[0];
-    const qnaList = [];
-
-    // 1. Investment Score (English)
-    let scoreAns = "";
-    if (data.final_score >= 80) scoreAns = `It has very high investment attractiveness. Both price momentum and
-    financial health are excellent.`;
-    else if (data.final_score < 40) scoreAns=`Caution is advised. Price momentum or financial indicators are currently
-        weak.`; else scoreAns=`It is showing a stable and moderate trend.`; const ratingLabel=(String(data.tier)==='1' )
-        ? 'A+' : (String(data.tier)==='2' ) ? 'A' : (String(data.tier)==='3' ) ? 'B' : (String(data.tier)==='4' ) ? 'C'
-        : 'D' ; qnaList.push({ q: `What is the investment rating and score for ${data.name_en || data.name}
-        (${data.ticker})?`, a: `Based on Naspick AI analysis as of ${today}, ${data.name_en || data.name}
-        (${data.ticker}) has a score of **${data.final_score} (${ratingLabel} Rating)**. ${scoreAns}` }); // 2.
-        Valuation (PER) let perAns="" ; // Fix: Use data.financial_health.per const per=data.financial_health?.per; if
-        (per) { if (per < 15) perAns=`Yes. Currently, ${data.name_en || data.name} (${data.ticker})'s PER is
-        **${per.toFixed(2)}x**, which is considered **undervalued** compared to the market average, offering good price
-        merit.`; else if (per> 50) perAns = `Currently, ${data.name_en || data.name} (${data.ticker})'s PER is
-        **${per.toFixed(2)}x**, which is relatively **overvalued**. This may reflect high growth expectations.`;
-        else perAns = `Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, trading
-        at a **fair value** similar to the market average.`;
-
-        qnaList.push({
-        q: `Is ${data.name_en || data.name} (${data.ticker}) stock currently overvalued or undervalued? (PER Analysis)`,
-        a: perAns
-        });
-        } else {
-        qnaList.push({
-        q: `Is ${data.name_en || data.name} (${data.ticker}) stock currently overvalued or undervalued? (PER Analysis)`,
-        a: `Currently, PER (Price-to-Earnings Ratio) data for ${data.name_en || data.name} (${data.ticker}) is not
-        available.`
-        });
+            // Initialize TradingView Widget
+            if (window.TradingView) {
+                new TradingView.widget({
+                    "autosize": true,
+                    "symbol": (data.exchange ? data.exchange + ":" : "") + data.ticker,
+                    "interval": "D",
+                    "timezone": "Etc/UTC",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "en",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "tv_chart_container",
+                    "studies": ["BB@tv-basicstudies"]
+                });
+            }
         }
 
-        // 3. Technical (RSI)
-        let rsiAns = "";
-        // Fix: Use data.technical_analysis.rsi.value
-        const rsiObj = data.technical_analysis?.rsi;
-        const rsi = rsiObj ? rsiObj.value : null;
+        // Tab switching for Related Stocks (SEO-friendly: CSS toggle only)
+        function switchRelatedTab(type) {
+            const sectorList = document.getElementById('sectorLeaderList');
+            const similarList = document.getElementById('similarScoreList');
+            const tabSector = document.getElementById('tabSectorLeader');
+            const tabSimilar = document.getElementById('tabSimilarScore');
 
-        if (rsi) {
-        if (rsi > 70) rsiAns = `Caution is needed. The RSI is **${rsi.toFixed(2)}**, indicating an **overbought** zone.
-        A short-term correction may occur.`;
-        else if (rsi < 30) rsiAns=`It could be a buying opportunity. The RSI is **${rsi.toFixed(2)}**, indicating an
-            **oversold** zone. A technical rebound is expected.`; else rsiAns=`The technical indicators are **neutral**.
-            The RSI is **${rsi.toFixed(2)}**, showing a stable trend suitable for accumulation.`; qnaList.push({ q: `Is
-            now a good time to buy ${data.name_en || data.name} (${data.ticker})? (RSI Technical Analysis)`, a: rsiAns
-            }); } else { qnaList.push({ q: `Is now a good time to buy ${data.name_en || data.name} (${data.ticker})?
-            (RSI Technical Analysis)`, a: `Currently, there is insufficient data to perform RSI technical analysis for
-            ${data.name_en || data.name} (${data.ticker}).` }); } // 4. Calendar const cal=data.calendar || {}; let
-            calAnsParts=[]; if (cal.dividend_yield) calAnsParts.push(`The expected dividend yield is
-            **${cal.dividend_yield}%**, and the ex-dividend date is ${cal.ex_dividend_date}.`); if (cal.next_earnings)
-            calAnsParts.push(`The next earnings release is scheduled for **${cal.next_earnings}**.`); else if
-            (cal.last_surprise) calAnsParts.push(`In the last earnings report (${cal.last_earnings_date}), it recorded
-            an **Earnings ${cal.last_surprise> 0 ? 'Beat' : 'Miss'} (${cal.last_surprise > 0 ? '+' :
-            ''}${cal.last_surprise}%)**.`);
+            if (!sectorList || !similarList) return;
+
+            if (type === 'sector') {
+                sectorList.classList.remove('hidden');
+                similarList.classList.add('hidden');
+                tabSector.classList.add('bg-[#5383e8]', 'text-white');
+                tabSector.classList.remove('text-gray-400');
+                tabSimilar.classList.remove('bg-[#5383e8]', 'text-white');
+                tabSimilar.classList.add('text-gray-400');
+            } else {
+                sectorList.classList.add('hidden');
+                similarList.classList.remove('hidden');
+                tabSimilar.classList.add('bg-[#5383e8]', 'text-white');
+                tabSimilar.classList.remove('text-gray-400');
+                tabSector.classList.remove('bg-[#5383e8]', 'text-white');
+                tabSector.classList.add('text-gray-400');
+            }
+        }
+
+        function renderFAQ(data) {
+            const today = new Date().toISOString().split('T')[0];
+            const qnaList = [];
+
+            // 1. Investment Score (English)
+            let scoreAns = "";
+            if (data.final_score >= 80) scoreAns = `It has very high investment attractiveness. Both price momentum and financial health are excellent.`;
+            else if (data.final_score < 40) scoreAns = `Caution is advised. Price momentum or financial indicators are currently weak.`;
+            else scoreAns = `It is showing a stable and moderate trend.`;
+
+            const ratingLabel = (String(data.tier) === '1') ? 'A+' : (String(data.tier) === '2') ? 'A' : (String(data.tier) === '3') ? 'B' : (String(data.tier) === '4') ? 'C' : 'D';
+
+            qnaList.push({
+                q: `What is the investment rating and score for ${data.name_en || data.name} (${data.ticker})?`,
+                a: `Based on Naspick AI analysis as of ${today}, ${data.name_en || data.name} (${data.ticker}) has a score of **${data.final_score} (${ratingLabel} Rating)**. ${scoreAns}`
+            });
+
+            // 2. Valuation (PER)
+            let perAns = "";
+            // Fix: Use data.financial_health.per
+            const per = data.financial_health?.per;
+            if (per) {
+                if (per < 15) perAns = `Yes. Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, which is considered **undervalued** compared to the market average, offering good price merit.`;
+                else if (per > 50) perAns = `Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, which is relatively **overvalued**. This may reflect high growth expectations.`;
+                else perAns = `Currently, ${data.name_en || data.name} (${data.ticker})'s PER is **${per.toFixed(2)}x**, trading at a **fair value** similar to the market average.`;
+
+                qnaList.push({
+                    q: `Is ${data.name_en || data.name} (${data.ticker}) stock currently overvalued or undervalued? (PER Analysis)`,
+                    a: perAns
+                });
+            } else {
+                qnaList.push({
+                    q: `Is ${data.name_en || data.name} (${data.ticker}) stock currently overvalued or undervalued? (PER Analysis)`,
+                    a: `Currently, PER (Price-to-Earnings Ratio) data for ${data.name_en || data.name} (${data.ticker}) is not available.`
+                });
+            }
+
+            // 3. Technical (RSI)
+            let rsiAns = "";
+            // Fix: Use data.technical_analysis.rsi.value
+            const rsiObj = data.technical_analysis?.rsi;
+            const rsi = rsiObj ? rsiObj.value : null;
+
+            if (rsi) {
+                if (rsi > 70) rsiAns = `Caution is needed. The RSI is **${rsi.toFixed(2)}**, indicating an **overbought** zone. A short-term correction may occur.`;
+                else if (rsi < 30) rsiAns = `It could be a buying opportunity. The RSI is **${rsi.toFixed(2)}**, indicating an **oversold** zone. A technical rebound is expected.`;
+                else rsiAns = `The technical indicators are **neutral**. The RSI is **${rsi.toFixed(2)}**, showing a stable trend suitable for accumulation.`;
+
+                qnaList.push({
+                    q: `Is now a good time to buy ${data.name_en || data.name} (${data.ticker})? (RSI Technical Analysis)`,
+                    a: rsiAns
+                });
+            } else {
+                qnaList.push({
+                    q: `Is now a good time to buy ${data.name_en || data.name} (${data.ticker})? (RSI Technical Analysis)`,
+                    a: `Currently, there is insufficient data to perform RSI technical analysis for ${data.name_en || data.name} (${data.ticker}).`
+                });
+            }
+
+            // 4. Calendar
+            const cal = data.calendar || {};
+            let calAnsParts = [];
+            if (cal.dividend_yield) calAnsParts.push(`The expected dividend yield is **${cal.dividend_yield}%**, and the ex-dividend date is ${cal.ex_dividend_date}.`);
+            if (cal.next_earnings) calAnsParts.push(`The next earnings release is scheduled for **${cal.next_earnings}**.`);
+            else if (cal.last_surprise) calAnsParts.push(`In the last earnings report (${cal.last_earnings_date}), it recorded an **Earnings ${cal.last_surprise > 0 ? 'Beat' : 'Miss'} (${cal.last_surprise > 0 ? '+' : ''}${cal.last_surprise}%)**.`);
 
             if (calAnsParts.length > 0) {
-            qnaList.push({
-            q: `When is the next earnings date and dividend for ${data.name_en || data.name} (${data.ticker})?`,
-            a: calAnsParts.join(' ')
-            });
+                qnaList.push({
+                    q: `When is the next earnings date and dividend for ${data.name_en || data.name} (${data.ticker})?`,
+                    a: calAnsParts.join(' ')
+                });
             } else {
-            qnaList.push({
-            q: `When is the next earnings date and dividend for ${data.name_en || data.name}?`,
-            a: `Currently, there is no confirmed information regarding the earnings release date or dividend schedule
-            for ${data.name_en || data.name}.`
-            });
+                qnaList.push({
+                    q: `When is the next earnings date and dividend for ${data.name_en || data.name}?`,
+                    a: `Currently, there is no confirmed information regarding the earnings release date or dividend schedule for ${data.name_en || data.name}.`
+                });
             }
 
             // 5. Price & Target
@@ -1673,88 +1308,78 @@
             if (tp && typeof tp === 'object') tp = tp.mean;
 
             if (tp && data.current_price) {
-            const upside = ((tp - data.current_price) / data.current_price * 100).toFixed(2);
-            const upsidedown = upside > 0 ? 'upside' : 'downside'; // usually target > price means upside
-            qnaList.push({
-            q: `What is the current price and target price for ${data.name_en || data.name}? (Price Forecast)`,
-            a: `As of ${today}, the price of ${data.name_en || data.name} is **$${data.current_price}**. The average
-            Wall Street target price is **$${tp.toFixed(2)}**, implying a potential **${upside}% ${upsidedown}**.`
-            });
+                const upside = ((tp - data.current_price) / data.current_price * 100).toFixed(2);
+                const upsidedown = upside > 0 ? 'upside' : 'downside'; // usually target > price means upside
+                qnaList.push({
+                    q: `What is the current price and target price for ${data.name_en || data.name}? (Price Forecast)`,
+                    a: `As of ${today}, the price of ${data.name_en || data.name} is **$${data.current_price}**. The average Wall Street target price is **$${tp.toFixed(2)}**, implying a potential **${upside}% ${upsidedown}**.`
+                });
             } else {
-            qnaList.push({
-            q: `What is the current price and target price for ${data.name_en || data.name}? (Price Forecast)`,
-            a: `There is currently insufficient Wall Street analyst target price data for ${data.name_en || data.name}.`
-            });
+                qnaList.push({
+                    q: `What is the current price and target price for ${data.name_en || data.name}? (Price Forecast)`,
+                    a: `There is currently insufficient Wall Street analyst target price data for ${data.name_en || data.name}.`
+                });
             }
 
             // 6. NASPICK AI Score & Rating (SEO: 'AI analysis', 'stock rating' keywords)
             let tierDescription = '';
-            if (data.tier === 1) tierDescription = 'This is the highest rating, indicating the stock has strong momentum
-            and excellent fundamentals in the current market.';
-            else if (data.tier === 2) tierDescription = 'A high-quality rating, indicating stable growth and good
-            investment attractiveness.';
+            if (data.tier === 1) tierDescription = 'This is the highest rating, indicating the stock has strong momentum and excellent fundamentals in the current market.';
+            else if (data.tier === 2) tierDescription = 'A high-quality rating, indicating stable growth and good investment attractiveness.';
             else if (data.tier === 3) tierDescription = 'An average rating, showing market-average performance.';
             else tierDescription = 'A cautionary rating, indicating momentum or fundamentals need improvement.';
 
             qnaList.push({
-            q: `What is the NASPICK AI Score and Rating for ${data.name_en || data.name} (${data.ticker})?`,
-            a: `As of ${today}, ${data.name_en || data.name}'s NASPICK AI comprehensive score is
-            **${data.final_score}/100** with an **${ratingLabel} Rating**. ${tierDescription} This score is calculated
-            by combining technical analysis, fundamentals, and market sentiment, updated every 15 minutes.`
+                q: `What is the NASPICK AI Score and Rating for ${data.name_en || data.name} (${data.ticker})?`,
+                a: `As of ${today}, ${data.name_en || data.name}'s NASPICK AI comprehensive score is **${data.final_score}/100** with an **${ratingLabel} Rating**. ${tierDescription} This score is calculated by combining technical analysis, fundamentals, and market sentiment, updated every 15 minutes.`
             });
 
             // Render HTML (Accordion Style)
             const faqContainer = document.getElementById('faqSection');
             if (faqContainer) {
-            faqContainer.innerHTML = `
-            <div class="mt-8 bg-[#23232a] rounded-xl border border-gray-800 p-6">
-                <h3 class="text-lg font-bold text-gray-200 mb-4 flex items-center gap-2">
-                    💬 Frequently Asked Questions
-                </h3>
-                <div class="space-y-3">
-                    ${qnaList.map(item => `
-                    <details
-                        class="group bg-[#1c1c1f] rounded-lg border border-gray-800/50 open:border-gray-700 transition-all">
-                        <summary class="flex justify-between items-center p-4 cursor-pointer list-none">
-                            <h4 class="font-bold text-gray-300 text-sm">Q. ${item.q}</h4>
-                            <svg class="w-4 h-4 text-gray-500 transition-transform group-open:rotate-180" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </summary>
-                        <p class="px-4 pb-4 text-sm text-gray-400 leading-relaxed border-t border-gray-800/50 pt-3">
-                            ${item.a.replace(/\*\*(.*?)\*\*/g, '<span class="text-gray-200 font-bold">$1</span>')}
-                        </p>
-                    </details>
-                    `).join('')}
-                </div>
-            </div>
-            `;
+                faqContainer.innerHTML = `
+                        <div class="mt-8 bg-[#23232a] rounded-xl border border-gray-800 p-6">
+                            <h3 class="text-lg font-bold text-gray-200 mb-4 flex items-center gap-2">
+                                 💬 Frequently Asked Questions
+                            </h3>
+                            <div class="space-y-3">
+                                ${qnaList.map(item => `
+                                    <details class="group bg-[#1c1c1f] rounded-lg border border-gray-800/50 open:border-gray-700 transition-all">
+                                        <summary class="flex justify-between items-center p-4 cursor-pointer list-none">
+                                            <h4 class="font-bold text-gray-300 text-sm">Q. ${item.q}</h4>
+                                            <svg class="w-4 h-4 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        </summary>
+                                        <p class="px-4 pb-4 text-sm text-gray-400 leading-relaxed border-t border-gray-800/50 pt-3">
+                                            ${item.a.replace(/\*\*(.*?)\*\*/g, '<span class="text-gray-200 font-bold">$1</span>')}
+                                        </p>
+                                    </details>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
             }
 
             // Inject JSON-LD Schema
             const schemaData = {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": qnaList.map(item => ({
-            "@type": "Question",
-            "name": item.q,
-            "acceptedAnswer": {
-            "@type": "Answer",
-            "text": item.a.replace(/\*\*/g, '') // Remove markdown bold for schema
-            }
-            }))
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": qnaList.map(item => ({
+                    "@type": "Question",
+                    "name": item.q,
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": item.a.replace(/\*\*/g, '') // Remove markdown bold for schema
+                    }
+                }))
             };
 
             const script = document.createElement('script');
             script.type = 'application/ld+json';
             script.text = JSON.stringify(schemaData);
             document.head.appendChild(script);
-            }
+        }
 
-            // Favorites Logic
-            function initFavorites(ticker) {
+        // Favorites Logic
+        function initFavorites(ticker) {
             const favorites = new Set(JSON.parse(localStorage.getItem('naspick_favorites') || '[]'));
             const container = document.getElementById('favoriteContainer');
             if (!container) return;
@@ -1763,162 +1388,162 @@
             renderFavoriteButton(container, isFav);
 
             container.onclick = (e) => {
-            e.stopPropagation();
-            if (favorites.has(ticker)) {
-            favorites.delete(ticker);
-            } else {
-            favorites.add(ticker);
-            }
-            localStorage.setItem('naspick_favorites', JSON.stringify([...favorites]));
-            renderFavoriteButton(container, favorites.has(ticker));
+                e.stopPropagation();
+                if (favorites.has(ticker)) {
+                    favorites.delete(ticker);
+                } else {
+                    favorites.add(ticker);
+                }
+                localStorage.setItem('naspick_favorites', JSON.stringify([...favorites]));
+                renderFavoriteButton(container, favorites.has(ticker));
             };
-            }
+        }
 
-            function renderFavoriteButton(container, isFav) {
+        function renderFavoriteButton(container, isFav) {
             container.innerHTML = `
-            <button class="transition hover:scale-110 p-1 group">
-                <svg class="w-6 h-6 md:w-8 md:h-8 ${isFav ? 'text-yellow-400 fill-current' : 'text-gray-500 fill-transparent group-hover:text-yellow-400'}"
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path
-                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                </svg>
-            </button>
+                <button class="transition hover:scale-110 p-1 group">
+                    <svg class="w-6 h-6 md:w-8 md:h-8 ${isFav ? 'text-yellow-400 fill-current' : 'text-gray-500 fill-transparent group-hover:text-yellow-400'}" 
+                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                    </svg>
+                </button>
             `;
-            }
+        }
 
-            function initHeaderSearch() {
+        function initHeaderSearch() {
             const input = document.getElementById('headerSearch');
             const resultsDiv = document.getElementById('headerSearchResults');
 
             input.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase().replace(/\s+/g, '');
-            if (!term) {
-            resultsDiv.classList.add('hidden');
-            return;
-            }
+                const term = e.target.value.toLowerCase().replace(/\s+/g, '');
+                if (!term) {
+                    resultsDiv.classList.add('hidden');
+                    return;
+                }
 
-            const getChosung = (str) => {
-            const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ",
-            "ㅎ"];
-            let result = "";
-            for (let i = 0; i < str.length; i++) { const code=str.charCodeAt(i) - 44032; if (code> -1 && code < 11172) {
-                    result +=chosung[Math.floor(code / 588)]; } else { result +=str.charAt(i); } } return result; }; //
-                    New: Jamo Helper const getJamo=(str)=> {
-                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ",
-                    "ㅌ", "ㅍ", "ㅎ"];
-                    const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ",
-                    "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
-                    const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ",
-                    "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+                const getChosung = (str) => {
+                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+                    let result = "";
+                    for (let i = 0; i < str.length; i++) {
+                        const code = str.charCodeAt(i) - 44032;
+                        if (code > -1 && code < 11172) {
+                            result += chosung[Math.floor(code / 588)];
+                        } else {
+                            result += str.charAt(i);
+                        }
+                    }
+                    return result;
+                };
+
+                // New: Jamo Helper
+                const getJamo = (str) => {
+                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+                    const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
+                    const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
 
                     let result = "";
-                    for (let i = 0; i < str.length; i++) { const code=str.charCodeAt(i) - 44032; if (code> -1 && code <
-                            11172) { const c=Math.floor(code / 588); const j=Math.floor((code % 588) / 28); const k=code
-                            % 28; result +=chosung[c] + jungsung[j]; if (k> 0) result += jongsung[k];
-                            } else {
+                    for (let i = 0; i < str.length; i++) {
+                        const code = str.charCodeAt(i) - 44032;
+                        if (code > -1 && code < 11172) {
+                            const c = Math.floor(code / 588);
+                            const j = Math.floor((code % 588) / 28);
+                            const k = code % 28;
+                            result += chosung[c] + jungsung[j];
+                            if (k > 0) result += jongsung[k];
+                        } else {
                             result += str.charAt(i);
-                            }
-                            }
-                            return result;
-                            };
+                        }
+                    }
+                    return result;
+                };
 
 
-                            // Helper: Decompose
-                            const decomposeHangul = (str) => {
-                            const doubleConsonants = {
-                            'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
-                            'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
-                            };
-                            return str.split('').map(char => doubleConsonants[char] || char).join('');
-                            };
+                // Helper: Decompose
+                const decomposeHangul = (str) => {
+                    const doubleConsonants = {
+                        'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
+                        'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
+                    };
+                    return str.split('').map(char => doubleConsonants[char] || char).join('');
+                };
 
-                            const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
+                const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
 
-                            // Determine Search Mode
-                            const hasHangulSyllable = /[가-힣]/.test(term);
-                            let matches = [];
+                // Determine Search Mode
+                const hasHangulSyllable = /[가-힣]/.test(term);
+                let matches = [];
 
-                            if (hasHangulSyllable) {
-                            const jamoTerm = getJamo(term);
-                            matches = allData.filter(d => {
-                            const normName = normalize(d.name);
-                            // Note: For English site, d.name is Korean name. d.name_en is English.
-                            // We check both.
-                            return d.ticker.toLowerCase().includes(term) ||
+                if (hasHangulSyllable) {
+                    const jamoTerm = getJamo(term);
+                    matches = allData.filter(d => {
+                        const normName = normalize(d.name);
+                        // Note: For English site, d.name is Korean name. d.name_en is English.
+                        // We check both.
+                        return d.ticker.toLowerCase().includes(term) ||
                             normName.includes(term) ||
                             getJamo(normName).includes(jamoTerm) ||
                             (d.name_en && normalize(d.name_en).includes(term));
-                            }).slice(0, 5);
-                            } else {
-                            const normalizedTerm = decomposeHangul(term);
-                            const chosungTerm = getChosung(normalizedTerm);
-                            matches = allData.filter(d =>
-                            d.ticker.toLowerCase().includes(term) ||
-                            normalize(d.name).includes(normalizedTerm) ||
-                            getChosung(normalize(d.name)).includes(chosungTerm) ||
-                            (d.name && d.name.toLowerCase().includes(term)) ||
-                            normalize(d.name_en).includes(normalizedTerm) ||
-                            (d.name_en && d.name_en.toLowerCase().includes(term))
-                            ).slice(0, 5);
-                            }
+                    }).slice(0, 5);
+                } else {
+                    const normalizedTerm = decomposeHangul(term);
+                    const chosungTerm = getChosung(normalizedTerm);
+                    matches = allData.filter(d =>
+                        d.ticker.toLowerCase().includes(term) ||
+                        normalize(d.name).includes(normalizedTerm) ||
+                        getChosung(normalize(d.name)).includes(chosungTerm) ||
+                        (d.name && d.name.toLowerCase().includes(term)) ||
+                        normalize(d.name_en).includes(normalizedTerm) ||
+                        (d.name_en && d.name_en.toLowerCase().includes(term))
+                    ).slice(0, 5);
+                }
 
-                            if (matches.length > 0) {
-                            resultsDiv.innerHTML = matches.map(d => {
-                            let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
-                            let tierLabel = 'C';
-                            if (d.tier === 1) { tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10'; tierLabel
-                            = 'A+'; }
-                            else if (d.tier === 2) { tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10';
-                            tierLabel = 'A'; }
-                            else if (d.tier === 3) { tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10';
-                            tierLabel = 'B'; }
-                            else if (d.tier === 4) { tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10';
-                            tierLabel = 'C'; }
-                            else if (d.tier === 5) { tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10';
-                            tierLabel = 'D'; }
+                if (matches.length > 0) {
+                    resultsDiv.innerHTML = matches.map(d => {
+                        let tierClass = 'text-gray-400 border-gray-600 bg-gray-700/20';
+                        let tierLabel = 'C';
+                        if (d.tier === 1) { tierClass = 'text-[#0093ff] border-[#0093ff] bg-[#0093ff]/10'; tierLabel = 'A+'; }
+                        else if (d.tier === 2) { tierClass = 'text-[#00bba3] border-[#00bba3] bg-[#00bba3]/10'; tierLabel = 'A'; }
+                        else if (d.tier === 3) { tierClass = 'text-[#ffb900] border-[#ffb900] bg-[#ffb900]/10'; tierLabel = 'B'; }
+                        else if (d.tier === 4) { tierClass = 'text-[#9aa4af] border-[#9aa4af] bg-[#9aa4af]/10'; tierLabel = 'C'; }
+                        else if (d.tier === 5) { tierClass = 'text-[#a07557] border-[#a07557] bg-[#a07557]/10'; tierLabel = 'D'; }
 
-                            const tierBadge = `<span
-                                class="px-1.5 py-0.5 text-[9px] font-bold rounded border ${tierClass}">${tierLabel}</span>`;
+                        const tierBadge = `<span class="px-1.5 py-0.5 text-[9px] font-bold rounded border ${tierClass}">${tierLabel}</span>`;
 
-                            return `
-                            <a href="/en/stock/${d.ticker}"
-                                class="p-2 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
-                                <div>
-                                    <span class="font-bold text-xs text-white">${d.ticker}</span>
-                                    <span class="text-[10px] text-gray-400 ml-1">${d.name_en || d.name}</span>
-                                </div>
-                                <div class="text-right">
-                                    <span class="text-[#5383e8] text-[10px] font-bold block">${d.final_score}</span>
-                                    <div class="mt-0.5 flex justify-end">${tierBadge}</div>
-                                </div>
-                            </a>
-                            `;
-                            }).join('');
-                            resultsDiv.classList.remove('hidden');
-                            } else {
-                            resultsDiv.innerHTML = '<div class="p-2 text-gray-500 text-[10px]">No results found</div>';
-                            resultsDiv.classList.remove('hidden');
-                            }
-                            });
+                        return `
+                        <a href="/en/stock/${d.ticker}" class="p-2 hover:bg-[#3e63b0] cursor-pointer border-b border-gray-700 last:border-0 flex justify-between items-center block text-inherit hover:no-underline">
+                            <div>
+                                <span class="font-bold text-xs text-white">${d.ticker}</span>
+                                <span class="text-[10px] text-gray-400 ml-1">${d.name_en || d.name}</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[#5383e8] text-[10px] font-bold block">${d.final_score}</span>
+                                <div class="mt-0.5 flex justify-end">${tierBadge}</div>
+                            </div>
+                        </a>
+                        `;
+                    }).join('');
+                    resultsDiv.classList.remove('hidden');
+                } else {
+                    resultsDiv.innerHTML = '<div class="p-2 text-gray-500 text-[10px]">No results found</div>';
+                    resultsDiv.classList.remove('hidden');
+                }
+            });
 
-                            document.addEventListener('click', (e) => {
-                            if (!input.contains(e.target) && !resultsDiv.contains(e.target)) {
-                            resultsDiv.classList.add('hidden');
-                            }
-                            });
-                            }
+            document.addEventListener('click', (e) => {
+                if (!input.contains(e.target) && !resultsDiv.contains(e.target)) {
+                    resultsDiv.classList.add('hidden');
+                }
+            });
+        }
 
-                            init();
-                            </script>
+        init();
+    </script>
 
-                            <footer
-                                class="text-center text-[10px] md:text-xs text-gray-500 py-3 md:py-4 px-4 border-t border-gray-800 mt-6">
-                                <p>Information on this site is for reference only. Investment decisions and
-                                    profits/losses are the investor's
-                                    responsibility.</p>
-                                <p class="mt-1">© 2026 NASPICK</p>
-                            </footer>
+    <footer class="text-center text-[10px] md:text-xs text-gray-500 py-3 md:py-4 px-4 border-t border-gray-800 mt-6">
+        <p>Information on this site is for reference only. Investment decisions and profits/losses are the investor's
+            responsibility.</p>
+        <p class="mt-1">© 2026 NASPICK</p>
+    </footer>
 </body>
 
 </html>
