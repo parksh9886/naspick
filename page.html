@@ -1068,7 +1068,9 @@
             if (showChart) {
                 // Show Chart
                 viewAnalysis.classList.add('hidden');
+                viewAnalysis.style.display = 'none';
                 viewChart.classList.remove('hidden');
+                viewChart.style.display = 'block';
 
                 // UI Update
                 slider.classList.add('right');
@@ -1079,7 +1081,9 @@
             } else {
                 // Show Analysis
                 viewAnalysis.classList.remove('hidden');
+                viewAnalysis.style.display = 'flex';
                 viewChart.classList.add('hidden');
+                viewChart.style.display = 'none';
 
                 // UI Update
                 slider.classList.remove('right');
