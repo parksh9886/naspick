@@ -1598,6 +1598,10 @@
 
             if (!flipCard) return;
 
+            // Child divs (Front: 0, Back: 1)
+            const frontFace = flipCard.children[0];
+            const backFace = flipCard.children[1];
+
             if (showBack) {
                 flipCard.classList.add('flipped');
                 slider?.classList.add('right');
@@ -1605,6 +1609,10 @@
                 tabChart.classList.add('text-gray-400');
                 tabAnalysis.classList.add('text-white');
                 tabAnalysis.classList.remove('text-gray-400');
+
+                // Ensure Back is clickable/visible via z-index
+                frontFace.style.zIndex = 0;
+                backFace.style.zIndex = 10;
             } else {
                 flipCard.classList.remove('flipped');
                 slider?.classList.remove('right');
@@ -1612,6 +1620,10 @@
                 tabChart.classList.remove('text-gray-400');
                 tabAnalysis.classList.remove('text-white');
                 tabAnalysis.classList.add('text-gray-400');
+
+                // Ensure Front is clickable/visible
+                frontFace.style.zIndex = 10;
+                backFace.style.zIndex = 0;
             }
         }
 
@@ -1765,9 +1777,10 @@
             const badgeColor = isPlus ? 'bg-[#ff3b30]/10 text-[#ff3b30] border-[#ff3b30]/30' : 'bg-[#007aff]/10 text-[#007aff] border-[#007aff]/30';
 
             // 5. Render Result
+            // 5. Render Result (Overlay UI - No Scroll, Compact)
             resultDiv.innerHTML = `
-                <!-- Header -->
-                <div class="flex items-center justify-between p-4 border-b border-gray-800 bg-[#1c1c21]">
+                <!-- Header (Fixed) -->
+                <div class="flex items-center justify-between p-4 border-b border-gray-800 bg-[#1c1c21] shrink-0">
                     <button onclick="resetAnalysis()" class="text-gray-400 hover:text-white transition flex items-center gap-1 group">
                         <svg class="w-5 h-5 group-hover:-translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                         <span class="text-sm font-bold">Try Again</span>
@@ -1775,47 +1788,49 @@
                     <div class="text-xs font-bold text-gray-500">NASPICK AI ✨</div>
                 </div>
 
-                <!-- Scrollable Content -->
-                <div class="flex-1 overflow-y-auto p-6 scrollbar-hide">
+                <!-- Main Content (Flex Column) -->
+                <div class="flex-1 flex flex-col justify-between p-5 overflow-hidden">
                     
-                    <!-- Rank Badge -->
-                    <div class="flex flex-col items-center mb-8 animate-fade-in-up">
-                        <div class="text-6xl mb-4 drop-shadow-2xl grayscale-0">${msgObj.emoji}</div>
-                        <div class="inline-flex items-center px-3 py-1 rounded-full border ${badgeColor} text-xs font-bold mb-2">
-                            Top ${formattedRank}% Entry
-                        </div>
-                        <h2 class="text-2xl font-black text-white text-center leading-tight">${title}</h2>
+                    <!-- 1. PnL Main Display (Swapped with Rank) -->
+                    <div class="flex flex-col items-center justify-center animate-fade-in-up mt-2">
+                        <div class="text-5xl mb-3 drop-shadow-2xl grayscale-0">${msgObj.emoji}</div>
+                        <div class="text-[10px] text-gray-500 font-bold mb-1 tracking-wider uppercase">Current PnL</div>
+                        <h2 class="text-4xl font-black ${mainColor} text-center leading-tight font-mono tracking-tighter drop-shadow-lg scale-110">
+                            ${sign}${formattedPnl}%
+                        </h2>
                     </div>
 
-                    <!-- Message Box -->
-                    <div class="bg-[#1c1c21] rounded-xl p-5 border border-gray-800 mb-6 relative overflow-hidden shadow-lg animate-fade-in-up" style="animation-delay: 0.1s;">
+                    <!-- 2. Message Box -->
+                    <div class="bg-[#1c1c21] rounded-xl p-4 border border-gray-800 relative overflow-hidden shadow-lg animate-fade-in-up" style="animation-delay: 0.1s;">
                         <div class="absolute top-0 left-0 w-1 h-full ${isPlus ? 'bg-[#ff3b30]' : 'bg-[#007aff]'}"></div>
-                        <p class="text-gray-300 text-sm font-medium leading-relaxed text-center">"${sub}"</p>
+                        <p class="text-gray-300 text-sm font-medium leading-relaxed text-center break-keep">"${sub}"</p>
                     </div>
 
-                    <!-- Stats Grid -->
-                    <div class="grid grid-cols-2 gap-3 mb-8 animate-fade-in-up" style="animation-delay: 0.2s;">
-                        <div class="bg-[#1c1c21] rounded-xl p-4 border border-gray-800 text-center">
-                            <div class="text-[10px] text-gray-500 font-bold mb-1">Current PnL</div>
-                            <div class="text-2xl font-black ${mainColor} font-mono tracking-tight">${sign}${formattedPnl}%</div>
+                    <!-- 3. Rank & Info Grid (Stats) -->
+                    <div class="grid grid-cols-2 gap-3 animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="bg-[#1c1c21] rounded-xl p-3 border border-gray-800 text-center flex flex-col justify-center">
+                            <div class="text-[10px] text-gray-500 font-bold mb-1">Rank</div>
+                            <div class="inline-flex items-center justify-center px-2 py-0.5 rounded text-sm font-bold ${badgeColor}">
+                                Top ${formattedRank}%
+                            </div>
                         </div>
-                        <div class="bg-[#1c1c21] rounded-xl p-4 border border-gray-800 text-center">
-                            <div class="text-[10px] text-gray-500 font-bold mb-1">Peak Volume Price</div>
-                            <div class="text-lg font-bold text-gray-300 font-mono tracking-tight">$${peakPrice}</div>
+                        <div class="bg-[#1c1c21] rounded-xl p-3 border border-gray-800 text-center flex flex-col justify-center">
+                            <div class="text-[10px] text-gray-500 font-bold mb-1">Target Price</div>
+                            <div class="text-sm font-bold text-gray-300 font-mono tracking-tight">$${targetPrice.toFixed(2)}</div>
                         </div>
                     </div>
 
-                    <!-- Search Section -->
-                    <div class="border-t border-gray-800 pt-6 animate-fade-in-up" style="animation-delay: 0.3s;">
-                        <h4 class="text-xs font-bold text-gray-400 mb-3 text-center">🤔 Check My Other Stocks?</h4>
+                    <!-- 4. Search Section (Bottom) -->
+                    <div class="border-t border-gray-800 pt-4 animate-fade-in-up" style="animation-delay: 0.3s;">
+                        <h4 class="text-[10px] font-bold text-gray-400 mb-2 text-center">🤔 Check Other Stocks?</h4>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                             <input type="text" placeholder="Search Ticker (e.g. TSLA)" onkeyup="handleAnalysisSearch(this)"
-                                class="w-full bg-[#1c1c21] border border-gray-700 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:border-[#2962ff] focus:ring-1 focus:ring-[#2962ff] transition-colors outline-none font-bold">
+                                class="w-full bg-[#1c1c21] border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white focus:border-[#2962ff] focus:ring-1 focus:ring-[#2962ff] transition-colors outline-none font-bold placeholder-gray-600">
                             <!-- Dropdown -->
-                            <div id="analysisSearchResults" class="absolute bottom-full left-0 right-0 mb-2 bg-[#2a2a35] border border-gray-700 rounded-lg shadow-xl hidden max-h-48 overflow-y-auto z-50"></div>
+                            <div id="analysisSearchResults" class="absolute bottom-full left-0 right-0 mb-2 bg-[#2a2a35] border border-gray-700 rounded-lg shadow-xl hidden max-h-40 overflow-y-auto z-50"></div>
                         </div>
                     </div>
                 </div>
