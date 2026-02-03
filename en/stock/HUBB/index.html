@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HUBB Stock Price Forecast & Target | Hubbell AI Analysis - NASPICK</title>
-    <meta name="description" content="[Feb 04, 2026] Hubbell (HUBB) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.">
+    <meta name="description" content="Hubbell (HUBB) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.">
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -27,14 +27,14 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="NASPICK">
     <meta property="og:title" content="HUBB Stock Price Forecast & Target | Hubbell AI Analysis - NASPICK">
-    <meta property="og:description" content="[Feb 04, 2026] Hubbell (HUBB) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.">
+    <meta property="og:description" content="Hubbell (HUBB) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.">
     <meta property="og:url" content="https://naspick.com/en/stock/HUBB">
     <meta property="og:image" content="https://financialmodelingprep.com/image-stock/HUBB.png">
 
     <!-- Twitter Card (Default, updated dynamically via JS) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="HUBB Stock Price Forecast & Target | Hubbell AI Analysis - NASPICK">
-    <meta name="twitter:description" content="[Feb 04, 2026] Hubbell (HUBB) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.">
+    <meta name="twitter:description" content="Hubbell (HUBB) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.">
     <meta name="twitter:image" content="https://financialmodelingprep.com/image-stock/HUBB.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -355,14 +355,13 @@
                 }
 
                 // --- SEO: Dynamic Title, Meta, Canonical ---
-                const today = new Date();
-                const dateString = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                // Date removed from title/desc as requested
 
                 // Rating label
                 const ratingLabel = stockData.tier === 1 ? 'A+' : stockData.tier === 2 ? 'A' : stockData.tier === 3 ? 'B' : stockData.tier === 4 ? 'C' : 'D';
 
                 // 1. Title (SEO: 'Stock Forecast', 'Price Target' keywords)
-                document.title = `${dateString} ${stockData.ticker} Stock Forecast & Price Target | ${stockData.name_en || stockData.name} AI Analysis - NASPICK`;
+                document.title = `${stockData.ticker} Stock Forecast & Price Target | ${stockData.name_en || stockData.name} AI Analysis - NASPICK`;
 
                 // 2. Meta Description (SEO: 'Fair Value', 'Price Target', 'Dividend', 'Earnings' keywords)
                 const metaDesc = document.querySelector('meta[name="description"]');
@@ -371,7 +370,7 @@
                 let metaEarnings = cal.next_earnings ? `Next Earnings: ${cal.next_earnings}.` : '';
                 if (metaDesc) {
                     metaDesc.setAttribute('content',
-                        `[${dateString}] ${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.`.trim()
+                        `${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.`.trim()
                     );
                 }
 
@@ -396,7 +395,7 @@
 
                 // 5. OG/Twitter Title, Description, URL (SEO optimized)
                 const ogTitle = document.querySelector('meta[property="og:title"]');
-                if (ogTitle) ogTitle.setAttribute('content', `${dateString} ${stockData.ticker} Stock Forecast & Price Target | ${stockData.name_en || stockData.name} AI Analysis - NASPICK`);
+                if (ogTitle) ogTitle.setAttribute('content', `${stockData.ticker} Stock Forecast & Price Target | ${stockData.name_en || stockData.name} AI Analysis - NASPICK`);
 
                 // [SEO] Add Calendar Keywords (Earnings, Dividend)
                 let seoExtra = "";
@@ -406,16 +405,16 @@
                 else if (cal.last_surprise) seoExtra += ` Last Earnings: ${cal.last_surprise > 0 ? 'Beat' : 'Miss'}(${cal.last_surprise}%).`;
 
                 const ogDesc = document.querySelector('meta[property="og:description"]');
-                if (ogDesc) ogDesc.setAttribute('content', `[${dateString}] ${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.`);
+                if (ogDesc) ogDesc.setAttribute('content', `${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.`);
 
                 const ogUrl = document.querySelector('meta[property="og:url"]');
                 if (ogUrl) ogUrl.setAttribute('content', `https://naspick.com/en/stock/${stockData.ticker}`);
 
                 const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-                if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.ticker} Stock Forecast & Price Target | ${stockData.name_en || stockData.name} AI Analysis - NASPICK`);
+                if (twitterTitle) twitterTitle.setAttribute('content', `${stockData.ticker} Stock Forecast & Price Target | ${stockData.name_en || stockData.name} AI Analysis - NASPICK`);
 
                 const twitterDesc = document.querySelector('meta[name="twitter:description"]');
-                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString}] ${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.`);
+                if (twitterDesc) twitterDesc.setAttribute('content', `${stockData.name_en || stockData.name} (${stockData.ticker}) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.`);
 
                 // 6. Schema.org 구조화 데이터 (Corporation)
                 const schemaScript = document.createElement('script');

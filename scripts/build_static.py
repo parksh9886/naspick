@@ -117,9 +117,9 @@ def generate_stock_pages(data):
         url_ko = f"https://naspick.com/stock/{ticker}"
         url_en = f"https://naspick.com/en/stock/{ticker}"
         
-        title_ko = f"{today} {ticker} 주가 전망 & 목표가 | {name_ko} AI 분석 - 나스픽"
+        title_ko = f"{ticker} 주가 전망 & 목표가 | {name_ko} AI 분석 - 나스픽"
         current_price = item.get('current_price', 0)
-        desc_ko = f"[{today}] {name_ko}({ticker}) 주가 전망 & AI 분석. 현재가 ${current_price} 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요."
+        desc_ko = f"{name_ko}({ticker}) 주가 전망 & AI 분석. 현재가 ${current_price} 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요."
         
         meta_ko = {
             "title": title_ko,
@@ -145,7 +145,7 @@ def generate_stock_pages(data):
         today_en = dt.strftime("%b %d, %Y")
         
         title_en = f"{ticker} Stock Price Forecast & Target | {name_en} AI Analysis - NASPICK"
-        desc_en = f"[{today_en}] {name_en} ({ticker}) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly."
+        desc_en = f"{name_en} ({ticker}) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly."
         
         meta_en = {
             "title": title_en,

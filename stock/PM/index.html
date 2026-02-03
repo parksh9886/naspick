@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026-02-04 PM 주가 전망 & 목표가 | 필립 모리스 인터내셔널 AI 분석 - 나스픽</title>
-    <meta name="description" content="[2026-02-04] 필립 모리스 인터내셔널(PM) 주가 전망 & AI 분석. 현재가 $180.96 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">
+    <title>PM 주가 전망 & 목표가 | 필립 모리스 인터내셔널 AI 분석 - 나스픽</title>
+    <meta name="description" content="필립 모리스 인터내셔널(PM) 주가 전망 & AI 분석. 현재가 $181.26 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -26,15 +26,15 @@
     <!-- Open Graph (기본값, JS에서 동적 업데이트) -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="나스픽">
-    <meta property="og:title" content="2026-02-04 PM 주가 전망 & 목표가 | 필립 모리스 인터내셔널 AI 분석 - 나스픽">
-    <meta property="og:description" content="[2026-02-04] 필립 모리스 인터내셔널(PM) 주가 전망 & AI 분석. 현재가 $180.96 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">
+    <meta property="og:title" content="PM 주가 전망 & 목표가 | 필립 모리스 인터내셔널 AI 분석 - 나스픽">
+    <meta property="og:description" content="필립 모리스 인터내셔널(PM) 주가 전망 & AI 분석. 현재가 $181.26 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">
     <meta property="og:url" content="https://naspick.com/stock/PM">
     <meta property="og:image" content="https://financialmodelingprep.com/image-stock/PM.png">
 
     <!-- Twitter Card (기본값, JS에서 동적 업데이트) -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="2026-02-04 PM 주가 전망 & 목표가 | 필립 모리스 인터내셔널 AI 분석 - 나스픽">
-    <meta name="twitter:description" content="[2026-02-04] 필립 모리스 인터내셔널(PM) 주가 전망 & AI 분석. 현재가 $180.96 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">
+    <meta name="twitter:title" content="PM 주가 전망 & 목표가 | 필립 모리스 인터내셔널 AI 분석 - 나스픽">
+    <meta name="twitter:description" content="필립 모리스 인터내셔널(PM) 주가 전망 & AI 분석. 현재가 $181.26 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">
     <meta name="twitter:image" content="https://financialmodelingprep.com/image-stock/PM.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -287,12 +287,10 @@
 
                 // --- SEO 핵심 추가: 동적 타이틀, 메타설명, Canonical Tag ---
                 const today = new Date();
-                const month = today.getMonth() + 1;
-                const date = today.getDate();
-                const dateString = `${month}월 ${date}일`;
+                // Date removed from title/desc as requested
 
                 // 1. Title 업데이트 (SEO 최적화: '주가 전망', '목표가' 키워드 포함)
-                document.title = `${dateString} ${stockData.ticker} 주가 전망 & 목표가 | ${stockData.name} AI 분석 - 나스픽`;
+                document.title = `${stockData.ticker} 주가 전망 & 목표가 | ${stockData.name} AI 분석 - 나스픽`;
 
                 // 2. Meta Description 업데이트 (SEO 최적화: '적정 주가', '목표가', '배당', '실적' 키워드 포함)
                 const metaDesc = document.querySelector('meta[name="description"]');
@@ -301,7 +299,7 @@
                 let metaEarnings = cal.next_earnings ? `다음 실적: ${cal.next_earnings}.` : '';
                 if (metaDesc) {
                     metaDesc.setAttribute('content',
-                        `[${dateString}] ${stockData.name}(${stockData.ticker}) 주가 전망 & AI 분석. 현재가 $${stockData.current_price} 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.`.trim()
+                        `${stockData.name}(${stockData.ticker}) 주가 전망 & AI 분석. 현재가 $${stockData.current_price} 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.`.trim()
                     );
                 }
 
@@ -328,7 +326,7 @@
 
                 // 5. OG/Twitter Title, Description, URL 동적 업데이트 (SEO 최적화)
                 const ogTitle = document.querySelector('meta[property="og:title"]');
-                if (ogTitle) ogTitle.setAttribute('content', `${dateString} ${stockData.ticker} 주가 전망 & 목표가 | ${stockData.name} AI 분석 - 나스픽`);
+                if (ogTitle) ogTitle.setAttribute('content', `${stockData.ticker} 주가 전망 & 목표가 | ${stockData.name} AI 분석 - 나스픽`);
 
                 // [SEO] Add Calendar Keywords (Earnings, Dividend)
                 let seoExtra = "";
@@ -338,16 +336,16 @@
                 else if (cal.last_surprise) seoExtra += ` 직전 실적: ${cal.last_surprise > 0 ? '어닝서프라이즈' : '미스'}(${cal.last_surprise}%).`;
 
                 const ogDesc = document.querySelector('meta[property="og:description"]');
-                if (ogDesc) ogDesc.setAttribute('content', `[${dateString}] ${stockData.name}(${stockData.ticker}) 주가 전망 & AI 분석. 현재가 $${stockData.current_price} 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.`);
+                if (ogDesc) ogDesc.setAttribute('content', `${stockData.name}(${stockData.ticker}) 주가 전망 & AI 분석. 현재가 $${stockData.current_price} 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.`);
 
                 const ogUrl = document.querySelector('meta[property="og:url"]');
                 if (ogUrl) ogUrl.setAttribute('content', `https://naspick.com/stock/${stockData.ticker}`);
 
                 const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-                if (twitterTitle) twitterTitle.setAttribute('content', `${dateString} ${stockData.ticker} 주가 전망 & 목표가 | ${stockData.name} AI 분석 - 나스픽`);
+                if (twitterTitle) twitterTitle.setAttribute('content', `${stockData.ticker} 주가 전망 & 목표가 | ${stockData.name} AI 분석 - 나스픽`);
 
                 const twitterDesc = document.querySelector('meta[name="twitter:description"]');
-                if (twitterDesc) twitterDesc.setAttribute('content', `[${dateString}] ${stockData.name}(${stockData.ticker}) 주가 전망 & AI 분석. 현재가 $${stockData.current_price} 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.`);
+                if (twitterDesc) twitterDesc.setAttribute('content', `${stockData.name}(${stockData.ticker}) 주가 전망 & AI 분석. 현재가 $${stockData.current_price} 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.`);
 
                 // 6. Schema.org 구조화 데이터 (Corporation)
                 const schemaScript = document.createElement('script');
@@ -1228,11 +1226,7 @@
             },
             SMALL_LOSS: { // -10~0%
                 top: { emoji: "💪", title: "자신감을 가져요!", sub: "손실이지만 상위 {rank}%! 대부분보다 낫습니다." },
-<<<<<<< HEAD
                 mid: { emoji: "🐜", title: "동지가 많네요", sub: "수많은 개미들과 함께합니다." },
-=======
-                mid: { emoji: "🤝", title: "동지가 많네요", sub: "수많은 전우들과 함께합니다." },
->>>>>>> 6c0418b3668d4bc3c339285ddd3d2ff68f35e583
                 bottom: { emoji: "😅", title: "느낌이 쎄한데요?", sub: "힘든 구간이지만.. 팔기 전엔 손실 아니니까요" }
             },
             LOSS: { // -30~-10%
