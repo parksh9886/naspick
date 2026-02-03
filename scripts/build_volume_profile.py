@@ -3,6 +3,7 @@ build_volume_profile.py
 각 종목별 매물대(Volume Profile) 사전 계산
 - price_history.csv를 읽어서 가격대별 거래량 집계
 - data.json에 volume_profile 필드 추가
+- 180일 롤링 데이터 기반 (update_price_history.py에서 관리)
 """
 
 import pandas as pd

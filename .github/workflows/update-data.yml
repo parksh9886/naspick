@@ -117,6 +117,12 @@ jobs:
       - name: Create Daily Snapshot
         run: python save_daily_snapshot.py
       
+      - name: Update Price History (180-day rolling)
+        run: python scripts/update_price_history.py
+      
+      - name: Build Volume Profiles
+        run: python scripts/build_volume_profile.py
+      
       - name: Install Social Gen Dependencies
         run: pip install playwright yfinance jinja2 nest_asyncio matplotlib requests pandas
       
