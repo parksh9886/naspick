@@ -1,66 +1,75 @@
 export const config = {
-    matcher: '/stock/:ticker*',
+    matcher: ['/stock/:ticker*', '/en/stock/:ticker*'],
 };
 
 export default async function middleware(request) {
     const url = new URL(request.url);
     const pathParts = url.pathname.split('/');
-    const ticker = pathParts[2]?.toUpperCase();
+    const isEn = pathParts[1] === 'en';
+    const ticker = (isEn ? pathParts[3] : pathParts[2])?.toUpperCase();
 
-    if (!ticker) {
+    if (!ticker || ticker === 'PAGE.HTML' || ticker === 'STOCK') {
         return;
     }
 
     // Get today's date in Korean timezone
     const now = new Date();
     const koreaTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
-    const month = koreaTime.getMonth() + 1;
-    const date = koreaTime.getDate();
-    const dateString = `${month}월 ${date}일`;
+
+    let dateString = "";
+    if (isEn) {
+        dateString = koreaTime.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    } else {
+        const month = koreaTime.getMonth() + 1;
+        const date = koreaTime.getDate();
+        dateString = `${month}월 ${date}일`;
+    }
 
     // Fetch the original page
-    const originUrl = new URL('/page.html', request.url);
+    const templatePath = isEn ? '/en/page.html' : '/page.html';
+    const originUrl = new URL(templatePath, request.url);
     const response = await fetch(originUrl);
     const html = await response.text();
 
-    // Replace the default title and meta description with date-stamped versions
     let modifiedHtml = html;
 
-    // Update title - SEO optimized
-    modifiedHtml = modifiedHtml.replace(
-        /<title>종목 상세페이지:나스픽<\/title>/,
-        `<title>${dateString} ${ticker} 주가 전망 및 AI 분석 | 나스픽</title>`
-    );
-
-    // Update meta description - SEO optimized with high-volume keywords
-    modifiedHtml = modifiedHtml.replace(
-        /<meta name="description" content="미국 주식 실시간 티어 분석 정보">/,
-        `<meta name="description" content="[${dateString}] ${ticker} 주가 전망, 목표가, 실시간 AI 분석. 나스픽 점수와 티어 확인. 재무건전성, 기술적분석, 상승여력 분석.">`
-    );
-
-    // Update OG title
-    modifiedHtml = modifiedHtml.replace(
-        /<meta property="og:title" content="종목 상세페이지 \| 나스픽">/,
-        `<meta property="og:title" content="${dateString} ${ticker} 주가 전망 및 AI 분석 | 나스픽">`
-    );
-
-    // Update OG description
-    modifiedHtml = modifiedHtml.replace(
-        /<meta property="og:description" content="미국 주식 실시간 티어 분석 정보">/,
-        `<meta property="og:description" content="[${dateString}] ${ticker} 주가 전망과 목표가 분석. 나스픽 AI 점수 확인.">`
-    );
-
-    // Update Twitter title
-    modifiedHtml = modifiedHtml.replace(
-        /<meta name="twitter:title" content="종목 상세페이지 \| 나스픽">/,
-        `<meta name="twitter:title" content="${dateString} ${ticker} 주가 전망 및 AI 분석 | 나스픽">`
-    );
-
-    // Update Twitter description
-    modifiedHtml = modifiedHtml.replace(
-        /<meta name="twitter:description" content="미국 주식 실시간 티어 분석 정보">/,
-        `<meta name="twitter:description" content="[${dateString}] ${ticker} AI 분석. 주가 전망과 목표가 확인.">`
-    );
+    if (isEn) {
+        // EN Replacements
+        modifiedHtml = modifiedHtml.replace(
+            /<title>.*<\/title>/,
+            `<title>${dateString} ${ticker} Stock Forecast & Price Target | AI Analysis - NASPICK</title>`
+        );
+        modifiedHtml = modifiedHtml.replace(
+            /<meta name="description" content=".*">/,
+            `<meta name="description" content="[${dateString}] ${ticker} Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly.">`
+        );
+        modifiedHtml = modifiedHtml.replace(
+            /<meta property="og:title" content=".*">/,
+            `<meta property="og:title" content="${dateString} ${ticker} Stock Forecast & Price Target | AI Analysis - NASPICK">`
+        );
+        modifiedHtml = modifiedHtml.replace(
+            /<meta property="og:description" content=".*">/,
+            `<meta property="og:description" content="[${dateString}] ${ticker} Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds!">`
+        );
+    } else {
+        // KO Replacements
+        modifiedHtml = modifiedHtml.replace(
+            /<title>.*<\/title>/,
+            `<title>${dateString} ${ticker} 주가 전망 & 목표가 | AI 분석 - 나스픽</title>`
+        );
+        modifiedHtml = modifiedHtml.replace(
+            /<meta name="description" content=".*">/,
+            `<meta name="description" content="[${dateString}] ${ticker} 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">`
+        );
+        modifiedHtml = modifiedHtml.replace(
+            /<meta property="og:title" content=".*">/,
+            `<meta property="og:title" content="${dateString} ${ticker} 주가 전망 & 목표가 | AI 분석 - 나스픽">`
+        );
+        modifiedHtml = modifiedHtml.replace(
+            /<meta property="og:description" content=".*">/,
+            `<meta property="og:description" content="[${dateString}] ${ticker} 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다.">`
+        );
+    }
 
     return new Response(modifiedHtml, {
         status: 200,
