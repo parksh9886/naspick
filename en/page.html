@@ -1452,6 +1452,59 @@
             };
         }
 
+
+
+        // --- Shared Search Helpers (Global) ---
+        const getChosung = (str) => {
+            const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+            let result = "";
+            for (let i = 0; i < str.length; i++) {
+                const code = str.charCodeAt(i) - 44032;
+                if (code > -1 && code < 11172) {
+                    result += chosung[Math.floor(code / 588)];
+                } else {
+                    result += str.charAt(i);
+                }
+            }
+            return result;
+        };
+
+        const getJamo = (str) => {
+            const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+            const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
+            const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+
+            let result = "";
+            for (let i = 0; i < str.length; i++) {
+                const code = str.charCodeAt(i) - 44032;
+                if (code > -1 && code < 11172) {
+                    const c = Math.floor(code / 588);
+                    const j = Math.floor((code % 588) / 28);
+                    const k = code % 28;
+                    result += chosung[c] + jungsung[j];
+                    if (k > 0) result += jongsung[k];
+                } else {
+                    result += str.charAt(i);
+                }
+            }
+            return result;
+        };
+
+        const decomposeHangul = (str) => {
+            const doubleConsonants = {
+                'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
+                'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
+            };
+            return str.split('').map(char => doubleConsonants[char] || char).join('');
+        };
+
+        const normalizeStr = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
+
+        // Helper to check data availability
+        function getSearchData() {
+            return window.allData || [];
+        }
+
         function renderFavoriteButton(container, isFav) {
             container.innerHTML = `
                 <button class="transition hover:scale-110 p-1 group">
@@ -1474,54 +1527,6 @@
                     return;
                 }
 
-                const getChosung = (str) => {
-                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-                    let result = "";
-                    for (let i = 0; i < str.length; i++) {
-                        const code = str.charCodeAt(i) - 44032;
-                        if (code > -1 && code < 11172) {
-                            result += chosung[Math.floor(code / 588)];
-                        } else {
-                            result += str.charAt(i);
-                        }
-                    }
-                    return result;
-                };
-
-                // New: Jamo Helper
-                const getJamo = (str) => {
-                    const chosung = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-                    const jungsung = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
-                    const jongsung = ["", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
-
-                    let result = "";
-                    for (let i = 0; i < str.length; i++) {
-                        const code = str.charCodeAt(i) - 44032;
-                        if (code > -1 && code < 11172) {
-                            const c = Math.floor(code / 588);
-                            const j = Math.floor((code % 588) / 28);
-                            const k = code % 28;
-                            result += chosung[c] + jungsung[j];
-                            if (k > 0) result += jongsung[k];
-                        } else {
-                            result += str.charAt(i);
-                        }
-                    }
-                    return result;
-                };
-
-
-                // Helper: Decompose
-                const decomposeHangul = (str) => {
-                    const doubleConsonants = {
-                        'ㄳ': 'ㄱㅅ', 'ㄵ': 'ㄴㅈ', 'ㄶ': 'ㄴㅎ', 'ㄺ': 'ㄹㄱ', 'ㄻ': 'ㄹㅁ',
-                        'ㄼ': 'ㄹㅂ', 'ㄽ': 'ㄹㅅ', 'ㄾ': 'ㄹㅌ', 'ㄿ': 'ㄹㅍ', 'ㅀ': 'ㄹㅎ', 'ㅄ': 'ㅂㅅ'
-                    };
-                    return str.split('').map(char => doubleConsonants[char] || char).join('');
-                };
-
-                const normalize = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
-
                 // Determine Search Mode
                 const hasHangulSyllable = /[가-힣]/.test(term);
                 let matches = [];
@@ -1529,23 +1534,21 @@
                 if (hasHangulSyllable) {
                     const jamoTerm = getJamo(term);
                     matches = allData.filter(d => {
-                        const normName = normalize(d.name);
-                        // Note: For English site, d.name is Korean name. d.name_en is English.
-                        // We check both.
+                        const normName = normalizeStr(d.name);
                         return d.ticker.toLowerCase().includes(term) ||
                             normName.includes(term) ||
                             getJamo(normName).includes(jamoTerm) ||
-                            (d.name_en && normalize(d.name_en).includes(term));
+                            (d.name_en && normalizeStr(d.name_en).includes(term));
                     }).slice(0, 5);
                 } else {
                     const normalizedTerm = decomposeHangul(term);
                     const chosungTerm = getChosung(normalizedTerm);
                     matches = allData.filter(d =>
                         d.ticker.toLowerCase().includes(term) ||
-                        normalize(d.name).includes(normalizedTerm) ||
-                        getChosung(normalize(d.name)).includes(chosungTerm) ||
+                        normalizeStr(d.name).includes(normalizedTerm) ||
+                        getChosung(normalizeStr(d.name)).includes(chosungTerm) ||
                         (d.name && d.name.toLowerCase().includes(term)) ||
-                        normalize(d.name_en).includes(normalizedTerm) ||
+                        normalizeStr(d.name_en).includes(normalizedTerm) ||
                         (d.name_en && d.name_en.toLowerCase().includes(term))
                     ).slice(0, 5);
                 }
@@ -1791,13 +1794,10 @@
                 <!-- Main Content (Flex Column) -->
                 <div class="flex-1 flex flex-col justify-between p-5 overflow-hidden">
                     
-                    <!-- 1. PnL Main Display (Swapped with Rank) -->
-                    <div class="flex flex-col items-center justify-center animate-fade-in-up mt-2">
-                        <div class="text-5xl mb-3 drop-shadow-2xl grayscale-0">${msgObj.emoji}</div>
-                        <div class="text-[10px] text-gray-500 font-bold mb-1 tracking-wider uppercase">Current PnL</div>
-                        <h2 class="text-4xl font-black ${mainColor} text-center leading-tight font-mono tracking-tighter drop-shadow-lg scale-110">
-                            ${sign}${formattedPnl}%
-                        </h2>
+                    <!-- 1. Emoji & Title -->
+                    <div class="flex flex-col items-center justify-center animate-fade-in-up mt-1">
+                        <div class="text-5xl mb-2 drop-shadow-2xl grayscale-0">${msgObj.emoji}</div>
+                        <h2 class="text-xl font-black text-white text-center leading-tight mb-4">${title}</h2>
                     </div>
 
                     <!-- 2. Message Box -->
@@ -1806,7 +1806,7 @@
                         <p class="text-gray-300 text-sm font-medium leading-relaxed text-center break-keep">"${sub}"</p>
                     </div>
 
-                    <!-- 3. Rank & Info Grid (Stats) -->
+                    <!-- 3. Stats Grid (Rank | PnL) -->
                     <div class="grid grid-cols-2 gap-3 animate-fade-in-up" style="animation-delay: 0.2s;">
                         <div class="bg-[#1c1c21] rounded-xl p-3 border border-gray-800 text-center flex flex-col justify-center">
                             <div class="text-[10px] text-gray-500 font-bold mb-1">Rank</div>
@@ -1815,14 +1815,14 @@
                             </div>
                         </div>
                         <div class="bg-[#1c1c21] rounded-xl p-3 border border-gray-800 text-center flex flex-col justify-center">
-                            <div class="text-[10px] text-gray-500 font-bold mb-1">Target Price</div>
-                            <div class="text-sm font-bold text-gray-300 font-mono tracking-tight">$${targetPrice.toFixed(2)}</div>
+                            <div class="text-[10px] text-gray-500 font-bold mb-1">PnL Rate</div>
+                            <div class="text-2xl font-black ${mainColor} font-mono tracking-tight">${sign}${formattedPnl}%</div>
                         </div>
                     </div>
 
                     <!-- 4. Search Section (Bottom) -->
                     <div class="border-t border-gray-800 pt-4 animate-fade-in-up" style="animation-delay: 0.3s;">
-                        <h4 class="text-[10px] font-bold text-gray-400 mb-2 text-center">🤔 Check Other Stocks?</h4>
+                        <h4 class="text-sm font-bold text-gray-400 mb-3 text-center">🤔 Check Other Stocks?</h4>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -1845,25 +1845,54 @@
             }
         }
 
-        function handleAnalysisSearch(input) {
-            const query = input.value.trim().toUpperCase();
-            const resultsDiv = document.getElementById('analysisSearchResults');
+        // Helper to check data availability
+        function getSearchData() {
+            return window.allData || [];
+        }
 
-            if (!query) {
+        function handleAnalysisSearch(input) {
+            // Force focus to keep keyboard open on mobile
+            // input.focus(); 
+
+            const term = input.value.trim().toLowerCase().replace(/\s+/g, '');
+            const resultsDiv = document.getElementById('analysisSearchResults');
+            const data = getSearchData();
+
+            if (!term) {
                 resultsDiv.classList.add('hidden');
                 resultsDiv.innerHTML = '';
                 return;
             }
 
-            // Assume window.allData exists
-            const hits = (window.allData || []).filter(d =>
-                d.ticker.includes(query) || (d.name_en && d.name_en.toUpperCase().includes(query))
-            ).slice(0, 5);
+            // Determine Combined/Chosung/Jamo Search Mode
+            // For English page, we mainly focus on English search if possible, but keep Korean logic as fallback
+            const hasHangulSyllable = /[가-힣]/.test(term);
+            let matches = [];
 
-            if (hits.length === 0) {
+            if (hasHangulSyllable) {
+                // If user types Korean in English page
+                const jamoTerm = getJamo(term);
+                matches = data.filter(d => {
+                    const normName = normalizeStr(d.name); // Korean Name
+                    return d.ticker.toLowerCase().includes(term) ||
+                        normName.includes(term) ||
+                        getJamo(normName).includes(jamoTerm) ||
+                        (d.name_en && normalizeStr(d.name_en).includes(term));
+                }).slice(0, 5);
+            } else {
+                // English Search
+                const normalizedTerm = decomposeHangul(term);
+                matches = data.filter(d =>
+                    d.ticker.toLowerCase().includes(term) ||
+                    (d.name_en && d.name_en.toLowerCase().includes(term)) ||
+                    normalizeStr(d.name).includes(normalizedTerm)
+                ).slice(0, 5);
+            }
+
+            if (matches.length === 0) {
                 resultsDiv.innerHTML = '<div class="p-3 text-center text-gray-500 text-xs">No results found</div>';
             } else {
-                resultsDiv.innerHTML = hits.map(d => {
+                resultsDiv.innerHTML = matches.map(d => {
                     const isUp = d.change_pct >= 0;
                     return `
                         <a href="/en/stock/${d.ticker}" class="flex items-center justify-between p-3 hover:bg-gray-700 transition cursor-pointer border-b border-gray-700 last:border-0 text-decoration-none">

@@ -1376,13 +1376,10 @@
                 <!-- Main Content (Flex Column) -->
                 <div class="flex-1 flex flex-col justify-between p-5 overflow-hidden">
                     
-                    <!-- 1. PnL Main Display (Swapped with Rank) -->
-                    <div class="flex flex-col items-center justify-center animate-fade-in-up mt-2">
-                        <div class="text-5xl mb-3 drop-shadow-2xl grayscale-0">${msgObj.emoji}</div>
-                         <div class="text-[10px] text-gray-500 font-bold mb-1 tracking-wider uppercase">Current PnL</div>
-                        <h2 class="text-4xl font-black ${mainColor} text-center leading-tight font-mono tracking-tighter drop-shadow-lg scale-110">
-                            ${sign}${formattedPnl}%
-                        </h2>
+                    <!-- 1. Emoji & Title -->
+                    <div class="flex flex-col items-center justify-center animate-fade-in-up mt-1">
+                        <div class="text-5xl mb-2 drop-shadow-2xl grayscale-0">${msgObj.emoji}</div>
+                        <h2 class="text-xl font-black text-white text-center leading-tight mb-4">${title}</h2>
                     </div>
 
                     <!-- 2. Message Box -->
@@ -1391,7 +1388,7 @@
                         <p class="text-gray-300 text-sm font-medium leading-relaxed text-center break-keep">"${sub}"</p>
                     </div>
 
-                    <!-- 3. Rank & Info Grid (Stats) -->
+                    <!-- 3. Stats Grid (Rank | PnL) -->
                     <div class="grid grid-cols-2 gap-3 animate-fade-in-up" style="animation-delay: 0.2s;">
                         <div class="bg-[#1c1c21] rounded-xl p-3 border border-gray-800 text-center flex flex-col justify-center">
                             <div class="text-[10px] text-gray-500 font-bold mb-1">상위(Rank)</div>
@@ -1400,14 +1397,14 @@
                             </div>
                         </div>
                         <div class="bg-[#1c1c21] rounded-xl p-3 border border-gray-800 text-center flex flex-col justify-center">
-                            <div class="text-[10px] text-gray-500 font-bold mb-1">목표가(Target)</div>
-                            <div class="text-sm font-bold text-gray-300 font-mono tracking-tight">$${targetPrice.toFixed(2)}</div>
+                            <div class="text-[10px] text-gray-500 font-bold mb-1">수익률(PnL)</div>
+                            <div class="text-2xl font-black ${mainColor} font-mono tracking-tight">${sign}${formattedPnl}%</div>
                         </div>
                     </div>
 
                     <!-- 4. Search Section (Bottom) -->
                     <div class="border-t border-gray-800 pt-4 animate-fade-in-up" style="animation-delay: 0.3s;">
-                        <h4 class="text-[10px] font-bold text-gray-400 mb-2 text-center">🤔 내 다른 종목은 괜찮을까?</h4>
+                        <h4 class="text-sm font-bold text-gray-400 mb-3 text-center">🤔 내 다른 종목은 괜찮을까?</h4>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -1476,9 +1473,18 @@
 
         const normalizeStr = (str) => str ? str.toLowerCase().replace(/\s+/g, '') : '';
 
+        // Helper to check data availability
+        function getSearchData() {
+            return window.allData || [];
+        }
+
         function handleAnalysisSearch(input) {
+            // Force focus to keep keyboard open on mobile
+            // input.focus(); 
+
             const term = input.value.trim().toLowerCase().replace(/\s+/g, '');
             const resultsDiv = document.getElementById('analysisSearchResults');
+            const data = getSearchData();
 
             if (!term) {
                 resultsDiv.classList.add('hidden');
@@ -1492,7 +1498,7 @@
 
             if (hasHangulSyllable) {
                 const jamoTerm = getJamo(term);
-                matches = (window.allData || []).filter(d => {
+                matches = data.filter(d => {
                     const normName = normalizeStr(d.name);
                     return d.ticker.toLowerCase().includes(term) ||
                         normName.includes(term) ||
@@ -1502,7 +1508,7 @@
             } else {
                 const normalizedTerm = decomposeHangul(term);
                 const chosungTerm = getChosung(normalizedTerm);
-                matches = (window.allData || []).filter(d =>
+                matches = data.filter(d =>
                     d.ticker.toLowerCase().includes(term) ||
                     normalizeStr(d.name).includes(normalizedTerm) ||
                     getChosung(normalizeStr(d.name)).includes(chosungTerm) ||
