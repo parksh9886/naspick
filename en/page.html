@@ -1018,32 +1018,32 @@
 
                                 const msgData = {
                                     MEGA_PROFIT: {
-                                        top: { e: "🐋", t: "Are you a Whale?", s: `Top ${ myRank }%... Are you an institutional investor ? Show this off!` },
-                                        mid: { e: "🏆", t: "Legendary Entry", s: `People stuck at $${ peakPrice } are jealous of you.` },
+                                        top: { e: "🐋", t: "Are you a Whale?", s: "Top " + myRank  + "%... Are you an institutional investor ? Show this off!" },
+                                        mid: { e: "🏆", t: "Legendary Entry", s: "People stuck at $" + peakPrice  + " are jealous of you." },
                                         bot: { e: "🎯", t: "Timing Master", s: "Great profit. A little earlier and you'd be Buffett!" }
                                     },
                                     PROFIT: {
-                                        top: { e: "💎", t: "Diamond Hands", s: `Top ${ myRank }% !You are the master of timing.` },
+                                        top: { e: "💎", t: "Diamond Hands", s: "Top " + myRank  + "% !You are the master of timing." },
                                         mid: { e: "😎", t: "Solid Play", s: "Bought much cheaper than average. Have an extra coffee today." },
-                                        bot: { e: "👍", t: "Above Average", s: `Better position than the peak volume at $${ peakPrice }. Good job!` }
+                                        bot: { e: "👍", t: "Above Average", s: "Better position than the peak volume at $" + peakPrice  + ". Good job!" }
                                     },
                                     SMALL_PROFIT: {
-                                        top: { e: "🙂", t: "Good Start", s: `Top ${ myRank }% !A great beginning.Enjoy the trend.` },
+                                        top: { e: "🙂", t: "Good Start", s: "Top " + myRank  + "% !A great beginning.Enjoy the trend." },
                                         mid: { e: "⚖️", t: "Hold & Watch", s: "If your heart is racing... that's normal. Grab some popcorn." },
                                         bot: { e: "😐", t: "On the Edge", s: "Profitable but close to the line. Stay focused." }
                                     },
                                     SMALL_LOSS: {
-                                        top: { e: "💪", t: "Still Hopeful", s: `Down but Top ${ myRank }%.You're better off than most.` },
-            mid: { e: "🤝", t: "You're Not Alone", s: `Comrades stuck at $${peakPrice} are with you.` },
+                                        top: { e: "💪", t: "Still Hopeful", s: "Down but Top " + myRank  + "%.You're better off than most." },
+            mid: { e: "🤝", t: "You're Not Alone", s: "Comrades stuck at $" + peakPrice + " are with you." },
             bot: { e: "😅", t: "Just a Scratch", s: "A small slip. Totally recoverable." }
         },
         LOSS: {
-            top: { e: "🩹", t: "You Can Hold", s: `Painful but Top ${myRank}%... Many bought higher than you.` },
+            top: { e: "🩹", t: "You Can Hold", s: "Painful but Top " + myRank + "%... Many bought higher than you." },
             mid: { e: "😰", t: "FOMO Check", s: "Was it FOMO? Check the Wall St. targets and stay calm." },
             bot: { e: "😭", t: "Tough Times", s: "It's a hard phase. 'HODL' is your mantra now." }
         },
         MEGA_LOSS: {
-            top: { e: "🆘", t: "Still Top Rank..?", s: `Huge loss but Top ${myRank}%... How much did this stock drop?` },
+            top: { e: "🆘", t: "Still Top Rank..?", s: "Huge loss but Top " + myRank + "%... How much did this stock drop?" },
             mid: { e: "💀", t: "Shared Pain", s: "Many are suffering together. Waiting for the rescue team." },
             bot: { e: "☠️", t: "Call 911", s: "Historic high buy... But Buffett lost 50% once too. Stay strong." }
         }
