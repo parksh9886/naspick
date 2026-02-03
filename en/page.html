@@ -356,7 +356,7 @@
 
                 // --- SEO: Dynamic Title, Meta, Canonical ---
                 const today = new Date();
-                const dateString = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                const dateString = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
                 // Rating label
                 const ratingLabel = stockData.tier === 1 ? 'A+' : stockData.tier === 2 ? 'A' : stockData.tier === 3 ? 'B' : stockData.tier === 4 ? 'C' : 'D';
