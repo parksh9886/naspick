@@ -1,4 +1,3 @@
-
 import json
 import os
 import shutil
@@ -119,7 +118,8 @@ def generate_stock_pages(data):
         url_en = f"https://naspick.com/en/stock/{ticker}"
         
         title_ko = f"{today} {ticker} 주가 전망 & 목표가 | {name_ko} AI 분석 - 나스픽"
-        desc_ko = f"[{today}] {name_ko}({ticker}) 주가 전망 & AI 분석. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단! 월가 목표주가와 실시간 티어까지 한눈에 확인하세요."
+        current_price = item.get('current_price', 0)
+        desc_ko = f"[{today}] {name_ko}({ticker}) 주가 전망 & AI 분석. 현재가 ${current_price} 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요."
         
         meta_ko = {
             "title": title_ko,
@@ -140,8 +140,12 @@ def generate_stock_pages(data):
         output_dir_en = os.path.join(OUTPUT_DIR, "en", "stock", ticker)
         ensure_dir(output_dir_en)
         
+        # Month Date, Year format for EN
+        dt = datetime.strptime(today, "%Y-%m-%d")
+        today_en = dt.strftime("%b %d, %Y")
+        
         title_en = f"{ticker} Stock Price Forecast & Target | {name_en} AI Analysis - NASPICK"
-        desc_en = f"[{today}] {name_en} ({ticker}) stock price target and AI analysis. Check {name_en}'s investment rating and real-time tier score."
+        desc_en = f"[{today_en}] {name_en} ({ticker}) Stock Price Prediction & AI Analysis. Enter your entry price to see your Top % rank in 5 seconds! Check Wall St. targets and real-time tier instantly."
         
         meta_en = {
             "title": title_en,
