@@ -94,6 +94,7 @@ SP500_ENGLISH_NAMES = {
     "CHRW": "C.H. Robinson",
     "CHTR": "Charter Communications",
     "CI": "Cigna",
+    "CIEN": "Ciena",
     "CINF": "Cincinnati Financial",
     "CL": "Colgate-Palmolive",
     "CLX": "Clorox",
