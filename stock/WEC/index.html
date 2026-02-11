@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEC 주가 전망 & 목표가 | WEC 에너지 그룹 AI 분석 - 나스픽</title>
-    <meta name="description" content="WEC 에너지 그룹(WEC) 주가 전망 & AI 분석. 현재가 $112.92 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">
+    <meta name="description" content="WEC 에너지 그룹(WEC) 주가 전망 & AI 분석. 현재가 $112.99 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">
     <!-- Brand Assets -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -27,14 +27,14 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="나스픽">
     <meta property="og:title" content="WEC 주가 전망 & 목표가 | WEC 에너지 그룹 AI 분석 - 나스픽">
-    <meta property="og:description" content="WEC 에너지 그룹(WEC) 주가 전망 & AI 분석. 현재가 $112.92 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">
+    <meta property="og:description" content="WEC 에너지 그룹(WEC) 주가 전망 & AI 분석. 현재가 $112.99 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">
     <meta property="og:url" content="https://naspick.com/stock/WEC">
     <meta property="og:image" content="https://financialmodelingprep.com/image-stock/WEC.png">
 
     <!-- Twitter Card (기본값, JS에서 동적 업데이트) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="WEC 주가 전망 & 목표가 | WEC 에너지 그룹 AI 분석 - 나스픽">
-    <meta name="twitter:description" content="WEC 에너지 그룹(WEC) 주가 전망 & AI 분석. 현재가 $112.92 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">
+    <meta name="twitter:description" content="WEC 에너지 그룹(WEC) 주가 전망 & AI 분석. 현재가 $112.99 분석 완료. 내 평단가 입력하면 5초 만에 상위 몇 %인지 진단해 드립니다. 월가 목표가와 비교해보세요.">
     <meta name="twitter:image" content="https://financialmodelingprep.com/image-stock/WEC.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -178,11 +178,52 @@
 
         /* Fix: Slider Animation Class */
         #segmentSlider.right {
-            transform: translateX(100%);
+            transform: translateX(2px);
+            /* Slight offset fix */
+            left: 50%;
+        }
+
+        /* [NEW] Ad Container Styles */
+        #adContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: #000;
+            display: none;
+        }
+
+        #contentElement {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Custom Modal Styles */
+        .glass-modal {
+            background: rgba(30, 30, 35, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .toast-enter {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        .toast-enter-active {
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643020932469823"
         crossorigin="anonymous"></script>
+    <!-- [NEW] Google IMA SDK -->
+    <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 </head>
 
 <body class="bg-[#1c1c1f] text-white min-h-screen flex flex-col">
@@ -540,7 +581,7 @@
                                         <input type="number" id="avgPriceInput" placeholder=" " min="0.01" step="0.01"
                                             oninput="if(this.value < 0) this.value = ''; if(this.value.includes('.') && this.value.split('.')[1]?.length > 2) { this.value = this.value.substring(0, this.value.indexOf('.') + 3); }"
                                             class="peer w-full bg-[#1c1c21] border border-gray-700 rounded-xl px-4 pt-6 pb-2 text-white text-xl font-bold font-mono outline-none focus:border-[#2962ff] focus:ring-1 focus:ring-[#2962ff] transition-all shadow-inner text-center">
-                                        <label class="absolute text-gray-500 text-xs font-bold top-2 left-0 right-0 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-[#2962ff]">평균 매수가 ($)</label>
+                                        <label class="absolute text-gray-500 text-xs font-bold top-2 left-0 right-0 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-[#2962ff] pointer-events-none">평균 매수가 ($)</label>
                                     </div>
 
                                     <button onclick="analyzeAvgPrice()" 
@@ -1241,7 +1282,151 @@
             }
         };
 
-        async function analyzeAvgPrice() {
+        // --- AdController (Google IMA SDK) ---
+        class AdController {
+            constructor() {
+                this.adContainer = null;
+                this.videoContent = null;
+                this.adDisplayContainer = null;
+                this.adsLoader = null;
+                this.adsManager = null;
+                this.onReward = null;
+                this.isInitialized = false;
+            }
+
+            init() {
+                if (this.isInitialized) return;
+
+                this.adContainer = document.getElementById('adContainer');
+                this.videoContent = document.getElementById('contentElement');
+
+                if (!window.google || !window.google.ima) {
+                    console.error("Google IMA SDK not loaded");
+                    return;
+                }
+
+                this.adDisplayContainer = new google.ima.AdDisplayContainer(this.adContainer, this.videoContent);
+                this.adsLoader = new google.ima.AdsLoader(this.adDisplayContainer);
+
+                this.adsLoader.addEventListener(
+                    google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+                    this.onAdsManagerLoaded.bind(this),
+                    false);
+                this.adsLoader.addEventListener(
+                    google.ima.AdErrorEvent.Type.AD_ERROR,
+                    this.onAdError.bind(this),
+                    false);
+
+                this.isInitialized = true;
+            }
+
+            requestAd(callback) {
+                console.log("[AdController] requestAd called");
+                this.init(); // Ensure init
+                this.onReward = callback;
+
+                // Mobile requires user action to initialize container
+                this.adContainer.style.display = 'block';
+
+                // Initialize the container. Must be done via a user action on mobile devices.
+                this.adDisplayContainer.initialize();
+
+                const adsRequest = new google.ima.AdsRequest();
+
+                // Dynamic Macro Replacement
+                const referrer = encodeURIComponent(window.location.href);
+                const descUrl = encodeURIComponent(window.location.href);
+                const timestamp = new Date().getTime();
+
+                // [Production] Real VAST Tag
+                const tagUrl = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480|1x1&iu=/23339215064/naspick_analysis_reward&ciu_szs='fluid'&env=vp&impl=s&gdfp_req=1&output=vast&unviewed_position_start=1&url=${referrer}&description_url=${descUrl}&correlator=${timestamp}`;
+
+                // [DEBUG] Google Sample Tag (Commented out)
+                // const tagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+
+                console.log("[AdController] Requesting ads with tag:", tagUrl);
+
+                adsRequest.adTagUrl = tagUrl;
+                adsRequest.linearAdSlotWidth = this.adContainer.clientWidth;
+                adsRequest.linearAdSlotHeight = this.adContainer.clientHeight;
+                adsRequest.nonLinearAdSlotWidth = this.adContainer.clientWidth;
+                adsRequest.nonLinearAdSlotHeight = this.adContainer.clientHeight / 3;
+
+                this.adsLoader.requestAds(adsRequest);
+            }
+
+            onAdsManagerLoaded(adsManagerLoadedEvent) {
+                console.log("[AdController] Ads Manager Loaded");
+                const adsRenderingSettings = new google.ima.AdsRenderingSettings();
+                adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+
+                this.adsManager = adsManagerLoadedEvent.getAdsManager(this.videoContent, adsRenderingSettings);
+                this.adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, this.onAdError.bind(this));
+                this.adsManager.addEventListener(google.ima.AdEvent.Type.ALL_ADS_COMPLETED, this.onAllAdsCompleted.bind(this));
+                this.adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, this.onAdComplete.bind(this));
+                this.adsManager.addEventListener(google.ima.AdEvent.Type.SKIPPED, this.onAdSkipped.bind(this)); // Handle skips if allowed
+                this.adsManager.addEventListener(google.ima.AdEvent.Type.LOADED, () => {
+                    console.log("[AdController] Ad Loaded");
+                });
+                this.adsManager.addEventListener(google.ima.AdEvent.Type.STARTED, () => {
+                    console.log("[AdController] Ad Started");
+                });
+
+                try {
+                    this.adsManager.init(this.adContainer.clientWidth, this.adContainer.clientHeight, google.ima.ViewMode.NORMAL);
+                    this.adsManager.start();
+                } catch (adError) {
+                    console.error("[AdController] Init/Start Error:", adError);
+                    this.onAdError(adError);
+                }
+            }
+
+            onAdError(adErrorEvent) {
+                const error = adErrorEvent.getError ? adErrorEvent.getError() : adErrorEvent;
+                console.log("Ad Error: " + error);
+
+                // Show polite toast to user
+                showToast("광고를 불러올 수 없어 분석을 바로 시작합니다.");
+
+                this.closeAd();
+                if (this.onReward) this.onReward(); // Fallback: Unlock on error
+            }
+
+            onAdSkipped() {
+                this.closeAd();
+                // Decide if skip grants reward. Usually NO for rewarded ads, but for better UX in test we might.
+                // For now, let's say skip = no reward, but since we don't have a retry UI, let's just grant it or do nothing.
+                // Better: Grant reward to avoid user getting stuck.
+                if (this.onReward) this.onReward();
+            }
+
+            onAdComplete() {
+                if (this.onReward) {
+                    this.onReward();
+                    this.onReward = null; // Consume callback
+                }
+            }
+
+            onAllAdsCompleted() {
+                this.closeAd();
+                if (this.onReward) {
+                    this.onReward();
+                    this.onReward = null;
+                }
+            }
+
+            closeAd() {
+                this.adContainer.style.display = 'none';
+                if (this.adsManager) {
+                    this.adsManager.destroy(); // Important to destroy
+                    this.adsManager = null;
+                }
+            }
+        }
+
+        const adController = new AdController();
+
+        async function analyzeAvgPrice(force = false) {
             const avgInput = document.getElementById('avgPriceInput');
             const resultDiv = document.getElementById('analysisResult');
 
@@ -1251,6 +1436,17 @@
 
             if (!avgPrice || avgPrice <= 0) {
                 alert('유효한 매수가를 입력해주세요.');
+                return;
+            }
+
+            // [Ad Gate]
+            // [Ad Gate with Custom Modal]
+            if (!force) {
+                showAdConfirmationModal(() => {
+                    adController.requestAd(() => {
+                        analyzeAvgPrice(true);
+                    });
+                });
                 return;
             }
 
@@ -1862,6 +2058,58 @@
             });
         }
 
+        // --- Custom UI Helpers ---
+        function showAdConfirmationModal(onConfirm) {
+            const modal = document.getElementById('adConfirmModal');
+            const confirmBtn = document.getElementById('btnAdConfirm');
+            const cancelBtn = document.getElementById('btnAdCancel');
+
+            if (!modal) return;
+
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex'; // Ensure flex for centering
+
+            const close = () => {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+            };
+
+            confirmBtn.onclick = () => {
+                close();
+                onConfirm();
+            };
+
+            cancelBtn.onclick = () => {
+                close();
+            };
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+
+            const el = document.createElement('div');
+            el.className = 'bg-[#333] text-white px-4 py-3 rounded-lg shadow-lg mb-3 flex items-center gap-2 text-sm border-l-4 border-[#2962ff] toast-enter';
+            el.innerHTML = `
+                <svg class="w-4 h-4 text-[#2962ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span>${msg}</span>
+            `;
+
+            container.appendChild(el);
+
+            // Animation
+            requestAnimationFrame(() => {
+                el.classList.add('toast-enter-active');
+                el.classList.remove('toast-enter');
+            });
+
+            setTimeout(() => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(10px)';
+                setTimeout(() => el.remove(), 300);
+            }, 3000);
+        }
+
         init();
     </script>
 
@@ -1869,6 +2117,62 @@
         <p>본 사이트의 정보는 투자 참고용이며, 투자 결정과 손익에 대한 책임은 투자자 본인에게 있습니다.</p>
         <p class="mt-1">© 2026 나스픽(NASPICK)</p>
     </footer>
+
+    <!-- [NEW] Ad Container -->
+    <div id="adContainer">
+        <video id="contentElement"></video>
+    </div>
+
+    <!-- [NEW] Custom Ad Modal -->
+    <div id="adConfirmModal"
+        class="fixed inset-0 z-[9990] bg-black/60 hidden items-center justify-center p-4 backdrop-blur-sm"
+        style="display: none;">
+        <div class="glass-modal w-full max-w-sm rounded-2xl p-6 relative overflow-hidden animate-fade-in-up">
+            <!-- Decor -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl"></div>
+
+            <div class="relative z-10 text-center">
+                <!-- Modal Content -->
+                <div
+                    class="bg-[#282830] rounded-2xl p-6 w-full max-w-sm text-center border border-gray-700 shadow-2xl transform transition-all scale-100 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+
+                    <h3 class="text-xl font-bold text-white mb-2">무료 분석 결과 잠금 해제</h3>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                        AI가 데이터를 분석하는 동안<br>짧은 광고를 시청하고 결과를 확인하세요.
+                    </p>
+
+                    <div class="space-y-3">
+                        <button id="btnAdConfirm"
+                            class="w-full bg-gradient-to-r from-[#2962ff] to-[#0039cb] hover:from-[#448aff] hover:to-[#2962ff] text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-blue-500/30 transition-all flex items-center justify-center gap-2 group">
+                            <svg class="w-5 h-5 group-hover:scale-110 transition" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>🚀 분석하는 동안 광고 시청</span>
+                        </button>
+                        <button id="btnAdCancel"
+                            class="text-xs text-gray-500 hover:text-gray-300 transition underline decoration-gray-700">
+                            괜찮습니다, 나중에 할게요
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer"
+        class="fixed bottom-5 left-1/2 transform -translate-x-1/2 z-[10001] flex flex-col items-center w-full max-w-xs pointer-events-none">
+    </div>
 </body>
 
 </html>
