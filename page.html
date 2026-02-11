@@ -1321,11 +1321,14 @@
             }
 
             requestAd(callback) {
+                console.log("[AdController] requestAd called");
                 this.init(); // Ensure init
                 this.onReward = callback;
 
                 // Mobile requires user action to initialize container
                 this.adContainer.style.display = 'block';
+
+                // Initialize the container. Must be done via a user action on mobile devices.
                 this.adDisplayContainer.initialize();
 
                 const adsRequest = new google.ima.AdsRequest();
@@ -1335,8 +1338,11 @@
                 const descUrl = encodeURIComponent(window.location.href);
                 const timestamp = new Date().getTime();
 
-                // Provided VAST Tag
-                const tagUrl = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480|1x1&iu=/23339215064/naspick_analysis_reward&ciu_szs='fluid'&env=vp&impl=s&gdfp_req=1&output=vast&unviewed_position_start=1&url=${referrer}&description_url=${descUrl}&correlator=${timestamp}`;
+                // [DEBUG] Use Google Sample Tag to verify player functionality
+                // const tagUrl = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480|1x1&iu=/23339215064/naspick_analysis_reward&ciu_szs='fluid'&env=vp&impl=s&gdfp_req=1&output=vast&unviewed_position_start=1&url=${referrer}&description_url=${descUrl}&correlator=${timestamp}`;
+                const tagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+
+                console.log("[AdController] Requesting ads with tag:", tagUrl);
 
                 adsRequest.adTagUrl = tagUrl;
                 adsRequest.linearAdSlotWidth = this.adContainer.clientWidth;
@@ -1348,6 +1354,7 @@
             }
 
             onAdsManagerLoaded(adsManagerLoadedEvent) {
+                console.log("[AdController] Ads Manager Loaded");
                 const adsRenderingSettings = new google.ima.AdsRenderingSettings();
                 adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
 
@@ -1356,11 +1363,18 @@
                 this.adsManager.addEventListener(google.ima.AdEvent.Type.ALL_ADS_COMPLETED, this.onAllAdsCompleted.bind(this));
                 this.adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, this.onAdComplete.bind(this));
                 this.adsManager.addEventListener(google.ima.AdEvent.Type.SKIPPED, this.onAdSkipped.bind(this)); // Handle skips if allowed
+                this.adsManager.addEventListener(google.ima.AdEvent.Type.LOADED, () => {
+                    console.log("[AdController] Ad Loaded");
+                });
+                this.adsManager.addEventListener(google.ima.AdEvent.Type.STARTED, () => {
+                    console.log("[AdController] Ad Started");
+                });
 
                 try {
                     this.adsManager.init(this.adContainer.clientWidth, this.adContainer.clientHeight, google.ima.ViewMode.NORMAL);
                     this.adsManager.start();
                 } catch (adError) {
+                    console.error("[AdController] Init/Start Error:", adError);
                     this.onAdError(adError);
                 }
             }
