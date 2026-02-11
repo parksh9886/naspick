@@ -2042,6 +2042,58 @@
             });
         }
 
+        // --- Custom UI Helpers ---
+        function showAdConfirmationModal(onConfirm) {
+            const modal = document.getElementById('adConfirmModal');
+            const confirmBtn = document.getElementById('btnAdConfirm');
+            const cancelBtn = document.getElementById('btnAdCancel');
+
+            if (!modal) return;
+
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex'; // Ensure flex for centering
+
+            const close = () => {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+            };
+
+            confirmBtn.onclick = () => {
+                close();
+                onConfirm();
+            };
+
+            cancelBtn.onclick = () => {
+                close();
+            };
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+
+            const el = document.createElement('div');
+            el.className = 'bg-[#333] text-white px-4 py-3 rounded-lg shadow-lg mb-3 flex items-center gap-2 text-sm border-l-4 border-[#2962ff] toast-enter';
+            el.innerHTML = `
+                <svg class="w-4 h-4 text-[#2962ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span>${msg}</span>
+            `;
+
+            container.appendChild(el);
+
+            // Animation
+            requestAnimationFrame(() => {
+                el.classList.add('toast-enter-active');
+                el.classList.remove('toast-enter');
+            });
+
+            setTimeout(() => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(10px)';
+                setTimeout(() => el.remove(), 300);
+            }, 3000);
+        }
+
         init();
     </script>
 
