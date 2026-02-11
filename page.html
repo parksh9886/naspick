@@ -1338,9 +1338,11 @@
                 const descUrl = encodeURIComponent(window.location.href);
                 const timestamp = new Date().getTime();
 
-                // [DEBUG] Use Google Sample Tag to verify player functionality
-                // const tagUrl = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480|1x1&iu=/23339215064/naspick_analysis_reward&ciu_szs='fluid'&env=vp&impl=s&gdfp_req=1&output=vast&unviewed_position_start=1&url=${referrer}&description_url=${descUrl}&correlator=${timestamp}`;
-                const tagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+                // [Production] Real VAST Tag
+                const tagUrl = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480|1x1&iu=/23339215064/naspick_analysis_reward&ciu_szs='fluid'&env=vp&impl=s&gdfp_req=1&output=vast&unviewed_position_start=1&url=${referrer}&description_url=${descUrl}&correlator=${timestamp}`;
+
+                // [DEBUG] Google Sample Tag (Commented out)
+                // const tagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
 
                 console.log("[AdController] Requesting ads with tag:", tagUrl);
 
