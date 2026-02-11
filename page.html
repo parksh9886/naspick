@@ -180,9 +180,29 @@
         #segmentSlider.right {
             transform: translateX(100%);
         }
+
+        /* [NEW] Ad Container Styles */
+        #adContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: #000;
+            display: none;
+        }
+
+        #contentElement {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643020932469823"
         crossorigin="anonymous"></script>
+    <!-- [NEW] Google IMA SDK -->
+    <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 </head>
 
 <body class="bg-[#1c1c1f] text-white min-h-screen flex flex-col">
@@ -1241,7 +1261,130 @@
             }
         };
 
-        async function analyzeAvgPrice() {
+        // --- AdController (Google IMA SDK) ---
+        class AdController {
+            constructor() {
+                this.adContainer = null;
+                this.videoContent = null;
+                this.adDisplayContainer = null;
+                this.adsLoader = null;
+                this.adsManager = null;
+                this.onReward = null;
+                this.isInitialized = false;
+            }
+
+            init() {
+                if (this.isInitialized) return;
+
+                this.adContainer = document.getElementById('adContainer');
+                this.videoContent = document.getElementById('contentElement');
+
+                if (!window.google || !window.google.ima) {
+                    console.error("Google IMA SDK not loaded");
+                    return;
+                }
+
+                this.adDisplayContainer = new google.ima.AdDisplayContainer(this.adContainer, this.videoContent);
+                this.adsLoader = new google.ima.AdsLoader(this.adDisplayContainer);
+
+                this.adsLoader.addEventListener(
+                    google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+                    this.onAdsManagerLoaded.bind(this),
+                    false);
+                this.adsLoader.addEventListener(
+                    google.ima.AdErrorEvent.Type.AD_ERROR,
+                    this.onAdError.bind(this),
+                    false);
+
+                this.isInitialized = true;
+            }
+
+            requestAd(callback) {
+                this.init(); // Ensure init
+                this.onReward = callback;
+
+                // Mobile requires user action to initialize container
+                this.adContainer.style.display = 'block';
+                this.adDisplayContainer.initialize();
+
+                const adsRequest = new google.ima.AdsRequest();
+
+                // Dynamic Macro Replacement
+                const referrer = encodeURIComponent(window.location.href);
+                const descUrl = encodeURIComponent(window.location.href);
+                const timestamp = new Date().getTime();
+
+                // Provided VAST Tag
+                const tagUrl = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480|1x1&iu=/23339215064/naspick_analysis_reward&ciu_szs='fluid'&env=vp&impl=s&gdfp_req=1&output=vast&unviewed_position_start=1&url=${referrer}&description_url=${descUrl}&correlator=${timestamp}`;
+
+                adsRequest.adTagUrl = tagUrl;
+                adsRequest.linearAdSlotWidth = this.adContainer.clientWidth;
+                adsRequest.linearAdSlotHeight = this.adContainer.clientHeight;
+                adsRequest.nonLinearAdSlotWidth = this.adContainer.clientWidth;
+                adsRequest.nonLinearAdSlotHeight = this.adContainer.clientHeight / 3;
+
+                this.adsLoader.requestAds(adsRequest);
+            }
+
+            onAdsManagerLoaded(adsManagerLoadedEvent) {
+                const adsRenderingSettings = new google.ima.AdsRenderingSettings();
+                adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+
+                this.adsManager = adsManagerLoadedEvent.getAdsManager(this.videoContent, adsRenderingSettings);
+                this.adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, this.onAdError.bind(this));
+                this.adsManager.addEventListener(google.ima.AdEvent.Type.ALL_ADS_COMPLETED, this.onAllAdsCompleted.bind(this));
+                this.adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, this.onAdComplete.bind(this));
+                this.adsManager.addEventListener(google.ima.AdEvent.Type.SKIPPED, this.onAdSkipped.bind(this)); // Handle skips if allowed
+
+                try {
+                    this.adsManager.init(this.adContainer.clientWidth, this.adContainer.clientHeight, google.ima.ViewMode.NORMAL);
+                    this.adsManager.start();
+                } catch (adError) {
+                    this.onAdError(adError);
+                }
+            }
+
+            onAdError(adErrorEvent) {
+                console.log("Ad Error: " + (adErrorEvent.getError ? adErrorEvent.getError() : adErrorEvent));
+                this.closeAd();
+                if (this.onReward) this.onReward(); // Fallback: Unlock on error
+            }
+
+            onAdSkipped() {
+                this.closeAd();
+                // Decide if skip grants reward. Usually NO for rewarded ads, but for better UX in test we might.
+                // For now, let's say skip = no reward, but since we don't have a retry UI, let's just grant it or do nothing.
+                // Better: Grant reward to avoid user getting stuck.
+                if (this.onReward) this.onReward();
+            }
+
+            onAdComplete() {
+                if (this.onReward) {
+                    this.onReward();
+                    this.onReward = null; // Consume callback
+                }
+            }
+
+            onAllAdsCompleted() {
+                this.closeAd();
+                if (this.onReward) {
+                    this.onReward();
+                    this.onReward = null;
+                }
+            }
+
+            closeAd() {
+                this.adContainer.style.display = 'none';
+                if (this.adsManager) {
+                    this.adsManager.destroy(); // Important to destroy
+                    this.adsManager = null;
+                }
+            }
+        }
+
+        const adController = new AdController();
+
+        async function analyzeAvgPrice(force = false) {
             const avgInput = document.getElementById('avgPriceInput');
             const resultDiv = document.getElementById('analysisResult');
 
@@ -1251,6 +1394,16 @@
 
             if (!avgPrice || avgPrice <= 0) {
                 alert('유효한 매수가를 입력해주세요.');
+                return;
+            }
+
+            // [Ad Gate]
+            if (!force) {
+                if (confirm("정확한 분석 결과를 위해 광고 시청이 필요합니다.\n짧은 광고 후 분석이 시작됩니다.")) {
+                    adController.requestAd(() => {
+                        analyzeAvgPrice(true);
+                    });
+                }
                 return;
             }
 
@@ -1869,6 +2022,11 @@
         <p>본 사이트의 정보는 투자 참고용이며, 투자 결정과 손익에 대한 책임은 투자자 본인에게 있습니다.</p>
         <p class="mt-1">© 2026 나스픽(NASPICK)</p>
     </footer>
+
+    <!-- [NEW] Ad Container -->
+    <div id="adContainer">
+        <video id="contentElement"></video>
+    </div>
 </body>
 
 </html>
