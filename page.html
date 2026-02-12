@@ -974,7 +974,15 @@
             const renderList = (list, emptyMsg) => {
                 if (!list.length) return `<div class="text-xs text-gray-600">${emptyMsg}</div>`;
                 return list.map(p => {
-                    const d = allData.find(x => x.ticker === p.ticker) || { name: p.ticker };
+                    const pTicker = p.ticker.toUpperCase();
+                    // [Fix] Robust lookup: Handle dot/dash mismatch (BRK.B vs BRK-B)
+                    const d = allData.find(x => {
+                        const xTicker = x.ticker.toUpperCase();
+                        return xTicker === pTicker ||
+                            xTicker === pTicker.replace(/\./g, '-') ||
+                            xTicker === pTicker.replace(/-/g, '.');
+                    }) || { name: p.ticker };
+
                     const isPlus = p.change_pct >= 0;
                     return `
                         <a href="/stock/${p.ticker}" class="flex justify-between items-center border-b border-gray-800 pb-2 cursor-pointer hover:bg-gray-800 transition p-2 rounded group block text-inherit hover:no-underline">
