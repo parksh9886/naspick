@@ -1,5 +1,6 @@
 import os
 import json
+import math
 import pandas as pd
 from datetime import datetime
 from scripts.core.fetcher import StockDataFetcher
@@ -15,6 +16,16 @@ except ImportError:
         from generate_sitemap import generate_sitemap
     except ImportError:
         def generate_sitemap(): print("⚠️ Sitemap generator not found")
+
+def sanitize_nan(obj):
+    """Recursively replace NaN/Infinity with None for valid JSON output."""
+    if isinstance(obj, dict):
+        return {k: sanitize_nan(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [sanitize_nan(v) for v in obj]
+    elif isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
+        return None
+    return obj
 
 class NaspickEngine:
     """
@@ -302,7 +313,7 @@ class NaspickEngine:
         # 8. Save
         out_path = self.paths['OUTPUT_JSON']
         with open(out_path, 'w', encoding='utf-8') as f:
-            json.dump(final_results, f, indent=2, ensure_ascii=False)
+            json.dump(sanitize_nan(final_results), f, indent=2, ensure_ascii=False)
             
         print(f"\n✅ Success! Saved {len(final_results)} stocks to {out_path}")
         
@@ -437,7 +448,7 @@ class NaspickEngine:
         # Save to JSON
         try:
             with open(self.paths['SIGNALS_JSON'], 'w', encoding='utf-8') as f:
-                json.dump(signals_data, f, indent=2, ensure_ascii=False)
+                json.dump(sanitize_nan(signals_data), f, indent=2, ensure_ascii=False)
             print(f"📡 Saved Aggregated Signals to {self.paths['SIGNALS_JSON']}")
         except Exception as e:
             print(f"❌ Failed to save signals: {e}")
