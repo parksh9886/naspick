@@ -112,6 +112,11 @@ class StockDataFetcher:
                     hist.index.name = 'Date'
                     hist = hist.reset_index()
                     
+                    # [Fix] Drop duplicate dates (fdr sometimes returns the last day twice)
+                    hist = hist.drop_duplicates(subset=['Date'], keep='last')
+                    # [Fix] Forward fill any missing Close values to prevent NaN propagation
+                    hist[['Open', 'High', 'Low', 'Close', 'Volume']] = hist[['Open', 'High', 'Low', 'Close', 'Volume']].ffill()
+                    
                     all_hist_list.append(hist)
                     break # Success
                     

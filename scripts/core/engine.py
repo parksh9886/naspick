@@ -161,6 +161,12 @@ class NaspickEngine:
             current_price = hist['Close'].iloc[-1]
             prev_close = hist['Close'].iloc[-2]
             
+            # [Fix] Safely calculate change_pct preventing DivisionByZero or NaN propagation
+            if pd.isna(current_price) or pd.isna(prev_close) or prev_close == 0:
+                calc_change_pct = 0.0
+            else:
+                calc_change_pct = round((current_price - prev_close) / prev_close * 100, 2)
+            
             # BB, MACD logic (Inline for now to maintain identical logic to Phase 2)
             # RSI
             rsi = self.analyzer.calculate_rsi(hist)
@@ -219,14 +225,17 @@ class NaspickEngine:
             current_rank = int(row['Rank'])
             prev_rk = yesterday_ranks.get(ticker, {}).get('rank', 0)
             
+            # Use 0.0 fallback if current_price is NaN
+            safe_current_price = 0.0 if pd.isna(current_price) else current_price
+            
             item = {
                 "ticker": ticker,
                 "name": stock_names.get(ticker, ticker),
                 "name_en": stock_names_en.get(ticker, ticker),
                 "exchange": exchange_map.get(ticker, "NASDAQ"),
                 "sector": sector_kr,
-                "current_price": round(current_price, 2),
-                "change_pct": round((current_price - prev_close)/prev_close * 100, 2),
+                "current_price": round(safe_current_price, 2),
+                "change_pct": calc_change_pct,
                 "market_cap": market_caps.get(ticker, 0),
                 "final_score": round(row['Total_Score'], 1),
                 "rank": current_rank,
