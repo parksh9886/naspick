@@ -5235,7 +5235,7 @@
       "stability": 18,
       "risk": 3,
       "consensus": 81,
-      "sentiment": 76
+      "sentiment": 77
     },
     "score_breakdown": {
       "value": 10.8,
@@ -5245,7 +5245,7 @@
       "stability": 0.9,
       "risk": 0.2,
       "consensus": 8.1,
-      "sentiment": 3.8
+      "sentiment": 3.9
     },
     "signals": [],
     "levels": {
@@ -5337,133 +5337,6 @@
         "change_pct": 1.85
       },
       {
-        "ticker": "HWM",
-        "change_pct": -2.66
-      }
-    ]
-  },
-  {
-    "ticker": "HWM",
-    "name": "하우멧 에어로스페이스",
-    "name_en": "Howmet Aerospace",
-    "exchange": "NYSE",
-    "sector": "산업재",
-    "current_price": 232.68,
-    "change_pct": -2.66,
-    "market_cap": 93653696512,
-    "final_score": 60.5,
-    "rank": 43,
-    "rank_change": 12,
-    "tier": 2,
-    "stats_bar": {
-      "fundamentals": 81,
-      "value": 4,
-      "momentum": 93,
-      "stability": 61,
-      "risk": 41,
-      "consensus": 53,
-      "sentiment": 36
-    },
-    "score_breakdown": {
-      "value": 0.9,
-      "growth": 16.9,
-      "profitability": 11.6,
-      "momentum": 18.7,
-      "stability": 3.1,
-      "risk": 2.1,
-      "consensus": 5.4,
-      "sentiment": 1.8
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 237.68,
-      "r1": 241.74,
-      "r2": 244.43,
-      "s1": 234.99,
-      "s2": 230.93
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 47.0,
-        "status": "bearish"
-      },
-      "volume": {
-        "pct_change": 8,
-        "status": "above_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 214.92,
-        "mean": 277.52,
-        "high": 315.0
-      },
-      "recommendation": {
-        "score": 4.6,
-        "status": "Strong Buy",
-        "yahoo_mean": 1.43478,
-        "key": "strong_buy"
-      },
-      "financial_health": {
-        "per": 62.72,
-        "pbr": 17.46,
-        "revenue_growth": 14.6,
-        "eps_growth": 20.3,
-        "roe": 30.4,
-        "operating_margin": 26.3,
-        "debt_ratio": 60.0,
-        "current_ratio": 2.13
-      },
-      "last_updated": "2026-04-02 21:11:49"
-    },
-    "financial_health": {
-      "per": 62.72,
-      "pbr": 17.46,
-      "revenue_growth": 14.6,
-      "eps_growth": 20.3,
-      "roe": 30.4,
-      "operating_margin": 26.3,
-      "debt_ratio": 60.0,
-      "current_ratio": 2.13
-    },
-    "calendar": {
-      "next_earnings": "2026-04-30",
-      "last_earnings_date": "2026-02-12",
-      "last_eps_est": 0.97,
-      "last_eps_act": 1.05,
-      "last_surprise": 8.7,
-      "ex_dividend_date": "2026-02-06",
-      "dividend_payment_date": "2026-02-25",
-      "dividend_amount": 0.12,
-      "dividend_ttm": 0.45999999999999996,
-      "dividend_yield": 19.0
-    },
-    "related_peers": [
-      {
-        "ticker": "EME",
-        "change_pct": -0.43
-      },
-      {
-        "ticker": "DAL",
-        "change_pct": -1.24
-      },
-      {
-        "ticker": "AOS",
-        "change_pct": -1.12
-      }
-    ],
-    "sector_rank": 8,
-    "similar_score_peers": [
-      {
-        "ticker": "DVN",
-        "change_pct": 1.85
-      },
-      {
-        "ticker": "RCL",
-        "change_pct": -3.0
-      },
-      {
         "ticker": "NOC",
         "change_pct": 0.79
       }
@@ -5479,8 +5352,8 @@
     "change_pct": 0.79,
     "market_cap": 100260847616,
     "final_score": 60.5,
-    "rank": 44,
-    "rank_change": 20,
+    "rank": 43,
+    "rank_change": 21,
     "tier": 2,
     "stats_bar": {
       "fundamentals": 65,
@@ -5580,8 +5453,12 @@
         "change_pct": -1.12
       }
     ],
-    "sector_rank": 9,
+    "sector_rank": 8,
     "similar_score_peers": [
+      {
+        "ticker": "DVN",
+        "change_pct": 1.85
+      },
       {
         "ticker": "RCL",
         "change_pct": -3.0
@@ -5589,6 +5466,129 @@
       {
         "ticker": "HWM",
         "change_pct": -2.66
+      }
+    ]
+  },
+  {
+    "ticker": "HWM",
+    "name": "하우멧 에어로스페이스",
+    "name_en": "Howmet Aerospace",
+    "exchange": "NYSE",
+    "sector": "산업재",
+    "current_price": 232.68,
+    "change_pct": -2.66,
+    "market_cap": 93653696512,
+    "final_score": 60.5,
+    "rank": 44,
+    "rank_change": 11,
+    "tier": 2,
+    "stats_bar": {
+      "fundamentals": 81,
+      "value": 4,
+      "momentum": 93,
+      "stability": 61,
+      "risk": 41,
+      "consensus": 53,
+      "sentiment": 36
+    },
+    "score_breakdown": {
+      "value": 0.9,
+      "growth": 16.9,
+      "profitability": 11.6,
+      "momentum": 18.7,
+      "stability": 3.1,
+      "risk": 2.1,
+      "consensus": 5.4,
+      "sentiment": 1.8
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 237.68,
+      "r1": 241.74,
+      "r2": 244.43,
+      "s1": 234.99,
+      "s2": 230.93
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 47.0,
+        "status": "bearish"
+      },
+      "volume": {
+        "pct_change": 8,
+        "status": "above_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 214.92,
+        "mean": 277.52,
+        "high": 315.0
+      },
+      "recommendation": {
+        "score": 4.6,
+        "status": "Strong Buy",
+        "yahoo_mean": 1.43478,
+        "key": "strong_buy"
+      },
+      "financial_health": {
+        "per": 62.72,
+        "pbr": 17.46,
+        "revenue_growth": 14.6,
+        "eps_growth": 20.3,
+        "roe": 30.4,
+        "operating_margin": 26.3,
+        "debt_ratio": 60.0,
+        "current_ratio": 2.13
+      },
+      "last_updated": "2026-04-02 21:11:49"
+    },
+    "financial_health": {
+      "per": 62.72,
+      "pbr": 17.46,
+      "revenue_growth": 14.6,
+      "eps_growth": 20.3,
+      "roe": 30.4,
+      "operating_margin": 26.3,
+      "debt_ratio": 60.0,
+      "current_ratio": 2.13
+    },
+    "calendar": {
+      "next_earnings": "2026-04-30",
+      "last_earnings_date": "2026-02-12",
+      "last_eps_est": 0.97,
+      "last_eps_act": 1.05,
+      "last_surprise": 8.7,
+      "ex_dividend_date": "2026-02-06",
+      "dividend_payment_date": "2026-02-25",
+      "dividend_amount": 0.12,
+      "dividend_ttm": 0.45999999999999996,
+      "dividend_yield": 19.0
+    },
+    "related_peers": [
+      {
+        "ticker": "EME",
+        "change_pct": -0.43
+      },
+      {
+        "ticker": "DAL",
+        "change_pct": -1.24
+      },
+      {
+        "ticker": "AOS",
+        "change_pct": -1.12
+      }
+    ],
+    "sector_rank": 9,
+    "similar_score_peers": [
+      {
+        "ticker": "RCL",
+        "change_pct": -3.0
+      },
+      {
+        "ticker": "NOC",
+        "change_pct": 0.79
       },
       {
         "ticker": "HII",
@@ -5710,12 +5710,12 @@
     "sector_rank": 10,
     "similar_score_peers": [
       {
-        "ticker": "HWM",
-        "change_pct": -2.66
-      },
-      {
         "ticker": "NOC",
         "change_pct": 0.79
+      },
+      {
+        "ticker": "HWM",
+        "change_pct": -2.66
       },
       {
         "ticker": "ALLE",
@@ -5832,8 +5832,8 @@
     "sector_rank": 11,
     "similar_score_peers": [
       {
-        "ticker": "NOC",
-        "change_pct": 0.79
+        "ticker": "HWM",
+        "change_pct": -2.66
       },
       {
         "ticker": "HII",
@@ -7745,133 +7745,6 @@
         "change_pct": 0.83
       },
       {
-        "ticker": "HIG",
-        "change_pct": 1.14
-      }
-    ]
-  },
-  {
-    "ticker": "HIG",
-    "name": "하트포드 파이낸셜 서비시스 그룹",
-    "name_en": "Hartford Financial",
-    "exchange": "NYSE",
-    "sector": "금융",
-    "current_price": 136.19,
-    "change_pct": 1.14,
-    "market_cap": 37983432704,
-    "final_score": 59.3,
-    "rank": 62,
-    "rank_change": 12,
-    "tier": 2,
-    "stats_bar": {
-      "fundamentals": 59,
-      "value": 79,
-      "momentum": 52,
-      "stability": 60,
-      "risk": 91,
-      "consensus": 29,
-      "sentiment": 34
-    },
-    "score_breakdown": {
-      "value": 15.8,
-      "growth": 13.6,
-      "profitability": 7.2,
-      "momentum": 10.4,
-      "stability": 3.0,
-      "risk": 4.6,
-      "consensus": 2.9,
-      "sentiment": 1.7
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 134.86,
-      "r1": 135.54,
-      "r2": 136.42,
-      "s1": 133.98,
-      "s2": 133.3
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 58.1,
-        "status": "bullish"
-      },
-      "volume": {
-        "pct_change": -17,
-        "status": "below_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 135.0,
-        "mean": 150.15,
-        "high": 163.0
-      },
-      "recommendation": {
-        "score": 3.7,
-        "status": "Buy",
-        "yahoo_mean": 2.26087,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 10.22,
-        "pbr": 2.02,
-        "revenue_growth": 6.7,
-        "eps_growth": 38.2,
-        "roe": 21.7,
-        "operating_margin": 20.0,
-        "debt_ratio": 23.9,
-        "current_ratio": 1.84
-      },
-      "last_updated": "2026-04-02 21:11:18"
-    },
-    "financial_health": {
-      "per": 10.22,
-      "pbr": 2.02,
-      "revenue_growth": 6.7,
-      "eps_growth": 38.2,
-      "roe": 21.7,
-      "operating_margin": 20.0,
-      "debt_ratio": 23.9,
-      "current_ratio": 1.84
-    },
-    "calendar": {
-      "next_earnings": "2026-04-23",
-      "last_earnings_date": "2026-01-29",
-      "last_eps_est": 3.22,
-      "last_eps_act": 4.06,
-      "last_surprise": 26.23,
-      "ex_dividend_date": "2026-03-02",
-      "dividend_payment_date": "2026-04-02",
-      "dividend_amount": 0.6,
-      "dividend_ttm": 2.24,
-      "dividend_yield": 1.78
-    },
-    "related_peers": [
-      {
-        "ticker": "SYF",
-        "change_pct": 0.15
-      },
-      {
-        "ticker": "CINF",
-        "change_pct": 0.48
-      },
-      {
-        "ticker": "ALL",
-        "change_pct": 1.44
-      }
-    ],
-    "sector_rank": 6,
-    "similar_score_peers": [
-      {
-        "ticker": "LMT",
-        "change_pct": 0.83
-      },
-      {
-        "ticker": "UNP",
-        "change_pct": 0.65
-      },
-      {
         "ticker": "TXT",
         "change_pct": -0.97
       }
@@ -7887,8 +7760,8 @@
     "change_pct": -0.97,
     "market_cap": 15335003136,
     "final_score": 59.3,
-    "rank": 63,
-    "rank_change": 2,
+    "rank": 62,
+    "rank_change": 3,
     "tier": 2,
     "stats_bar": {
       "fundamentals": 44,
@@ -7991,12 +7864,139 @@
     "sector_rank": 15,
     "similar_score_peers": [
       {
+        "ticker": "LMT",
+        "change_pct": 0.83
+      },
+      {
         "ticker": "UNP",
         "change_pct": 0.65
       },
       {
         "ticker": "HIG",
         "change_pct": 1.14
+      }
+    ]
+  },
+  {
+    "ticker": "HIG",
+    "name": "하트포드 파이낸셜 서비시스 그룹",
+    "name_en": "Hartford Financial",
+    "exchange": "NYSE",
+    "sector": "금융",
+    "current_price": 136.19,
+    "change_pct": 1.14,
+    "market_cap": 37983432704,
+    "final_score": 59.2,
+    "rank": 63,
+    "rank_change": 11,
+    "tier": 2,
+    "stats_bar": {
+      "fundamentals": 59,
+      "value": 79,
+      "momentum": 52,
+      "stability": 60,
+      "risk": 91,
+      "consensus": 29,
+      "sentiment": 34
+    },
+    "score_breakdown": {
+      "value": 15.8,
+      "growth": 13.6,
+      "profitability": 7.2,
+      "momentum": 10.4,
+      "stability": 3.0,
+      "risk": 4.6,
+      "consensus": 2.9,
+      "sentiment": 1.7
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 134.86,
+      "r1": 135.54,
+      "r2": 136.42,
+      "s1": 133.98,
+      "s2": 133.3
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 58.1,
+        "status": "bullish"
+      },
+      "volume": {
+        "pct_change": -17,
+        "status": "below_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 135.0,
+        "mean": 150.15,
+        "high": 163.0
+      },
+      "recommendation": {
+        "score": 3.7,
+        "status": "Buy",
+        "yahoo_mean": 2.26087,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 10.22,
+        "pbr": 2.02,
+        "revenue_growth": 6.7,
+        "eps_growth": 38.2,
+        "roe": 21.7,
+        "operating_margin": 20.0,
+        "debt_ratio": 23.9,
+        "current_ratio": 1.84
+      },
+      "last_updated": "2026-04-02 21:11:18"
+    },
+    "financial_health": {
+      "per": 10.22,
+      "pbr": 2.02,
+      "revenue_growth": 6.7,
+      "eps_growth": 38.2,
+      "roe": 21.7,
+      "operating_margin": 20.0,
+      "debt_ratio": 23.9,
+      "current_ratio": 1.84
+    },
+    "calendar": {
+      "next_earnings": "2026-04-23",
+      "last_earnings_date": "2026-01-29",
+      "last_eps_est": 3.22,
+      "last_eps_act": 4.06,
+      "last_surprise": 26.23,
+      "ex_dividend_date": "2026-03-02",
+      "dividend_payment_date": "2026-04-02",
+      "dividend_amount": 0.6,
+      "dividend_ttm": 2.24,
+      "dividend_yield": 1.78
+    },
+    "related_peers": [
+      {
+        "ticker": "SYF",
+        "change_pct": 0.15
+      },
+      {
+        "ticker": "CINF",
+        "change_pct": 0.48
+      },
+      {
+        "ticker": "ALL",
+        "change_pct": 1.44
+      }
+    ],
+    "sector_rank": 6,
+    "similar_score_peers": [
+      {
+        "ticker": "UNP",
+        "change_pct": 0.65
+      },
+      {
+        "ticker": "TXT",
+        "change_pct": -0.97
       },
       {
         "ticker": "LLY",
@@ -8118,12 +8118,12 @@
     "sector_rank": 8,
     "similar_score_peers": [
       {
-        "ticker": "HIG",
-        "change_pct": 1.14
-      },
-      {
         "ticker": "TXT",
         "change_pct": -0.97
+      },
+      {
+        "ticker": "HIG",
+        "change_pct": 1.14
       },
       {
         "ticker": "LVS",
@@ -8240,8 +8240,8 @@
     "sector_rank": 8,
     "similar_score_peers": [
       {
-        "ticker": "TXT",
-        "change_pct": -0.97
+        "ticker": "HIG",
+        "change_pct": 1.14
       },
       {
         "ticker": "LLY",
@@ -9533,7 +9533,7 @@
     "current_price": 139.71,
     "change_pct": -0.42,
     "market_cap": 173408583680,
-    "final_score": 57.9,
+    "final_score": 57.8,
     "rank": 76,
     "rank_change": 0,
     "tier": 2,
@@ -12084,7 +12084,7 @@
       "stability": 61,
       "risk": 64,
       "consensus": 46,
-      "sentiment": 37
+      "sentiment": 36
     },
     "score_breakdown": {
       "value": 13.6,
@@ -12094,7 +12094,7 @@
       "stability": 3.1,
       "risk": 3.2,
       "consensus": 4.7,
-      "sentiment": 1.9
+      "sentiment": 1.8
     },
     "signals": [],
     "levels": {
@@ -14245,7 +14245,7 @@
       "stability": 89,
       "risk": 30,
       "consensus": 65,
-      "sentiment": 27
+      "sentiment": 28
     },
     "score_breakdown": {
       "value": 0.7,
@@ -14995,6 +14995,128 @@
         "change_pct": 1.01
       },
       {
+        "ticker": "COIN",
+        "change_pct": -0.88
+      }
+    ]
+  },
+  {
+    "ticker": "COIN",
+    "name": "코인베이스",
+    "name_en": "Coinbase",
+    "exchange": "NASDAQ",
+    "sector": "금융",
+    "current_price": 171.46,
+    "change_pct": -0.88,
+    "market_cap": 46235492352,
+    "final_score": 55.8,
+    "rank": 119,
+    "rank_change": -16,
+    "tier": 3,
+    "stats_bar": {
+      "fundamentals": 86,
+      "value": 23,
+      "momentum": 35,
+      "stability": 35,
+      "risk": 0,
+      "consensus": 93,
+      "sentiment": 49
+    },
+    "score_breakdown": {
+      "value": 4.7,
+      "growth": 19.4,
+      "profitability": 10.9,
+      "momentum": 7.2,
+      "stability": 1.8,
+      "risk": 0.0,
+      "consensus": 9.4,
+      "sentiment": 2.5
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 174.67,
+      "r1": 177.62,
+      "r2": 182.25,
+      "s1": 170.04,
+      "s2": 167.09
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 36.4,
+        "status": "bearish"
+      },
+      "volume": {
+        "pct_change": -31,
+        "status": "below_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 120.0,
+        "mean": 247.24277,
+        "high": 420.0
+      },
+      "recommendation": {
+        "score": 4.1,
+        "status": "Buy",
+        "yahoo_mean": 1.93939,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 38.53,
+        "pbr": 3.1,
+        "revenue_growth": -22.2,
+        "eps_growth": 0,
+        "roe": 10.1,
+        "operating_margin": 11.3,
+        "debt_ratio": 53.1,
+        "current_ratio": 2.34
+      },
+      "last_updated": "2026-04-02 21:07:03"
+    },
+    "financial_health": {
+      "per": 38.53,
+      "pbr": 3.1,
+      "revenue_growth": -22.2,
+      "eps_growth": 0,
+      "roe": 10.1,
+      "operating_margin": 11.3,
+      "debt_ratio": 53.1,
+      "current_ratio": 2.34
+    },
+    "calendar": {
+      "next_earnings": "2026-05-07",
+      "last_earnings_date": "2026-02-12",
+      "last_eps_est": 0.94,
+      "last_eps_act": -2.49,
+      "last_surprise": -364.89
+    },
+    "related_peers": [
+      {
+        "ticker": "SYF",
+        "change_pct": 0.15
+      },
+      {
+        "ticker": "CINF",
+        "change_pct": 0.48
+      },
+      {
+        "ticker": "ALL",
+        "change_pct": 1.44
+      }
+    ],
+    "sector_rank": 10,
+    "similar_score_peers": [
+      {
+        "ticker": "DUK",
+        "change_pct": 1.01
+      },
+      {
+        "ticker": "TRGP",
+        "change_pct": -0.16
+      },
+      {
         "ticker": "FANG",
         "change_pct": 1.71
       }
@@ -15010,8 +15132,8 @@
     "change_pct": 1.71,
     "market_cap": 54689472512,
     "final_score": 55.8,
-    "rank": 119,
-    "rank_change": -10,
+    "rank": 120,
+    "rank_change": -11,
     "tier": 3,
     "stats_bar": {
       "fundamentals": 47,
@@ -15114,134 +15236,12 @@
     "sector_rank": 7,
     "similar_score_peers": [
       {
-        "ticker": "DUK",
-        "change_pct": 1.01
-      },
-      {
         "ticker": "TRGP",
         "change_pct": -0.16
       },
       {
         "ticker": "COIN",
         "change_pct": -0.88
-      }
-    ]
-  },
-  {
-    "ticker": "COIN",
-    "name": "코인베이스",
-    "name_en": "Coinbase",
-    "exchange": "NASDAQ",
-    "sector": "금융",
-    "current_price": 171.46,
-    "change_pct": -0.88,
-    "market_cap": 46235492352,
-    "final_score": 55.8,
-    "rank": 120,
-    "rank_change": -17,
-    "tier": 3,
-    "stats_bar": {
-      "fundamentals": 86,
-      "value": 23,
-      "momentum": 35,
-      "stability": 35,
-      "risk": 0,
-      "consensus": 93,
-      "sentiment": 49
-    },
-    "score_breakdown": {
-      "value": 4.7,
-      "growth": 19.4,
-      "profitability": 10.9,
-      "momentum": 7.2,
-      "stability": 1.8,
-      "risk": 0.0,
-      "consensus": 9.4,
-      "sentiment": 2.5
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 174.67,
-      "r1": 177.62,
-      "r2": 182.25,
-      "s1": 170.04,
-      "s2": 167.09
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 36.4,
-        "status": "bearish"
-      },
-      "volume": {
-        "pct_change": -31,
-        "status": "below_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 120.0,
-        "mean": 247.24277,
-        "high": 420.0
-      },
-      "recommendation": {
-        "score": 4.1,
-        "status": "Buy",
-        "yahoo_mean": 1.93939,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 38.53,
-        "pbr": 3.1,
-        "revenue_growth": -22.2,
-        "eps_growth": 0,
-        "roe": 10.1,
-        "operating_margin": 11.3,
-        "debt_ratio": 53.1,
-        "current_ratio": 2.34
-      },
-      "last_updated": "2026-04-02 21:07:03"
-    },
-    "financial_health": {
-      "per": 38.53,
-      "pbr": 3.1,
-      "revenue_growth": -22.2,
-      "eps_growth": 0,
-      "roe": 10.1,
-      "operating_margin": 11.3,
-      "debt_ratio": 53.1,
-      "current_ratio": 2.34
-    },
-    "calendar": {
-      "next_earnings": "2026-05-07",
-      "last_earnings_date": "2026-02-12",
-      "last_eps_est": 0.94,
-      "last_eps_act": -2.49,
-      "last_surprise": -364.89
-    },
-    "related_peers": [
-      {
-        "ticker": "SYF",
-        "change_pct": 0.15
-      },
-      {
-        "ticker": "CINF",
-        "change_pct": 0.48
-      },
-      {
-        "ticker": "ALL",
-        "change_pct": 1.44
-      }
-    ],
-    "sector_rank": 10,
-    "similar_score_peers": [
-      {
-        "ticker": "TRGP",
-        "change_pct": -0.16
-      },
-      {
-        "ticker": "FANG",
-        "change_pct": 1.71
       },
       {
         "ticker": "RMD",
@@ -15365,12 +15365,12 @@
     "sector_rank": 16,
     "similar_score_peers": [
       {
-        "ticker": "FANG",
-        "change_pct": 1.71
-      },
-      {
         "ticker": "COIN",
         "change_pct": -0.88
+      },
+      {
+        "ticker": "FANG",
+        "change_pct": 1.71
       },
       {
         "ticker": "TT",
@@ -15494,8 +15494,8 @@
     "sector_rank": 25,
     "similar_score_peers": [
       {
-        "ticker": "COIN",
-        "change_pct": -0.88
+        "ticker": "FANG",
+        "change_pct": 1.71
       },
       {
         "ticker": "RMD",
@@ -16158,7 +16158,7 @@
     "current_price": 83.27,
     "change_pct": 1.54,
     "market_cap": 39550353408,
-    "final_score": 55.1,
+    "final_score": 55.2,
     "rank": 128,
     "rank_change": 56,
     "tier": 3,
@@ -17032,130 +17032,6 @@
         "change_pct": 0.67
       },
       {
-        "ticker": "EBAY",
-        "change_pct": 1.08
-      }
-    ]
-  },
-  {
-    "ticker": "EBAY",
-    "name": "이베이",
-    "name_en": "eBay",
-    "exchange": "NASDAQ",
-    "sector": "임의소비재",
-    "current_price": 94.14,
-    "change_pct": 1.08,
-    "market_cap": 42551279616,
-    "final_score": 54.7,
-    "rank": 135,
-    "rank_change": -11,
-    "tier": 3,
-    "stats_bar": {
-      "fundamentals": 67,
-      "value": 55,
-      "momentum": 61,
-      "stability": 30,
-      "risk": 45,
-      "consensus": 17,
-      "sentiment": 39
-    },
-    "score_breakdown": {
-      "value": 11.2,
-      "growth": 11.9,
-      "profitability": 11.7,
-      "momentum": 12.4,
-      "stability": 1.5,
-      "risk": 2.3,
-      "consensus": 1.8,
-      "sentiment": 2.0
-    },
-    "signals": [
-      "MACD_GoldenCross"
-    ],
-    "levels": {
-      "pivot": 92.35,
-      "r1": 94.16,
-      "r2": 95.19,
-      "s1": 91.32,
-      "s2": 89.51
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 58.4,
-        "status": "bullish"
-      },
-      "volume": {
-        "pct_change": -19,
-        "status": "below_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 60.0,
-        "mean": 99.13333,
-        "high": 122.0
-      },
-      "recommendation": null,
-      "financial_health": {
-        "per": 22.1,
-        "pbr": 9.16,
-        "revenue_growth": 15.0,
-        "eps_growth": -18.4,
-        "roe": 40.8,
-        "operating_margin": 16.2,
-        "debt_ratio": 155.6,
-        "current_ratio": 1.1
-      },
-      "last_updated": "2026-04-02 21:08:48"
-    },
-    "financial_health": {
-      "per": 22.1,
-      "pbr": 9.16,
-      "revenue_growth": 15.0,
-      "eps_growth": -18.4,
-      "roe": 40.8,
-      "operating_margin": 16.2,
-      "debt_ratio": 155.6,
-      "current_ratio": 1.1
-    },
-    "calendar": {
-      "next_earnings": "2026-04-29",
-      "last_earnings_date": "2026-02-18",
-      "last_eps_est": 1.35,
-      "last_eps_act": 1.41,
-      "last_surprise": 4.44,
-      "ex_dividend_date": "2026-03-06",
-      "dividend_payment_date": "2026-03-20",
-      "dividend_amount": 0.31,
-      "dividend_ttm": 1.18,
-      "dividend_yield": 1.33
-    },
-    "related_peers": [
-      {
-        "ticker": "BALL",
-        "change_pct": -0.66
-      },
-      {
-        "ticker": "CCL",
-        "change_pct": -3.54
-      },
-      {
-        "ticker": "ULTA",
-        "change_pct": 0.15
-      }
-    ],
-    "sector_rank": 13,
-    "similar_score_peers": [
-      {
-        "ticker": "KIM",
-        "change_pct": 0.67
-      },
-      {
-        "ticker": "MCK",
-        "change_pct": 1.37
-      },
-      {
         "ticker": "SYY",
         "change_pct": -1.4
       }
@@ -17171,8 +17047,8 @@
     "change_pct": -1.4,
     "market_cap": 34080706560,
     "final_score": 54.7,
-    "rank": 136,
-    "rank_change": -8,
+    "rank": 135,
+    "rank_change": -7,
     "tier": 3,
     "stats_bar": {
       "fundamentals": 54,
@@ -17277,12 +17153,136 @@
     "sector_rank": 7,
     "similar_score_peers": [
       {
+        "ticker": "KIM",
+        "change_pct": 0.67
+      },
+      {
         "ticker": "MCK",
         "change_pct": 1.37
       },
       {
         "ticker": "EBAY",
         "change_pct": 1.08
+      }
+    ]
+  },
+  {
+    "ticker": "EBAY",
+    "name": "이베이",
+    "name_en": "eBay",
+    "exchange": "NASDAQ",
+    "sector": "임의소비재",
+    "current_price": 94.14,
+    "change_pct": 1.08,
+    "market_cap": 42551279616,
+    "final_score": 54.7,
+    "rank": 136,
+    "rank_change": -12,
+    "tier": 3,
+    "stats_bar": {
+      "fundamentals": 67,
+      "value": 55,
+      "momentum": 61,
+      "stability": 30,
+      "risk": 45,
+      "consensus": 17,
+      "sentiment": 39
+    },
+    "score_breakdown": {
+      "value": 11.2,
+      "growth": 11.9,
+      "profitability": 11.7,
+      "momentum": 12.4,
+      "stability": 1.5,
+      "risk": 2.3,
+      "consensus": 1.8,
+      "sentiment": 2.0
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 92.35,
+      "r1": 94.16,
+      "r2": 95.19,
+      "s1": 91.32,
+      "s2": 89.51
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 58.4,
+        "status": "bullish"
+      },
+      "volume": {
+        "pct_change": -19,
+        "status": "below_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 60.0,
+        "mean": 99.13333,
+        "high": 122.0
+      },
+      "recommendation": null,
+      "financial_health": {
+        "per": 22.1,
+        "pbr": 9.16,
+        "revenue_growth": 15.0,
+        "eps_growth": -18.4,
+        "roe": 40.8,
+        "operating_margin": 16.2,
+        "debt_ratio": 155.6,
+        "current_ratio": 1.1
+      },
+      "last_updated": "2026-04-02 21:08:48"
+    },
+    "financial_health": {
+      "per": 22.1,
+      "pbr": 9.16,
+      "revenue_growth": 15.0,
+      "eps_growth": -18.4,
+      "roe": 40.8,
+      "operating_margin": 16.2,
+      "debt_ratio": 155.6,
+      "current_ratio": 1.1
+    },
+    "calendar": {
+      "next_earnings": "2026-04-29",
+      "last_earnings_date": "2026-02-18",
+      "last_eps_est": 1.35,
+      "last_eps_act": 1.41,
+      "last_surprise": 4.44,
+      "ex_dividend_date": "2026-03-06",
+      "dividend_payment_date": "2026-03-20",
+      "dividend_amount": 0.31,
+      "dividend_ttm": 1.18,
+      "dividend_yield": 1.33
+    },
+    "related_peers": [
+      {
+        "ticker": "BALL",
+        "change_pct": -0.66
+      },
+      {
+        "ticker": "CCL",
+        "change_pct": -3.54
+      },
+      {
+        "ticker": "ULTA",
+        "change_pct": 0.15
+      }
+    ],
+    "sector_rank": 13,
+    "similar_score_peers": [
+      {
+        "ticker": "MCK",
+        "change_pct": 1.37
+      },
+      {
+        "ticker": "SYY",
+        "change_pct": -1.4
       },
       {
         "ticker": "NSC",
@@ -17404,12 +17404,12 @@
     "sector_rank": 28,
     "similar_score_peers": [
       {
-        "ticker": "EBAY",
-        "change_pct": 1.08
-      },
-      {
         "ticker": "SYY",
         "change_pct": -1.4
+      },
+      {
+        "ticker": "EBAY",
+        "change_pct": 1.08
       },
       {
         "ticker": "TPL",
@@ -17528,8 +17528,8 @@
     "sector_rank": 8,
     "similar_score_peers": [
       {
-        "ticker": "SYY",
-        "change_pct": -1.4
+        "ticker": "EBAY",
+        "change_pct": 1.08
       },
       {
         "ticker": "NSC",
@@ -18434,135 +18434,6 @@
         "change_pct": 0.28
       },
       {
-        "ticker": "JBHT",
-        "change_pct": 0.69
-      }
-    ]
-  },
-  {
-    "ticker": "JBHT",
-    "name": "JB 헌트 트랜스포트 서비시스",
-    "name_en": "J.B. Hunt",
-    "exchange": "NASDAQ",
-    "sector": "산업재",
-    "current_price": 214.91,
-    "change_pct": 0.69,
-    "market_cap": 20463374336,
-    "final_score": 53.8,
-    "rank": 146,
-    "rank_change": -13,
-    "tier": 3,
-    "stats_bar": {
-      "fundamentals": 44,
-      "value": 59,
-      "momentum": 89,
-      "stability": 76,
-      "risk": 47,
-      "consensus": 4,
-      "sentiment": 36
-    },
-    "score_breakdown": {
-      "value": 11.8,
-      "growth": 11.6,
-      "profitability": 3.9,
-      "momentum": 18.0,
-      "stability": 3.8,
-      "risk": 2.4,
-      "consensus": 0.5,
-      "sentiment": 1.8
-    },
-    "signals": [
-      "RSI_Overbought"
-    ],
-    "levels": {
-      "pivot": 213.76,
-      "r1": 216.13,
-      "r2": 218.81,
-      "s1": 211.08,
-      "s2": 208.71
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 71.5,
-        "status": "overbought"
-      },
-      "volume": {
-        "pct_change": -21,
-        "status": "below_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 161.0,
-        "mean": 211.69565,
-        "high": 250.0
-      },
-      "recommendation": {
-        "score": 4.0,
-        "status": "Buy",
-        "yahoo_mean": 2.0,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 35.06,
-        "pbr": 5.7,
-        "revenue_growth": -1.6,
-        "eps_growth": 23.6,
-        "roe": 15.8,
-        "operating_margin": 8.0,
-        "debt_ratio": 48.3,
-        "current_ratio": 0.83
-      },
-      "last_updated": "2026-04-02 21:12:32"
-    },
-    "financial_health": {
-      "per": 35.06,
-      "pbr": 5.7,
-      "revenue_growth": -1.6,
-      "eps_growth": 23.6,
-      "roe": 15.8,
-      "operating_margin": 8.0,
-      "debt_ratio": 48.3,
-      "current_ratio": 0.83
-    },
-    "calendar": {
-      "next_earnings": "2026-04-15",
-      "last_earnings_date": "2026-01-15",
-      "last_eps_est": 1.82,
-      "last_eps_act": 1.9,
-      "last_surprise": 4.62,
-      "ex_dividend_date": "2026-02-06",
-      "dividend_payment_date": "2026-02-20",
-      "dividend_amount": 0.45,
-      "dividend_ttm": 1.77,
-      "dividend_yield": 0.84
-    },
-    "related_peers": [
-      {
-        "ticker": "EME",
-        "change_pct": -0.43
-      },
-      {
-        "ticker": "DAL",
-        "change_pct": -1.24
-      },
-      {
-        "ticker": "AOS",
-        "change_pct": -1.12
-      }
-    ],
-    "sector_rank": 32,
-    "similar_score_peers": [
-      {
-        "ticker": "UPS",
-        "change_pct": 0.28
-      },
-      {
-        "ticker": "CSX",
-        "change_pct": -0.53
-      },
-      {
         "ticker": "DOV",
         "change_pct": -0.93
       }
@@ -18578,8 +18449,8 @@
     "change_pct": -0.93,
     "market_cap": 27698907136,
     "final_score": 53.8,
-    "rank": 147,
-    "rank_change": 26,
+    "rank": 146,
+    "rank_change": 27,
     "tier": 3,
     "stats_bar": {
       "fundamentals": 35,
@@ -18679,8 +18550,12 @@
         "change_pct": -1.12
       }
     ],
-    "sector_rank": 33,
+    "sector_rank": 32,
     "similar_score_peers": [
+      {
+        "ticker": "UPS",
+        "change_pct": 0.28
+      },
       {
         "ticker": "CSX",
         "change_pct": -0.53
@@ -18688,6 +18563,131 @@
       {
         "ticker": "JBHT",
         "change_pct": 0.69
+      }
+    ]
+  },
+  {
+    "ticker": "JBHT",
+    "name": "JB 헌트 트랜스포트 서비시스",
+    "name_en": "J.B. Hunt",
+    "exchange": "NASDAQ",
+    "sector": "산업재",
+    "current_price": 214.91,
+    "change_pct": 0.69,
+    "market_cap": 20463374336,
+    "final_score": 53.8,
+    "rank": 147,
+    "rank_change": -14,
+    "tier": 3,
+    "stats_bar": {
+      "fundamentals": 44,
+      "value": 59,
+      "momentum": 89,
+      "stability": 76,
+      "risk": 47,
+      "consensus": 4,
+      "sentiment": 35
+    },
+    "score_breakdown": {
+      "value": 11.8,
+      "growth": 11.6,
+      "profitability": 3.9,
+      "momentum": 18.0,
+      "stability": 3.8,
+      "risk": 2.4,
+      "consensus": 0.5,
+      "sentiment": 1.8
+    },
+    "signals": [
+      "RSI_Overbought"
+    ],
+    "levels": {
+      "pivot": 213.76,
+      "r1": 216.13,
+      "r2": 218.81,
+      "s1": 211.08,
+      "s2": 208.71
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 71.5,
+        "status": "overbought"
+      },
+      "volume": {
+        "pct_change": -21,
+        "status": "below_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 161.0,
+        "mean": 211.69565,
+        "high": 250.0
+      },
+      "recommendation": {
+        "score": 4.0,
+        "status": "Buy",
+        "yahoo_mean": 2.0,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 35.06,
+        "pbr": 5.7,
+        "revenue_growth": -1.6,
+        "eps_growth": 23.6,
+        "roe": 15.8,
+        "operating_margin": 8.0,
+        "debt_ratio": 48.3,
+        "current_ratio": 0.83
+      },
+      "last_updated": "2026-04-02 21:12:32"
+    },
+    "financial_health": {
+      "per": 35.06,
+      "pbr": 5.7,
+      "revenue_growth": -1.6,
+      "eps_growth": 23.6,
+      "roe": 15.8,
+      "operating_margin": 8.0,
+      "debt_ratio": 48.3,
+      "current_ratio": 0.83
+    },
+    "calendar": {
+      "next_earnings": "2026-04-15",
+      "last_earnings_date": "2026-01-15",
+      "last_eps_est": 1.82,
+      "last_eps_act": 1.9,
+      "last_surprise": 4.62,
+      "ex_dividend_date": "2026-02-06",
+      "dividend_payment_date": "2026-02-20",
+      "dividend_amount": 0.45,
+      "dividend_ttm": 1.77,
+      "dividend_yield": 0.84
+    },
+    "related_peers": [
+      {
+        "ticker": "EME",
+        "change_pct": -0.43
+      },
+      {
+        "ticker": "DAL",
+        "change_pct": -1.24
+      },
+      {
+        "ticker": "AOS",
+        "change_pct": -1.12
+      }
+    ],
+    "sector_rank": 33,
+    "similar_score_peers": [
+      {
+        "ticker": "CSX",
+        "change_pct": -0.53
+      },
+      {
+        "ticker": "DOV",
+        "change_pct": -0.93
       },
       {
         "ticker": "RTX",
@@ -18809,12 +18809,12 @@
     "sector_rank": 34,
     "similar_score_peers": [
       {
-        "ticker": "JBHT",
-        "change_pct": 0.69
-      },
-      {
         "ticker": "DOV",
         "change_pct": -0.93
+      },
+      {
+        "ticker": "JBHT",
+        "change_pct": 0.69
       },
       {
         "ticker": "HSIC",
@@ -18941,8 +18941,8 @@
     "sector_rank": 20,
     "similar_score_peers": [
       {
-        "ticker": "DOV",
-        "change_pct": -0.93
+        "ticker": "JBHT",
+        "change_pct": 0.69
       },
       {
         "ticker": "RTX",
@@ -18963,7 +18963,7 @@
     "current_price": 204.46,
     "change_pct": -3.22,
     "market_cap": 18240571392,
-    "final_score": 53.7,
+    "final_score": 53.6,
     "rank": 150,
     "rank_change": 20,
     "tier": 3,
@@ -19462,133 +19462,6 @@
         "change_pct": 0.0
       },
       {
-        "ticker": "AEP",
-        "change_pct": 0.77
-      }
-    ]
-  },
-  {
-    "ticker": "AEP",
-    "name": "아메리칸 일렉트릭 파워",
-    "name_en": "American Electric Power",
-    "exchange": "NASDAQ",
-    "sector": "유틸리티",
-    "current_price": 132.68,
-    "change_pct": 0.77,
-    "market_cap": 72119992320,
-    "final_score": 53.5,
-    "rank": 154,
-    "rank_change": -9,
-    "tier": 3,
-    "stats_bar": {
-      "fundamentals": 53,
-      "value": 65,
-      "momentum": 70,
-      "stability": 54,
-      "risk": 51,
-      "consensus": 13,
-      "sentiment": 16
-    },
-    "score_breakdown": {
-      "value": 13.0,
-      "growth": 8.2,
-      "profitability": 10.6,
-      "momentum": 14.2,
-      "stability": 2.7,
-      "risk": 2.6,
-      "consensus": 1.3,
-      "sentiment": 0.8
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 131.45,
-      "r1": 132.38,
-      "r2": 133.1,
-      "s1": 130.73,
-      "s2": 129.8
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 47.3,
-        "status": "bearish"
-      },
-      "volume": {
-        "pct_change": -36,
-        "status": "below_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 122.0,
-        "mean": 137.47368,
-        "high": 153.0
-      },
-      "recommendation": {
-        "score": 3.9,
-        "status": "Buy",
-        "yahoo_mean": 2.13043,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 19.92,
-        "pbr": 2.3,
-        "revenue_growth": 13.2,
-        "eps_growth": -12.6,
-        "roe": 12.5,
-        "operating_margin": 22.8,
-        "debt_ratio": 154.2,
-        "current_ratio": 0.46
-      },
-      "last_updated": "2026-04-02 21:03:44"
-    },
-    "financial_health": {
-      "per": 19.92,
-      "pbr": 2.3,
-      "revenue_growth": 13.2,
-      "eps_growth": -12.6,
-      "roe": 12.5,
-      "operating_margin": 22.8,
-      "debt_ratio": 154.2,
-      "current_ratio": 0.46
-    },
-    "calendar": {
-      "next_earnings": "2026-05-05",
-      "last_earnings_date": "2026-02-12",
-      "last_eps_est": 1.14,
-      "last_eps_act": 1.19,
-      "last_surprise": 4.33,
-      "ex_dividend_date": "2026-02-10",
-      "dividend_payment_date": "2026-03-10",
-      "dividend_amount": 0.95,
-      "dividend_ttm": 3.76,
-      "dividend_yield": 2.89
-    },
-    "related_peers": [
-      {
-        "ticker": "EIX",
-        "change_pct": -0.16
-      },
-      {
-        "ticker": "PEG",
-        "change_pct": 0.73
-      },
-      {
-        "ticker": "ED",
-        "change_pct": 1.33
-      }
-    ],
-    "sector_rank": 5,
-    "similar_score_peers": [
-      {
-        "ticker": "TGT",
-        "change_pct": 0.0
-      },
-      {
-        "ticker": "CBOE",
-        "change_pct": 3.45
-      },
-      {
         "ticker": "GEV",
         "change_pct": 0.42
       }
@@ -19604,8 +19477,8 @@
     "change_pct": 0.42,
     "market_cap": 243800424448,
     "final_score": 53.5,
-    "rank": 155,
-    "rank_change": -18,
+    "rank": 154,
+    "rank_change": -17,
     "tier": 3,
     "stats_bar": {
       "fundamentals": 68,
@@ -19708,12 +19581,139 @@
     "sector_rank": 35,
     "similar_score_peers": [
       {
+        "ticker": "TGT",
+        "change_pct": 0.0
+      },
+      {
         "ticker": "CBOE",
         "change_pct": 3.45
       },
       {
         "ticker": "AEP",
         "change_pct": 0.77
+      }
+    ]
+  },
+  {
+    "ticker": "AEP",
+    "name": "아메리칸 일렉트릭 파워",
+    "name_en": "American Electric Power",
+    "exchange": "NASDAQ",
+    "sector": "유틸리티",
+    "current_price": 132.68,
+    "change_pct": 0.77,
+    "market_cap": 72119992320,
+    "final_score": 53.5,
+    "rank": 155,
+    "rank_change": -10,
+    "tier": 3,
+    "stats_bar": {
+      "fundamentals": 53,
+      "value": 65,
+      "momentum": 70,
+      "stability": 54,
+      "risk": 51,
+      "consensus": 13,
+      "sentiment": 16
+    },
+    "score_breakdown": {
+      "value": 13.0,
+      "growth": 8.2,
+      "profitability": 10.6,
+      "momentum": 14.2,
+      "stability": 2.7,
+      "risk": 2.6,
+      "consensus": 1.3,
+      "sentiment": 0.8
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 131.45,
+      "r1": 132.38,
+      "r2": 133.1,
+      "s1": 130.73,
+      "s2": 129.8
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 47.3,
+        "status": "bearish"
+      },
+      "volume": {
+        "pct_change": -36,
+        "status": "below_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 122.0,
+        "mean": 137.47368,
+        "high": 153.0
+      },
+      "recommendation": {
+        "score": 3.9,
+        "status": "Buy",
+        "yahoo_mean": 2.13043,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 19.92,
+        "pbr": 2.3,
+        "revenue_growth": 13.2,
+        "eps_growth": -12.6,
+        "roe": 12.5,
+        "operating_margin": 22.8,
+        "debt_ratio": 154.2,
+        "current_ratio": 0.46
+      },
+      "last_updated": "2026-04-02 21:03:44"
+    },
+    "financial_health": {
+      "per": 19.92,
+      "pbr": 2.3,
+      "revenue_growth": 13.2,
+      "eps_growth": -12.6,
+      "roe": 12.5,
+      "operating_margin": 22.8,
+      "debt_ratio": 154.2,
+      "current_ratio": 0.46
+    },
+    "calendar": {
+      "next_earnings": "2026-05-05",
+      "last_earnings_date": "2026-02-12",
+      "last_eps_est": 1.14,
+      "last_eps_act": 1.19,
+      "last_surprise": 4.33,
+      "ex_dividend_date": "2026-02-10",
+      "dividend_payment_date": "2026-03-10",
+      "dividend_amount": 0.95,
+      "dividend_ttm": 3.76,
+      "dividend_yield": 2.89
+    },
+    "related_peers": [
+      {
+        "ticker": "EIX",
+        "change_pct": -0.16
+      },
+      {
+        "ticker": "PEG",
+        "change_pct": 0.73
+      },
+      {
+        "ticker": "ED",
+        "change_pct": 1.33
+      }
+    ],
+    "sector_rank": 5,
+    "similar_score_peers": [
+      {
+        "ticker": "CBOE",
+        "change_pct": 3.45
+      },
+      {
+        "ticker": "GEV",
+        "change_pct": 0.42
       },
       {
         "ticker": "DRI",
@@ -19843,12 +19843,12 @@
     "sector_rank": 15,
     "similar_score_peers": [
       {
-        "ticker": "AEP",
-        "change_pct": 0.77
-      },
-      {
         "ticker": "GEV",
         "change_pct": 0.42
+      },
+      {
+        "ticker": "AEP",
+        "change_pct": 0.77
       },
       {
         "ticker": "PEP",
@@ -19970,8 +19970,8 @@
     "sector_rank": 9,
     "similar_score_peers": [
       {
-        "ticker": "GEV",
-        "change_pct": 0.42
+        "ticker": "AEP",
+        "change_pct": 0.77
       },
       {
         "ticker": "DRI",
@@ -21393,7 +21393,7 @@
     "current_price": 79.02,
     "change_pct": 1.4,
     "market_cap": 312215470080,
-    "final_score": 52.8,
+    "final_score": 52.7,
     "rank": 169,
     "rank_change": -9,
     "tier": 3,
@@ -21790,7 +21790,7 @@
       "stability": 41,
       "risk": 67,
       "consensus": 85,
-      "sentiment": 28
+      "sentiment": 27
     },
     "score_breakdown": {
       "value": 14.8,
@@ -22814,7 +22814,7 @@
     "sector": "헬스케어",
     "current_price": 438.71,
     "change_pct": -1.91,
-    "market_cap": 111432335360,
+    "market_cap": 111447334912,
     "final_score": 52.2,
     "rank": 180,
     "rank_change": -11,
@@ -23050,6 +23050,133 @@
         "change_pct": -1.91
       },
       {
+        "ticker": "DELL",
+        "change_pct": 2.95
+      }
+    ]
+  },
+  {
+    "ticker": "DELL",
+    "name": "델 테크놀로지스",
+    "name_en": "Dell Technologies",
+    "exchange": "NYSE",
+    "sector": "기술",
+    "current_price": 174.37,
+    "change_pct": 2.95,
+    "market_cap": 115553181696,
+    "final_score": 52.2,
+    "rank": 182,
+    "rank_change": -17,
+    "tier": 3,
+    "stats_bar": {
+      "fundamentals": 46,
+      "value": 69,
+      "momentum": 73,
+      "stability": 96,
+      "risk": 12,
+      "consensus": 4,
+      "sentiment": 24
+    },
+    "score_breakdown": {
+      "value": 14.0,
+      "growth": 15.3,
+      "profitability": 1.0,
+      "momentum": 14.7,
+      "stability": 4.8,
+      "risk": 0.6,
+      "consensus": 0.4,
+      "sentiment": 1.2
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 168.49,
+      "r1": 172.22,
+      "r2": 175.06,
+      "s1": 165.65,
+      "s2": 161.92
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 64.7,
+        "status": "bullish"
+      },
+      "volume": {
+        "pct_change": -22,
+        "status": "below_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 110.0,
+        "mean": 170.54167,
+        "high": 220.0
+      },
+      "recommendation": {
+        "score": 4.1,
+        "status": "Buy",
+        "yahoo_mean": 1.85185,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 20.11,
+        "pbr": -46.03,
+        "revenue_growth": 39.5,
+        "eps_growth": 57.3,
+        "roe": 0,
+        "operating_margin": 9.6,
+        "debt_ratio": 0,
+        "current_ratio": 0.91
+      },
+      "last_updated": "2026-04-02 21:08:07"
+    },
+    "financial_health": {
+      "per": 20.11,
+      "pbr": -46.03,
+      "revenue_growth": 39.5,
+      "eps_growth": 57.3,
+      "roe": 0,
+      "operating_margin": 9.6,
+      "debt_ratio": 0,
+      "current_ratio": 0.91
+    },
+    "calendar": {
+      "next_earnings": "2026-05-28",
+      "last_earnings_date": "2026-02-26",
+      "last_eps_est": 3.51,
+      "last_eps_act": 3.89,
+      "last_surprise": 10.74,
+      "ex_dividend_date": "2026-04-21",
+      "dividend_payment_date": "2026-05-01",
+      "dividend_amount": 0.525,
+      "dividend_ttm": 2.1,
+      "dividend_yield": 1.49
+    },
+    "related_peers": [
+      {
+        "ticker": "MU",
+        "change_pct": -0.44
+      },
+      {
+        "ticker": "NVDA",
+        "change_pct": 0.93
+      },
+      {
+        "ticker": "UBER",
+        "change_pct": 0.18
+      }
+    ],
+    "sector_rank": 33,
+    "similar_score_peers": [
+      {
+        "ticker": "VRTX",
+        "change_pct": -1.91
+      },
+      {
+        "ticker": "NEE",
+        "change_pct": 0.32
+      },
+      {
         "ticker": "HOLX",
         "change_pct": 0.07
       }
@@ -23065,8 +23192,8 @@
     "change_pct": 0.07,
     "market_cap": 16888477696,
     "final_score": 52.2,
-    "rank": 182,
-    "rank_change": -4,
+    "rank": 183,
+    "rank_change": -5,
     "tier": 3,
     "stats_bar": {
       "fundamentals": 48,
@@ -23166,139 +23293,12 @@
     "sector_rank": 24,
     "similar_score_peers": [
       {
-        "ticker": "VRTX",
-        "change_pct": -1.91
-      },
-      {
         "ticker": "NEE",
         "change_pct": 0.32
       },
       {
         "ticker": "DELL",
         "change_pct": 2.95
-      }
-    ]
-  },
-  {
-    "ticker": "DELL",
-    "name": "델 테크놀로지스",
-    "name_en": "Dell Technologies",
-    "exchange": "NYSE",
-    "sector": "기술",
-    "current_price": 174.37,
-    "change_pct": 2.95,
-    "market_cap": 115553181696,
-    "final_score": 52.2,
-    "rank": 183,
-    "rank_change": -18,
-    "tier": 3,
-    "stats_bar": {
-      "fundamentals": 46,
-      "value": 69,
-      "momentum": 73,
-      "stability": 96,
-      "risk": 12,
-      "consensus": 4,
-      "sentiment": 23
-    },
-    "score_breakdown": {
-      "value": 14.0,
-      "growth": 15.3,
-      "profitability": 1.0,
-      "momentum": 14.7,
-      "stability": 4.8,
-      "risk": 0.6,
-      "consensus": 0.4,
-      "sentiment": 1.2
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 168.49,
-      "r1": 172.22,
-      "r2": 175.06,
-      "s1": 165.65,
-      "s2": 161.92
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 64.7,
-        "status": "bullish"
-      },
-      "volume": {
-        "pct_change": -22,
-        "status": "below_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 110.0,
-        "mean": 170.54167,
-        "high": 220.0
-      },
-      "recommendation": {
-        "score": 4.1,
-        "status": "Buy",
-        "yahoo_mean": 1.85185,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 20.11,
-        "pbr": -46.03,
-        "revenue_growth": 39.5,
-        "eps_growth": 57.3,
-        "roe": 0,
-        "operating_margin": 9.6,
-        "debt_ratio": 0,
-        "current_ratio": 0.91
-      },
-      "last_updated": "2026-04-02 21:08:07"
-    },
-    "financial_health": {
-      "per": 20.11,
-      "pbr": -46.03,
-      "revenue_growth": 39.5,
-      "eps_growth": 57.3,
-      "roe": 0,
-      "operating_margin": 9.6,
-      "debt_ratio": 0,
-      "current_ratio": 0.91
-    },
-    "calendar": {
-      "next_earnings": "2026-05-28",
-      "last_earnings_date": "2026-02-26",
-      "last_eps_est": 3.51,
-      "last_eps_act": 3.89,
-      "last_surprise": 10.74,
-      "ex_dividend_date": "2026-04-21",
-      "dividend_payment_date": "2026-05-01",
-      "dividend_amount": 0.525,
-      "dividend_ttm": 2.1,
-      "dividend_yield": 1.49
-    },
-    "related_peers": [
-      {
-        "ticker": "MU",
-        "change_pct": -0.44
-      },
-      {
-        "ticker": "NVDA",
-        "change_pct": 0.93
-      },
-      {
-        "ticker": "UBER",
-        "change_pct": 0.18
-      }
-    ],
-    "sector_rank": 33,
-    "similar_score_peers": [
-      {
-        "ticker": "NEE",
-        "change_pct": 0.32
-      },
-      {
-        "ticker": "HOLX",
-        "change_pct": 0.07
       },
       {
         "ticker": "ITW",
@@ -23420,12 +23420,12 @@
     "sector_rank": 38,
     "similar_score_peers": [
       {
-        "ticker": "HOLX",
-        "change_pct": 0.07
-      },
-      {
         "ticker": "DELL",
         "change_pct": 2.95
+      },
+      {
+        "ticker": "HOLX",
+        "change_pct": 0.07
       },
       {
         "ticker": "COR",
@@ -23547,8 +23547,8 @@
     "sector_rank": 25,
     "similar_score_peers": [
       {
-        "ticker": "DELL",
-        "change_pct": 2.95
+        "ticker": "HOLX",
+        "change_pct": 0.07
       },
       {
         "ticker": "ITW",
@@ -24736,7 +24736,7 @@
       "stability": 0,
       "risk": 3,
       "consensus": 14,
-      "sentiment": 89
+      "sentiment": 88
     },
     "score_breakdown": {
       "value": 14.0,
@@ -24746,7 +24746,7 @@
       "stability": 0.0,
       "risk": 0.2,
       "consensus": 1.4,
-      "sentiment": 4.5
+      "sentiment": 4.4
     },
     "signals": [],
     "levels": {
@@ -24853,7 +24853,7 @@
       "stability": 42,
       "risk": 6,
       "consensus": 0,
-      "sentiment": 88
+      "sentiment": 89
     },
     "score_breakdown": {
       "value": 2.7,
@@ -24863,7 +24863,7 @@
       "stability": 2.1,
       "risk": 0.3,
       "consensus": 0.0,
-      "sentiment": 4.4
+      "sentiment": 4.5
     },
     "signals": [
       "MACD_GoldenCross"
@@ -27016,7 +27016,7 @@
       "stability": 56,
       "risk": 26,
       "consensus": 42,
-      "sentiment": 56
+      "sentiment": 57
     },
     "score_breakdown": {
       "value": 3.9,
@@ -27026,7 +27026,7 @@
       "stability": 2.8,
       "risk": 1.3,
       "consensus": 4.3,
-      "sentiment": 2.8
+      "sentiment": 2.9
     },
     "signals": [
       "MACD_GoldenCross"
@@ -29434,133 +29434,6 @@
         "change_pct": 2.11
       },
       {
-        "ticker": "STT",
-        "change_pct": 0.43
-      }
-    ]
-  },
-  {
-    "ticker": "STT",
-    "name": "스테이트 스트리트",
-    "name_en": "State Street",
-    "exchange": "NYSE",
-    "sector": "금융",
-    "current_price": 128.8,
-    "change_pct": 0.43,
-    "market_cap": 35975442432,
-    "final_score": 49.9,
-    "rank": 232,
-    "rank_change": 39,
-    "tier": 3,
-    "stats_bar": {
-      "fundamentals": 37,
-      "value": 57,
-      "momentum": 64,
-      "stability": 85,
-      "risk": 48,
-      "consensus": 31,
-      "sentiment": 52
-    },
-    "score_breakdown": {
-      "value": 11.4,
-      "growth": 7.4,
-      "profitability": 5.8,
-      "momentum": 12.9,
-      "stability": 4.3,
-      "risk": 2.4,
-      "consensus": 3.2,
-      "sentiment": 2.6
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 128.12,
-      "r1": 129.47,
-      "r2": 130.68,
-      "s1": 126.91,
-      "s2": 125.56
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 68.9,
-        "status": "bullish"
-      },
-      "volume": {
-        "pct_change": -20,
-        "status": "below_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 110.0,
-        "mean": 143.16667,
-        "high": 155.0
-      },
-      "recommendation": {
-        "score": 3.9,
-        "status": "Buy",
-        "yahoo_mean": 2.05882,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 13.7,
-        "pbr": 1.48,
-        "revenue_growth": -2.8,
-        "eps_growth": -24.1,
-        "roe": 11.1,
-        "operating_margin": 27.8,
-        "debt_ratio": 0,
-        "current_ratio": 0
-      },
-      "last_updated": "2026-04-02 21:18:17"
-    },
-    "financial_health": {
-      "per": 13.7,
-      "pbr": 1.48,
-      "revenue_growth": -2.8,
-      "eps_growth": -24.1,
-      "roe": 11.1,
-      "operating_margin": 27.8,
-      "debt_ratio": 0,
-      "current_ratio": 0
-    },
-    "calendar": {
-      "next_earnings": "2026-04-17",
-      "last_earnings_date": "2026-01-16",
-      "last_eps_est": 2.84,
-      "last_eps_act": 2.97,
-      "last_surprise": 4.75,
-      "ex_dividend_date": "2026-04-01",
-      "dividend_payment_date": "2026-04-13",
-      "dividend_amount": 0.84,
-      "dividend_ttm": 3.28,
-      "dividend_yield": 2.62
-    },
-    "related_peers": [
-      {
-        "ticker": "SYF",
-        "change_pct": 0.15
-      },
-      {
-        "ticker": "CINF",
-        "change_pct": 0.48
-      },
-      {
-        "ticker": "ALL",
-        "change_pct": 1.44
-      }
-    ],
-    "sector_rank": 26,
-    "similar_score_peers": [
-      {
-        "ticker": "CTSH",
-        "change_pct": 2.11
-      },
-      {
-        "ticker": "PCG",
-        "change_pct": 0.11
-      },
-      {
         "ticker": "ORCL",
         "change_pct": 0.79
       }
@@ -29576,8 +29449,8 @@
     "change_pct": 0.79,
     "market_cap": 420995629056,
     "final_score": 49.9,
-    "rank": 233,
-    "rank_change": -20,
+    "rank": 232,
+    "rank_change": -19,
     "tier": 3,
     "stats_bar": {
       "fundamentals": 69,
@@ -29680,12 +29553,139 @@
     "sector_rank": 40,
     "similar_score_peers": [
       {
+        "ticker": "CTSH",
+        "change_pct": 2.11
+      },
+      {
         "ticker": "PCG",
         "change_pct": 0.11
       },
       {
         "ticker": "STT",
         "change_pct": 0.43
+      }
+    ]
+  },
+  {
+    "ticker": "STT",
+    "name": "스테이트 스트리트",
+    "name_en": "State Street",
+    "exchange": "NYSE",
+    "sector": "금융",
+    "current_price": 128.8,
+    "change_pct": 0.43,
+    "market_cap": 35975442432,
+    "final_score": 49.9,
+    "rank": 233,
+    "rank_change": 38,
+    "tier": 3,
+    "stats_bar": {
+      "fundamentals": 37,
+      "value": 57,
+      "momentum": 64,
+      "stability": 85,
+      "risk": 48,
+      "consensus": 31,
+      "sentiment": 52
+    },
+    "score_breakdown": {
+      "value": 11.4,
+      "growth": 7.4,
+      "profitability": 5.8,
+      "momentum": 12.9,
+      "stability": 4.3,
+      "risk": 2.4,
+      "consensus": 3.2,
+      "sentiment": 2.6
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 128.12,
+      "r1": 129.47,
+      "r2": 130.68,
+      "s1": 126.91,
+      "s2": 125.56
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 68.9,
+        "status": "bullish"
+      },
+      "volume": {
+        "pct_change": -20,
+        "status": "below_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 110.0,
+        "mean": 143.16667,
+        "high": 155.0
+      },
+      "recommendation": {
+        "score": 3.9,
+        "status": "Buy",
+        "yahoo_mean": 2.05882,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 13.7,
+        "pbr": 1.48,
+        "revenue_growth": -2.8,
+        "eps_growth": -24.1,
+        "roe": 11.1,
+        "operating_margin": 27.8,
+        "debt_ratio": 0,
+        "current_ratio": 0
+      },
+      "last_updated": "2026-04-02 21:18:17"
+    },
+    "financial_health": {
+      "per": 13.7,
+      "pbr": 1.48,
+      "revenue_growth": -2.8,
+      "eps_growth": -24.1,
+      "roe": 11.1,
+      "operating_margin": 27.8,
+      "debt_ratio": 0,
+      "current_ratio": 0
+    },
+    "calendar": {
+      "next_earnings": "2026-04-17",
+      "last_earnings_date": "2026-01-16",
+      "last_eps_est": 2.84,
+      "last_eps_act": 2.97,
+      "last_surprise": 4.75,
+      "ex_dividend_date": "2026-04-01",
+      "dividend_payment_date": "2026-04-13",
+      "dividend_amount": 0.84,
+      "dividend_ttm": 3.28,
+      "dividend_yield": 2.62
+    },
+    "related_peers": [
+      {
+        "ticker": "SYF",
+        "change_pct": 0.15
+      },
+      {
+        "ticker": "CINF",
+        "change_pct": 0.48
+      },
+      {
+        "ticker": "ALL",
+        "change_pct": 1.44
+      }
+    ],
+    "sector_rank": 26,
+    "similar_score_peers": [
+      {
+        "ticker": "PCG",
+        "change_pct": 0.11
+      },
+      {
+        "ticker": "ORCL",
+        "change_pct": 0.79
       },
       {
         "ticker": "COST",
@@ -29807,12 +29807,12 @@
     "sector_rank": 14,
     "similar_score_peers": [
       {
-        "ticker": "STT",
-        "change_pct": 0.43
-      },
-      {
         "ticker": "ORCL",
         "change_pct": 0.79
+      },
+      {
+        "ticker": "STT",
+        "change_pct": 0.43
       },
       {
         "ticker": "ABNB",
@@ -29829,7 +29829,7 @@
     "current_price": 124.95,
     "change_pct": -0.19,
     "market_cap": 74909270016,
-    "final_score": 49.9,
+    "final_score": 49.8,
     "rank": 235,
     "rank_change": -13,
     "tier": 3,
@@ -29929,8 +29929,8 @@
     "sector_rank": 22,
     "similar_score_peers": [
       {
-        "ticker": "ORCL",
-        "change_pct": 0.79
+        "ticker": "STT",
+        "change_pct": 0.43
       },
       {
         "ticker": "COST",
@@ -30323,133 +30323,6 @@
         "change_pct": -1.38
       },
       {
-        "ticker": "NWSA",
-        "change_pct": -1.25
-      }
-    ]
-  },
-  {
-    "ticker": "NWSA",
-    "name": "뉴스 코퍼레이션 A",
-    "name_en": "News Corp Class A",
-    "exchange": "NASDAQ",
-    "sector": "커뮤니케이션",
-    "current_price": 24.4,
-    "change_pct": -1.25,
-    "market_cap": 14045355008,
-    "final_score": 49.6,
-    "rank": 239,
-    "rank_change": -4,
-    "tier": 3,
-    "stats_bar": {
-      "fundamentals": 41,
-      "value": 57,
-      "momentum": 17,
-      "stability": 80,
-      "risk": 52,
-      "consensus": 90,
-      "sentiment": 90
-    },
-    "score_breakdown": {
-      "value": 11.5,
-      "growth": 10.0,
-      "profitability": 4.5,
-      "momentum": 3.5,
-      "stability": 4.0,
-      "risk": 2.6,
-      "consensus": 9.1,
-      "sentiment": 4.5
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 24.88,
-      "r1": 25.26,
-      "r2": 25.81,
-      "s1": 24.33,
-      "s2": 23.95
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 60.9,
-        "status": "bullish"
-      },
-      "volume": {
-        "pct_change": 8,
-        "status": "above_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 27.0,
-        "mean": 34.05,
-        "high": 41.0
-      },
-      "recommendation": {
-        "score": 4.2,
-        "status": "Buy",
-        "yahoo_mean": 1.75,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 31.69,
-        "pbr": 1.55,
-        "revenue_growth": 5.5,
-        "eps_growth": -9.9,
-        "roe": 6.3,
-        "operating_margin": 17.1,
-        "debt_ratio": 30.9,
-        "current_ratio": 1.81
-      },
-      "last_updated": "2026-04-02 21:15:35"
-    },
-    "financial_health": {
-      "per": 31.69,
-      "pbr": 1.55,
-      "revenue_growth": 5.5,
-      "eps_growth": -9.9,
-      "roe": 6.3,
-      "operating_margin": 17.1,
-      "debt_ratio": 30.9,
-      "current_ratio": 1.81
-    },
-    "calendar": {
-      "next_earnings": "2026-05-07",
-      "last_earnings_date": "2026-02-05",
-      "last_eps_est": 0.37,
-      "last_eps_act": 0.4,
-      "last_surprise": 6.92,
-      "ex_dividend_date": "2026-03-11",
-      "dividend_payment_date": "2026-04-08",
-      "dividend_amount": 0.1,
-      "dividend_ttm": 0.2,
-      "dividend_yield": 0.81
-    },
-    "related_peers": [
-      {
-        "ticker": "GOOGL",
-        "change_pct": -0.54
-      },
-      {
-        "ticker": "GOOG",
-        "change_pct": -0.15
-      },
-      {
-        "ticker": "META",
-        "change_pct": -0.82
-      }
-    ],
-    "sector_rank": 10,
-    "similar_score_peers": [
-      {
-        "ticker": "KVUE",
-        "change_pct": -1.38
-      },
-      {
-        "ticker": "PLD",
-        "change_pct": 0.33
-      },
-      {
         "ticker": "MA",
         "change_pct": 0.36
       }
@@ -30465,8 +30338,8 @@
     "change_pct": 0.36,
     "market_cap": 440364466176,
     "final_score": 49.6,
-    "rank": 240,
-    "rank_change": 10,
+    "rank": 239,
+    "rank_change": 11,
     "tier": 3,
     "stats_bar": {
       "fundamentals": 82,
@@ -30569,12 +30442,139 @@
     "sector_rank": 27,
     "similar_score_peers": [
       {
+        "ticker": "KVUE",
+        "change_pct": -1.38
+      },
+      {
         "ticker": "PLD",
         "change_pct": 0.33
       },
       {
         "ticker": "NWSA",
         "change_pct": -1.25
+      }
+    ]
+  },
+  {
+    "ticker": "NWSA",
+    "name": "뉴스 코퍼레이션 A",
+    "name_en": "News Corp Class A",
+    "exchange": "NASDAQ",
+    "sector": "커뮤니케이션",
+    "current_price": 24.4,
+    "change_pct": -1.25,
+    "market_cap": 14045355008,
+    "final_score": 49.6,
+    "rank": 240,
+    "rank_change": -5,
+    "tier": 3,
+    "stats_bar": {
+      "fundamentals": 41,
+      "value": 57,
+      "momentum": 17,
+      "stability": 80,
+      "risk": 52,
+      "consensus": 90,
+      "sentiment": 90
+    },
+    "score_breakdown": {
+      "value": 11.5,
+      "growth": 10.0,
+      "profitability": 4.5,
+      "momentum": 3.5,
+      "stability": 4.0,
+      "risk": 2.6,
+      "consensus": 9.1,
+      "sentiment": 4.5
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 24.88,
+      "r1": 25.26,
+      "r2": 25.81,
+      "s1": 24.33,
+      "s2": 23.95
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 60.9,
+        "status": "bullish"
+      },
+      "volume": {
+        "pct_change": 8,
+        "status": "above_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 27.0,
+        "mean": 34.05,
+        "high": 41.0
+      },
+      "recommendation": {
+        "score": 4.2,
+        "status": "Buy",
+        "yahoo_mean": 1.75,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 31.69,
+        "pbr": 1.55,
+        "revenue_growth": 5.5,
+        "eps_growth": -9.9,
+        "roe": 6.3,
+        "operating_margin": 17.1,
+        "debt_ratio": 30.9,
+        "current_ratio": 1.81
+      },
+      "last_updated": "2026-04-02 21:15:35"
+    },
+    "financial_health": {
+      "per": 31.69,
+      "pbr": 1.55,
+      "revenue_growth": 5.5,
+      "eps_growth": -9.9,
+      "roe": 6.3,
+      "operating_margin": 17.1,
+      "debt_ratio": 30.9,
+      "current_ratio": 1.81
+    },
+    "calendar": {
+      "next_earnings": "2026-05-07",
+      "last_earnings_date": "2026-02-05",
+      "last_eps_est": 0.37,
+      "last_eps_act": 0.4,
+      "last_surprise": 6.92,
+      "ex_dividend_date": "2026-03-11",
+      "dividend_payment_date": "2026-04-08",
+      "dividend_amount": 0.1,
+      "dividend_ttm": 0.2,
+      "dividend_yield": 0.81
+    },
+    "related_peers": [
+      {
+        "ticker": "GOOGL",
+        "change_pct": -0.54
+      },
+      {
+        "ticker": "GOOG",
+        "change_pct": -0.15
+      },
+      {
+        "ticker": "META",
+        "change_pct": -0.82
+      }
+    ],
+    "sector_rank": 10,
+    "similar_score_peers": [
+      {
+        "ticker": "PLD",
+        "change_pct": 0.33
+      },
+      {
+        "ticker": "MA",
+        "change_pct": 0.36
       },
       {
         "ticker": "NXPI",
@@ -30691,12 +30691,12 @@
     "sector_rank": 42,
     "similar_score_peers": [
       {
-        "ticker": "NWSA",
-        "change_pct": -1.25
-      },
-      {
         "ticker": "MA",
         "change_pct": 0.36
+      },
+      {
+        "ticker": "NWSA",
+        "change_pct": -1.25
       },
       {
         "ticker": "RF",
@@ -30828,8 +30828,8 @@
     "sector_rank": 28,
     "similar_score_peers": [
       {
-        "ticker": "MA",
-        "change_pct": 0.36
+        "ticker": "NWSA",
+        "change_pct": -1.25
       },
       {
         "ticker": "NXPI",
@@ -31100,7 +31100,7 @@
     "sector": "필수소비재",
     "current_price": 143.12,
     "change_pct": -0.67,
-    "market_cap": 334970257408,
+    "market_cap": 334433288192,
     "final_score": 49.6,
     "rank": 245,
     "rank_change": -16,
@@ -32652,128 +32652,6 @@
     ]
   },
   {
-    "ticker": "LH",
-    "name": "랩코프 홀딩스",
-    "name_en": "Labcorp",
-    "exchange": "NYSE",
-    "sector": "헬스케어",
-    "current_price": 273.72,
-    "change_pct": 0.36,
-    "market_cap": 22691387392,
-    "final_score": 49.0,
-    "rank": 256,
-    "rank_change": -23,
-    "tier": 4,
-    "stats_bar": {
-      "fundamentals": 40,
-      "value": 58,
-      "momentum": 58,
-      "stability": 35,
-      "risk": 84,
-      "consensus": 34,
-      "sentiment": 39
-    },
-    "score_breakdown": {
-      "value": 11.6,
-      "growth": 9.3,
-      "profitability": 5.0,
-      "momentum": 11.7,
-      "stability": 1.8,
-      "risk": 4.2,
-      "consensus": 3.4,
-      "sentiment": 2.0
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 270.52,
-      "r1": 275.75,
-      "r2": 278.75,
-      "s1": 267.52,
-      "s2": 262.29
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 64.2,
-        "status": "bullish"
-      },
-      "volume": {
-        "pct_change": 27,
-        "status": "above_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 260.0,
-        "mean": 307.70587,
-        "high": 342.0
-      },
-      "recommendation": null,
-      "financial_health": {
-        "per": 26.14,
-        "pbr": 2.61,
-        "revenue_growth": 5.6,
-        "eps_growth": 15.7,
-        "roe": 10.5,
-        "operating_margin": 10.6,
-        "debt_ratio": 75.6,
-        "current_ratio": 1.42
-      },
-      "last_updated": "2026-04-02 21:13:17"
-    },
-    "financial_health": {
-      "per": 26.14,
-      "pbr": 2.61,
-      "revenue_growth": 5.6,
-      "eps_growth": 15.7,
-      "roe": 10.5,
-      "operating_margin": 10.6,
-      "debt_ratio": 75.6,
-      "current_ratio": 1.42
-    },
-    "calendar": {
-      "next_earnings": "2026-04-30",
-      "last_earnings_date": "2026-02-17",
-      "last_eps_est": 3.94,
-      "last_eps_act": 4.07,
-      "last_surprise": 3.25,
-      "ex_dividend_date": "2026-02-27",
-      "dividend_payment_date": "2026-03-12",
-      "dividend_amount": 0.72,
-      "dividend_ttm": 2.88,
-      "dividend_yield": 1.06
-    },
-    "related_peers": [
-      {
-        "ticker": "INCY",
-        "change_pct": 1.73
-      },
-      {
-        "ticker": "JNJ",
-        "change_pct": -0.44
-      },
-      {
-        "ticker": "UHS",
-        "change_pct": -0.7
-      }
-    ],
-    "sector_rank": 33,
-    "similar_score_peers": [
-      {
-        "ticker": "IBM",
-        "change_pct": 2.06
-      },
-      {
-        "ticker": "PSA",
-        "change_pct": 1.49
-      },
-      {
-        "ticker": "LH",
-        "change_pct": 0.36
-      }
-    ]
-  },
-  {
     "ticker": "F",
     "name": "포드",
     "name_en": "Ford Motor",
@@ -32783,8 +32661,8 @@
     "change_pct": -0.68,
     "market_cap": 46528557056,
     "final_score": 49.0,
-    "rank": 257,
-    "rank_change": -14,
+    "rank": 256,
+    "rank_change": -13,
     "tier": 4,
     "stats_bar": {
       "fundamentals": 38,
@@ -32887,6 +32765,128 @@
     "sector_rank": 27,
     "similar_score_peers": [
       {
+        "ticker": "IBM",
+        "change_pct": 2.06
+      },
+      {
+        "ticker": "PSA",
+        "change_pct": 1.49
+      },
+      {
+        "ticker": "F",
+        "change_pct": -0.68
+      }
+    ]
+  },
+  {
+    "ticker": "LH",
+    "name": "랩코프 홀딩스",
+    "name_en": "Labcorp",
+    "exchange": "NYSE",
+    "sector": "헬스케어",
+    "current_price": 273.72,
+    "change_pct": 0.36,
+    "market_cap": 22691387392,
+    "final_score": 49.0,
+    "rank": 257,
+    "rank_change": -24,
+    "tier": 4,
+    "stats_bar": {
+      "fundamentals": 40,
+      "value": 58,
+      "momentum": 58,
+      "stability": 35,
+      "risk": 84,
+      "consensus": 34,
+      "sentiment": 39
+    },
+    "score_breakdown": {
+      "value": 11.6,
+      "growth": 9.3,
+      "profitability": 5.0,
+      "momentum": 11.7,
+      "stability": 1.8,
+      "risk": 4.2,
+      "consensus": 3.4,
+      "sentiment": 2.0
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 270.52,
+      "r1": 275.75,
+      "r2": 278.75,
+      "s1": 267.52,
+      "s2": 262.29
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 64.2,
+        "status": "bullish"
+      },
+      "volume": {
+        "pct_change": 27,
+        "status": "above_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 260.0,
+        "mean": 307.70587,
+        "high": 342.0
+      },
+      "recommendation": null,
+      "financial_health": {
+        "per": 26.14,
+        "pbr": 2.61,
+        "revenue_growth": 5.6,
+        "eps_growth": 15.7,
+        "roe": 10.5,
+        "operating_margin": 10.6,
+        "debt_ratio": 75.6,
+        "current_ratio": 1.42
+      },
+      "last_updated": "2026-04-02 21:13:17"
+    },
+    "financial_health": {
+      "per": 26.14,
+      "pbr": 2.61,
+      "revenue_growth": 5.6,
+      "eps_growth": 15.7,
+      "roe": 10.5,
+      "operating_margin": 10.6,
+      "debt_ratio": 75.6,
+      "current_ratio": 1.42
+    },
+    "calendar": {
+      "next_earnings": "2026-04-30",
+      "last_earnings_date": "2026-02-17",
+      "last_eps_est": 3.94,
+      "last_eps_act": 4.07,
+      "last_surprise": 3.25,
+      "ex_dividend_date": "2026-02-27",
+      "dividend_payment_date": "2026-03-12",
+      "dividend_amount": 0.72,
+      "dividend_ttm": 2.88,
+      "dividend_yield": 1.06
+    },
+    "related_peers": [
+      {
+        "ticker": "INCY",
+        "change_pct": 1.73
+      },
+      {
+        "ticker": "JNJ",
+        "change_pct": -0.44
+      },
+      {
+        "ticker": "UHS",
+        "change_pct": -0.7
+      }
+    ],
+    "sector_rank": 33,
+    "similar_score_peers": [
+      {
         "ticker": "PSA",
         "change_pct": 1.49
       },
@@ -32895,8 +32895,8 @@
         "change_pct": 0.06
       },
       {
-        "ticker": "F",
-        "change_pct": -0.68
+        "ticker": "LH",
+        "change_pct": 0.36
       }
     ]
   },
@@ -33022,8 +33022,8 @@
         "change_pct": 0.06
       },
       {
-        "ticker": "F",
-        "change_pct": -0.68
+        "ticker": "LH",
+        "change_pct": 0.36
       }
     ],
     "volume_profile": {
@@ -33158,8 +33158,8 @@
         "change_pct": 0.06
       },
       {
-        "ticker": "LH",
-        "change_pct": 0.36
+        "ticker": "F",
+        "change_pct": -0.68
       },
       {
         "ticker": "MTCH",
@@ -33278,12 +33278,12 @@
     "sector_rank": 13,
     "similar_score_peers": [
       {
-        "ticker": "LH",
-        "change_pct": 0.36
-      },
-      {
         "ticker": "F",
         "change_pct": -0.68
+      },
+      {
+        "ticker": "LH",
+        "change_pct": 0.36
       },
       {
         "ticker": "T",
@@ -33400,8 +33400,8 @@
     "sector_rank": 30,
     "similar_score_peers": [
       {
-        "ticker": "F",
-        "change_pct": -0.68
+        "ticker": "LH",
+        "change_pct": 0.36
       },
       {
         "ticker": "MTCH",
@@ -36353,135 +36353,6 @@
     ]
   },
   {
-    "ticker": "CMS",
-    "name": "CMS 에너지",
-    "name_en": "CMS Energy",
-    "exchange": "NYSE",
-    "sector": "유틸리티",
-    "current_price": 78.58,
-    "change_pct": 0.85,
-    "market_cap": 24202377216,
-    "final_score": 47.3,
-    "rank": 284,
-    "rank_change": 35,
-    "tier": 4,
-    "stats_bar": {
-      "fundamentals": 52,
-      "value": 53,
-      "momentum": 49,
-      "stability": 22,
-      "risk": 83,
-      "consensus": 8,
-      "sentiment": 46
-    },
-    "score_breakdown": {
-      "value": 10.7,
-      "growth": 11.2,
-      "profitability": 7.0,
-      "momentum": 9.9,
-      "stability": 1.1,
-      "risk": 4.2,
-      "consensus": 0.8,
-      "sentiment": 2.3
-    },
-    "signals": [
-      "MACD_GoldenCross"
-    ],
-    "levels": {
-      "pivot": 77.71,
-      "r1": 78.36,
-      "r2": 78.79,
-      "s1": 77.28,
-      "s2": 76.63
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 54.3,
-        "status": "bullish"
-      },
-      "volume": {
-        "pct_change": 22,
-        "status": "above_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 66.0,
-        "mean": 79.61538,
-        "high": 87.0
-      },
-      "recommendation": {
-        "score": 3.8,
-        "status": "Buy",
-        "yahoo_mean": 2.25,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 22.32,
-        "pbr": 2.7,
-        "revenue_growth": 12.3,
-        "eps_growth": 6.6,
-        "roe": 10.9,
-        "operating_margin": 21.7,
-        "debt_ratio": 194.9,
-        "current_ratio": 0.98
-      },
-      "last_updated": "2026-04-02 21:06:52"
-    },
-    "financial_health": {
-      "per": 22.32,
-      "pbr": 2.7,
-      "revenue_growth": 12.3,
-      "eps_growth": 6.6,
-      "roe": 10.9,
-      "operating_margin": 21.7,
-      "debt_ratio": 194.9,
-      "current_ratio": 0.98
-    },
-    "calendar": {
-      "next_earnings": "2026-04-23",
-      "last_earnings_date": "2026-02-05",
-      "last_eps_est": 0.94,
-      "last_eps_act": 0.95,
-      "last_surprise": 1.49,
-      "ex_dividend_date": "2026-02-17",
-      "dividend_payment_date": "2026-02-27",
-      "dividend_amount": 0.57,
-      "dividend_ttm": 2.199,
-      "dividend_yield": 2.93
-    },
-    "related_peers": [
-      {
-        "ticker": "EIX",
-        "change_pct": -0.16
-      },
-      {
-        "ticker": "PEG",
-        "change_pct": 0.73
-      },
-      {
-        "ticker": "ED",
-        "change_pct": 1.33
-      }
-    ],
-    "sector_rank": 16,
-    "similar_score_peers": [
-      {
-        "ticker": "TMUS",
-        "change_pct": -1.4
-      },
-      {
-        "ticker": "TTD",
-        "change_pct": 0.32
-      },
-      {
-        "ticker": "LII",
-        "change_pct": -2.19
-      }
-    ]
-  },
-  {
     "ticker": "STX",
     "name": "씨게이트 테크놀로지",
     "name_en": "Seagate",
@@ -36490,9 +36361,9 @@
     "current_price": 429.36,
     "change_pct": 1.47,
     "market_cap": 96187531264,
-    "final_score": 47.2,
-    "rank": 285,
-    "rank_change": -17,
+    "final_score": 47.3,
+    "rank": 284,
+    "rank_change": -16,
     "tier": 4,
     "stats_bar": {
       "fundamentals": 54,
@@ -36597,6 +36468,135 @@
     "sector_rank": 47,
     "similar_score_peers": [
       {
+        "ticker": "TMUS",
+        "change_pct": -1.4
+      },
+      {
+        "ticker": "TTD",
+        "change_pct": 0.32
+      },
+      {
+        "ticker": "LII",
+        "change_pct": -2.19
+      }
+    ]
+  },
+  {
+    "ticker": "CMS",
+    "name": "CMS 에너지",
+    "name_en": "CMS Energy",
+    "exchange": "NYSE",
+    "sector": "유틸리티",
+    "current_price": 78.58,
+    "change_pct": 0.85,
+    "market_cap": 24202377216,
+    "final_score": 47.3,
+    "rank": 285,
+    "rank_change": 34,
+    "tier": 4,
+    "stats_bar": {
+      "fundamentals": 52,
+      "value": 53,
+      "momentum": 49,
+      "stability": 22,
+      "risk": 83,
+      "consensus": 8,
+      "sentiment": 46
+    },
+    "score_breakdown": {
+      "value": 10.7,
+      "growth": 11.2,
+      "profitability": 7.0,
+      "momentum": 9.9,
+      "stability": 1.1,
+      "risk": 4.2,
+      "consensus": 0.8,
+      "sentiment": 2.3
+    },
+    "signals": [
+      "MACD_GoldenCross"
+    ],
+    "levels": {
+      "pivot": 77.71,
+      "r1": 78.36,
+      "r2": 78.79,
+      "s1": 77.28,
+      "s2": 76.63
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 54.3,
+        "status": "bullish"
+      },
+      "volume": {
+        "pct_change": 22,
+        "status": "above_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 66.0,
+        "mean": 79.61538,
+        "high": 87.0
+      },
+      "recommendation": {
+        "score": 3.8,
+        "status": "Buy",
+        "yahoo_mean": 2.25,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 22.32,
+        "pbr": 2.7,
+        "revenue_growth": 12.3,
+        "eps_growth": 6.6,
+        "roe": 10.9,
+        "operating_margin": 21.7,
+        "debt_ratio": 194.9,
+        "current_ratio": 0.98
+      },
+      "last_updated": "2026-04-02 21:06:52"
+    },
+    "financial_health": {
+      "per": 22.32,
+      "pbr": 2.7,
+      "revenue_growth": 12.3,
+      "eps_growth": 6.6,
+      "roe": 10.9,
+      "operating_margin": 21.7,
+      "debt_ratio": 194.9,
+      "current_ratio": 0.98
+    },
+    "calendar": {
+      "next_earnings": "2026-04-23",
+      "last_earnings_date": "2026-02-05",
+      "last_eps_est": 0.94,
+      "last_eps_act": 0.95,
+      "last_surprise": 1.49,
+      "ex_dividend_date": "2026-02-17",
+      "dividend_payment_date": "2026-02-27",
+      "dividend_amount": 0.57,
+      "dividend_ttm": 2.199,
+      "dividend_yield": 2.93
+    },
+    "related_peers": [
+      {
+        "ticker": "EIX",
+        "change_pct": -0.16
+      },
+      {
+        "ticker": "PEG",
+        "change_pct": 0.73
+      },
+      {
+        "ticker": "ED",
+        "change_pct": 1.33
+      }
+    ],
+    "sector_rank": 16,
+    "similar_score_peers": [
+      {
         "ticker": "TTD",
         "change_pct": 0.32
       },
@@ -36605,8 +36605,8 @@
         "change_pct": 0.33
       },
       {
-        "ticker": "CMS",
-        "change_pct": 0.85
+        "ticker": "STX",
+        "change_pct": 1.47
       }
     ]
   },
@@ -36732,8 +36732,8 @@
         "change_pct": -2.19
       },
       {
-        "ticker": "STX",
-        "change_pct": 1.47
+        "ticker": "CMS",
+        "change_pct": 0.85
       }
     ]
   },
@@ -36863,8 +36863,8 @@
         "change_pct": -2.19
       },
       {
-        "ticker": "CMS",
-        "change_pct": 0.85
+        "ticker": "STX",
+        "change_pct": 1.47
       },
       {
         "ticker": "MCO",
@@ -36994,12 +36994,12 @@
     "sector_rank": 14,
     "similar_score_peers": [
       {
-        "ticker": "CMS",
-        "change_pct": 0.85
-      },
-      {
         "ticker": "STX",
         "change_pct": 1.47
+      },
+      {
+        "ticker": "CMS",
+        "change_pct": 0.85
       },
       {
         "ticker": "ACN",
@@ -37123,8 +37123,8 @@
     "sector_rank": 17,
     "similar_score_peers": [
       {
-        "ticker": "STX",
-        "change_pct": 1.47
+        "ticker": "CMS",
+        "change_pct": 0.85
       },
       {
         "ticker": "MCO",
@@ -38176,7 +38176,7 @@
       "stability": 50,
       "risk": 18,
       "consensus": 1,
-      "sentiment": 41
+      "sentiment": 40
     },
     "score_breakdown": {
       "value": 6.9,
@@ -38186,7 +38186,7 @@
       "stability": 2.5,
       "risk": 0.9,
       "consensus": 0.2,
-      "sentiment": 2.1
+      "sentiment": 2.0
     },
     "signals": [],
     "levels": {
@@ -40706,133 +40706,6 @@
     ]
   },
   {
-    "ticker": "WM",
-    "name": "웨이스트 매니지먼트",
-    "name_en": "Waste Management",
-    "exchange": "NYSE",
-    "sector": "산업재",
-    "current_price": 235.42,
-    "change_pct": 1.91,
-    "market_cap": 94953308160,
-    "final_score": 46.0,
-    "rank": 318,
-    "rank_change": 9,
-    "tier": 4,
-    "stats_bar": {
-      "fundamentals": 54,
-      "value": 40,
-      "momentum": 50,
-      "stability": 9,
-      "risk": 95,
-      "consensus": 22,
-      "sentiment": 24
-    },
-    "score_breakdown": {
-      "value": 8.2,
-      "growth": 9.8,
-      "profitability": 9.2,
-      "momentum": 10.2,
-      "stability": 0.5,
-      "risk": 4.8,
-      "consensus": 2.2,
-      "sentiment": 1.2
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 230.74,
-      "r1": 232.75,
-      "r2": 234.5,
-      "s1": 228.99,
-      "s2": 226.98
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 44.4,
-        "status": "bearish"
-      },
-      "volume": {
-        "pct_change": -7,
-        "status": "below_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 210.0,
-        "mean": 254.04,
-        "high": 285.0
-      },
-      "recommendation": {
-        "score": 4.2,
-        "status": "Buy",
-        "yahoo_mean": 1.78571,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 35.14,
-        "pbr": 9.5,
-        "revenue_growth": 7.1,
-        "eps_growth": 23.6,
-        "roe": 29.7,
-        "operating_margin": 20.0,
-        "debt_ratio": 239.4,
-        "current_ratio": 0.89
-      },
-      "last_updated": "2026-04-02 21:20:44"
-    },
-    "financial_health": {
-      "per": 35.14,
-      "pbr": 9.5,
-      "revenue_growth": 7.1,
-      "eps_growth": 23.6,
-      "roe": 29.7,
-      "operating_margin": 20.0,
-      "debt_ratio": 239.4,
-      "current_ratio": 0.89
-    },
-    "calendar": {
-      "next_earnings": "2026-04-28",
-      "last_earnings_date": "2026-01-28",
-      "last_eps_est": 1.93,
-      "last_eps_act": 1.83,
-      "last_surprise": -5.0,
-      "ex_dividend_date": "2026-03-13",
-      "dividend_payment_date": "2026-03-27",
-      "dividend_amount": 0.945,
-      "dividend_ttm": 3.4199999999999995,
-      "dividend_yield": 1.48
-    },
-    "related_peers": [
-      {
-        "ticker": "EME",
-        "change_pct": -0.43
-      },
-      {
-        "ticker": "DAL",
-        "change_pct": -1.24
-      },
-      {
-        "ticker": "AOS",
-        "change_pct": -1.12
-      }
-    ],
-    "sector_rank": 54,
-    "similar_score_peers": [
-      {
-        "ticker": "A",
-        "change_pct": 0.82
-      },
-      {
-        "ticker": "GPN",
-        "change_pct": -2.0
-      },
-      {
-        "ticker": "AVB",
-        "change_pct": 0.68
-      }
-    ]
-  },
-  {
     "ticker": "BSX",
     "name": "보스턴 사이언티픽",
     "name_en": "Boston Scientific",
@@ -40842,8 +40715,8 @@
     "change_pct": 1.32,
     "market_cap": 93361520640,
     "final_score": 46.0,
-    "rank": 319,
-    "rank_change": 10,
+    "rank": 318,
+    "rank_change": 11,
     "tier": 4,
     "stats_bar": {
       "fundamentals": 62,
@@ -40941,12 +40814,265 @@
     "sector_rank": 40,
     "similar_score_peers": [
       {
+        "ticker": "A",
+        "change_pct": 0.82
+      },
+      {
+        "ticker": "GPN",
+        "change_pct": -2.0
+      },
+      {
+        "ticker": "AVB",
+        "change_pct": 0.68
+      }
+    ]
+  },
+  {
+    "ticker": "WM",
+    "name": "웨이스트 매니지먼트",
+    "name_en": "Waste Management",
+    "exchange": "NYSE",
+    "sector": "산업재",
+    "current_price": 235.42,
+    "change_pct": 1.91,
+    "market_cap": 94953308160,
+    "final_score": 46.0,
+    "rank": 319,
+    "rank_change": 8,
+    "tier": 4,
+    "stats_bar": {
+      "fundamentals": 54,
+      "value": 40,
+      "momentum": 50,
+      "stability": 9,
+      "risk": 95,
+      "consensus": 22,
+      "sentiment": 23
+    },
+    "score_breakdown": {
+      "value": 8.2,
+      "growth": 9.8,
+      "profitability": 9.2,
+      "momentum": 10.2,
+      "stability": 0.5,
+      "risk": 4.8,
+      "consensus": 2.2,
+      "sentiment": 1.2
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 230.74,
+      "r1": 232.75,
+      "r2": 234.5,
+      "s1": 228.99,
+      "s2": 226.98
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 44.4,
+        "status": "bearish"
+      },
+      "volume": {
+        "pct_change": -7,
+        "status": "below_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 210.0,
+        "mean": 254.04,
+        "high": 285.0
+      },
+      "recommendation": {
+        "score": 4.2,
+        "status": "Buy",
+        "yahoo_mean": 1.78571,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 35.14,
+        "pbr": 9.5,
+        "revenue_growth": 7.1,
+        "eps_growth": 23.6,
+        "roe": 29.7,
+        "operating_margin": 20.0,
+        "debt_ratio": 239.4,
+        "current_ratio": 0.89
+      },
+      "last_updated": "2026-04-02 21:20:44"
+    },
+    "financial_health": {
+      "per": 35.14,
+      "pbr": 9.5,
+      "revenue_growth": 7.1,
+      "eps_growth": 23.6,
+      "roe": 29.7,
+      "operating_margin": 20.0,
+      "debt_ratio": 239.4,
+      "current_ratio": 0.89
+    },
+    "calendar": {
+      "next_earnings": "2026-04-28",
+      "last_earnings_date": "2026-01-28",
+      "last_eps_est": 1.93,
+      "last_eps_act": 1.83,
+      "last_surprise": -5.0,
+      "ex_dividend_date": "2026-03-13",
+      "dividend_payment_date": "2026-03-27",
+      "dividend_amount": 0.945,
+      "dividend_ttm": 3.4199999999999995,
+      "dividend_yield": 1.48
+    },
+    "related_peers": [
+      {
+        "ticker": "EME",
+        "change_pct": -0.43
+      },
+      {
+        "ticker": "DAL",
+        "change_pct": -1.24
+      },
+      {
+        "ticker": "AOS",
+        "change_pct": -1.12
+      }
+    ],
+    "sector_rank": 54,
+    "similar_score_peers": [
+      {
         "ticker": "GPN",
         "change_pct": -2.0
       },
       {
         "ticker": "ADSK",
         "change_pct": 0.09
+      },
+      {
+        "ticker": "BSX",
+        "change_pct": 1.32
+      }
+    ]
+  },
+  {
+    "ticker": "MGM",
+    "name": "MGM 리조트 인터내셔널",
+    "name_en": "MGM Resorts",
+    "exchange": "NYSE",
+    "sector": "임의소비재",
+    "current_price": 36.68,
+    "change_pct": -0.27,
+    "market_cap": 10032216064,
+    "final_score": 46.0,
+    "rank": 320,
+    "rank_change": 1,
+    "tier": 4,
+    "stats_bar": {
+      "fundamentals": 51,
+      "value": 47,
+      "momentum": 54,
+      "stability": 0,
+      "risk": 13,
+      "consensus": 47,
+      "sentiment": 41
+    },
+    "score_breakdown": {
+      "value": 9.5,
+      "growth": 14.4,
+      "profitability": 3.6,
+      "momentum": 11.0,
+      "stability": 0.0,
+      "risk": 0.7,
+      "consensus": 4.7,
+      "sentiment": 2.1
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 36.99,
+      "r1": 37.46,
+      "r2": 38.15,
+      "s1": 36.3,
+      "s2": 35.83
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 50.0,
+        "status": "bullish"
+      },
+      "volume": {
+        "pct_change": -18,
+        "status": "below_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 31.0,
+        "mean": 42.66667,
+        "high": 62.0
+      },
+      "recommendation": {
+        "score": 3.6,
+        "status": "Buy",
+        "yahoo_mean": 2.40909,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 48.26,
+        "pbr": 3.9,
+        "revenue_growth": 6.0,
+        "eps_growth": 115.7,
+        "roe": 14.9,
+        "operating_margin": 7.1,
+        "debt_ratio": 963.1,
+        "current_ratio": 1.23
+      },
+      "last_updated": "2026-04-02 21:14:15"
+    },
+    "financial_health": {
+      "per": 48.26,
+      "pbr": 3.9,
+      "revenue_growth": 6.0,
+      "eps_growth": 115.7,
+      "roe": 14.9,
+      "operating_margin": 7.1,
+      "debt_ratio": 963.1,
+      "current_ratio": 1.23
+    },
+    "calendar": {
+      "next_earnings": "2026-04-29",
+      "last_earnings_date": "2026-02-05",
+      "last_eps_est": 0.52,
+      "last_eps_act": 1.6,
+      "last_surprise": 209.06,
+      "ex_dividend_date": "2022-12-08",
+      "dividend_payment_date": "2022-12-15",
+      "dividend_amount": 0.003,
+      "dividend_yield": 0.03
+    },
+    "related_peers": [
+      {
+        "ticker": "BALL",
+        "change_pct": -0.66
+      },
+      {
+        "ticker": "CCL",
+        "change_pct": -3.54
+      },
+      {
+        "ticker": "ULTA",
+        "change_pct": 0.15
+      }
+    ],
+    "sector_rank": 33,
+    "similar_score_peers": [
+      {
+        "ticker": "ADSK",
+        "change_pct": 0.09
+      },
+      {
+        "ticker": "AVB",
+        "change_pct": 0.68
       },
       {
         "ticker": "WM",
@@ -40964,8 +41090,8 @@
     "change_pct": 3.1,
     "market_cap": 92927696896,
     "final_score": 45.9,
-    "rank": 320,
-    "rank_change": -6,
+    "rank": 321,
+    "rank_change": -7,
     "tier": 4,
     "stats_bar": {
       "fundamentals": 58,
@@ -41070,16 +41196,16 @@
     "sector_rank": 40,
     "similar_score_peers": [
       {
-        "ticker": "ADSK",
-        "change_pct": 0.09
-      },
-      {
         "ticker": "AVB",
         "change_pct": 0.68
       },
       {
         "ticker": "BSX",
         "change_pct": 1.32
+      },
+      {
+        "ticker": "MGM",
+        "change_pct": -0.27
       }
     ]
   },
@@ -41093,8 +41219,8 @@
     "change_pct": 0.79,
     "market_cap": 397811384320,
     "final_score": 45.9,
-    "rank": 321,
-    "rank_change": -11,
+    "rank": 322,
+    "rank_change": -12,
     "tier": 4,
     "stats_bar": {
       "fundamentals": 29,
@@ -41197,8 +41323,8 @@
     "sector_rank": 19,
     "similar_score_peers": [
       {
-        "ticker": "AVB",
-        "change_pct": 0.68
+        "ticker": "BSX",
+        "change_pct": 1.32
       },
       {
         "ticker": "WM",
@@ -41220,8 +41346,8 @@
     "change_pct": -0.53,
     "market_cap": 65904648192,
     "final_score": 45.9,
-    "rank": 322,
-    "rank_change": 10,
+    "rank": 323,
+    "rank_change": 9,
     "tier": 4,
     "stats_bar": {
       "fundamentals": 48,
@@ -41330,8 +41456,8 @@
         "change_pct": 1.91
       },
       {
-        "ticker": "BSX",
-        "change_pct": 1.32
+        "ticker": "MGM",
+        "change_pct": -0.27
       },
       {
         "ticker": "CVX",
@@ -41349,8 +41475,8 @@
     "change_pct": 1.59,
     "market_cap": 42422460416,
     "final_score": 45.8,
-    "rank": 323,
-    "rank_change": -16,
+    "rank": 324,
+    "rank_change": -17,
     "tier": 4,
     "stats_bar": {
       "fundamentals": 57,
@@ -41461,8 +41587,8 @@
     "sector_rank": 41,
     "similar_score_peers": [
       {
-        "ticker": "BSX",
-        "change_pct": 1.32
+        "ticker": "MGM",
+        "change_pct": -0.27
       },
       {
         "ticker": "ICE",
@@ -41484,8 +41610,8 @@
     "change_pct": 1.86,
     "market_cap": 32427720704,
     "final_score": 45.7,
-    "rank": 324,
-    "rank_change": 27,
+    "rank": 325,
+    "rank_change": 26,
     "tier": 4,
     "stats_bar": {
       "fundamentals": 41,
@@ -41611,8 +41737,8 @@
     "change_pct": 1.15,
     "market_cap": 12416983040,
     "final_score": 45.7,
-    "rank": 325,
-    "rank_change": 11,
+    "rank": 326,
+    "rank_change": 10,
     "tier": 4,
     "stats_bar": {
       "fundamentals": 37,
@@ -41740,8 +41866,8 @@
     "change_pct": 1.04,
     "market_cap": 40663695360,
     "final_score": 45.7,
-    "rank": 326,
-    "rank_change": -26,
+    "rank": 327,
+    "rank_change": -27,
     "tier": 4,
     "stats_bar": {
       "fundamentals": 23,
@@ -41841,7 +41967,7 @@
         "change_pct": 0.15
       }
     ],
-    "sector_rank": 33,
+    "sector_rank": 34,
     "similar_score_peers": [
       {
         "ticker": "TDG",
@@ -41854,132 +41980,6 @@
       {
         "ticker": "PNW",
         "change_pct": 1.15
-      }
-    ]
-  },
-  {
-    "ticker": "MGM",
-    "name": "MGM 리조트 인터내셔널",
-    "name_en": "MGM Resorts",
-    "exchange": "NYSE",
-    "sector": "임의소비재",
-    "current_price": 36.68,
-    "change_pct": -0.27,
-    "market_cap": 10032216064,
-    "final_score": 45.6,
-    "rank": 327,
-    "rank_change": -6,
-    "tier": 4,
-    "stats_bar": {
-      "fundamentals": 51,
-      "value": 47,
-      "momentum": 54,
-      "stability": 0,
-      "risk": 13,
-      "consensus": 47,
-      "sentiment": 34
-    },
-    "score_breakdown": {
-      "value": 9.5,
-      "growth": 14.4,
-      "profitability": 3.6,
-      "momentum": 11.0,
-      "stability": 0.0,
-      "risk": 0.7,
-      "consensus": 4.7,
-      "sentiment": 1.7
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 36.99,
-      "r1": 37.46,
-      "r2": 38.15,
-      "s1": 36.3,
-      "s2": 35.83
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 50.0,
-        "status": "bullish"
-      },
-      "volume": {
-        "pct_change": -18,
-        "status": "below_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 31.0,
-        "mean": 42.66667,
-        "high": 62.0
-      },
-      "recommendation": {
-        "score": 3.6,
-        "status": "Buy",
-        "yahoo_mean": 2.40909,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 48.26,
-        "pbr": 3.9,
-        "revenue_growth": 6.0,
-        "eps_growth": 115.7,
-        "roe": 14.9,
-        "operating_margin": 7.1,
-        "debt_ratio": 963.1,
-        "current_ratio": 1.23
-      },
-      "last_updated": "2026-04-02 21:14:15"
-    },
-    "financial_health": {
-      "per": 48.26,
-      "pbr": 3.9,
-      "revenue_growth": 6.0,
-      "eps_growth": 115.7,
-      "roe": 14.9,
-      "operating_margin": 7.1,
-      "debt_ratio": 963.1,
-      "current_ratio": 1.23
-    },
-    "calendar": {
-      "next_earnings": "2026-04-29",
-      "last_earnings_date": "2026-02-05",
-      "last_eps_est": 0.52,
-      "last_eps_act": 1.6,
-      "last_surprise": 209.06,
-      "ex_dividend_date": "2022-12-08",
-      "dividend_payment_date": "2022-12-15",
-      "dividend_amount": 0.003,
-      "dividend_yield": 0.03
-    },
-    "related_peers": [
-      {
-        "ticker": "BALL",
-        "change_pct": -0.66
-      },
-      {
-        "ticker": "CCL",
-        "change_pct": -3.54
-      },
-      {
-        "ticker": "ULTA",
-        "change_pct": 0.15
-      }
-    ],
-    "sector_rank": 34,
-    "similar_score_peers": [
-      {
-        "ticker": "PYPL",
-        "change_pct": 1.59
-      },
-      {
-        "ticker": "NRG",
-        "change_pct": 1.86
-      },
-      {
-        "ticker": "DHI",
-        "change_pct": 1.04
       }
     ]
   },
@@ -42094,16 +42094,16 @@
     "sector_rank": 35,
     "similar_score_peers": [
       {
+        "ticker": "PYPL",
+        "change_pct": 1.59
+      },
+      {
         "ticker": "NRG",
         "change_pct": 1.86
       },
       {
-        "ticker": "PNW",
-        "change_pct": 1.15
-      },
-      {
-        "ticker": "MGM",
-        "change_pct": -0.27
+        "ticker": "DHI",
+        "change_pct": 1.04
       }
     ]
   },
@@ -42221,12 +42221,12 @@
     "sector_rank": 36,
     "similar_score_peers": [
       {
-        "ticker": "PNW",
-        "change_pct": 1.15
+        "ticker": "NRG",
+        "change_pct": 1.86
       },
       {
-        "ticker": "DHI",
-        "change_pct": 1.04
+        "ticker": "PNW",
+        "change_pct": 1.15
       },
       {
         "ticker": "LULU",
@@ -42350,12 +42350,12 @@
     "sector_rank": 23,
     "similar_score_peers": [
       {
-        "ticker": "DHI",
-        "change_pct": 1.04
+        "ticker": "PNW",
+        "change_pct": 1.15
       },
       {
-        "ticker": "MGM",
-        "change_pct": -0.27
+        "ticker": "DHI",
+        "change_pct": 1.04
       },
       {
         "ticker": "GM",
@@ -42477,8 +42477,8 @@
     "sector_rank": 54,
     "similar_score_peers": [
       {
-        "ticker": "MGM",
-        "change_pct": -0.27
+        "ticker": "DHI",
+        "change_pct": 1.04
       },
       {
         "ticker": "LULU",
@@ -45834,7 +45834,7 @@
       "stability": 70,
       "risk": 22,
       "consensus": 6,
-      "sentiment": 77
+      "sentiment": 76
     },
     "score_breakdown": {
       "value": 5.7,
@@ -45844,7 +45844,7 @@
       "stability": 3.5,
       "risk": 1.1,
       "consensus": 0.6,
-      "sentiment": 3.9
+      "sentiment": 3.8
     },
     "signals": [],
     "levels": {
@@ -47618,7 +47618,7 @@
     "current_price": 300.18,
     "change_pct": -0.42,
     "market_cap": 206107787264,
-    "final_score": 42.8,
+    "final_score": 42.7,
     "rank": 372,
     "rank_change": -14,
     "tier": 4,
@@ -47878,7 +47878,7 @@
       "stability": 66,
       "risk": 67,
       "consensus": 89,
-      "sentiment": 39
+      "sentiment": 38
     },
     "score_breakdown": {
       "value": 5.2,
@@ -47888,7 +47888,7 @@
       "stability": 3.3,
       "risk": 3.4,
       "consensus": 8.9,
-      "sentiment": 2.0
+      "sentiment": 1.9
     },
     "signals": [],
     "levels": {
@@ -49129,133 +49129,6 @@
     ]
   },
   {
-    "ticker": "YUM",
-    "name": "염 브랜즈",
-    "name_en": "Yum! Brands",
-    "exchange": "NYSE",
-    "sector": "임의소비재",
-    "current_price": 156.09,
-    "change_pct": 1.55,
-    "market_cap": 43338829824,
-    "final_score": 42.3,
-    "rank": 384,
-    "rank_change": 6,
-    "tier": 4,
-    "stats_bar": {
-      "fundamentals": 49,
-      "value": 21,
-      "momentum": 40,
-      "stability": 88,
-      "risk": 94,
-      "consensus": 29,
-      "sentiment": 11
-    },
-    "score_breakdown": {
-      "value": 4.4,
-      "growth": 10.9,
-      "profitability": 6.3,
-      "momentum": 8.1,
-      "stability": 4.4,
-      "risk": 4.7,
-      "consensus": 2.9,
-      "sentiment": 0.6
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 154.5,
-      "r1": 156.39,
-      "r2": 159.08,
-      "s1": 151.81,
-      "s2": 149.92
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 41.4,
-        "status": "bearish"
-      },
-      "volume": {
-        "pct_change": -23,
-        "status": "below_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 147.0,
-        "mean": 171.91667,
-        "high": 200.0
-      },
-      "recommendation": {
-        "score": 3.7,
-        "status": "Buy",
-        "yahoo_mean": 2.26667,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 28.12,
-        "pbr": -5.9,
-        "revenue_growth": 6.5,
-        "eps_growth": 27.7,
-        "roe": 0,
-        "operating_margin": 31.9,
-        "debt_ratio": 0,
-        "current_ratio": 1.35
-      },
-      "last_updated": "2026-04-02 21:21:11"
-    },
-    "financial_health": {
-      "per": 28.12,
-      "pbr": -5.9,
-      "revenue_growth": 6.5,
-      "eps_growth": 27.7,
-      "roe": 0,
-      "operating_margin": 31.9,
-      "debt_ratio": 0,
-      "current_ratio": 1.35
-    },
-    "calendar": {
-      "next_earnings": "2026-04-29",
-      "last_earnings_date": "2026-02-04",
-      "last_eps_est": 1.76,
-      "last_eps_act": 1.73,
-      "last_surprise": -1.49,
-      "ex_dividend_date": "2026-02-20",
-      "dividend_payment_date": "2026-03-06",
-      "dividend_amount": 0.75,
-      "dividend_ttm": 2.88,
-      "dividend_yield": 1.95
-    },
-    "related_peers": [
-      {
-        "ticker": "BALL",
-        "change_pct": -0.66
-      },
-      {
-        "ticker": "CCL",
-        "change_pct": -3.54
-      },
-      {
-        "ticker": "ULTA",
-        "change_pct": 0.15
-      }
-    ],
-    "sector_rank": 45,
-    "similar_score_peers": [
-      {
-        "ticker": "CMG",
-        "change_pct": 1.62
-      },
-      {
-        "ticker": "OTIS",
-        "change_pct": 0.53
-      },
-      {
-        "ticker": "UNH",
-        "change_pct": 1.2
-      }
-    ]
-  },
-  {
     "ticker": "J",
     "name": "제이콥스 솔루션즈",
     "name_en": "Jacobs Solutions",
@@ -49265,8 +49138,8 @@
     "change_pct": -0.31,
     "market_cap": 15117666304,
     "final_score": 42.3,
-    "rank": 385,
-    "rank_change": 19,
+    "rank": 384,
+    "rank_change": 20,
     "tier": 4,
     "stats_bar": {
       "fundamentals": 25,
@@ -49377,6 +49250,133 @@
     "sector_rank": 67,
     "similar_score_peers": [
       {
+        "ticker": "CMG",
+        "change_pct": 1.62
+      },
+      {
+        "ticker": "OTIS",
+        "change_pct": 0.53
+      },
+      {
+        "ticker": "UNH",
+        "change_pct": 1.2
+      }
+    ]
+  },
+  {
+    "ticker": "YUM",
+    "name": "염 브랜즈",
+    "name_en": "Yum! Brands",
+    "exchange": "NYSE",
+    "sector": "임의소비재",
+    "current_price": 156.09,
+    "change_pct": 1.55,
+    "market_cap": 43338829824,
+    "final_score": 42.3,
+    "rank": 385,
+    "rank_change": 5,
+    "tier": 4,
+    "stats_bar": {
+      "fundamentals": 49,
+      "value": 21,
+      "momentum": 40,
+      "stability": 88,
+      "risk": 94,
+      "consensus": 29,
+      "sentiment": 11
+    },
+    "score_breakdown": {
+      "value": 4.4,
+      "growth": 10.9,
+      "profitability": 6.3,
+      "momentum": 8.1,
+      "stability": 4.4,
+      "risk": 4.7,
+      "consensus": 2.9,
+      "sentiment": 0.6
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 154.5,
+      "r1": 156.39,
+      "r2": 159.08,
+      "s1": 151.81,
+      "s2": 149.92
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 41.4,
+        "status": "bearish"
+      },
+      "volume": {
+        "pct_change": -23,
+        "status": "below_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 147.0,
+        "mean": 171.91667,
+        "high": 200.0
+      },
+      "recommendation": {
+        "score": 3.7,
+        "status": "Buy",
+        "yahoo_mean": 2.26667,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 28.12,
+        "pbr": -5.9,
+        "revenue_growth": 6.5,
+        "eps_growth": 27.7,
+        "roe": 0,
+        "operating_margin": 31.9,
+        "debt_ratio": 0,
+        "current_ratio": 1.35
+      },
+      "last_updated": "2026-04-02 21:21:11"
+    },
+    "financial_health": {
+      "per": 28.12,
+      "pbr": -5.9,
+      "revenue_growth": 6.5,
+      "eps_growth": 27.7,
+      "roe": 0,
+      "operating_margin": 31.9,
+      "debt_ratio": 0,
+      "current_ratio": 1.35
+    },
+    "calendar": {
+      "next_earnings": "2026-04-29",
+      "last_earnings_date": "2026-02-04",
+      "last_eps_est": 1.76,
+      "last_eps_act": 1.73,
+      "last_surprise": -1.49,
+      "ex_dividend_date": "2026-02-20",
+      "dividend_payment_date": "2026-03-06",
+      "dividend_amount": 0.75,
+      "dividend_ttm": 2.88,
+      "dividend_yield": 1.95
+    },
+    "related_peers": [
+      {
+        "ticker": "BALL",
+        "change_pct": -0.66
+      },
+      {
+        "ticker": "CCL",
+        "change_pct": -3.54
+      },
+      {
+        "ticker": "ULTA",
+        "change_pct": 0.15
+      }
+    ],
+    "sector_rank": 45,
+    "similar_score_peers": [
+      {
         "ticker": "OTIS",
         "change_pct": 0.53
       },
@@ -49385,8 +49385,8 @@
         "change_pct": -0.74
       },
       {
-        "ticker": "YUM",
-        "change_pct": 1.55
+        "ticker": "J",
+        "change_pct": -0.31
       }
     ]
   },
@@ -49512,8 +49512,8 @@
         "change_pct": 1.2
       },
       {
-        "ticker": "J",
-        "change_pct": -0.31
+        "ticker": "YUM",
+        "change_pct": 1.55
       }
     ]
   },
@@ -49643,8 +49643,8 @@
         "change_pct": 1.2
       },
       {
-        "ticker": "YUM",
-        "change_pct": 1.55
+        "ticker": "J",
+        "change_pct": -0.31
       },
       {
         "ticker": "INTU",
@@ -49766,12 +49766,12 @@
     "sector_rank": 48,
     "similar_score_peers": [
       {
-        "ticker": "YUM",
-        "change_pct": 1.55
-      },
-      {
         "ticker": "J",
         "change_pct": -0.31
+      },
+      {
+        "ticker": "YUM",
+        "change_pct": 1.55
       },
       {
         "ticker": "FOXA",
@@ -49788,7 +49788,7 @@
     "current_price": 357.88,
     "change_pct": 0.56,
     "market_cap": 38521286656,
-    "final_score": 42.0,
+    "final_score": 41.9,
     "rank": 389,
     "rank_change": -9,
     "tier": 4,
@@ -49799,7 +49799,7 @@
       "stability": 47,
       "risk": 76,
       "consensus": 73,
-      "sentiment": 35
+      "sentiment": 34
     },
     "score_breakdown": {
       "value": 14.3,
@@ -49809,7 +49809,7 @@
       "stability": 2.4,
       "risk": 3.8,
       "consensus": 7.4,
-      "sentiment": 1.8
+      "sentiment": 1.7
     },
     "signals": [],
     "levels": {
@@ -49893,8 +49893,8 @@
     "sector_rank": 59,
     "similar_score_peers": [
       {
-        "ticker": "J",
-        "change_pct": -0.31
+        "ticker": "YUM",
+        "change_pct": 1.55
       },
       {
         "ticker": "INTU",
@@ -52687,7 +52687,7 @@
     "current_price": 966.56,
     "change_pct": 0.96,
     "market_cap": 150340222976,
-    "final_score": 40.9,
+    "final_score": 40.8,
     "rank": 412,
     "rank_change": -16,
     "tier": 5,
@@ -53595,7 +53595,7 @@
       "stability": 35,
       "risk": 47,
       "consensus": 98,
-      "sentiment": 38
+      "sentiment": 37
     },
     "score_breakdown": {
       "value": 12.9,
@@ -53717,7 +53717,7 @@
       "stability": 38,
       "risk": 77,
       "consensus": 44,
-      "sentiment": 91
+      "sentiment": 90
     },
     "score_breakdown": {
       "value": 10.6,
@@ -53727,7 +53727,7 @@
       "stability": 1.9,
       "risk": 3.9,
       "consensus": 4.4,
-      "sentiment": 4.6
+      "sentiment": 4.5
     },
     "signals": [
       "MACD_GoldenCross"
@@ -54102,7 +54102,7 @@
       "stability": 88,
       "risk": 69,
       "consensus": 20,
-      "sentiment": 40
+      "sentiment": 39
     },
     "score_breakdown": {
       "value": 3.0,
@@ -59108,7 +59108,7 @@
     "current_price": 102.87,
     "change_pct": 0.48,
     "market_cap": 178755452928,
-    "final_score": 36.1,
+    "final_score": 36.0,
     "rank": 460,
     "rank_change": 1,
     "tier": 5,
@@ -59254,7 +59254,7 @@
       "stability": 56,
       "risk": 5,
       "consensus": 2,
-      "sentiment": 90
+      "sentiment": 91
     },
     "score_breakdown": {
       "value": 7.5,
@@ -59264,7 +59264,7 @@
       "stability": 2.8,
       "risk": 0.3,
       "consensus": 0.2,
-      "sentiment": 4.5
+      "sentiment": 4.6
     },
     "signals": [],
     "levels": {
@@ -59627,7 +59627,7 @@
       "stability": 39,
       "risk": 39,
       "consensus": 72,
-      "sentiment": 57
+      "sentiment": 56
     },
     "score_breakdown": {
       "value": 9.4,
@@ -59637,7 +59637,7 @@
       "stability": 2.0,
       "risk": 2.0,
       "consensus": 7.3,
-      "sentiment": 2.9
+      "sentiment": 2.8
     },
     "signals": [],
     "levels": {
@@ -61534,130 +61534,6 @@
     ]
   },
   {
-    "ticker": "AXON",
-    "name": "액손 엔터프라이즈",
-    "name_en": "Axon Enterprise",
-    "exchange": "NASDAQ",
-    "sector": "산업재",
-    "current_price": 412.81,
-    "change_pct": -2.54,
-    "market_cap": 33188962304,
-    "final_score": 33.4,
-    "rank": 478,
-    "rank_change": 2,
-    "tier": 5,
-    "stats_bar": {
-      "fundamentals": 24,
-      "value": 3,
-      "momentum": 31,
-      "stability": 64,
-      "risk": 0,
-      "consensus": 99,
-      "sentiment": 90
-    },
-    "score_breakdown": {
-      "value": 0.7,
-      "growth": 8.1,
-      "profitability": 0.5,
-      "momentum": 6.3,
-      "stability": 3.2,
-      "risk": 0.0,
-      "consensus": 10.0,
-      "sentiment": 4.5
-    },
-    "signals": [
-      "RSI_Oversold"
-    ],
-    "levels": {
-      "pivot": 428.37,
-      "r1": 434.71,
-      "r2": 445.84,
-      "s1": 417.24,
-      "s2": 410.9
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 25.4,
-        "status": "oversold"
-      },
-      "volume": {
-        "pct_change": -13,
-        "status": "below_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 521.24,
-        "mean": 735.0133,
-        "high": 950.0
-      },
-      "recommendation": {
-        "score": 4.4,
-        "status": "Buy",
-        "yahoo_mean": 1.6,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 271.59,
-        "pbr": 10.21,
-        "revenue_growth": 38.5,
-        "eps_growth": -98.0,
-        "roe": 4.5,
-        "operating_margin": -3.1,
-        "debt_ratio": 59.1,
-        "current_ratio": 2.53
-      },
-      "last_updated": "2026-04-02 21:05:00"
-    },
-    "financial_health": {
-      "per": 271.59,
-      "pbr": 10.21,
-      "revenue_growth": 38.5,
-      "eps_growth": -98.0,
-      "roe": 4.5,
-      "operating_margin": -3.1,
-      "debt_ratio": 59.1,
-      "current_ratio": 2.53
-    },
-    "calendar": {
-      "next_earnings": "2026-05-06",
-      "last_earnings_date": "2026-02-24",
-      "last_eps_est": 1.6,
-      "last_eps_act": 2.15,
-      "last_surprise": 34.51
-    },
-    "related_peers": [
-      {
-        "ticker": "EME",
-        "change_pct": -0.43
-      },
-      {
-        "ticker": "DAL",
-        "change_pct": -1.24
-      },
-      {
-        "ticker": "AOS",
-        "change_pct": -1.12
-      }
-    ],
-    "sector_rank": 73,
-    "similar_score_peers": [
-      {
-        "ticker": "MCHP",
-        "change_pct": 0.34
-      },
-      {
-        "ticker": "IT",
-        "change_pct": 1.98
-      },
-      {
-        "ticker": "TECH",
-        "change_pct": -0.65
-      }
-    ]
-  },
-  {
     "ticker": "PSKY",
     "name": "파라마운트 스카이댄스 코퍼레이션",
     "name_en": "Paramount Skydance Corporation",
@@ -61667,8 +61543,8 @@
     "change_pct": 2.92,
     "market_cap": 10583775232,
     "final_score": 33.4,
-    "rank": 479,
-    "rank_change": 2,
+    "rank": 478,
+    "rank_change": 3,
     "tier": 5,
     "stats_bar": {
       "fundamentals": 10,
@@ -61769,6 +61645,130 @@
       }
     ],
     "sector_rank": 22,
+    "similar_score_peers": [
+      {
+        "ticker": "MCHP",
+        "change_pct": 0.34
+      },
+      {
+        "ticker": "IT",
+        "change_pct": 1.98
+      },
+      {
+        "ticker": "TECH",
+        "change_pct": -0.65
+      }
+    ]
+  },
+  {
+    "ticker": "AXON",
+    "name": "액손 엔터프라이즈",
+    "name_en": "Axon Enterprise",
+    "exchange": "NASDAQ",
+    "sector": "산업재",
+    "current_price": 412.81,
+    "change_pct": -2.54,
+    "market_cap": 33188962304,
+    "final_score": 33.4,
+    "rank": 479,
+    "rank_change": 1,
+    "tier": 5,
+    "stats_bar": {
+      "fundamentals": 24,
+      "value": 3,
+      "momentum": 31,
+      "stability": 64,
+      "risk": 0,
+      "consensus": 99,
+      "sentiment": 90
+    },
+    "score_breakdown": {
+      "value": 0.7,
+      "growth": 8.1,
+      "profitability": 0.5,
+      "momentum": 6.3,
+      "stability": 3.2,
+      "risk": 0.0,
+      "consensus": 10.0,
+      "sentiment": 4.5
+    },
+    "signals": [
+      "RSI_Oversold"
+    ],
+    "levels": {
+      "pivot": 428.37,
+      "r1": 434.71,
+      "r2": 445.84,
+      "s1": 417.24,
+      "s2": 410.9
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 25.4,
+        "status": "oversold"
+      },
+      "volume": {
+        "pct_change": -13,
+        "status": "below_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 521.24,
+        "mean": 735.0133,
+        "high": 950.0
+      },
+      "recommendation": {
+        "score": 4.4,
+        "status": "Buy",
+        "yahoo_mean": 1.6,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 271.59,
+        "pbr": 10.21,
+        "revenue_growth": 38.5,
+        "eps_growth": -98.0,
+        "roe": 4.5,
+        "operating_margin": -3.1,
+        "debt_ratio": 59.1,
+        "current_ratio": 2.53
+      },
+      "last_updated": "2026-04-02 21:05:00"
+    },
+    "financial_health": {
+      "per": 271.59,
+      "pbr": 10.21,
+      "revenue_growth": 38.5,
+      "eps_growth": -98.0,
+      "roe": 4.5,
+      "operating_margin": -3.1,
+      "debt_ratio": 59.1,
+      "current_ratio": 2.53
+    },
+    "calendar": {
+      "next_earnings": "2026-05-06",
+      "last_earnings_date": "2026-02-24",
+      "last_eps_est": 1.6,
+      "last_eps_act": 2.15,
+      "last_surprise": 34.51
+    },
+    "related_peers": [
+      {
+        "ticker": "EME",
+        "change_pct": -0.43
+      },
+      {
+        "ticker": "DAL",
+        "change_pct": -1.24
+      },
+      {
+        "ticker": "AOS",
+        "change_pct": -1.12
+      }
+    ],
+    "sector_rank": 73,
     "similar_score_peers": [
       {
         "ticker": "IT",
@@ -62168,8 +62168,8 @@
         "change_pct": -1.81
       },
       {
-        "ticker": "AXON",
-        "change_pct": -2.54
+        "ticker": "PSKY",
+        "change_pct": 2.92
       }
     ]
   },
@@ -62295,8 +62295,8 @@
         "change_pct": 1.42
       },
       {
-        "ticker": "PSKY",
-        "change_pct": 2.92
+        "ticker": "AXON",
+        "change_pct": -2.54
       }
     ]
   },
@@ -62418,8 +62418,8 @@
         "change_pct": 1.42
       },
       {
-        "ticker": "AXON",
-        "change_pct": -2.54
+        "ticker": "PSKY",
+        "change_pct": 2.92
       },
       {
         "ticker": "WTW",
@@ -62536,12 +62536,12 @@
     "sector_rank": 58,
     "similar_score_peers": [
       {
-        "ticker": "AXON",
-        "change_pct": -2.54
-      },
-      {
         "ticker": "PSKY",
         "change_pct": 2.92
+      },
+      {
+        "ticker": "AXON",
+        "change_pct": -2.54
       },
       {
         "ticker": "SBUX",
@@ -62663,8 +62663,8 @@
     "sector_rank": 36,
     "similar_score_peers": [
       {
-        "ticker": "PSKY",
-        "change_pct": 2.92
+        "ticker": "AXON",
+        "change_pct": -2.54
       },
       {
         "ticker": "WTW",
