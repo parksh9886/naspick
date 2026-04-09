@@ -79,6 +79,7 @@ SP500_KOREAN_NAMES = {
     "CAG": "콘아그라 브랜즈",
     "CAH": "카디널 헬스",
     "CARR": "캐리어 글로벌",
+    "CASY": "Casey\'s",
     "CAT": "캐터필러",
     "CB": "처브",
     "CBOE": "CBOE 글로벌 마켓",

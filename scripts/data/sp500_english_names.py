@@ -79,6 +79,7 @@ SP500_ENGLISH_NAMES = {
     "CAG": "Conagra Brands",
     "CAH": "Cardinal Health",
     "CARR": "Carrier Global",
+    "CASY": "Casey\'s",
     "CAT": "Caterpillar",
     "CB": "Chubb",
     "CBOE": "Cboe Global Markets",
