@@ -1,7 +1,7 @@
 {
-  "last_update": "2026-05-05",
-  "cash": 9603.53,
-  "total_value": 349111.68,
+  "last_update": "2026-05-06",
+  "cash": 5032.61,
+  "total_value": 351924.2,
   "holdings": {
     "NEM": 238,
     "MU": 74,
@@ -9,7 +9,6 @@
     "INCY": 150,
     "DAL": 237,
     "CF": 164,
-    "UHS": 75,
     "CTRA": 493,
     "BALL": 263,
     "UBER": 216,
@@ -20,7 +19,8 @@
     "LVS": 314,
     "ACGL": 180,
     "UAL": 184,
-    "FSLR": 83
+    "FSLR": 83,
+    "HII": 55
   },
   "note": "Synced with Backtest v3.1 (Total Return) on 2026-01-19",
   "action_history": [
@@ -121,6 +121,13 @@
       "type": "DIVIDEND",
       "amount": 8.4,
       "per_share": 0.4
+    },
+    {
+      "date": "2026-05-05",
+      "ticker": "LVS",
+      "type": "DIVIDEND",
+      "amount": 94.2,
+      "per_share": 0.3
     }
   ]
 }
