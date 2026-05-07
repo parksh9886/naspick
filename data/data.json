@@ -15853,7 +15853,7 @@
     "current_price": 234.52,
     "change_pct": -2.84,
     "market_cap": 53752688640,
-    "final_score": 55.8,
+    "final_score": 55.7,
     "rank": 123,
     "rank_change": -9,
     "tier": 3,
@@ -22138,128 +22138,6 @@
     ]
   },
   {
-    "ticker": "IQV",
-    "name": "아이큐비아 홀딩스",
-    "name_en": "IQVIA",
-    "exchange": "NYSE",
-    "sector": "헬스케어",
-    "current_price": 178.69,
-    "change_pct": 1.26,
-    "market_cap": 29823361024,
-    "final_score": 52.9,
-    "rank": 172,
-    "rank_change": 11,
-    "tier": 3,
-    "stats_bar": {
-      "fundamentals": 64,
-      "value": 56,
-      "momentum": 42,
-      "stability": 6,
-      "risk": 17,
-      "consensus": 82,
-      "sentiment": 24
-    },
-    "score_breakdown": {
-      "value": 11.3,
-      "growth": 14.2,
-      "profitability": 8.4,
-      "momentum": 8.5,
-      "stability": 0.3,
-      "risk": 0.9,
-      "consensus": 8.2,
-      "sentiment": 1.2
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 178.31,
-      "r1": 180.86,
-      "r2": 185.24,
-      "s1": 173.93,
-      "s2": 171.38
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 52.2,
-        "status": "bullish"
-      },
-      "volume": {
-        "pct_change": 5,
-        "status": "above_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 185.0,
-        "mean": 229.6,
-        "high": 287.0
-      },
-      "recommendation": {
-        "score": 4.7,
-        "status": "Strong Buy",
-        "yahoo_mean": 1.34783,
-        "key": "strong_buy"
-      },
-      "financial_health": {
-        "per": 21.95,
-        "pbr": 4.6,
-        "revenue_growth": 10.3,
-        "eps_growth": 23.6,
-        "roe": 21.4,
-        "operating_margin": 15.2,
-        "debt_ratio": 245.9,
-        "current_ratio": 0.75
-      },
-      "last_updated": "2026-05-06 21:20:25"
-    },
-    "financial_health": {
-      "per": 21.95,
-      "pbr": 4.6,
-      "revenue_growth": 10.3,
-      "eps_growth": 23.6,
-      "roe": 21.4,
-      "operating_margin": 15.2,
-      "debt_ratio": 245.9,
-      "current_ratio": 0.75
-    },
-    "calendar": {
-      "next_earnings": "2026-07-21",
-      "last_earnings_date": "2026-05-05",
-      "last_eps_est": 1.6,
-      "last_eps_act": 1.61,
-      "last_surprise": 0.47
-    },
-    "related_peers": [
-      {
-        "ticker": "INCY",
-        "change_pct": -2.08
-      },
-      {
-        "ticker": "REGN",
-        "change_pct": -1.66
-      },
-      {
-        "ticker": "UHS",
-        "change_pct": 1.2
-      }
-    ],
-    "sector_rank": 23,
-    "similar_score_peers": [
-      {
-        "ticker": "AKAM",
-        "change_pct": -4.34
-      },
-      {
-        "ticker": "JCI",
-        "change_pct": -2.69
-      },
-      {
-        "ticker": "IQV",
-        "change_pct": 1.26
-      }
-    ]
-  },
-  {
     "ticker": "KLAC",
     "name": "KLA",
     "name_en": "KLA Corporation",
@@ -22269,8 +22147,8 @@
     "change_pct": -2.92,
     "market_cap": 230328975360,
     "final_score": 52.9,
-    "rank": 173,
-    "rank_change": 2,
+    "rank": 172,
+    "rank_change": 3,
     "tier": 3,
     "stats_bar": {
       "fundamentals": 60,
@@ -22381,6 +22259,128 @@
     "sector_rank": 27,
     "similar_score_peers": [
       {
+        "ticker": "AKAM",
+        "change_pct": -4.34
+      },
+      {
+        "ticker": "JCI",
+        "change_pct": -2.69
+      },
+      {
+        "ticker": "KLAC",
+        "change_pct": -2.92
+      }
+    ]
+  },
+  {
+    "ticker": "IQV",
+    "name": "아이큐비아 홀딩스",
+    "name_en": "IQVIA",
+    "exchange": "NYSE",
+    "sector": "헬스케어",
+    "current_price": 178.69,
+    "change_pct": 1.26,
+    "market_cap": 29823361024,
+    "final_score": 52.9,
+    "rank": 173,
+    "rank_change": 10,
+    "tier": 3,
+    "stats_bar": {
+      "fundamentals": 64,
+      "value": 56,
+      "momentum": 42,
+      "stability": 6,
+      "risk": 17,
+      "consensus": 82,
+      "sentiment": 23
+    },
+    "score_breakdown": {
+      "value": 11.3,
+      "growth": 14.2,
+      "profitability": 8.4,
+      "momentum": 8.5,
+      "stability": 0.3,
+      "risk": 0.9,
+      "consensus": 8.2,
+      "sentiment": 1.2
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 178.31,
+      "r1": 180.86,
+      "r2": 185.24,
+      "s1": 173.93,
+      "s2": 171.38
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 52.2,
+        "status": "bullish"
+      },
+      "volume": {
+        "pct_change": 5,
+        "status": "above_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 185.0,
+        "mean": 229.6,
+        "high": 287.0
+      },
+      "recommendation": {
+        "score": 4.7,
+        "status": "Strong Buy",
+        "yahoo_mean": 1.34783,
+        "key": "strong_buy"
+      },
+      "financial_health": {
+        "per": 21.95,
+        "pbr": 4.6,
+        "revenue_growth": 10.3,
+        "eps_growth": 23.6,
+        "roe": 21.4,
+        "operating_margin": 15.2,
+        "debt_ratio": 245.9,
+        "current_ratio": 0.75
+      },
+      "last_updated": "2026-05-06 21:20:25"
+    },
+    "financial_health": {
+      "per": 21.95,
+      "pbr": 4.6,
+      "revenue_growth": 10.3,
+      "eps_growth": 23.6,
+      "roe": 21.4,
+      "operating_margin": 15.2,
+      "debt_ratio": 245.9,
+      "current_ratio": 0.75
+    },
+    "calendar": {
+      "next_earnings": "2026-07-21",
+      "last_earnings_date": "2026-05-05",
+      "last_eps_est": 1.6,
+      "last_eps_act": 1.61,
+      "last_surprise": 0.47
+    },
+    "related_peers": [
+      {
+        "ticker": "INCY",
+        "change_pct": -2.08
+      },
+      {
+        "ticker": "REGN",
+        "change_pct": -1.66
+      },
+      {
+        "ticker": "UHS",
+        "change_pct": 1.2
+      }
+    ],
+    "sector_rank": 23,
+    "similar_score_peers": [
+      {
         "ticker": "JCI",
         "change_pct": -2.69
       },
@@ -22389,8 +22389,8 @@
         "change_pct": -1.54
       },
       {
-        "ticker": "KLAC",
-        "change_pct": -2.92
+        "ticker": "IQV",
+        "change_pct": 1.26
       }
     ]
   },
@@ -22507,8 +22507,8 @@
         "change_pct": -1.54
       },
       {
-        "ticker": "IQV",
-        "change_pct": 1.26
+        "ticker": "KLAC",
+        "change_pct": -2.92
       },
       {
         "ticker": "NWSA",
@@ -22630,12 +22630,12 @@
     "sector_rank": 19,
     "similar_score_peers": [
       {
-        "ticker": "IQV",
-        "change_pct": 1.26
-      },
-      {
         "ticker": "KLAC",
         "change_pct": -2.92
+      },
+      {
+        "ticker": "IQV",
+        "change_pct": 1.26
       },
       {
         "ticker": "BAC",
@@ -22757,8 +22757,8 @@
     "sector_rank": 33,
     "similar_score_peers": [
       {
-        "ticker": "KLAC",
-        "change_pct": -2.92
+        "ticker": "IQV",
+        "change_pct": 1.26
       },
       {
         "ticker": "NWSA",
@@ -24442,6 +24442,128 @@
     ]
   },
   {
+    "ticker": "COIN",
+    "name": "코인베이스",
+    "name_en": "Coinbase",
+    "exchange": "NASDAQ",
+    "sector": "금융",
+    "current_price": 192.96,
+    "change_pct": -2.53,
+    "market_cap": 50955948032,
+    "final_score": 51.9,
+    "rank": 190,
+    "rank_change": 49,
+    "tier": 3,
+    "stats_bar": {
+      "fundamentals": 87,
+      "value": 20,
+      "momentum": 34,
+      "stability": 34,
+      "risk": 0,
+      "consensus": 72,
+      "sentiment": 24
+    },
+    "score_breakdown": {
+      "value": 4.0,
+      "growth": 19.8,
+      "profitability": 11.0,
+      "momentum": 7.0,
+      "stability": 1.7,
+      "risk": 0.0,
+      "consensus": 7.2,
+      "sentiment": 1.2
+    },
+    "signals": [],
+    "levels": {
+      "pivot": 196.57,
+      "r1": 199.89,
+      "r2": 201.82,
+      "s1": 194.64,
+      "s2": 191.32
+    },
+    "technical_analysis": {
+      "candle_pattern": null,
+      "rsi": {
+        "value": 42.7,
+        "status": "bearish"
+      },
+      "volume": {
+        "pct_change": -22,
+        "status": "below_avg"
+      }
+    },
+    "consensus": {
+      "target_price": {
+        "low": 115.0,
+        "mean": 236.57393,
+        "high": 400.0
+      },
+      "recommendation": {
+        "score": 4.0,
+        "status": "Buy",
+        "yahoo_mean": 2.0303,
+        "key": "buy"
+      },
+      "financial_health": {
+        "per": 44.49,
+        "pbr": 3.58,
+        "revenue_growth": -22.2,
+        "eps_growth": 0,
+        "roe": 10.1,
+        "operating_margin": 11.3,
+        "debt_ratio": 53.1,
+        "current_ratio": 2.34
+      },
+      "last_updated": "2026-05-06 21:15:15"
+    },
+    "financial_health": {
+      "per": 44.49,
+      "pbr": 3.58,
+      "revenue_growth": -22.2,
+      "eps_growth": 0,
+      "roe": 10.1,
+      "operating_margin": 11.3,
+      "debt_ratio": 53.1,
+      "current_ratio": 2.34
+    },
+    "calendar": {
+      "next_earnings": "2026-05-07",
+      "last_earnings_date": "2026-02-12",
+      "last_eps_est": 0.94,
+      "last_eps_act": -2.49,
+      "last_surprise": -364.89
+    },
+    "related_peers": [
+      {
+        "ticker": "ALL",
+        "change_pct": -2.01
+      },
+      {
+        "ticker": "ACGL",
+        "change_pct": -0.19
+      },
+      {
+        "ticker": "CINF",
+        "change_pct": 1.01
+      }
+    ],
+    "sector_rank": 21,
+    "similar_score_peers": [
+      {
+        "ticker": "PWR",
+        "change_pct": -4.42
+      },
+      {
+        "ticker": "ROP",
+        "change_pct": 0.62
+      },
+      {
+        "ticker": "COIN",
+        "change_pct": -2.53
+      }
+    ]
+  },
+  {
     "ticker": "UBER",
     "name": "우버 테크놀로지스",
     "name_en": "Uber",
@@ -24451,8 +24573,8 @@
     "change_pct": -3.08,
     "market_cap": 157919248384,
     "final_score": 51.9,
-    "rank": 190,
-    "rank_change": -14,
+    "rank": 191,
+    "rank_change": -15,
     "tier": 3,
     "stats_bar": {
       "fundamentals": 40,
@@ -24558,12 +24680,12 @@
     "sector_rank": 32,
     "similar_score_peers": [
       {
-        "ticker": "PWR",
-        "change_pct": -4.42
-      },
-      {
         "ticker": "ROP",
         "change_pct": 0.62
+      },
+      {
+        "ticker": "GLW",
+        "change_pct": 0.47
       },
       {
         "ticker": "UBER",
@@ -24581,8 +24703,8 @@
     "change_pct": -2.3,
     "market_cap": 45016494080,
     "final_score": 51.9,
-    "rank": 191,
-    "rank_change": 12,
+    "rank": 192,
+    "rank_change": 11,
     "tier": 3,
     "stats_bar": {
       "fundamentals": 53,
@@ -24690,128 +24812,6 @@
         "change_pct": 1.01
       }
     ],
-    "sector_rank": 21,
-    "similar_score_peers": [
-      {
-        "ticker": "ROP",
-        "change_pct": 0.62
-      },
-      {
-        "ticker": "GLW",
-        "change_pct": 0.47
-      },
-      {
-        "ticker": "FITB",
-        "change_pct": -2.3
-      }
-    ]
-  },
-  {
-    "ticker": "COIN",
-    "name": "코인베이스",
-    "name_en": "Coinbase",
-    "exchange": "NASDAQ",
-    "sector": "금융",
-    "current_price": 192.96,
-    "change_pct": -2.53,
-    "market_cap": 50955948032,
-    "final_score": 51.8,
-    "rank": 192,
-    "rank_change": 47,
-    "tier": 3,
-    "stats_bar": {
-      "fundamentals": 87,
-      "value": 20,
-      "momentum": 34,
-      "stability": 34,
-      "risk": 0,
-      "consensus": 72,
-      "sentiment": 23
-    },
-    "score_breakdown": {
-      "value": 4.0,
-      "growth": 19.8,
-      "profitability": 11.0,
-      "momentum": 7.0,
-      "stability": 1.7,
-      "risk": 0.0,
-      "consensus": 7.2,
-      "sentiment": 1.2
-    },
-    "signals": [],
-    "levels": {
-      "pivot": 196.57,
-      "r1": 199.89,
-      "r2": 201.82,
-      "s1": 194.64,
-      "s2": 191.32
-    },
-    "technical_analysis": {
-      "candle_pattern": null,
-      "rsi": {
-        "value": 42.7,
-        "status": "bearish"
-      },
-      "volume": {
-        "pct_change": -22,
-        "status": "below_avg"
-      }
-    },
-    "consensus": {
-      "target_price": {
-        "low": 115.0,
-        "mean": 236.57393,
-        "high": 400.0
-      },
-      "recommendation": {
-        "score": 4.0,
-        "status": "Buy",
-        "yahoo_mean": 2.0303,
-        "key": "buy"
-      },
-      "financial_health": {
-        "per": 44.49,
-        "pbr": 3.58,
-        "revenue_growth": -22.2,
-        "eps_growth": 0,
-        "roe": 10.1,
-        "operating_margin": 11.3,
-        "debt_ratio": 53.1,
-        "current_ratio": 2.34
-      },
-      "last_updated": "2026-05-06 21:15:15"
-    },
-    "financial_health": {
-      "per": 44.49,
-      "pbr": 3.58,
-      "revenue_growth": -22.2,
-      "eps_growth": 0,
-      "roe": 10.1,
-      "operating_margin": 11.3,
-      "debt_ratio": 53.1,
-      "current_ratio": 2.34
-    },
-    "calendar": {
-      "next_earnings": "2026-05-07",
-      "last_earnings_date": "2026-02-12",
-      "last_eps_est": 0.94,
-      "last_eps_act": -2.49,
-      "last_surprise": -364.89
-    },
-    "related_peers": [
-      {
-        "ticker": "ALL",
-        "change_pct": -2.01
-      },
-      {
-        "ticker": "ACGL",
-        "change_pct": -0.19
-      },
-      {
-        "ticker": "CINF",
-        "change_pct": 1.01
-      }
-    ],
     "sector_rank": 22,
     "similar_score_peers": [
       {
@@ -24819,12 +24819,12 @@
         "change_pct": 0.47
       },
       {
-        "ticker": "UBER",
-        "change_pct": -3.08
-      },
-      {
         "ticker": "COIN",
         "change_pct": -2.53
+      },
+      {
+        "ticker": "FITB",
+        "change_pct": -2.3
       }
     ]
   },
@@ -24942,12 +24942,12 @@
     "sector_rank": 15,
     "similar_score_peers": [
       {
-        "ticker": "UBER",
-        "change_pct": -3.08
+        "ticker": "COIN",
+        "change_pct": -2.53
       },
       {
-        "ticker": "FITB",
-        "change_pct": -2.3
+        "ticker": "UBER",
+        "change_pct": -3.08
       },
       {
         "ticker": "OXY",
@@ -25069,12 +25069,12 @@
     "sector_rank": 23,
     "similar_score_peers": [
       {
-        "ticker": "FITB",
-        "change_pct": -2.3
+        "ticker": "UBER",
+        "change_pct": -3.08
       },
       {
-        "ticker": "COIN",
-        "change_pct": -2.53
+        "ticker": "FITB",
+        "change_pct": -2.3
       },
       {
         "ticker": "PRU",
@@ -25204,8 +25204,8 @@
     "sector_rank": 8,
     "similar_score_peers": [
       {
-        "ticker": "COIN",
-        "change_pct": -2.53
+        "ticker": "FITB",
+        "change_pct": -2.3
       },
       {
         "ticker": "OXY",
@@ -26379,7 +26379,7 @@
     "sector": "기술",
     "current_price": 433.72,
     "change_pct": 0.01,
-    "market_cap": 72064221184,
+    "market_cap": 72085831680,
     "final_score": 51.5,
     "rank": 205,
     "rank_change": -31,
@@ -37643,7 +37643,7 @@
     "sector": "기술",
     "current_price": 180.2,
     "change_pct": 3.23,
-    "market_cap": 110879866880,
+    "market_cap": 110901411840,
     "final_score": 47.7,
     "rank": 290,
     "rank_change": -5,
