@@ -475,6 +475,7 @@ SP500_KOREAN_NAMES = {
     "URI": "유나이티드 렌탈스",
     "USB": "US 뱅코프",
     "V": "비자",
+    "VEEV": "Veeva Systems",
     "VICI": "비치 프라퍼티스",
     "VLO": "발레로 에너지",
     "VLTO": "버럴토",

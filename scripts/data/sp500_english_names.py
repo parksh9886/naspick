@@ -475,6 +475,7 @@ SP500_ENGLISH_NAMES = {
     "URI": "United Rentals",
     "USB": "U.S. Bancorp",
     "V": "Visa",
+    "VEEV": "Veeva Systems",
     "VICI": "VICI Properties",
     "VLO": "Valero Energy",
     "VLTO": "Veralto",
