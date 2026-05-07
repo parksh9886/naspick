@@ -1,7 +1,7 @@
 {
-  "last_update": "2026-05-06",
-  "cash": 22090.58,
-  "total_value": 353274.64,
+  "last_update": "2026-05-07",
+  "cash": 4922.63,
+  "total_value": 351174.82,
   "holdings": {
     "NEM": 238,
     "MU": 74,
@@ -19,7 +19,8 @@
     "ACGL": 180,
     "UAL": 184,
     "FSLR": 83,
-    "HII": 55
+    "HII": 55,
+    "SNDK": 13
   },
   "note": "Synced with Backtest v3.1 (Total Return) on 2026-01-19",
   "action_history": [
@@ -127,6 +128,13 @@
       "type": "DIVIDEND",
       "amount": 94.2,
       "per_share": 0.3
+    },
+    {
+      "date": "2026-05-06",
+      "ticker": "EQT",
+      "type": "DIVIDEND",
+      "amount": 47.85,
+      "per_share": 0.165
     }
   ]
 }
