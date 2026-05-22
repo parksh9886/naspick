@@ -68,6 +68,7 @@ SP500_KOREAN_NAMES = {
     "BLDR": "빌더스 퍼스트소스",
     "BLK": "블랙록",
     "BMY": "브리스톨 마이어스 스큅",
+    "BNY": "BNY Mellon",
     "BR": "브로드리지 파이낸셜 솔루션스",
     "BRK.B": "버크셔 해서웨이 B",
     "BRKB": "Berkshire Hathaway",

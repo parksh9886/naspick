@@ -68,6 +68,7 @@ SP500_ENGLISH_NAMES = {
     "BLDR": "Builders FirstSource",
     "BLK": "BlackRock",
     "BMY": "Bristol-Myers Squibb",
+    "BNY": "BNY Mellon",
     "BR": "Broadridge Financial",
     "BRK.B": "Berkshire Hathaway",
     "BRKB": "Berkshire Hathaway",
