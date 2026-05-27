@@ -3395,7 +3395,11 @@
         "dividend_amount": 0.003
     },
     "MKC": {
-        "next_earnings": "2026-03-31",
+        "next_earnings": "2026-07-02",
+        "last_earnings_date": "2026-03-31",
+        "last_eps_est": 0.6,
+        "last_eps_act": 0.66,
+        "last_surprise": 10.66,
         "ex_dividend_date": "2026-04-20",
         "dividend_payment_date": "2026-04-27",
         "dividend_amount": 0.48,
@@ -4387,6 +4391,10 @@
     },
     "ROP": {
         "next_earnings": "2026-07-21",
+        "last_earnings_date": "2026-04-23",
+        "last_eps_est": 4.99,
+        "last_eps_act": 5.16,
+        "last_surprise": 3.49,
         "ex_dividend_date": "2026-07-08",
         "dividend_payment_date": "2026-07-22",
         "dividend_amount": 0.91,
@@ -4729,6 +4737,11 @@
         "dividend_yield": 1.12
     },
     "SYY": {
+        "next_earnings": "2026-07-28",
+        "last_earnings_date": "2026-04-28",
+        "last_eps_est": 0.94,
+        "last_eps_act": 0.94,
+        "last_surprise": -0.39,
         "ex_dividend_date": "2026-07-02",
         "dividend_payment_date": "2026-07-24",
         "dividend_amount": 0.54,
@@ -4736,6 +4749,11 @@
         "dividend_yield": 2.92
     },
     "T": {
+        "next_earnings": "2026-07-22",
+        "last_earnings_date": "2026-04-22",
+        "last_eps_est": 0.55,
+        "last_eps_act": 0.57,
+        "last_surprise": 3.42,
         "ex_dividend_date": "2026-04-10",
         "dividend_payment_date": "2026-05-01",
         "dividend_amount": 0.278,
@@ -4743,6 +4761,11 @@
         "dividend_yield": 4.44
     },
     "TAP": {
+        "next_earnings": "2026-08-04",
+        "last_earnings_date": "2026-04-30",
+        "last_eps_est": 0.4,
+        "last_eps_act": 0.8,
+        "last_surprise": 100.07,
         "ex_dividend_date": "2026-05-29",
         "dividend_payment_date": "2026-06-12",
         "dividend_amount": 0.48,
@@ -4750,13 +4773,30 @@
         "dividend_yield": 4.66
     },
     "TDG": {
+        "next_earnings": "2026-08-04",
+        "last_earnings_date": "2026-05-05",
+        "last_eps_est": 8.52,
+        "last_eps_act": 9.2,
+        "last_surprise": 7.92,
         "ex_dividend_date": "2025-09-02",
         "dividend_payment_date": "2025-09-12",
         "dividend_amount": 90.0,
         "dividend_ttm": 90.0,
         "dividend_yield": 7.34
     },
+    "TDY": {
+        "next_earnings": "2026-07-22",
+        "last_earnings_date": "2026-04-22",
+        "last_eps_est": 5.47,
+        "last_eps_act": 5.8,
+        "last_surprise": 5.97
+    },
     "TECH": {
+        "next_earnings": "2026-08-05",
+        "last_earnings_date": "2026-05-06",
+        "last_eps_est": 0.53,
+        "last_eps_act": 0.53,
+        "last_surprise": -0.82,
         "ex_dividend_date": "2026-05-18",
         "dividend_payment_date": "2026-05-29",
         "dividend_amount": 0.08,
@@ -4839,13 +4879,6 @@
         "dividend_amount": 1.25,
         "dividend_ttm": 4.25,
         "dividend_yield": 1.57
-    },
-    "TRMB": {
-        "next_earnings": "2026-08-05",
-        "last_earnings_date": "2026-05-06",
-        "last_eps_est": 0.72,
-        "last_eps_act": 0.79,
-        "last_surprise": 9.79
     },
     "TROW": {
         "ex_dividend_date": "2026-06-15",
@@ -4970,6 +5003,13 @@
         "dividend_ttm": 2.6,
         "dividend_yield": 0.82
     },
+    "VEEV": {
+        "next_earnings": "2026-06-03",
+        "last_earnings_date": "2026-03-04",
+        "last_eps_est": 1.94,
+        "last_eps_act": 2.06,
+        "last_surprise": 6.45
+    },
     "VICI": {
         "ex_dividend_date": "2026-03-19",
         "dividend_payment_date": "2026-04-09",
@@ -5086,11 +5126,6 @@
         "dividend_yield": 2.32
     },
     "WM": {
-        "next_earnings": "2026-07-27",
-        "last_earnings_date": "2026-04-28",
-        "last_eps_est": 1.74,
-        "last_eps_act": 1.81,
-        "last_surprise": 3.98,
         "ex_dividend_date": "2026-06-05",
         "dividend_payment_date": "2026-06-18",
         "dividend_amount": 0.945,
@@ -5147,6 +5182,11 @@
         "dividend_yield": 3.53
     },
     "WYNN": {
+        "next_earnings": "2026-08-06",
+        "last_earnings_date": "2026-05-07",
+        "last_eps_est": 1.18,
+        "last_eps_act": 1.25,
+        "last_surprise": 5.5,
         "ex_dividend_date": "2026-05-18",
         "dividend_payment_date": "2026-05-29",
         "dividend_amount": 0.25,
