@@ -1,13 +1,12 @@
 {
-  "last_update": "2026-05-27",
-  "cash": 4847.05,
-  "total_value": 375942.32,
+  "last_update": "2026-05-28",
+  "cash": 5588.44,
+  "total_value": 378588.41,
   "holdings": {
     "NEM": 238,
     "MU": 74,
     "NVDA": 82,
     "INCY": 150,
-    "DAL": 237,
     "CF": 164,
     "CTRA": 493,
     "BALL": 263,
@@ -20,7 +19,8 @@
     "EOG": 137,
     "TEL": 86,
     "ANET": 130,
-    "ALL": 84
+    "ALL": 84,
+    "NUE": 75
   },
   "note": "Synced with Backtest v3.1 (Total Return) on 2026-01-19",
   "action_history": [
@@ -156,6 +156,13 @@
       "type": "DIVIDEND",
       "amount": 67.08,
       "per_share": 0.78
+    },
+    {
+      "date": "2026-05-27",
+      "ticker": "NEM",
+      "type": "DIVIDEND",
+      "amount": 61.88,
+      "per_share": 0.26
     }
   ]
 }
