@@ -1,405 +1,522 @@
 {
-  "updated_at": "2026-05-29 18:03:00",
+  "updated_at": "2026-05-29 20:23:55",
   "market_status": "open",
   "signals": {
     "tier_up": [],
     "tier_down": [],
     "rank_up_major": [
       {
-        "ticker": "HII",
-        "name": "헌팅턴 잉걸스 인더스트리스",
-        "price": 310.51,
-        "change": -3.24,
+        "ticker": "FITB",
+        "name": "피프스 서드 뱅코프",
+        "price": 49.93,
+        "change": 0.1,
         "tier": 2,
-        "rank": 43,
-        "diff": 30
+        "rank": 67,
+        "diff": 43
       },
       {
         "ticker": "OKE",
         "name": "원오크",
-        "price": 84.5,
-        "change": -2.9,
+        "price": 83.94,
+        "change": -3.54,
         "tier": 2,
         "rank": 72,
         "diff": 49
       },
       {
-        "ticker": "TXT",
-        "name": "텍스트론",
-        "price": 92.07,
-        "change": 0.16,
-        "tier": 2,
-        "rank": 75,
-        "diff": 36
-      },
-      {
         "ticker": "MPWR",
         "name": "모놀리식 파워 시스템즈",
-        "price": 1568.73,
-        "change": -3.95,
+        "price": 1566.21,
+        "change": -4.1,
         "tier": 2,
-        "rank": 81,
-        "diff": 42
+        "rank": 73,
+        "diff": 50
       },
       {
-        "ticker": "GD",
-        "name": "제너럴 다이내믹스",
-        "price": 348.71,
-        "change": -0.07,
+        "ticker": "COP",
+        "name": "코노코필립스",
+        "price": 113.98,
+        "change": -0.88,
         "tier": 2,
-        "rank": 88,
-        "diff": 43
-      },
-      {
-        "ticker": "JBL",
-        "name": "자빌",
-        "price": 360.3,
-        "change": -0.92,
-        "tier": 2,
-        "rank": 89,
-        "diff": 30
+        "rank": 77,
+        "diff": 48
       },
       {
         "ticker": "NXPI",
         "name": "NXP 세미컨덕터스",
-        "price": 320.44,
-        "change": -2.98,
+        "price": 321.35,
+        "change": -2.7,
         "tier": 2,
-        "rank": 94,
-        "diff": 54
+        "rank": 82,
+        "diff": 66
+      },
+      {
+        "ticker": "VZ",
+        "name": "버라이즌 커뮤니케이션스",
+        "price": 47.81,
+        "change": -0.42,
+        "tier": 2,
+        "rank": 83,
+        "diff": 50
       },
       {
         "ticker": "BIIB",
         "name": "바이오젠",
-        "price": 197.48,
-        "change": 0.55,
+        "price": 196.0,
+        "change": -0.2,
+        "tier": 2,
+        "rank": 84,
+        "diff": 50
+      },
+      {
+        "ticker": "CTVA",
+        "name": "코르테바",
+        "price": 78.28,
+        "change": -2.88,
+        "tier": 2,
+        "rank": 86,
+        "diff": 69
+      },
+      {
+        "ticker": "T",
+        "name": "AT&T",
+        "price": 24.8,
+        "change": -0.32,
+        "tier": 2,
+        "rank": 95,
+        "diff": 51
+      },
+      {
+        "ticker": "GD",
+        "name": "제너럴 다이내믹스",
+        "price": 346.82,
+        "change": -0.61,
         "tier": 2,
         "rank": 96,
-        "diff": 38
+        "diff": 35
       },
       {
-        "ticker": "EXPD",
-        "name": "익스피다이터스 인터내셔널 오브 워싱턴",
-        "price": 159.89,
-        "change": 0.59,
+        "ticker": "EA",
+        "name": "일렉트로닉 아츠",
+        "price": 201.72,
+        "change": 0.28,
         "tier": 3,
-        "rank": 105,
-        "diff": 39
+        "rank": 106,
+        "diff": 32
       },
       {
-        "ticker": "COR",
-        "name": "센코라",
-        "price": 268.1,
-        "change": 0.15,
+        "ticker": "NWSA",
+        "name": "뉴스 코퍼레이션 A",
+        "price": 26.1,
+        "change": -1.58,
         "tier": 3,
-        "rank": 118,
-        "diff": 68
-      },
-      {
-        "ticker": "CI",
-        "name": "시그나 그룹",
-        "price": 278.39,
-        "change": -2.09,
-        "tier": 3,
-        "rank": 126,
-        "diff": 39
-      },
-      {
-        "ticker": "EIX",
-        "name": "에디슨 인터내셔널",
-        "price": 69.4,
-        "change": -1.25,
-        "tier": 3,
-        "rank": 131,
-        "diff": 89
-      },
-      {
-        "ticker": "ADBE",
-        "name": "어도비",
-        "price": 256.11,
-        "change": 6.07,
-        "tier": 3,
-        "rank": 135,
-        "diff": 46
-      },
-      {
-        "ticker": "V",
-        "name": "비자",
-        "price": 330.61,
-        "change": 1.74,
-        "tier": 3,
-        "rank": 145,
-        "diff": 30
-      },
-      {
-        "ticker": "ALLE",
-        "name": "얼리젼",
-        "price": 131.07,
-        "change": -0.23,
-        "tier": 3,
-        "rank": 146,
-        "diff": 49
-      },
-      {
-        "ticker": "GLW",
-        "name": "코닝",
-        "price": 176.4,
-        "change": -3.59,
-        "tier": 3,
-        "rank": 147,
-        "diff": 109
-      },
-      {
-        "ticker": "FIX",
-        "name": "컴포트 시스템즈 USA",
-        "price": 1803.2,
-        "change": -2.8,
-        "tier": 3,
-        "rank": 153,
-        "diff": 82
+        "rank": 124,
+        "diff": 34
       },
       {
         "ticker": "JCI",
         "name": "존슨 콘트롤즈 인터내셔널",
-        "price": 134.95,
-        "change": -0.88,
+        "price": 134.06,
+        "change": -1.54,
         "tier": 3,
-        "rank": 156,
+        "rank": 125,
+        "diff": 71
+      },
+      {
+        "ticker": "MTB",
+        "name": "M&T 뱅크",
+        "price": 216.11,
+        "change": 0.84,
+        "tier": 3,
+        "rank": 130,
+        "diff": 34
+      },
+      {
+        "ticker": "TXN",
+        "name": "텍사스 인스트루먼츠",
+        "price": 305.68,
+        "change": -3.25,
+        "tier": 3,
+        "rank": 133,
+        "diff": 37
+      },
+      {
+        "ticker": "CI",
+        "name": "시그나 그룹",
+        "price": 277.4,
+        "change": -2.44,
+        "tier": 3,
+        "rank": 134,
+        "diff": 31
+      },
+      {
+        "ticker": "CSCO",
+        "name": "시스코 시스템즈",
+        "price": 120.42,
+        "change": 1.5,
+        "tier": 3,
+        "rank": 135,
+        "diff": 32
+      },
+      {
+        "ticker": "ADBE",
+        "name": "어도비",
+        "price": 259.21,
+        "change": 7.36,
+        "tier": 3,
+        "rank": 141,
         "diff": 40
       },
       {
-        "ticker": "TGT",
-        "name": "타겟",
-        "price": 126.26,
-        "change": -1.85,
+        "ticker": "ES",
+        "name": "에버소스 에너지",
+        "price": 68.27,
+        "change": -1.19,
         "tier": 3,
-        "rank": 163,
+        "rank": 142,
+        "diff": 37
+      },
+      {
+        "ticker": "COR",
+        "name": "센코라",
+        "price": 269.36,
+        "change": 0.62,
+        "tier": 3,
+        "rank": 145,
+        "diff": 41
+      },
+      {
+        "ticker": "RF",
+        "name": "리전스 파이낸셜",
+        "price": 28.0,
+        "change": 0.61,
+        "tier": 3,
+        "rank": 151,
+        "diff": 41
+      },
+      {
+        "ticker": "JBHT",
+        "name": "JB 헌트 트랜스포트 서비시스",
+        "price": 276.43,
+        "change": 1.43,
+        "tier": 3,
+        "rank": 153,
+        "diff": 80
+      },
+      {
+        "ticker": "ALLE",
+        "name": "얼리젼",
+        "price": 130.07,
+        "change": -0.99,
+        "tier": 3,
+        "rank": 155,
+        "diff": 40
+      },
+      {
+        "ticker": "XOM",
+        "name": "엑슨 모빌",
+        "price": 145.26,
+        "change": -1.16,
+        "tier": 3,
+        "rank": 156,
+        "diff": 55
+      },
+      {
+        "ticker": "FFIV",
+        "name": "F5",
+        "price": 383.45,
+        "change": 0.01,
+        "tier": 3,
+        "rank": 157,
         "diff": 42
-      },
-      {
-        "ticker": "KVUE",
-        "name": "켄뷰",
-        "price": 17.58,
-        "change": -0.37,
-        "tier": 3,
-        "rank": 164,
-        "diff": 106
-      },
-      {
-        "ticker": "AMP",
-        "name": "아메리프라이즈 파이낸셜",
-        "price": 447.99,
-        "change": 1.85,
-        "tier": 3,
-        "rank": 165,
-        "diff": 78
-      },
-      {
-        "ticker": "WEC",
-        "name": "WEC 에너지 그룹",
-        "price": 111.14,
-        "change": -0.47,
-        "tier": 3,
-        "rank": 167,
-        "diff": 43
-      },
-      {
-        "ticker": "CHTR",
-        "name": "차터 커뮤니케이션스",
-        "price": 142.16,
-        "change": -3.46,
-        "tier": 3,
-        "rank": 169,
-        "diff": 70
       },
       {
         "ticker": "PGR",
         "name": "프로그레시브",
-        "price": 192.41,
-        "change": -1.08,
+        "price": 190.4,
+        "change": -2.11,
         "tier": 3,
-        "rank": 173,
-        "diff": 52
+        "rank": 158,
+        "diff": 67
       },
       {
-        "ticker": "AOS",
-        "name": "A O 스미스",
-        "price": 56.92,
-        "change": -1.22,
+        "ticker": "OTIS",
+        "name": "오티스 월드와이드",
+        "price": 70.84,
+        "change": -0.52,
         "tier": 3,
-        "rank": 179,
-        "diff": 47
+        "rank": 159,
+        "diff": 59
       },
       {
-        "ticker": "KMI",
-        "name": "킨더 모건",
-        "price": 31.39,
+        "ticker": "FIX",
+        "name": "컴포트 시스템즈 USA",
+        "price": 1828.21,
+        "change": -1.45,
+        "tier": 3,
+        "rank": 161,
+        "diff": 74
+      },
+      {
+        "ticker": "KVUE",
+        "name": "켄뷰",
+        "price": 17.28,
+        "change": -2.04,
+        "tier": 3,
+        "rank": 162,
+        "diff": 108
+      },
+      {
+        "ticker": "EIX",
+        "name": "에디슨 인터내셔널",
+        "price": 69.94,
+        "change": -0.48,
+        "tier": 3,
+        "rank": 165,
+        "diff": 55
+      },
+      {
+        "ticker": "TROW",
+        "name": "티 로웨 프라이스 그룹",
+        "price": 104.53,
+        "change": 0.95,
+        "tier": 3,
+        "rank": 170,
+        "diff": 68
+      },
+      {
+        "ticker": "PCAR",
+        "name": "파카",
+        "price": 110.37,
         "change": -1.65,
         "tier": 3,
-        "rank": 183,
-        "diff": 54
-      },
-      {
-        "ticker": "PWR",
-        "name": "콴타 서비시스",
-        "price": 713.59,
-        "change": -2.26,
-        "tier": 3,
-        "rank": 189,
-        "diff": 87
-      },
-      {
-        "ticker": "PLD",
-        "name": "프로로지스",
-        "price": 143.09,
-        "change": -1.75,
-        "tier": 3,
-        "rank": 193,
-        "diff": 72
-      },
-      {
-        "ticker": "CBOE",
-        "name": "CBOE 글로벌 마켓",
-        "price": 336.04,
-        "change": -2.38,
-        "tier": 3,
-        "rank": 196,
-        "diff": 44
+        "rank": 174,
+        "diff": 75
       },
       {
         "ticker": "UDR",
         "name": "UDR",
-        "price": 37.41,
-        "change": -1.24,
+        "price": 36.9,
+        "change": -2.59,
         "tier": 3,
-        "rank": 198,
-        "diff": 73
+        "rank": 180,
+        "diff": 91
       },
       {
-        "ticker": "MLM",
-        "name": "마틴 마리에타 머티리얼스",
-        "price": 586.71,
-        "change": 2.01,
+        "ticker": "CHTR",
+        "name": "차터 커뮤니케이션스",
+        "price": 144.05,
+        "change": -2.18,
         "tier": 3,
-        "rank": 206,
-        "diff": 103
+        "rank": 183,
+        "diff": 56
       },
       {
-        "ticker": "QCOM",
-        "name": "퀄컴",
-        "price": 252.85,
-        "change": 3.93,
+        "ticker": "TTD",
+        "name": "트레이드 데스크",
+        "price": 21.56,
+        "change": 1.94,
         "tier": 3,
-        "rank": 207,
-        "diff": 80
+        "rank": 187,
+        "diff": 34
       },
       {
-        "ticker": "AON",
-        "name": "에이온",
-        "price": 317.12,
-        "change": -0.37,
+        "ticker": "AMP",
+        "name": "아메리프라이즈 파이낸셜",
+        "price": 445.71,
+        "change": 1.33,
         "tier": 3,
-        "rank": 210,
-        "diff": 78
+        "rank": 190,
+        "diff": 53
       },
       {
-        "ticker": "ROL",
-        "name": "롤린스",
-        "price": 47.7,
-        "change": -3.48,
+        "ticker": "KMI",
+        "name": "킨더 모건",
+        "price": 31.08,
+        "change": -2.6,
         "tier": 3,
-        "rank": 211,
-        "diff": 39
+        "rank": 192,
+        "diff": 45
+      },
+      {
+        "ticker": "AOS",
+        "name": "A O 스미스",
+        "price": 56.72,
+        "change": -1.56,
+        "tier": 3,
+        "rank": 193,
+        "diff": 33
+      },
+      {
+        "ticker": "CBOE",
+        "name": "CBOE 글로벌 마켓",
+        "price": 333.56,
+        "change": -3.1,
+        "tier": 3,
+        "rank": 194,
+        "diff": 46
       },
       {
         "ticker": "HLT",
         "name": "힐튼 월드와이드 홀딩스",
-        "price": 329.1,
-        "change": -2.5,
+        "price": 327.66,
+        "change": -2.93,
         "tier": 3,
-        "rank": 212,
-        "diff": 30
+        "rank": 195,
+        "diff": 47
+      },
+      {
+        "ticker": "SLB",
+        "name": "슐럼버거",
+        "price": 54.55,
+        "change": -1.03,
+        "tier": 3,
+        "rank": 200,
+        "diff": 63
       },
       {
         "ticker": "IVZ",
         "name": "인베스코",
-        "price": 28.62,
-        "change": 2.01,
+        "price": 28.46,
+        "change": 1.43,
         "tier": 3,
-        "rank": 215,
-        "diff": 63
+        "rank": 203,
+        "diff": 75
+      },
+      {
+        "ticker": "PFE",
+        "name": "화이자",
+        "price": 26.18,
+        "change": 0.15,
+        "tier": 3,
+        "rank": 205,
+        "diff": 46
+      },
+      {
+        "ticker": "MLM",
+        "name": "마틴 마리에타 머티리얼스",
+        "price": 581.64,
+        "change": 1.13,
+        "tier": 3,
+        "rank": 211,
+        "diff": 98
+      },
+      {
+        "ticker": "ROL",
+        "name": "롤린스",
+        "price": 47.6,
+        "change": -3.68,
+        "tier": 3,
+        "rank": 213,
+        "diff": 37
       },
       {
         "ticker": "XEL",
         "name": "엑셀 에너지",
-        "price": 79.11,
-        "change": -0.19,
+        "price": 79.5,
+        "change": 0.3,
         "tier": 3,
-        "rank": 216,
-        "diff": 38
+        "rank": 214,
+        "diff": 40
       },
       {
-        "ticker": "COHR",
-        "name": "Coherent Corp.",
-        "price": 345.18,
-        "change": -8.43,
+        "ticker": "ED",
+        "name": "컨솔리데이티드 에디슨",
+        "price": 105.63,
+        "change": -0.63,
         "tier": 3,
         "rank": 223,
-        "diff": 125
+        "diff": 46
       },
       {
-        "ticker": "TMUS",
-        "name": "T 모바일 US",
-        "price": 187.02,
-        "change": -1.05,
+        "ticker": "PLD",
+        "name": "프로로지스",
+        "price": 143.47,
+        "change": -1.49,
         "tier": 3,
-        "rank": 231,
-        "diff": 97
+        "rank": 224,
+        "diff": 41
       },
       {
-        "ticker": "CIEN",
-        "name": "Ciena",
-        "price": 553.34,
-        "change": -2.95,
+        "ticker": "NI",
+        "name": "나이소스 에너지",
+        "price": 46.22,
+        "change": -1.18,
         "tier": 3,
-        "rank": 243,
-        "diff": 70
+        "rank": 225,
+        "diff": 79
       },
       {
-        "ticker": "GNRC",
-        "name": "제네락 홀딩스",
-        "price": 279.04,
-        "change": -0.15,
+        "ticker": "PWR",
+        "name": "콴타 서비시스",
+        "price": 711.73,
+        "change": -2.52,
         "tier": 3,
-        "rank": 246,
-        "diff": 92
-      },
-      {
-        "ticker": "WFC",
-        "name": "웰스 파고",
-        "price": 77.36,
-        "change": 0.92,
-        "tier": 3,
-        "rank": 247,
-        "diff": 60
+        "rank": 226,
+        "diff": 50
       },
       {
         "ticker": "KMB",
         "name": "킴벌리 클라크",
-        "price": 99.73,
-        "change": -0.41,
+        "price": 97.6,
+        "change": -2.54,
         "tier": 3,
-        "rank": 248,
-        "diff": 70
+        "rank": 227,
+        "diff": 91
       },
       {
-        "ticker": "LITE",
-        "name": "Lumentum",
-        "price": 828.68,
-        "change": -3.71,
-        "tier": 4,
-        "rank": 250,
-        "diff": 53
+        "ticker": "DIS",
+        "name": "월트 디즈니",
+        "price": 101.83,
+        "change": -1.83,
+        "tier": 3,
+        "rank": 229,
+        "diff": 82
+      },
+      {
+        "ticker": "QCOM",
+        "name": "퀄컴",
+        "price": 251.02,
+        "change": 3.18,
+        "tier": 3,
+        "rank": 230,
+        "diff": 57
+      },
+      {
+        "ticker": "AON",
+        "name": "에이온",
+        "price": 316.06,
+        "change": -0.7,
+        "tier": 3,
+        "rank": 236,
+        "diff": 52
+      },
+      {
+        "ticker": "VRSK",
+        "name": "베리스크 애널리틱스",
+        "price": 174.99,
+        "change": 1.26,
+        "tier": 3,
+        "rank": 239,
+        "diff": 81
+      },
+      {
+        "ticker": "TMUS",
+        "name": "T 모바일 US",
+        "price": 187.53,
+        "change": -0.78,
+        "tier": 3,
+        "rank": 240,
+        "diff": 88
+      },
+      {
+        "ticker": "RSG",
+        "name": "리퍼블릭 서비스",
+        "price": 200.44,
+        "change": -1.6,
+        "tier": 3,
+        "rank": 248,
+        "diff": 82
       },
       {
         "ticker": "PAYC",
@@ -411,528 +528,645 @@
         "diff": 51
       },
       {
-        "ticker": "VRSK",
-        "name": "베리스크 애널리틱스",
-        "price": 174.45,
-        "change": 0.94,
+        "ticker": "CME",
+        "name": "CME 그룹",
+        "price": 273.54,
+        "change": -1.4,
+        "tier": 4,
+        "rank": 253,
+        "diff": 69
+      },
+      {
+        "ticker": "CVX",
+        "name": "셰브론",
+        "price": 182.46,
+        "change": -0.31,
         "tier": 4,
         "rank": 259,
-        "diff": 61
+        "diff": 33
+      },
+      {
+        "ticker": "FANG",
+        "name": "다이아몬드백 에너지",
+        "price": 191.48,
+        "change": -1.37,
+        "tier": 4,
+        "rank": 268,
+        "diff": 69
+      },
+      {
+        "ticker": "GNRC",
+        "name": "제네락 홀딩스",
+        "price": 277.91,
+        "change": -0.55,
+        "tier": 4,
+        "rank": 269,
+        "diff": 69
+      },
+      {
+        "ticker": "CIEN",
+        "name": "Ciena",
+        "price": 580.23,
+        "change": 1.76,
+        "tier": 4,
+        "rank": 282,
+        "diff": 31
       },
       {
         "ticker": "ALB",
         "name": "알버말",
-        "price": 176.27,
-        "change": -0.03,
+        "price": 176.42,
+        "change": 0.06,
         "tier": 4,
-        "rank": 261,
-        "diff": 65
+        "rank": 291,
+        "diff": 35
       },
       {
-        "ticker": "DIS",
-        "name": "월트 디즈니",
-        "price": 102.53,
-        "change": -1.16,
+        "ticker": "COHR",
+        "name": "Coherent Corp.",
+        "price": 361.47,
+        "change": -4.11,
         "tier": 4,
-        "rank": 263,
-        "diff": 48
+        "rank": 298,
+        "diff": 50
       },
       {
-        "ticker": "WMT",
-        "name": "월마트",
-        "price": 115.36,
-        "change": -2.98,
+        "ticker": "HSIC",
+        "name": "헨리 셰인",
+        "price": 76.58,
+        "change": 0.34,
         "tier": 4,
-        "rank": 267,
-        "diff": 34
-      },
-      {
-        "ticker": "CME",
-        "name": "CME 그룹",
-        "price": 275.57,
-        "change": -0.67,
-        "tier": 4,
-        "rank": 276,
-        "diff": 46
-      },
-      {
-        "ticker": "RSG",
-        "name": "리퍼블릭 서비스",
-        "price": 202.07,
-        "change": -0.8,
-        "tier": 4,
-        "rank": 284,
-        "diff": 46
-      },
-      {
-        "ticker": "ACN",
-        "name": "액센츄어",
-        "price": 186.52,
-        "change": 4.55,
-        "tier": 4,
-        "rank": 303,
-        "diff": 38
-      },
-      {
-        "ticker": "APD",
-        "name": "에어 프로덕츠 앤 케미컬스",
-        "price": 279.6,
-        "change": -1.43,
-        "tier": 4,
-        "rank": 315,
-        "diff": 44
+        "rank": 300,
+        "diff": 31
       },
       {
         "ticker": "VRSN",
         "name": "베리사인",
-        "price": 285.72,
-        "change": -3.52,
+        "price": 285.38,
+        "change": -3.63,
         "tier": 4,
-        "rank": 322,
-        "diff": 60
+        "rank": 311,
+        "diff": 71
       },
       {
-        "ticker": "MDLZ",
-        "name": "몬덜리즈 인터내셔널",
-        "price": 61.9,
-        "change": -0.78,
+        "ticker": "ABBV",
+        "name": "애브비",
+        "price": 217.72,
+        "change": -0.42,
         "tier": 4,
-        "rank": 329,
-        "diff": 43
+        "rank": 312,
+        "diff": 44
       },
       {
-        "ticker": "EQR",
-        "name": "에퀴티 레지덴셜",
-        "price": 65.37,
-        "change": -1.34,
+        "ticker": "FTV",
+        "name": "포티브",
+        "price": 58.32,
+        "change": -1.44,
         "tier": 4,
-        "rank": 334,
-        "diff": 55
+        "rank": 316,
+        "diff": 38
       },
       {
         "ticker": "FIS",
         "name": "피델리티 내셔널 인포메이션 서비시스",
-        "price": 43.1,
-        "change": 2.1,
+        "price": 42.99,
+        "change": 1.82,
         "tier": 4,
-        "rank": 335,
-        "diff": 42
+        "rank": 323,
+        "diff": 54
       },
       {
         "ticker": "PAYX",
         "name": "페이첵스",
-        "price": 97.85,
-        "change": 2.45,
+        "price": 96.98,
+        "change": 1.54,
         "tier": 4,
-        "rank": 337,
-        "diff": 55
+        "rank": 331,
+        "diff": 61
       },
       {
-        "ticker": "CMI",
-        "name": "커민스",
-        "price": 649.6,
-        "change": -2.85,
+        "ticker": "DD",
+        "name": "듀폰 드 느무르",
+        "price": 48.42,
+        "change": 1.49,
         "tier": 4,
-        "rank": 340,
-        "diff": 41
-      },
-      {
-        "ticker": "ELV",
-        "name": "엘리번스 헬스",
-        "price": 393.94,
-        "change": 0.3,
-        "tier": 4,
-        "rank": 341,
-        "diff": 30
-      },
-      {
-        "ticker": "NWS",
-        "name": "뉴스 코퍼레이션 B",
-        "price": 29.93,
-        "change": -1.35,
-        "tier": 4,
-        "rank": 346,
-        "diff": 54
-      },
-      {
-        "ticker": "SRE",
-        "name": "셈프라",
-        "price": 88.82,
-        "change": -1.34,
-        "tier": 4,
-        "rank": 348,
-        "diff": 71
-      },
-      {
-        "ticker": "SBUX",
-        "name": "스타벅스",
-        "price": 98.82,
-        "change": -1.91,
-        "tier": 4,
-        "rank": 356,
-        "diff": 58
+        "rank": 342,
+        "diff": 46
       },
       {
         "ticker": "ADP",
         "name": "오토매틱 데이터 프로세싱",
-        "price": 223.75,
-        "change": 1.77,
+        "price": 221.84,
+        "change": 0.9,
         "tier": 4,
-        "rank": 360,
-        "diff": 38
+        "rank": 347,
+        "diff": 51
       },
       {
-        "ticker": "BRK.B",
-        "name": "버크셔 해서웨이 B",
-        "price": 475.21,
-        "change": -0.46,
+        "ticker": "EQR",
+        "name": "에퀴티 레지덴셜",
+        "price": 65.45,
+        "change": -1.22,
         "tier": 4,
-        "rank": 363,
-        "diff": 47
+        "rank": 348,
+        "diff": 41
       },
       {
-        "ticker": "TYL",
-        "name": "타일러 테크놀로지스",
-        "price": 311.89,
-        "change": 1.91,
+        "ticker": "CMI",
+        "name": "커민스",
+        "price": 646.63,
+        "change": -3.3,
         "tier": 4,
-        "rank": 366,
-        "diff": 42
+        "rank": 351,
+        "diff": 30
       },
       {
-        "ticker": "CLX",
-        "name": "크로락스",
-        "price": 92.42,
-        "change": -3.93,
+        "ticker": "SRE",
+        "name": "셈프라",
+        "price": 89.13,
+        "change": -1.0,
         "tier": 4,
-        "rank": 378,
-        "diff": 53
+        "rank": 357,
+        "diff": 62
       },
       {
         "ticker": "UNH",
         "name": "유나이티드헬스 그룹",
-        "price": 380.49,
-        "change": -0.53,
+        "price": 380.31,
+        "change": -0.58,
         "tier": 4,
-        "rank": 381,
-        "diff": 32
+        "rank": 360,
+        "diff": 53
       },
       {
-        "ticker": "PANW",
-        "name": "팔로알토 네트웍스",
-        "price": 276.5,
-        "change": 7.27,
+        "ticker": "UPS",
+        "name": "유나이티드 파셀 서비스",
+        "price": 106.69,
+        "change": 0.02,
         "tier": 4,
-        "rank": 397,
-        "diff": 36
+        "rank": 362,
+        "diff": 35
       },
       {
-        "ticker": "DLR",
-        "name": "디지털 리얼티 트러스트",
-        "price": 190.72,
-        "change": -0.37,
+        "ticker": "CLX",
+        "name": "크로락스",
+        "price": 90.02,
+        "change": -6.42,
         "tier": 4,
-        "rank": 398,
+        "rank": 364,
+        "diff": 67
+      },
+      {
+        "ticker": "BRK.B",
+        "name": "버크셔 해서웨이 B",
+        "price": 474.48,
+        "change": -0.62,
+        "tier": 4,
+        "rank": 365,
+        "diff": 45
+      },
+      {
+        "ticker": "SBUX",
+        "name": "스타벅스",
+        "price": 99.16,
+        "change": -1.58,
+        "tier": 4,
+        "rank": 366,
+        "diff": 48
+      },
+      {
+        "ticker": "DOC",
+        "name": "헬스피크 프로퍼티스",
+        "price": 19.15,
+        "change": -1.85,
+        "tier": 4,
+        "rank": 367,
+        "diff": 37
+      },
+      {
+        "ticker": "NWS",
+        "name": "뉴스 코퍼레이션 B",
+        "price": 29.82,
+        "change": -1.71,
+        "tier": 4,
+        "rank": 369,
         "diff": 31
+      },
+      {
+        "ticker": "FOX",
+        "name": "폭스 B",
+        "price": 57.39,
+        "change": -3.11,
+        "tier": 4,
+        "rank": 374,
+        "diff": 42
+      },
+      {
+        "ticker": "SYY",
+        "name": "시스코",
+        "price": 75.81,
+        "change": -0.14,
+        "tier": 4,
+        "rank": 382,
+        "diff": 39
+      },
+      {
+        "ticker": "CNC",
+        "name": "센틴",
+        "price": 59.6,
+        "change": 1.17,
+        "tier": 5,
+        "rank": 423,
+        "diff": 38
       }
     ],
     "rank_down_major": [
       {
-        "ticker": "AEP",
-        "name": "아메리칸 일렉트릭 파워",
-        "price": 126.81,
-        "change": -0.74,
+        "ticker": "PLTR",
+        "name": "팔란티어 테크놀로지스",
+        "price": 156.54,
+        "change": 9.21,
         "tier": 2,
         "rank": 80,
-        "diff": -33
+        "diff": -32
       },
       {
-        "ticker": "VRTX",
-        "name": "버텍스 파마슈티컬스",
-        "price": 447.99,
-        "change": 0.0,
+        "ticker": "CSX",
+        "name": "CSX",
+        "price": 45.26,
+        "change": -1.2,
         "tier": 3,
-        "rank": 114,
-        "diff": -36
-      },
-      {
-        "ticker": "RCL",
-        "name": "로얄 캐리비안 크루즈",
-        "price": 285.15,
-        "change": 1.37,
-        "tier": 3,
-        "rank": 115,
-        "diff": -35
-      },
-      {
-        "ticker": "CEG",
-        "name": "컨스털레이션 에너지",
-        "price": 286.98,
-        "change": 0.23,
-        "tier": 3,
-        "rank": 124,
+        "rank": 109,
         "diff": -32
       },
       {
         "ticker": "GL",
         "name": "글로브 라이프",
-        "price": 155.69,
-        "change": 1.24,
+        "price": 153.24,
+        "change": -0.36,
         "tier": 3,
-        "rank": 129,
-        "diff": -55
+        "rank": 110,
+        "diff": -36
+      },
+      {
+        "ticker": "TJX",
+        "name": "TJX 컴퍼니즈",
+        "price": 154.75,
+        "change": -0.09,
+        "tier": 3,
+        "rank": 113,
+        "diff": -47
+      },
+      {
+        "ticker": "DECK",
+        "name": "데커스 아웃도어",
+        "price": 113.85,
+        "change": -0.4,
+        "tier": 3,
+        "rank": 116,
+        "diff": -40
+      },
+      {
+        "ticker": "RCL",
+        "name": "로얄 캐리비안 크루즈",
+        "price": 284.63,
+        "change": 1.19,
+        "tier": 3,
+        "rank": 121,
+        "diff": -41
+      },
+      {
+        "ticker": "AEE",
+        "name": "애머런",
+        "price": 107.97,
+        "change": -0.88,
+        "tier": 3,
+        "rank": 122,
+        "diff": -41
+      },
+      {
+        "ticker": "CEG",
+        "name": "컨스털레이션 에너지",
+        "price": 287.75,
+        "change": 0.5,
+        "tier": 3,
+        "rank": 127,
+        "diff": -35
+      },
+      {
+        "ticker": "NFLX",
+        "name": "넷플릭스",
+        "price": 86.02,
+        "change": -0.39,
+        "tier": 3,
+        "rank": 132,
+        "diff": -34
       },
       {
         "ticker": "TSN",
         "name": "타이슨 푸드",
-        "price": 61.4,
-        "change": -0.97,
+        "price": 61.02,
+        "change": -1.58,
         "tier": 3,
-        "rank": 144,
-        "diff": -47
+        "rank": 139,
+        "diff": -42
       },
       {
-        "ticker": "ROP",
-        "name": "로퍼 테크놀로지스",
-        "price": 325.88,
-        "change": 1.92,
+        "ticker": "BMY",
+        "name": "브리스톨 마이어스 스큅",
+        "price": 57.18,
+        "change": 0.47,
         "tier": 3,
-        "rank": 150,
-        "diff": -45
+        "rank": 140,
+        "diff": -49
       },
       {
-        "ticker": "TDY",
-        "name": "텔레다인 테크놀로지스",
-        "price": 628.72,
-        "change": -0.84,
+        "ticker": "APP",
+        "name": "앱러빈",
+        "price": 613.09,
+        "change": 2.2,
         "tier": 3,
-        "rank": 154,
-        "diff": -39
+        "rank": 146,
+        "diff": -30
       },
       {
-        "ticker": "NDSN",
-        "name": "노드슨",
-        "price": 288.51,
-        "change": 0.13,
+        "ticker": "BKNG",
+        "name": "부킹 홀딩스",
+        "price": 167.43,
+        "change": -1.41,
         "tier": 3,
-        "rank": 158,
-        "diff": -59
+        "rank": 147,
+        "diff": -35
+      },
+      {
+        "ticker": "LLY",
+        "name": "일라이 릴리",
+        "price": 1105.0,
+        "change": -1.93,
+        "tier": 3,
+        "rank": 166,
+        "diff": -30
       },
       {
         "ticker": "SPG",
         "name": "사이먼 프로퍼티 그룹",
-        "price": 204.58,
+        "price": 204.91,
+        "change": -0.9,
+        "tier": 3,
+        "rank": 167,
+        "diff": -49
+      },
+      {
+        "ticker": "AZO",
+        "name": "오토존",
+        "price": 2935.19,
+        "change": -2.39,
+        "tier": 3,
+        "rank": 171,
+        "diff": -32
+      },
+      {
+        "ticker": "WAB",
+        "name": "웨스팅하우스 에어 브레이크 테크놀로지",
+        "price": 261.16,
+        "change": -0.02,
+        "tier": 3,
+        "rank": 172,
+        "diff": -37
+      },
+      {
+        "ticker": "GWW",
+        "name": "W W 그레인저",
+        "price": 1234.24,
         "change": -1.06,
         "tier": 3,
-        "rank": 161,
-        "diff": -43
-      },
-      {
-        "ticker": "ORCL",
-        "name": "오라클",
-        "price": 222.21,
-        "change": 9.09,
-        "tier": 3,
-        "rank": 184,
-        "diff": -42
-      },
-      {
-        "ticker": "HAS",
-        "name": "해즈브로",
-        "price": 86.79,
-        "change": 0.47,
-        "tier": 3,
-        "rank": 188,
-        "diff": -68
-      },
-      {
-        "ticker": "MSI",
-        "name": "모토로라 솔루션즈",
-        "price": 403.07,
-        "change": -2.06,
-        "tier": 3,
-        "rank": 199,
+        "rank": 173,
         "diff": -30
       },
       {
-        "ticker": "EVRG",
-        "name": "에버지",
-        "price": 82.04,
-        "change": -0.97,
+        "ticker": "NEE",
+        "name": "넥스트에라 에너지",
+        "price": 87.01,
+        "change": -0.28,
         "tier": 3,
-        "rank": 214,
-        "diff": -58
+        "rank": 178,
+        "diff": -48
       },
       {
-        "ticker": "VLO",
-        "name": "발레로 에너지",
-        "price": 245.53,
-        "change": 0.28,
+        "ticker": "WM",
+        "name": "웨이스트 매니지먼트",
+        "price": 211.46,
+        "change": -1.37,
         "tier": 3,
-        "rank": 217,
-        "diff": -32
-      },
-      {
-        "ticker": "SBAC",
-        "name": "SBA 커뮤니케이션스",
-        "price": 204.19,
-        "change": -0.21,
-        "tier": 3,
-        "rank": 218,
-        "diff": -58
-      },
-      {
-        "ticker": "RJF",
-        "name": "레이먼드 제임스 파이낸셜",
-        "price": 143.87,
-        "change": 1.32,
-        "tier": 3,
-        "rank": 221,
-        "diff": -30
-      },
-      {
-        "ticker": "DXCM",
-        "name": "덱스콤",
-        "price": 73.47,
-        "change": 1.56,
-        "tier": 3,
-        "rank": 229,
-        "diff": -39
-      },
-      {
-        "ticker": "IDXX",
-        "name": "아이덱스 래버러토리스",
-        "price": 564.78,
-        "change": -0.57,
-        "tier": 3,
-        "rank": 236,
-        "diff": -54
-      },
-      {
-        "ticker": "XYL",
-        "name": "자일럼",
-        "price": 110.21,
-        "change": 0.88,
-        "tier": 3,
-        "rank": 237,
-        "diff": -63
-      },
-      {
-        "ticker": "MNST",
-        "name": "몬스터 베버리지",
-        "price": 88.58,
-        "change": 0.67,
-        "tier": 3,
-        "rank": 238,
-        "diff": -32
-      },
-      {
-        "ticker": "IBKR",
-        "name": "인터랙티브 브로커스 그룹",
-        "price": 86.61,
-        "change": 4.21,
-        "tier": 3,
-        "rank": 240,
-        "diff": -40
-      },
-      {
-        "ticker": "FE",
-        "name": "퍼스트에너지",
-        "price": 46.37,
-        "change": 0.38,
-        "tier": 3,
-        "rank": 249,
-        "diff": -36
-      },
-      {
-        "ticker": "LUV",
-        "name": "사우스웨스트 항공",
-        "price": 43.47,
-        "change": 0.36,
-        "tier": 4,
-        "rank": 254,
-        "diff": -100
-      },
-      {
-        "ticker": "LH",
-        "name": "랩코프 홀딩스",
-        "price": 262.04,
-        "change": -0.27,
-        "tier": 4,
-        "rank": 255,
-        "diff": -92
-      },
-      {
-        "ticker": "PODD",
-        "name": "인슐릿",
-        "price": 142.68,
-        "change": 0.02,
-        "tier": 4,
-        "rank": 257,
-        "diff": -33
+        "rank": 206,
+        "diff": -35
       },
       {
         "ticker": "ALGN",
         "name": "얼라인 테크놀로지",
-        "price": 176.86,
-        "change": 2.08,
-        "tier": 4,
-        "rank": 260,
-        "diff": -109
+        "price": 174.95,
+        "change": 0.98,
+        "tier": 3,
+        "rank": 217,
+        "diff": -66
       },
       {
-        "ticker": "EPAM",
-        "name": "이팸 시스템즈",
-        "price": 103.82,
-        "change": 2.36,
-        "tier": 4,
-        "rank": 269,
-        "diff": -80
+        "ticker": "EBAY",
+        "name": "이베이",
+        "price": 109.27,
+        "change": -2.55,
+        "tier": 3,
+        "rank": 218,
+        "diff": -38
       },
       {
-        "ticker": "DHI",
-        "name": "D R 호튼",
-        "price": 148.76,
-        "change": 1.25,
-        "tier": 4,
-        "rank": 270,
-        "diff": -53
+        "ticker": "LHX",
+        "name": "L3해리스 테크놀로지스",
+        "price": 315.18,
+        "change": 0.13,
+        "tier": 3,
+        "rank": 219,
+        "diff": -36
       },
       {
-        "ticker": "EQIX",
-        "name": "에퀴닉스",
-        "price": 1061.8,
-        "change": -0.71,
+        "ticker": "VLO",
+        "name": "발레로 에너지",
+        "price": 244.82,
+        "change": -0.01,
+        "tier": 3,
+        "rank": 221,
+        "diff": -36
+      },
+      {
+        "ticker": "MA",
+        "name": "마스터카드",
+        "price": 493.98,
+        "change": 0.05,
+        "tier": 3,
+        "rank": 222,
+        "diff": -45
+      },
+      {
+        "ticker": "ORCL",
+        "name": "오라클",
+        "price": 225.78,
+        "change": 10.84,
+        "tier": 3,
+        "rank": 231,
+        "diff": -89
+      },
+      {
+        "ticker": "HBAN",
+        "name": "헌팅턴 뱅크셰어스",
+        "price": 16.36,
+        "change": 1.49,
+        "tier": 3,
+        "rank": 235,
+        "diff": -37
+      },
+      {
+        "ticker": "DXCM",
+        "name": "덱스콤",
+        "price": 73.74,
+        "change": 1.94,
+        "tier": 3,
+        "rank": 237,
+        "diff": -47
+      },
+      {
+        "ticker": "MSI",
+        "name": "모토로라 솔루션즈",
+        "price": 403.28,
+        "change": -2.01,
+        "tier": 3,
+        "rank": 241,
+        "diff": -72
+      },
+      {
+        "ticker": "BLK",
+        "name": "블랙록",
+        "price": 1046.88,
+        "change": 0.04,
+        "tier": 3,
+        "rank": 242,
+        "diff": -30
+      },
+      {
+        "ticker": "LH",
+        "name": "랩코프 홀딩스",
+        "price": 260.06,
+        "change": -1.02,
+        "tier": 3,
+        "rank": 244,
+        "diff": -81
+      },
+      {
+        "ticker": "DTE",
+        "name": "DTE 에너지",
+        "price": 142.87,
+        "change": -0.36,
+        "tier": 3,
+        "rank": 246,
+        "diff": -31
+      },
+      {
+        "ticker": "RJF",
+        "name": "레이먼드 제임스 파이낸셜",
+        "price": 143.41,
+        "change": 0.99,
+        "tier": 3,
+        "rank": 249,
+        "diff": -58
+      },
+      {
+        "ticker": "ISRG",
+        "name": "인튜이티브 서지컬",
+        "price": 424.64,
+        "change": 0.24,
         "tier": 4,
-        "rank": 271,
-        "diff": -35
+        "rank": 251,
+        "diff": -49
+      },
+      {
+        "ticker": "EMR",
+        "name": "에머슨 일렉트릭",
+        "price": 143.82,
+        "change": 1.43,
+        "tier": 4,
+        "rank": 256,
+        "diff": -68
       },
       {
         "ticker": "TKO",
         "name": "TKO 그룹 홀딩스",
-        "price": 205.38,
-        "change": 2.41,
+        "price": 205.18,
+        "change": 2.31,
         "tier": 4,
-        "rank": 277,
-        "diff": -116
+        "rank": 258,
+        "diff": -97
       },
       {
-        "ticker": "DLTR",
-        "name": "달러 트리",
-        "price": 115.75,
-        "change": 2.43,
+        "ticker": "TFC",
+        "name": "트루이스트 파이낸셜",
+        "price": 48.21,
+        "change": 0.86,
         "tier": 4,
-        "rank": 280,
-        "diff": -36
+        "rank": 261,
+        "diff": -39
       },
       {
-        "ticker": "PHM",
-        "name": "폴티 그룹",
-        "price": 118.91,
-        "change": 0.76,
+        "ticker": "PODD",
+        "name": "인슐릿",
+        "price": 144.94,
+        "change": 1.61,
         "tier": 4,
-        "rank": 281,
-        "diff": -131
+        "rank": 263,
+        "diff": -39
+      },
+      {
+        "ticker": "LUV",
+        "name": "사우스웨스트 항공",
+        "price": 42.95,
+        "change": -0.83,
+        "tier": 4,
+        "rank": 264,
+        "diff": -110
+      },
+      {
+        "ticker": "WMB",
+        "name": "윌리엄스 컴퍼니스",
+        "price": 71.39,
+        "change": -2.38,
+        "tier": 4,
+        "rank": 266,
+        "diff": -43
+      },
+      {
+        "ticker": "IQV",
+        "name": "아이큐비아 홀딩스",
+        "price": 182.21,
+        "change": 0.62,
+        "tier": 4,
+        "rank": 271,
+        "diff": -67
+      },
+      {
+        "ticker": "FE",
+        "name": "퍼스트에너지",
+        "price": 46.39,
+        "change": 0.43,
+        "tier": 4,
+        "rank": 273,
+        "diff": -60
+      },
+      {
+        "ticker": "MDT",
+        "name": "메드트로닉",
+        "price": 73.81,
+        "change": -2.33,
+        "tier": 4,
+        "rank": 275,
+        "diff": -30
       },
       {
         "ticker": "HOLX",
@@ -944,274 +1178,373 @@
         "diff": -101
       },
       {
-        "ticker": "PNW",
-        "name": "피나클 웨스트 캐피탈",
-        "price": 99.89,
-        "change": -0.96,
+        "ticker": "NSC",
+        "name": "노퍽 서던",
+        "price": 304.96,
+        "change": -0.95,
+        "tier": 4,
+        "rank": 281,
+        "diff": -97
+      },
+      {
+        "ticker": "EPAM",
+        "name": "이팸 시스템즈",
+        "price": 102.46,
+        "change": 1.02,
         "tier": 4,
         "rank": 285,
-        "diff": -53
+        "diff": -96
       },
       {
-        "ticker": "LDOS",
-        "name": "레이도스 홀딩스",
-        "price": 130.95,
-        "change": -0.49,
+        "ticker": "IBKR",
+        "name": "인터랙티브 브로커스 그룹",
+        "price": 86.97,
+        "change": 4.64,
         "tier": 4,
-        "rank": 291,
-        "diff": -45
+        "rank": 286,
+        "diff": -86
       },
       {
-        "ticker": "IQV",
-        "name": "아이큐비아 홀딩스",
-        "price": 183.39,
-        "change": 1.27,
+        "ticker": "DHI",
+        "name": "D R 호튼",
+        "price": 147.09,
+        "change": 0.12,
         "tier": 4,
-        "rank": 293,
-        "diff": -89
+        "rank": 287,
+        "diff": -70
+      },
+      {
+        "ticker": "PHM",
+        "name": "폴티 그룹",
+        "price": 118.18,
+        "change": 0.14,
+        "tier": 4,
+        "rank": 288,
+        "diff": -138
+      },
+      {
+        "ticker": "CPAY",
+        "name": "코페이",
+        "price": 361.8,
+        "change": 2.68,
+        "tier": 4,
+        "rank": 290,
+        "diff": -35
+      },
+      {
+        "ticker": "PNW",
+        "name": "피나클 웨스트 캐피탈",
+        "price": 99.74,
+        "change": -1.1,
+        "tier": 4,
+        "rank": 294,
+        "diff": -62
+      },
+      {
+        "ticker": "AMD",
+        "name": "AMD",
+        "price": 516.1,
+        "change": -0.38,
+        "tier": 4,
+        "rank": 295,
+        "diff": -37
+      },
+      {
+        "ticker": "DLTR",
+        "name": "달러 트리",
+        "price": 116.44,
+        "change": 3.04,
+        "tier": 4,
+        "rank": 299,
+        "diff": -55
       },
       {
         "ticker": "FDX",
         "name": "페덱스",
-        "price": 410.46,
-        "change": -0.23,
+        "price": 411.75,
+        "change": 0.09,
         "tier": 4,
-        "rank": 299,
-        "diff": -102
+        "rank": 302,
+        "diff": -105
+      },
+      {
+        "ticker": "TMO",
+        "name": "써모 피셔 사이언티픽",
+        "price": 492.51,
+        "change": 1.09,
+        "tier": 4,
+        "rank": 307,
+        "diff": -32
       },
       {
         "ticker": "L",
         "name": "로우스",
-        "price": 104.75,
-        "change": -0.07,
+        "price": 103.55,
+        "change": -1.21,
         "tier": 4,
-        "rank": 305,
-        "diff": -39
+        "rank": 315,
+        "diff": -49
       },
       {
-        "ticker": "ED",
-        "name": "컨솔리데이티드 에디슨",
-        "price": 105.31,
-        "change": -0.94,
+        "ticker": "FAST",
+        "name": "패스널",
+        "price": 44.2,
+        "change": -1.25,
         "tier": 4,
-        "rank": 308,
-        "diff": -39
+        "rank": 318,
+        "diff": -54
       },
       {
-        "ticker": "NSC",
-        "name": "노퍽 서던",
-        "price": 305.76,
-        "change": -0.69,
+        "ticker": "MSCI",
+        "name": "MSCI",
+        "price": 631.38,
+        "change": 0.78,
         "tier": 4,
-        "rank": 310,
-        "diff": -126
-      },
-      {
-        "ticker": "POOL",
-        "name": "풀",
-        "price": 182.7,
-        "change": -1.08,
-        "tier": 4,
-        "rank": 313,
-        "diff": -52
-      },
-      {
-        "ticker": "ECL",
-        "name": "에코랩",
-        "price": 256.85,
-        "change": -1.31,
-        "tier": 4,
-        "rank": 316,
+        "rank": 320,
         "diff": -35
-      },
-      {
-        "ticker": "BDX",
-        "name": "벡톤 디킨슨",
-        "price": 148.21,
-        "change": -0.14,
-        "tier": 4,
-        "rank": 319,
-        "diff": -57
-      },
-      {
-        "ticker": "PG",
-        "name": "P&G",
-        "price": 144.42,
-        "change": -1.02,
-        "tier": 4,
-        "rank": 321,
-        "diff": -32
-      },
-      {
-        "ticker": "GEN",
-        "name": "젠 디지털",
-        "price": 25.48,
-        "change": 3.77,
-        "tier": 4,
-        "rank": 323,
-        "diff": -66
       },
       {
         "ticker": "CTAS",
         "name": "신타스",
-        "price": 172.4,
-        "change": -0.38,
+        "price": 171.26,
+        "change": -1.04,
         "tier": 4,
         "rank": 328,
         "diff": -42
       },
       {
-        "ticker": "BKR",
-        "name": "베이커 휴즈",
-        "price": 64.65,
-        "change": -0.09,
+        "ticker": "ETN",
+        "name": "이튼",
+        "price": 400.6,
+        "change": -0.33,
         "tier": 4,
-        "rank": 342,
-        "diff": -36
+        "rank": 335,
+        "diff": -40
+      },
+      {
+        "ticker": "ZTS",
+        "name": "조에티스",
+        "price": 77.69,
+        "change": -0.74,
+        "tier": 4,
+        "rank": 336,
+        "diff": -46
+      },
+      {
+        "ticker": "ECL",
+        "name": "에코랩",
+        "price": 256.0,
+        "change": -1.63,
+        "tier": 4,
+        "rank": 338,
+        "diff": -57
       },
       {
         "ticker": "NTAP",
         "name": "넷앱",
-        "price": 179.87,
-        "change": 26.31,
+        "price": 174.29,
+        "change": 22.39,
         "tier": 4,
-        "rank": 343,
-        "diff": -44
+        "rank": 339,
+        "diff": -40
+      },
+      {
+        "ticker": "LULU",
+        "name": "룰루레몬 애슬레티카",
+        "price": 131.18,
+        "change": -0.11,
+        "tier": 4,
+        "rank": 340,
+        "diff": -56
       },
       {
         "ticker": "WY",
         "name": "와이어하우저",
-        "price": 24.48,
-        "change": -0.35,
+        "price": 24.51,
+        "change": -0.2,
         "tier": 4,
-        "rank": 345,
-        "diff": -77
+        "rank": 349,
+        "diff": -81
       },
       {
         "ticker": "PPG",
         "name": "PPG 인더스트리스",
-        "price": 113.44,
-        "change": 0.51,
+        "price": 112.98,
+        "change": 0.11,
         "tier": 4,
-        "rank": 351,
-        "diff": -77
+        "rank": 352,
+        "diff": -78
       },
       {
         "ticker": "STZ",
         "name": "콘스텔레이션 브랜즈",
-        "price": 139.77,
-        "change": -1.66,
+        "price": 138.82,
+        "change": -2.33,
         "tier": 4,
-        "rank": 355,
-        "diff": -73
+        "rank": 358,
+        "diff": -76
       },
       {
-        "ticker": "FAST",
-        "name": "패스널",
-        "price": 44.59,
-        "change": -0.38,
+        "ticker": "SHW",
+        "name": "셔윈 윌리엄스",
+        "price": 303.84,
+        "change": -0.43,
         "tier": 4,
-        "rank": 357,
-        "diff": -93
+        "rank": 368,
+        "diff": -32
       },
       {
-        "ticker": "LNT",
-        "name": "얼라이언트 에너지",
-        "price": 71.48,
-        "change": -0.96,
+        "ticker": "HD",
+        "name": "홈 디포",
+        "price": 317.14,
+        "change": -1.27,
         "tier": 4,
-        "rank": 370,
-        "diff": -53
-      },
-      {
-        "ticker": "PKG",
-        "name": "패키징 코퍼레이션 오브 아메리카",
-        "price": 217.98,
-        "change": -0.07,
-        "tier": 4,
-        "rank": 380,
-        "diff": -53
-      },
-      {
-        "ticker": "FICO",
-        "name": "페어 아이작",
-        "price": 1285.47,
-        "change": -0.84,
-        "tier": 4,
-        "rank": 386,
-        "diff": -34
-      },
-      {
-        "ticker": "A",
-        "name": "애질런트 테크놀로지스",
-        "price": 137.46,
-        "change": 1.54,
-        "tier": 4,
-        "rank": 391,
-        "diff": -41
-      },
-      {
-        "ticker": "FTV",
-        "name": "포티브",
-        "price": 59.09,
-        "change": -0.14,
-        "tier": 4,
-        "rank": 394,
-        "diff": -40
-      },
-      {
-        "ticker": "TDG",
-        "name": "트랜스다임 그룹",
-        "price": 1268.98,
-        "change": 0.31,
-        "tier": 5,
-        "rank": 400,
+        "rank": 375,
         "diff": -31
-      },
-      {
-        "ticker": "PSA",
-        "name": "퍼블릭 스토리지",
-        "price": 305.95,
-        "change": -1.07,
-        "tier": 5,
-        "rank": 403,
-        "diff": -45
-      },
-      {
-        "ticker": "WSM",
-        "name": "윌리엄스 소노마",
-        "price": 204.99,
-        "change": -0.3,
-        "tier": 5,
-        "rank": 404,
-        "diff": -61
       },
       {
         "ticker": "GEHC",
         "name": "GE 헬스케어",
-        "price": 62.65,
-        "change": -0.33,
-        "tier": 5,
-        "rank": 405,
-        "diff": -80
+        "price": 62.34,
+        "change": -0.83,
+        "tier": 4,
+        "rank": 376,
+        "diff": -51
       },
       {
-        "ticker": "IBM",
-        "name": "IBM",
-        "price": 289.21,
-        "change": 9.46,
-        "tier": 5,
-        "rank": 409,
-        "diff": -35
+        "ticker": "MOS",
+        "name": "모자이크",
+        "price": 23.9,
+        "change": -0.67,
+        "tier": 4,
+        "rank": 378,
+        "diff": -36
+      },
+      {
+        "ticker": "FTNT",
+        "name": "포티넷",
+        "price": 137.97,
+        "change": 6.38,
+        "tier": 4,
+        "rank": 383,
+        "diff": -34
       },
       {
         "ticker": "DE",
         "name": "디어 앤드 컴퍼니",
-        "price": 544.45,
-        "change": 1.01,
+        "price": 542.18,
+        "change": 0.59,
+        "tier": 4,
+        "rank": 384,
+        "diff": -31
+      },
+      {
+        "ticker": "A",
+        "name": "애질런트 테크놀로지스",
+        "price": 135.53,
+        "change": 0.11,
+        "tier": 4,
+        "rank": 385,
+        "diff": -35
+      },
+      {
+        "ticker": "PKG",
+        "name": "패키징 코퍼레이션 오브 아메리카",
+        "price": 218.91,
+        "change": 0.35,
+        "tier": 4,
+        "rank": 387,
+        "diff": -60
+      },
+      {
+        "ticker": "FICO",
+        "name": "페어 아이작",
+        "price": 1250.59,
+        "change": -3.53,
+        "tier": 4,
+        "rank": 390,
+        "diff": -38
+      },
+      {
+        "ticker": "COF",
+        "name": "캐피털 원 파이낸셜",
+        "price": 187.93,
+        "change": 0.49,
+        "tier": 5,
+        "rank": 404,
+        "diff": -40
+      },
+      {
+        "ticker": "WSM",
+        "name": "윌리엄스 소노마",
+        "price": 203.57,
+        "change": -0.99,
+        "tier": 5,
+        "rank": 405,
+        "diff": -62
+      },
+      {
+        "ticker": "MTD",
+        "name": "메틀러 톨레도 인터내셔널",
+        "price": 1180.58,
+        "change": 1.47,
+        "tier": 5,
+        "rank": 408,
+        "diff": -38
+      },
+      {
+        "ticker": "DHR",
+        "name": "다나허",
+        "price": 182.67,
+        "change": 1.13,
+        "tier": 5,
+        "rank": 409,
+        "diff": -47
+      },
+      {
+        "ticker": "TDG",
+        "name": "트랜스다임 그룹",
+        "price": 1258.32,
+        "change": -0.53,
+        "tier": 5,
+        "rank": 410,
+        "diff": -41
+      },
+      {
+        "ticker": "IR",
+        "name": "잉가솔 랜드",
+        "price": 71.64,
+        "change": 0.92,
+        "tier": 5,
+        "rank": 412,
+        "diff": -49
+      },
+      {
+        "ticker": "WDAY",
+        "name": "워크데이",
+        "price": 146.19,
+        "change": 12.45,
+        "tier": 5,
+        "rank": 413,
+        "diff": -30
+      },
+      {
+        "ticker": "IBM",
+        "name": "IBM",
+        "price": 297.8,
+        "change": 12.71,
+        "tier": 5,
+        "rank": 417,
+        "diff": -43
+      },
+      {
+        "ticker": "TECH",
+        "name": "바이오 테크네",
+        "price": 51.68,
+        "change": 1.65,
         "tier": 5,
         "rank": 425,
-        "diff": -72
+        "diff": -41
       },
       {
         "ticker": "MOH",
@@ -1223,41 +1556,50 @@
         "diff": -46
       },
       {
-        "ticker": "TECH",
-        "name": "바이오 테크네",
-        "price": 51.74,
-        "change": 1.77,
+        "ticker": "EW",
+        "name": "에드워즈 라이프사이언시스",
+        "price": 86.47,
+        "change": 0.59,
         "tier": 5,
-        "rank": 440,
-        "diff": -56
+        "rank": 433,
+        "diff": -38
+      },
+      {
+        "ticker": "BA",
+        "name": "보잉",
+        "price": 231.15,
+        "change": 1.04,
+        "tier": 5,
+        "rank": 443,
+        "diff": -34
       },
       {
         "ticker": "HOOD",
         "name": "로빈후드 마켓",
-        "price": 92.85,
-        "change": 9.44,
+        "price": 94.3,
+        "change": 11.15,
         "tier": 5,
-        "rank": 457,
-        "diff": -97
+        "rank": 460,
+        "diff": -100
       }
     ],
     "new_tier_1": [],
     "golden_cross": [
       {
-        "ticker": "CRH",
-        "name": "CRH(ADR)",
-        "price": 110.07,
-        "change": 3.1,
-        "tier": 2,
-        "rank": 28
-      },
-      {
         "ticker": "MSFT",
         "name": "마이크로소프트",
-        "price": 442.53,
-        "change": 3.64,
+        "price": 450.24,
+        "change": 5.45,
         "tier": 2,
-        "rank": 31
+        "rank": 32
+      },
+      {
+        "ticker": "CRH",
+        "name": "CRH(ADR)",
+        "price": 108.79,
+        "change": 1.9,
+        "tier": 2,
+        "rank": 35
       },
       {
         "ticker": "BK",
@@ -1268,108 +1610,108 @@
         "rank": 45
       },
       {
-        "ticker": "BIIB",
-        "name": "바이오젠",
-        "price": 197.48,
-        "change": 0.55,
+        "ticker": "BAC",
+        "name": "뱅크 오브 아메리카",
+        "price": 51.6,
+        "change": 1.63,
         "tier": 2,
-        "rank": 96
+        "rank": 48
       },
       {
-        "ticker": "ADBE",
-        "name": "어도비",
-        "price": 256.11,
-        "change": 6.07,
-        "tier": 3,
-        "rank": 135
+        "ticker": "HUBB",
+        "name": "허벨",
+        "price": 473.61,
+        "change": -0.07,
+        "tier": 2,
+        "rank": 69
+      },
+      {
+        "ticker": "BIIB",
+        "name": "바이오젠",
+        "price": 196.0,
+        "change": -0.2,
+        "tier": 2,
+        "rank": 84
+      },
+      {
+        "ticker": "STX",
+        "name": "씨게이트 테크놀로지",
+        "price": 879.8,
+        "change": -0.1,
+        "tier": 2,
+        "rank": 88
       },
       {
         "ticker": "TRMB",
         "name": "트림블",
-        "price": 55.67,
-        "change": 1.37,
+        "price": 56.41,
+        "change": 2.71,
+        "tier": 2,
+        "rank": 99
+      },
+      {
+        "ticker": "ADBE",
+        "name": "어도비",
+        "price": 259.21,
+        "change": 7.36,
         "tier": 3,
         "rank": 141
       },
       {
-        "ticker": "NDAQ",
-        "name": "나스닥",
-        "price": 93.36,
-        "change": 2.6,
+        "ticker": "IVZ",
+        "name": "인베스코",
+        "price": 28.46,
+        "change": 1.43,
         "tier": 3,
-        "rank": 171
+        "rank": 203
       },
       {
         "ticker": "ORCL",
         "name": "오라클",
-        "price": 222.21,
-        "change": 9.09,
+        "price": 225.78,
+        "change": 10.84,
         "tier": 3,
-        "rank": 184
-      },
-      {
-        "ticker": "MA",
-        "name": "마스터카드",
-        "price": 498.23,
-        "change": 0.91,
-        "tier": 3,
-        "rank": 200
-      },
-      {
-        "ticker": "IVZ",
-        "name": "인베스코",
-        "price": 28.62,
-        "change": 2.01,
-        "tier": 3,
-        "rank": 215
+        "rank": 231
       },
       {
         "ticker": "FIS",
         "name": "피델리티 내셔널 인포메이션 서비시스",
-        "price": 43.1,
-        "change": 2.1,
+        "price": 42.99,
+        "change": 1.82,
         "tier": 4,
-        "rank": 335
-      },
-      {
-        "ticker": "TYL",
-        "name": "타일러 테크놀로지스",
-        "price": 311.89,
-        "change": 1.91,
-        "tier": 4,
-        "rank": 366
-      },
-      {
-        "ticker": "AXP",
-        "name": "아메리칸 익스프레스",
-        "price": 318.34,
-        "change": 1.02,
-        "tier": 4,
-        "rank": 372
+        "rank": 323
       },
       {
         "ticker": "XYZ",
         "name": "블록",
-        "price": 76.04,
-        "change": 2.27,
+        "price": 75.72,
+        "change": 1.84,
         "tier": 4,
         "rank": 396
       },
       {
-        "ticker": "DASH",
-        "name": "도어대시",
-        "price": 160.94,
-        "change": 2.71,
-        "tier": 5,
-        "rank": 429
+        "ticker": "TYL",
+        "name": "타일러 테크놀로지스",
+        "price": 313.15,
+        "change": 2.32,
+        "tier": 4,
+        "rank": 398
       },
       {
-        "ticker": "PFG",
-        "name": "프린시플 파이낸셜 그룹",
-        "price": 104.73,
-        "change": 1.36,
+        "ticker": "AXP",
+        "name": "아메리칸 익스프레스",
+        "price": 316.47,
+        "change": 0.43,
         "tier": 5,
-        "rank": 430
+        "rank": 400
+      },
+      {
+        "ticker": "DASH",
+        "name": "도어대시",
+        "price": 159.29,
+        "change": 1.65,
+        "tier": 5,
+        "rank": 419
       },
       {
         "ticker": "DAY",
@@ -1380,18 +1722,10 @@
         "rank": 470
       },
       {
-        "ticker": "LYV",
-        "name": "라이브 네이션 엔터테인먼트",
-        "price": 169.32,
-        "change": 1.37,
-        "tier": 5,
-        "rank": 485
-      },
-      {
         "ticker": "ARES",
         "name": "아레스 매니지먼트",
-        "price": 129.82,
-        "change": 3.03,
+        "price": 128.5,
+        "change": 1.98,
         "tier": 5,
         "rank": 495
       }
@@ -1399,202 +1733,229 @@
     "dead_cross": [],
     "rsi_overbought": [
       {
+        "ticker": "MU",
+        "name": "마이크론 테크놀로지",
+        "price": 971.0,
+        "change": 5.14,
+        "tier": 1,
+        "rank": 6,
+        "rsi": 70.1
+      },
+      {
         "ticker": "NUE",
         "name": "뉴코",
-        "price": 250.2,
-        "change": 0.36,
+        "price": 250.0,
+        "change": 0.28,
         "tier": 1,
-        "rank": 9,
-        "rsi": 73.0
+        "rank": 8,
+        "rsi": 72.9
+      },
+      {
+        "ticker": "MSFT",
+        "name": "마이크로소프트",
+        "price": 450.24,
+        "change": 5.45,
+        "tier": 2,
+        "rank": 32,
+        "rsi": 70.9
       },
       {
         "ticker": "FSLR",
         "name": "퍼스트 솔라",
-        "price": 300.37,
-        "change": -0.99,
+        "price": 306.79,
+        "change": 1.12,
         "tier": 2,
-        "rank": 38,
-        "rsi": 81.7
+        "rank": 33,
+        "rsi": 84.2
       },
       {
         "ticker": "STLD",
         "name": "스틸 다이내믹스",
-        "price": 261.71,
-        "change": 0.37,
+        "price": 260.15,
+        "change": -0.23,
         "tier": 2,
-        "rank": 48,
-        "rsi": 72.0
+        "rank": 36,
+        "rsi": 70.9
       },
       {
-        "ticker": "DAL",
-        "name": "델타 항공",
-        "price": 83.24,
-        "change": 0.91,
+        "ticker": "TPR",
+        "name": "테피스트리",
+        "price": 145.46,
+        "change": 0.05,
         "tier": 2,
-        "rank": 55,
-        "rsi": 71.8
+        "rank": 53,
+        "rsi": 72.1
       },
       {
         "ticker": "D",
         "name": "도미니언 에너지",
-        "price": 66.91,
-        "change": -0.7,
+        "price": 66.94,
+        "change": -0.65,
         "tier": 2,
-        "rank": 61,
-        "rsi": 71.2
+        "rank": 60,
+        "rsi": 71.4
       },
       {
-        "ticker": "NTRS",
-        "name": "노던 트러스트",
-        "price": 166.65,
-        "change": -1.01,
+        "ticker": "DAL",
+        "name": "델타 항공",
+        "price": 82.48,
+        "change": -0.01,
         "tier": 2,
-        "rank": 68,
-        "rsi": 70.5
+        "rank": 64,
+        "rsi": 70.8
       },
       {
         "ticker": "PLTR",
         "name": "팔란티어 테크놀로지스",
-        "price": 155.82,
-        "change": 8.71,
+        "price": 156.54,
+        "change": 9.21,
         "tier": 2,
-        "rank": 69,
-        "rsi": 70.8
+        "rank": 80,
+        "rsi": 71.3
       },
       {
         "ticker": "UAL",
         "name": "유나이티드 항공 홀딩스",
-        "price": 116.67,
-        "change": 1.4,
+        "price": 114.8,
+        "change": -0.23,
         "tier": 2,
-        "rank": 79,
-        "rsi": 72.1
+        "rank": 92,
+        "rsi": 70.4
       },
       {
         "ticker": "DECK",
         "name": "데커스 아웃도어",
-        "price": 113.63,
-        "change": -0.59,
-        "tier": 2,
-        "rank": 93,
-        "rsi": 71.2
-      },
-      {
-        "ticker": "APP",
-        "name": "앱러빈",
-        "price": 610.29,
-        "change": 1.73,
+        "price": 113.85,
+        "change": -0.4,
         "tier": 3,
-        "rank": 127,
-        "rsi": 76.0
+        "rank": 116,
+        "rsi": 71.7
       },
       {
         "ticker": "AAPL",
         "name": "애플",
-        "price": 309.55,
-        "change": -0.95,
+        "price": 312.06,
+        "change": -0.14,
         "tier": 3,
-        "rank": 128,
-        "rsi": 76.6
-      },
-      {
-        "ticker": "DELL",
-        "name": "델 테크놀로지스",
-        "price": 407.06,
-        "change": 28.39,
-        "tier": 3,
-        "rank": 140,
-        "rsi": 84.1
+        "rank": 129,
+        "rsi": 83.5
       },
       {
         "ticker": "CSCO",
         "name": "시스코 시스템즈",
-        "price": 119.89,
-        "change": 1.05,
+        "price": 120.42,
+        "change": 1.5,
         "tier": 3,
-        "rank": 149,
-        "rsi": 80.2
+        "rank": 135,
+        "rsi": 80.5
       },
       {
-        "ticker": "LLY",
-        "name": "일라이 릴리",
-        "price": 1096.18,
-        "change": -2.72,
+        "ticker": "DELL",
+        "name": "델 테크놀로지스",
+        "price": 420.91,
+        "change": 32.76,
         "tier": 3,
-        "rank": 152,
-        "rsi": 77.4
+        "rank": 137,
+        "rsi": 85.1
       },
       {
-        "ticker": "MS",
-        "name": "모간 스탠리",
-        "price": 207.01,
-        "change": 1.58,
+        "ticker": "APP",
+        "name": "앱러빈",
+        "price": 613.09,
+        "change": 2.2,
         "tier": 3,
-        "rank": 177,
-        "rsi": 74.5
-      },
-      {
-        "ticker": "AES",
-        "name": "AES",
-        "price": 14.69,
-        "change": 0.03,
-        "tier": 3,
-        "rank": 187,
-        "rsi": 87.6
-      },
-      {
-        "ticker": "CDW",
-        "name": "CDW",
-        "price": 123.77,
-        "change": 6.55,
-        "tier": 3,
-        "rank": 205,
-        "rsi": 77.4
-      },
-      {
-        "ticker": "DXCM",
-        "name": "덱스콤",
-        "price": 73.47,
-        "change": 1.56,
-        "tier": 3,
-        "rank": 229,
-        "rsi": 75.0
-      },
-      {
-        "ticker": "MAR",
-        "name": "메리어트 인터내셔널",
-        "price": 375.64,
-        "change": -2.62,
-        "tier": 3,
-        "rank": 233,
-        "rsi": 71.0
+        "rank": 146,
+        "rsi": 76.2
       },
       {
         "ticker": "JBHT",
         "name": "JB 헌트 트랜스포트 서비시스",
-        "price": 274.92,
-        "change": 0.88,
+        "price": 276.43,
+        "change": 1.43,
         "tier": 3,
-        "rank": 242,
-        "rsi": 72.3
+        "rank": 153,
+        "rsi": 72.9
+      },
+      {
+        "ticker": "FFIV",
+        "name": "F5",
+        "price": 383.45,
+        "change": 0.01,
+        "tier": 3,
+        "rank": 157,
+        "rsi": 71.2
+      },
+      {
+        "ticker": "LLY",
+        "name": "일라이 릴리",
+        "price": 1105.0,
+        "change": -1.93,
+        "tier": 3,
+        "rank": 166,
+        "rsi": 80.0
+      },
+      {
+        "ticker": "MS",
+        "name": "모간 스탠리",
+        "price": 208.0,
+        "change": 2.07,
+        "tier": 3,
+        "rank": 182,
+        "rsi": 75.3
+      },
+      {
+        "ticker": "AES",
+        "name": "AES",
+        "price": 14.67,
+        "change": -0.14,
+        "tier": 3,
+        "rank": 197,
+        "rsi": 84.0
+      },
+      {
+        "ticker": "CDW",
+        "name": "CDW",
+        "price": 125.45,
+        "change": 8.0,
+        "tier": 3,
+        "rank": 228,
+        "rsi": 78.5
+      },
+      {
+        "ticker": "MAR",
+        "name": "메리어트 인터내셔널",
+        "price": 375.6,
+        "change": -2.63,
+        "tier": 3,
+        "rank": 232,
+        "rsi": 70.9
+      },
+      {
+        "ticker": "DXCM",
+        "name": "덱스콤",
+        "price": 73.74,
+        "change": 1.94,
+        "tier": 3,
+        "rank": 237,
+        "rsi": 75.2
+      },
+      {
+        "ticker": "GEN",
+        "name": "젠 디지털",
+        "price": 25.79,
+        "change": 5.05,
+        "tier": 4,
+        "rank": 254,
+        "rsi": 78.0
       },
       {
         "ticker": "TKO",
         "name": "TKO 그룹 홀딩스",
-        "price": 205.38,
-        "change": 2.41,
+        "price": 205.18,
+        "change": 2.31,
         "tier": 4,
-        "rank": 277,
-        "rsi": 70.4
-      },
-      {
-        "ticker": "DLTR",
-        "name": "달러 트리",
-        "price": 115.75,
-        "change": 2.43,
-        "tier": 4,
-        "rank": 280,
-        "rsi": 75.3
+        "rank": 258,
+        "rsi": 70.2
       },
       {
         "ticker": "HOLX",
@@ -1606,420 +1967,420 @@
         "rsi": 81.2
       },
       {
-        "ticker": "FDX",
-        "name": "페덱스",
-        "price": 410.46,
-        "change": -0.23,
+        "ticker": "CAH",
+        "name": "카디널 헬스",
+        "price": 196.8,
+        "change": -1.53,
+        "tier": 4,
+        "rank": 297,
+        "rsi": 75.8
+      },
+      {
+        "ticker": "DLTR",
+        "name": "달러 트리",
+        "price": 116.44,
+        "change": 3.04,
         "tier": 4,
         "rank": 299,
-        "rsi": 71.7
-      },
-      {
-        "ticker": "MSCI",
-        "name": "MSCI",
-        "price": 638.51,
-        "change": 1.91,
-        "tier": 4,
-        "rank": 302,
-        "rsi": 73.4
-      },
-      {
-        "ticker": "BBY",
-        "name": "베스트 바이",
-        "price": 76.94,
-        "change": 2.94,
-        "tier": 4,
-        "rank": 311,
-        "rsi": 83.6
-      },
-      {
-        "ticker": "GS",
-        "name": "골드만삭스 그룹",
-        "price": 1021.17,
-        "change": 1.27,
-        "tier": 4,
-        "rank": 312,
-        "rsi": 75.0
+        "rsi": 75.7
       },
       {
         "ticker": "HSIC",
         "name": "헨리 셰인",
-        "price": 77.54,
-        "change": 1.6,
+        "price": 76.58,
+        "change": 0.34,
         "tier": 4,
-        "rank": 317,
-        "rsi": 80.4
+        "rank": 300,
+        "rsi": 78.5
       },
       {
-        "ticker": "GEN",
-        "name": "젠 디지털",
-        "price": 25.48,
-        "change": 3.77,
+        "ticker": "FDX",
+        "name": "페덱스",
+        "price": 411.75,
+        "change": 0.09,
         "tier": 4,
-        "rank": 323,
-        "rsi": 76.7
-      },
-      {
-        "ticker": "SMCI",
-        "name": "슈퍼 마이크로 컴퓨터",
-        "price": 45.42,
-        "change": 9.98,
-        "tier": 4,
-        "rank": 324,
-        "rsi": 73.1
-      },
-      {
-        "ticker": "F",
-        "name": "포드",
-        "price": 17.62,
-        "change": 5.81,
-        "tier": 4,
-        "rank": 327,
-        "rsi": 79.9
-      },
-      {
-        "ticker": "CAH",
-        "name": "카디널 헬스",
-        "price": 197.12,
-        "change": -1.37,
-        "tier": 4,
-        "rank": 330,
-        "rsi": 76.7
+        "rank": 302,
+        "rsi": 72.8
       },
       {
         "ticker": "ABBV",
         "name": "애브비",
-        "price": 215.67,
-        "change": -1.35,
+        "price": 217.72,
+        "change": -0.42,
         "tier": 4,
-        "rank": 332,
-        "rsi": 72.9
+        "rank": 312,
+        "rsi": 78.1
+      },
+      {
+        "ticker": "MSCI",
+        "name": "MSCI",
+        "price": 631.38,
+        "change": 0.78,
+        "tier": 4,
+        "rank": 320,
+        "rsi": 71.6
+      },
+      {
+        "ticker": "SMCI",
+        "name": "슈퍼 마이크로 컴퓨터",
+        "price": 46.09,
+        "change": 11.6,
+        "tier": 4,
+        "rank": 324,
+        "rsi": 73.9
+      },
+      {
+        "ticker": "BBY",
+        "name": "베스트 바이",
+        "price": 77.95,
+        "change": 4.29,
+        "tier": 4,
+        "rank": 326,
+        "rsi": 84.2
+      },
+      {
+        "ticker": "F",
+        "name": "포드",
+        "price": 17.44,
+        "change": 4.74,
+        "tier": 4,
+        "rank": 333,
+        "rsi": 79.5
       },
       {
         "ticker": "NTAP",
         "name": "넷앱",
-        "price": 179.87,
-        "change": 26.31,
+        "price": 174.29,
+        "change": 22.39,
         "tier": 4,
-        "rank": 343,
-        "rsi": 94.1
+        "rank": 339,
+        "rsi": 93.6
       },
       {
-        "ticker": "LMT",
-        "name": "록히드 마틴",
-        "price": 531.67,
-        "change": -1.03,
+        "ticker": "GS",
+        "name": "골드만삭스 그룹",
+        "price": 1025.56,
+        "change": 1.7,
         "tier": 4,
-        "rank": 347,
-        "rsi": 70.0
+        "rank": 346,
+        "rsi": 75.6
       },
       {
         "ticker": "MET",
         "name": "메트라이프",
-        "price": 83.61,
-        "change": 2.01,
+        "price": 82.69,
+        "change": 0.89,
         "tier": 4,
-        "rank": 354,
-        "rsi": 72.6
-      },
-      {
-        "ticker": "FTNT",
-        "name": "포티넷",
-        "price": 136.45,
-        "change": 5.2,
-        "tier": 4,
-        "rank": 358,
-        "rsi": 78.9
+        "rank": 350,
+        "rsi": 70.4
       },
       {
         "ticker": "HPE",
         "name": "휴렛 패커드 엔터프라이즈",
-        "price": 42.65,
-        "change": 11.62,
+        "price": 43.04,
+        "change": 12.64,
         "tier": 4,
-        "rank": 367,
-        "rsi": 80.8
+        "rank": 370,
+        "rsi": 81.2
       },
       {
         "ticker": "HUM",
         "name": "휴매나",
-        "price": 307.21,
-        "change": -0.48,
+        "price": 305.42,
+        "change": -1.06,
         "tier": 4,
-        "rank": 368,
-        "rsi": 73.1
-      },
-      {
-        "ticker": "GE",
-        "name": "제너럴 일렉트릭 에어로스페이스",
-        "price": 324.71,
-        "change": 1.21,
-        "tier": 4,
-        "rank": 375,
-        "rsi": 70.4
-      },
-      {
-        "ticker": "GPN",
-        "name": "글로벌 페이먼츠",
-        "price": 75.21,
-        "change": 1.71,
-        "tier": 4,
-        "rank": 383,
-        "rsi": 75.4
+        "rank": 373,
+        "rsi": 71.2
       },
       {
         "ticker": "ODFL",
         "name": "올드 도미니언 프레이트 라인",
-        "price": 222.5,
-        "change": 0.74,
+        "price": 225.15,
+        "change": 1.94,
         "tier": 4,
-        "rank": 385,
-        "rsi": 75.9
+        "rank": 380,
+        "rsi": 77.1
       },
       {
-        "ticker": "FICO",
-        "name": "페어 아이작",
-        "price": 1285.47,
-        "change": -0.84,
+        "ticker": "SYY",
+        "name": "시스코",
+        "price": 75.81,
+        "change": -0.14,
         "tier": 4,
-        "rank": 386,
-        "rsi": 75.9
+        "rank": 382,
+        "rsi": 70.1
+      },
+      {
+        "ticker": "FTNT",
+        "name": "포티넷",
+        "price": 137.97,
+        "change": 6.38,
+        "tier": 4,
+        "rank": 383,
+        "rsi": 79.7
       },
       {
         "ticker": "A",
         "name": "애질런트 테크놀로지스",
-        "price": 137.46,
-        "change": 1.54,
+        "price": 135.53,
+        "change": 0.11,
         "tier": 4,
-        "rank": 391,
-        "rsi": 79.8
+        "rank": 385,
+        "rsi": 78.6
+      },
+      {
+        "ticker": "GPN",
+        "name": "글로벌 페이먼츠",
+        "price": 75.51,
+        "change": 2.11,
+        "tier": 4,
+        "rank": 393,
+        "rsi": 76.0
+      },
+      {
+        "ticker": "GE",
+        "name": "제너럴 일렉트릭 에어로스페이스",
+        "price": 323.76,
+        "change": 0.92,
+        "tier": 4,
+        "rank": 395,
+        "rsi": 70.0
       },
       {
         "ticker": "PANW",
         "name": "팔로알토 네트웍스",
-        "price": 276.5,
-        "change": 7.27,
-        "tier": 4,
-        "rank": 397,
-        "rsi": 81.9
-      },
-      {
-        "ticker": "WSM",
-        "name": "윌리엄스 소노마",
-        "price": 204.99,
-        "change": -0.3,
+        "price": 281.69,
+        "change": 9.28,
         "tier": 5,
-        "rank": 404,
-        "rsi": 71.1
+        "rank": 406,
+        "rsi": 82.7
       },
       {
         "ticker": "IBM",
         "name": "IBM",
-        "price": 289.21,
-        "change": 9.46,
+        "price": 297.8,
+        "change": 12.71,
         "tier": 5,
-        "rank": 409,
-        "rsi": 80.7
+        "rank": 417,
+        "rsi": 82.3
       },
       {
         "ticker": "EW",
         "name": "에드워즈 라이프사이언시스",
-        "price": 86.2,
-        "change": 0.28,
+        "price": 86.47,
+        "change": 0.59,
         "tier": 5,
-        "rank": 416,
-        "rsi": 70.1
+        "rank": 433,
+        "rsi": 70.6
       },
       {
         "ticker": "MGM",
         "name": "MGM 리조트 인터내셔널",
-        "price": 44.19,
-        "change": 2.95,
+        "price": 43.67,
+        "change": 1.72,
         "tier": 5,
-        "rank": 422,
-        "rsi": 71.6
-      },
-      {
-        "ticker": "MMM",
-        "name": "3M",
-        "price": 153.47,
-        "change": 0.41,
-        "tier": 5,
-        "rank": 424,
-        "rsi": 70.1
-      },
-      {
-        "ticker": "DDOG",
-        "name": "데이터독",
-        "price": 241.09,
-        "change": 7.03,
-        "tier": 5,
-        "rank": 444,
-        "rsi": 84.0
+        "rank": 437,
+        "rsi": 70.3
       },
       {
         "ticker": "HRL",
         "name": "호멜 푸즈",
-        "price": 23.82,
-        "change": 0.95,
+        "price": 23.23,
+        "change": -1.53,
         "tier": 5,
-        "rank": 450,
-        "rsi": 79.6
+        "rank": 441,
+        "rsi": 73.9
+      },
+      {
+        "ticker": "DDOG",
+        "name": "데이터독",
+        "price": 247.35,
+        "change": 9.82,
+        "tier": 5,
+        "rank": 447,
+        "rsi": 85.5
+      },
+      {
+        "ticker": "HOOD",
+        "name": "로빈후드 마켓",
+        "price": 94.3,
+        "change": 11.15,
+        "tier": 5,
+        "rank": 460,
+        "rsi": 70.1
       },
       {
         "ticker": "HON",
         "name": "허니웰 인터내셔널",
-        "price": 237.65,
-        "change": 2.0,
+        "price": 237.86,
+        "change": 2.09,
         "tier": 5,
-        "rank": 464,
-        "rsi": 83.4
+        "rank": 462,
+        "rsi": 83.5
       },
       {
         "ticker": "NOW",
         "name": "서비스나우",
-        "price": 123.42,
-        "change": 13.51,
+        "price": 124.37,
+        "change": 14.38,
         "tier": 5,
-        "rank": 469,
-        "rsi": 78.8
+        "rank": 472,
+        "rsi": 79.2
       },
       {
         "ticker": "CRWD",
         "name": "크라우드스트라이크 홀딩스",
-        "price": 725.86,
-        "change": 8.18,
+        "price": 731.0,
+        "change": 8.94,
         "tier": 5,
         "rank": 491,
-        "rsi": 88.4
-      },
-      {
-        "ticker": "ARE",
-        "name": "알렉산드리아 리얼 에스테이트",
-        "price": 50.87,
-        "change": 1.62,
-        "tier": 5,
-        "rank": 498,
-        "rsi": 70.2
+        "rsi": 88.6
       }
     ],
     "rsi_oversold": [
       {
         "ticker": "EME",
         "name": "엠코 그룹",
-        "price": 823.86,
-        "change": -2.9,
+        "price": 826.82,
+        "change": -2.55,
         "tier": 1,
-        "rank": 8,
-        "rsi": 18.8
+        "rank": 9,
+        "rsi": 19.1
+      },
+      {
+        "ticker": "BALL",
+        "name": "볼",
+        "price": 54.67,
+        "change": -2.79,
+        "tier": 1,
+        "rank": 20,
+        "rsi": 29.1
       },
       {
         "ticker": "REGN",
         "name": "리제네론 파마슈티컬스",
-        "price": 615.54,
-        "change": -0.96,
+        "price": 614.78,
+        "change": -1.08,
         "tier": 2,
-        "rank": 40,
-        "rsi": 19.1
+        "rank": 30,
+        "rsi": 19.0
       },
       {
         "ticker": "UHS",
         "name": "유니버설 헬스 서비시스",
-        "price": 149.59,
-        "change": -0.35,
+        "price": 146.11,
+        "change": -2.67,
         "tier": 2,
-        "rank": 52,
-        "rsi": 12.5
+        "rank": 46,
+        "rsi": 11.1
       },
       {
         "ticker": "CBRE",
         "name": "CBRE 그룹",
-        "price": 126.18,
-        "change": -0.19,
+        "price": 125.04,
+        "change": -1.09,
         "tier": 2,
-        "rank": 67,
-        "rsi": 13.9
+        "rank": 76,
+        "rsi": 13.4
       },
       {
-        "ticker": "HCA",
-        "name": "HCA 헬스케어",
-        "price": 381.36,
-        "change": -0.79,
+        "ticker": "VLTO",
+        "name": "버럴토",
+        "price": 82.23,
+        "change": -1.5,
         "tier": 2,
-        "rank": 92,
-        "rsi": 13.5
+        "rank": 78,
+        "rsi": 27.8
       },
       {
         "ticker": "ATO",
         "name": "애트모스 에너지",
-        "price": 170.26,
-        "change": -1.6,
+        "price": 169.13,
+        "change": -2.25,
         "tier": 3,
-        "rank": 108,
-        "rsi": 26.6
+        "rank": 101,
+        "rsi": 25.3
       },
       {
-        "ticker": "PH",
-        "name": "파커 하니핀",
-        "price": 846.93,
-        "change": -0.69,
+        "ticker": "HCA",
+        "name": "HCA 헬스케어",
+        "price": 378.54,
+        "change": -1.52,
         "tier": 3,
-        "rank": 125,
-        "rsi": 29.8
-      },
-      {
-        "ticker": "TRMB",
-        "name": "트림블",
-        "price": 55.67,
-        "change": 1.37,
-        "tier": 3,
-        "rank": 141,
-        "rsi": 28.6
+        "rank": 114,
+        "rsi": 13.0
       },
       {
         "ticker": "TSN",
         "name": "타이슨 푸드",
-        "price": 61.4,
-        "change": -0.97,
+        "price": 61.02,
+        "change": -1.58,
         "tier": 3,
-        "rank": 144,
-        "rsi": 21.3
+        "rank": 139,
+        "rsi": 20.7
       },
       {
-        "ticker": "AZO",
-        "name": "오토존",
-        "price": 2959.9,
-        "change": -1.57,
+        "ticker": "PH",
+        "name": "파커 하니핀",
+        "price": 844.63,
+        "change": -0.96,
         "tier": 3,
-        "rank": 157,
-        "rsi": 17.8
+        "rank": 144,
+        "rsi": 28.9
       },
       {
         "ticker": "HAS",
         "name": "해즈브로",
-        "price": 86.79,
-        "change": 0.47,
+        "price": 86.17,
+        "change": -0.24,
         "tier": 3,
-        "rank": 188,
-        "rsi": 28.0
-      },
-      {
-        "ticker": "ROL",
-        "name": "롤린스",
-        "price": 47.7,
-        "change": -3.48,
-        "tier": 3,
-        "rank": 211,
-        "rsi": 21.6
+        "rank": 149,
+        "rsi": 26.6
       },
       {
         "ticker": "OTIS",
         "name": "오티스 월드와이드",
-        "price": 71.05,
-        "change": -0.22,
+        "price": 70.84,
+        "change": -0.52,
+        "tier": 3,
+        "rank": 159,
+        "rsi": 25.4
+      },
+      {
+        "ticker": "AZO",
+        "name": "오토존",
+        "price": 2935.19,
+        "change": -2.39,
+        "tier": 3,
+        "rank": 171,
+        "rsi": 17.3
+      },
+      {
+        "ticker": "UBER",
+        "name": "우버 테크놀로지스",
+        "price": 70.4,
+        "change": -0.73,
+        "tier": 3,
+        "rank": 185,
+        "rsi": 25.5
+      },
+      {
+        "ticker": "ROL",
+        "name": "롤린스",
+        "price": 47.6,
+        "change": -3.68,
         "tier": 3,
         "rank": 213,
-        "rsi": 26.0
+        "rsi": 21.4
+      },
+      {
+        "ticker": "ORLY",
+        "name": "오릴리 오토모티브",
+        "price": 86.88,
+        "change": -2.63,
+        "tier": 3,
+        "rank": 220,
+        "rsi": 30.0
       },
       {
         "ticker": "PAYC",
@@ -2031,410 +2392,278 @@
         "rsi": 27.1
       },
       {
-        "ticker": "ALB",
-        "name": "알버말",
-        "price": 176.27,
-        "change": -0.03,
-        "tier": 4,
-        "rank": 261,
-        "rsi": 26.4
-      },
-      {
         "ticker": "WMT",
         "name": "월마트",
-        "price": 115.36,
-        "change": -2.98,
+        "price": 115.75,
+        "change": -2.65,
         "tier": 4,
-        "rank": 267,
-        "rsi": 25.7
+        "rank": 276,
+        "rsi": 26.0
+      },
+      {
+        "ticker": "ALB",
+        "name": "알버말",
+        "price": 176.42,
+        "change": 0.06,
+        "tier": 4,
+        "rank": 291,
+        "rsi": 26.6
       },
       {
         "ticker": "EG",
         "name": "에버레스트 그룹",
-        "price": 325.51,
-        "change": -2.32,
+        "price": 324.03,
+        "change": -2.76,
         "tier": 4,
-        "rank": 295,
-        "rsi": 23.3
+        "rank": 296,
+        "rsi": 22.6
       },
       {
         "ticker": "SBUX",
         "name": "스타벅스",
-        "price": 98.82,
-        "change": -1.91,
+        "price": 99.16,
+        "change": -1.58,
         "tier": 4,
-        "rank": 356,
-        "rsi": 26.0
+        "rank": 366,
+        "rsi": 26.8
+      },
+      {
+        "ticker": "BF.B",
+        "name": "브라운 포먼 B",
+        "price": 25.72,
+        "change": -0.92,
+        "tier": 5,
+        "rank": 465,
+        "rsi": 29.7
+      },
+      {
+        "ticker": "MRNA",
+        "name": "모더나",
+        "price": 47.19,
+        "change": -0.8,
+        "tier": 5,
+        "rank": 494,
+        "rsi": 24.8
       }
     ],
     "candle_bullish": [
       {
-        "ticker": "PTC",
-        "name": "PTC",
-        "price": 137.98,
-        "change": -0.59,
+        "ticker": "MU",
+        "name": "마이크론 테크놀로지",
+        "price": 971.0,
+        "change": 5.14,
         "tier": 1,
-        "rank": 10,
-        "pattern": "망치형",
-        "desc": "하락 추세에서 바닥 반전 신호"
-      },
-      {
-        "ticker": "SYF",
-        "name": "싱크로니 파이낸셜",
-        "price": 72.08,
-        "change": 0.86,
-        "tier": 1,
-        "rank": 21,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
+        "rank": 6,
+        "pattern": "샛별형",
+        "desc": "강력한 바닥 반전 3봉 패턴"
       },
       {
         "ticker": "PNC",
         "name": "PNC 파이낸셜 서비시스 그룹",
-        "price": 221.16,
-        "change": 0.63,
+        "price": 221.12,
+        "change": 0.61,
         "tier": 2,
-        "rank": 64,
+        "rank": 74,
         "pattern": "상승 장악형",
         "desc": "강력한 매수세로 추세 반전"
       },
       {
-        "ticker": "ICE",
-        "name": "인터컨티넨탈 익스체인지",
-        "price": 149.55,
-        "change": 0.84,
+        "ticker": "USB",
+        "name": "US 뱅코프",
+        "price": 54.85,
+        "change": 0.73,
         "tier": 2,
-        "rank": 65,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
-      },
-      {
-        "ticker": "JPM",
-        "name": "제이피모건 체이스",
-        "price": 298.16,
-        "change": 0.48,
-        "tier": 2,
-        "rank": 77,
+        "rank": 91,
         "pattern": "상승 장악형",
         "desc": "강력한 매수세로 추세 반전"
       },
       {
         "ticker": "IEX",
         "name": "아이덱스",
-        "price": 212.07,
-        "change": 0.97,
+        "price": 210.83,
+        "change": 0.38,
         "tier": 2,
-        "rank": 90,
+        "rank": 94,
         "pattern": "상승 장악형",
         "desc": "강력한 매수세로 추세 반전"
       },
       {
-        "ticker": "BIIB",
-        "name": "바이오젠",
-        "price": 197.48,
-        "change": 0.55,
+        "ticker": "T",
+        "name": "AT&T",
+        "price": 24.8,
+        "change": -0.32,
         "tier": 2,
-        "rank": 96,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
+        "rank": 95,
+        "pattern": "망치형",
+        "desc": "하락 추세에서 바닥 반전 신호"
       },
       {
-        "ticker": "SCHW",
-        "name": "찰스 슈왑",
-        "price": 87.33,
-        "change": 2.32,
-        "tier": 3,
-        "rank": 101,
+        "ticker": "TRMB",
+        "name": "트림블",
+        "price": 56.41,
+        "change": 2.71,
+        "tier": 2,
+        "rank": 99,
         "pattern": "샛별형",
         "desc": "강력한 바닥 반전 3봉 패턴"
       },
       {
         "ticker": "JKHY",
         "name": "잭 헨리 앤드 어소시에이츠",
-        "price": 136.62,
-        "change": 0.3,
+        "price": 136.32,
+        "change": 0.07,
         "tier": 3,
-        "rank": 103,
+        "rank": 102,
         "pattern": "상승 장악형",
         "desc": "강력한 매수세로 추세 반전"
       },
       {
-        "ticker": "GL",
-        "name": "글로브 라이프",
-        "price": 155.69,
-        "change": 1.24,
+        "ticker": "JPM",
+        "name": "제이피모건 체이스",
+        "price": 299.31,
+        "change": 0.87,
         "tier": 3,
-        "rank": 129,
-        "pattern": "샛별형",
-        "desc": "강력한 바닥 반전 3봉 패턴"
-      },
-      {
-        "ticker": "TRMB",
-        "name": "트림블",
-        "price": 55.67,
-        "change": 1.37,
-        "tier": 3,
-        "rank": 141,
-        "pattern": "샛별형",
-        "desc": "강력한 바닥 반전 3봉 패턴"
-      },
-      {
-        "ticker": "NDSN",
-        "name": "노드슨",
-        "price": 288.51,
-        "change": 0.13,
-        "tier": 3,
-        "rank": 158,
+        "rank": 118,
         "pattern": "상승 장악형",
         "desc": "강력한 매수세로 추세 반전"
       },
       {
-        "ticker": "AES",
-        "name": "AES",
-        "price": 14.69,
-        "change": 0.03,
+        "ticker": "SCHW",
+        "name": "찰스 슈왑",
+        "price": 87.35,
+        "change": 2.34,
         "tier": 3,
-        "rank": 187,
+        "rank": 120,
+        "pattern": "샛별형",
+        "desc": "강력한 바닥 반전 3봉 패턴"
+      },
+      {
+        "ticker": "DELL",
+        "name": "델 테크놀로지스",
+        "price": 420.91,
+        "change": 32.76,
+        "tier": 3,
+        "rank": 137,
+        "pattern": "샛별형",
+        "desc": "강력한 바닥 반전 3봉 패턴"
+      },
+      {
+        "ticker": "O",
+        "name": "리얼티 인컴",
+        "price": 61.28,
+        "change": -0.66,
+        "tier": 3,
+        "rank": 160,
         "pattern": "망치형",
         "desc": "하락 추세에서 바닥 반전 신호"
       },
       {
-        "ticker": "AON",
-        "name": "에이온",
-        "price": 317.12,
-        "change": -0.37,
+        "ticker": "TROW",
+        "name": "티 로웨 프라이스 그룹",
+        "price": 104.53,
+        "change": 0.95,
         "tier": 3,
-        "rank": 210,
+        "rank": 170,
+        "pattern": "상승 장악형",
+        "desc": "강력한 매수세로 추세 반전"
+      },
+      {
+        "ticker": "GLW",
+        "name": "코닝",
+        "price": 181.16,
+        "change": -0.99,
+        "tier": 3,
+        "rank": 234,
         "pattern": "망치형",
         "desc": "하락 추세에서 바닥 반전 신호"
       },
       {
         "ticker": "RJF",
         "name": "레이먼드 제임스 파이낸셜",
-        "price": 143.87,
-        "change": 1.32,
+        "price": 143.41,
+        "change": 0.99,
         "tier": 3,
-        "rank": 221,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
-      },
-      {
-        "ticker": "TROW",
-        "name": "티 로웨 프라이스 그룹",
-        "price": 105.66,
-        "change": 2.04,
-        "tier": 3,
-        "rank": 225,
+        "rank": 249,
         "pattern": "상승 장악형",
         "desc": "강력한 매수세로 추세 반전"
       },
       {
         "ticker": "TFC",
         "name": "트루이스트 파이낸셜",
-        "price": 47.94,
-        "change": 0.28,
-        "tier": 3,
-        "rank": 226,
-        "pattern": "망치형",
-        "desc": "하락 추세에서 바닥 반전 신호"
-      },
-      {
-        "ticker": "MNST",
-        "name": "몬스터 베버리지",
-        "price": 88.58,
-        "change": 0.67,
-        "tier": 3,
-        "rank": 238,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
-      },
-      {
-        "ticker": "TTD",
-        "name": "트레이드 데스크",
-        "price": 22.08,
-        "change": 4.42,
-        "tier": 3,
-        "rank": 244,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
-      },
-      {
-        "ticker": "WTW",
-        "name": "윌리스 타워스 왓슨",
-        "price": 252.79,
-        "change": 0.31,
+        "price": 48.21,
+        "change": 0.86,
         "tier": 4,
-        "rank": 265,
+        "rank": 261,
         "pattern": "상승 장악형",
         "desc": "강력한 매수세로 추세 반전"
       },
       {
-        "ticker": "MCD",
-        "name": "맥도날드",
-        "price": 280.3,
-        "change": 0.84,
+        "ticker": "IRM",
+        "name": "아이언 마운틴",
+        "price": 128.25,
+        "change": 1.12,
         "tier": 4,
-        "rank": 275,
+        "rank": 303,
         "pattern": "상승 장악형",
         "desc": "강력한 매수세로 추세 반전"
       },
       {
-        "ticker": "CVX",
-        "name": "셰브론",
-        "price": 182.14,
-        "change": -0.49,
+        "ticker": "CHRW",
+        "name": "CH 로빈슨 월드와이드",
+        "price": 178.65,
+        "change": 1.85,
         "tier": 4,
-        "rank": 282,
-        "pattern": "망치형",
-        "desc": "하락 추세에서 바닥 반전 신호"
-      },
-      {
-        "ticker": "DRI",
-        "name": "다든 레스토랑",
-        "price": 207.12,
-        "change": 1.3,
-        "tier": 4,
-        "rank": 287,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
-      },
-      {
-        "ticker": "MET",
-        "name": "메트라이프",
-        "price": 83.61,
-        "change": 2.01,
-        "tier": 4,
-        "rank": 354,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
-      },
-      {
-        "ticker": "COF",
-        "name": "캐피털 원 파이낸셜",
-        "price": 189.29,
-        "change": 1.21,
-        "tier": 4,
-        "rank": 376,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
-      },
-      {
-        "ticker": "IR",
-        "name": "잉가솔 랜드",
-        "price": 72.29,
-        "change": 1.84,
-        "tier": 4,
-        "rank": 384,
-        "pattern": "샛별형",
-        "desc": "강력한 바닥 반전 3봉 패턴"
-      },
-      {
-        "ticker": "DOC",
-        "name": "헬스피크 프로퍼티스",
-        "price": 19.36,
-        "change": -0.74,
-        "tier": 5,
-        "rank": 402,
-        "pattern": "망치형",
-        "desc": "하락 추세에서 바닥 반전 신호"
-      },
-      {
-        "ticker": "MCO",
-        "name": "무디스",
-        "price": 458.38,
-        "change": 1.76,
-        "tier": 5,
-        "rank": 408,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
-      },
-      {
-        "ticker": "BRO",
-        "name": "브라운 앤 브라운",
-        "price": 57.16,
-        "change": 0.56,
-        "tier": 5,
-        "rank": 415,
+        "rank": 379,
         "pattern": "샛별형",
         "desc": "강력한 바닥 반전 3봉 패턴"
       },
       {
         "ticker": "VTRS",
         "name": "비아트리스",
-        "price": 16.18,
-        "change": 0.43,
+        "price": 16.26,
+        "change": 0.93,
+        "tier": 4,
+        "rank": 397,
+        "pattern": "상승 장악형",
+        "desc": "강력한 매수세로 추세 반전"
+      },
+      {
+        "ticker": "COF",
+        "name": "캐피털 원 파이낸셜",
+        "price": 187.93,
+        "change": 0.49,
         "tier": 5,
-        "rank": 419,
-        "pattern": "망치형",
-        "desc": "하락 추세에서 바닥 반전 신호"
+        "rank": 404,
+        "pattern": "상승 장악형",
+        "desc": "강력한 매수세로 추세 반전"
       },
       {
         "ticker": "DASH",
         "name": "도어대시",
-        "price": 160.94,
-        "change": 2.71,
+        "price": 159.29,
+        "change": 1.65,
         "tier": 5,
-        "rank": 429,
+        "rank": 419,
         "pattern": "상승 장악형",
         "desc": "강력한 매수세로 추세 반전"
-      },
-      {
-        "ticker": "PFG",
-        "name": "프린시플 파이낸셜 그룹",
-        "price": 104.73,
-        "change": 1.36,
-        "tier": 5,
-        "rank": 430,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
-      },
-      {
-        "ticker": "MRSH",
-        "name": "마시 앤드 맥레넌",
-        "price": 160.67,
-        "change": 0.71,
-        "tier": 5,
-        "rank": 438,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
-      },
-      {
-        "ticker": "DPZ",
-        "name": "도미노 피자",
-        "price": 312.17,
-        "change": 0.59,
-        "tier": 5,
-        "rank": 439,
-        "pattern": "망치형",
-        "desc": "하락 추세에서 바닥 반전 신호"
       },
       {
         "ticker": "CNC",
         "name": "센틴",
-        "price": 59.24,
-        "change": 0.56,
+        "price": 59.6,
+        "change": 1.17,
         "tier": 5,
-        "rank": 449,
+        "rank": 423,
         "pattern": "상승 장악형",
         "desc": "강력한 매수세로 추세 반전"
       },
       {
         "ticker": "KKR",
         "name": "KKR & CO",
-        "price": 96.69,
-        "change": 2.83,
+        "price": 95.94,
+        "change": 2.03,
         "tier": 5,
-        "rank": 456,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
-      },
-      {
-        "ticker": "AJG",
-        "name": "아서 J 갤러거",
-        "price": 203.56,
-        "change": 0.45,
-        "tier": 5,
-        "rank": 462,
+        "rank": 463,
         "pattern": "상승 장악형",
         "desc": "강력한 매수세로 추세 반전"
       },
@@ -2447,319 +2676,489 @@
         "rank": 470,
         "pattern": "망치형",
         "desc": "하락 추세에서 바닥 반전 신호"
-      },
-      {
-        "ticker": "CSGP",
-        "name": "코스타 그룹",
-        "price": 32.85,
-        "change": 1.72,
-        "tier": 5,
-        "rank": 475,
-        "pattern": "샛별형",
-        "desc": "강력한 바닥 반전 3봉 패턴"
-      },
-      {
-        "ticker": "APO",
-        "name": "아폴로 글로벌 매니지먼트",
-        "price": 130.62,
-        "change": 2.44,
-        "tier": 5,
-        "rank": 494,
-        "pattern": "상승 장악형",
-        "desc": "강력한 매수세로 추세 반전"
       }
     ],
     "candle_bearish": [
       {
-        "ticker": "FRT",
-        "name": "페더럴 리얼티 인베스트먼트 트러스트",
-        "price": 120.18,
-        "change": -0.69,
-        "tier": 2,
-        "rank": 36,
+        "ticker": "NVDA",
+        "name": "엔비디아",
+        "price": 211.14,
+        "change": -1.45,
+        "tier": 1,
+        "rank": 1,
+        "pattern": "하락 장악형",
+        "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "INCY",
+        "name": "인사이트",
+        "price": 96.74,
+        "change": -0.78,
+        "tier": 1,
+        "rank": 2,
+        "pattern": "하락 장악형",
+        "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "LVS",
+        "name": "라스베이거스 샌즈",
+        "price": 50.57,
+        "change": -1.06,
+        "tier": 1,
+        "rank": 14,
         "pattern": "하락 장악형",
         "desc": "강력한 매도세로 추세 반전"
       },
       {
         "ticker": "EXE",
         "name": "익스팬드 에너지",
-        "price": 92.99,
-        "change": -0.64,
+        "price": 92.98,
+        "change": -0.65,
         "tier": 2,
-        "rank": 42,
+        "rank": 27,
+        "pattern": "하락 장악형",
+        "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "CRH",
+        "name": "CRH(ADR)",
+        "price": 108.79,
+        "change": 1.9,
+        "tier": 2,
+        "rank": 35,
+        "pattern": "유성형",
+        "desc": "상승 추세에서 고점 반전 신호"
+      },
+      {
+        "ticker": "FRT",
+        "name": "페더럴 리얼티 인베스트먼트 트러스트",
+        "price": 119.63,
+        "change": -1.15,
+        "tier": 2,
+        "rank": 41,
         "pattern": "하락 장악형",
         "desc": "강력한 매도세로 추세 반전"
       },
       {
         "ticker": "ADI",
         "name": "아날로그 디바이스",
-        "price": 410.18,
-        "change": -2.11,
+        "price": 413.85,
+        "change": -1.23,
         "tier": 2,
-        "rank": 54,
+        "rank": 45,
         "pattern": "하락 장악형",
         "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "GRMN",
+        "name": "가민",
+        "price": 233.92,
+        "change": -1.03,
+        "tier": 2,
+        "rank": 54,
+        "pattern": "유성형",
+        "desc": "상승 추세에서 고점 반전 신호"
       },
       {
         "ticker": "MPWR",
         "name": "모놀리식 파워 시스템즈",
-        "price": 1568.73,
-        "change": -3.95,
+        "price": 1566.21,
+        "change": -4.1,
         "tier": 2,
-        "rank": 81,
+        "rank": 73,
         "pattern": "하락 장악형",
         "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "CTVA",
+        "name": "코르테바",
+        "price": 78.28,
+        "change": -2.88,
+        "tier": 2,
+        "rank": 86,
+        "pattern": "석별형",
+        "desc": "강력한 고점 반전 3봉 패턴"
       },
       {
         "ticker": "TER",
         "name": "테라다인",
-        "price": 369.0,
-        "change": -3.57,
+        "price": 374.31,
+        "change": -2.18,
         "tier": 2,
-        "rank": 87,
+        "rank": 89,
         "pattern": "하락 장악형",
         "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "UAL",
+        "name": "유나이티드 항공 홀딩스",
+        "price": 114.8,
+        "change": -0.23,
+        "tier": 2,
+        "rank": 92,
+        "pattern": "유성형",
+        "desc": "상승 추세에서 고점 반전 신호"
       },
       {
         "ticker": "MCK",
         "name": "매케슨",
-        "price": 743.96,
-        "change": -1.72,
+        "price": 742.44,
+        "change": -1.92,
         "tier": 3,
-        "rank": 116,
-        "pattern": "하락 장악형",
-        "desc": "강력한 매도세로 추세 반전"
-      },
-      {
-        "ticker": "LRCX",
-        "name": "램 리서치",
-        "price": 317.05,
-        "change": -0.3,
-        "tier": 3,
-        "rank": 117,
-        "pattern": "하락 장악형",
-        "desc": "강력한 매도세로 추세 반전"
-      },
-      {
-        "ticker": "JNJ",
-        "name": "존슨 앤 존슨",
-        "price": 225.48,
-        "change": -2.31,
-        "tier": 3,
-        "rank": 130,
+        "rank": 123,
         "pattern": "하락 장악형",
         "desc": "강력한 매도세로 추세 반전"
       },
       {
         "ticker": "NWSA",
         "name": "뉴스 코퍼레이션 A",
-        "price": 26.25,
-        "change": -1.02,
+        "price": 26.1,
+        "change": -1.58,
         "tier": 3,
-        "rank": 142,
+        "rank": 124,
         "pattern": "석별형",
         "desc": "강력한 고점 반전 3봉 패턴"
       },
       {
-        "ticker": "LLY",
-        "name": "일라이 릴리",
-        "price": 1096.18,
-        "change": -2.72,
+        "ticker": "PH",
+        "name": "파커 하니핀",
+        "price": 844.63,
+        "change": -0.96,
         "tier": 3,
-        "rank": 152,
+        "rank": 144,
+        "pattern": "유성형",
+        "desc": "상승 추세에서 고점 반전 신호"
+      },
+      {
+        "ticker": "JNJ",
+        "name": "존슨 앤 존슨",
+        "price": 225.33,
+        "change": -2.37,
+        "tier": 3,
+        "rank": 154,
         "pattern": "하락 장악형",
         "desc": "강력한 매도세로 추세 반전"
       },
       {
+        "ticker": "PCAR",
+        "name": "파카",
+        "price": 110.37,
+        "change": -1.65,
+        "tier": 3,
+        "rank": 174,
+        "pattern": "유성형",
+        "desc": "상승 추세에서 고점 반전 신호"
+      },
+      {
         "ticker": "HLT",
         "name": "힐튼 월드와이드 홀딩스",
-        "price": 329.1,
-        "change": -2.5,
+        "price": 327.66,
+        "change": -2.93,
         "tier": 3,
-        "rank": 212,
+        "rank": 195,
         "pattern": "석별형",
         "desc": "강력한 고점 반전 3봉 패턴"
       },
       {
-        "ticker": "MAR",
-        "name": "메리어트 인터내셔널",
-        "price": 375.64,
-        "change": -2.62,
+        "ticker": "HSY",
+        "name": "허쉬",
+        "price": 194.03,
+        "change": -1.53,
         "tier": 3,
-        "rank": 233,
+        "rank": 209,
+        "pattern": "석별형",
+        "desc": "강력한 고점 반전 3봉 패턴"
+      },
+      {
+        "ticker": "EXPE",
+        "name": "익스피디아 그룹",
+        "price": 225.79,
+        "change": -0.77,
+        "tier": 3,
+        "rank": 212,
+        "pattern": "하락 장악형",
+        "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "MA",
+        "name": "마스터카드",
+        "price": 493.98,
+        "change": 0.05,
+        "tier": 3,
+        "rank": 222,
         "pattern": "석별형",
         "desc": "강력한 고점 반전 3봉 패턴"
       },
       {
         "ticker": "KMB",
         "name": "킴벌리 클라크",
-        "price": 99.73,
-        "change": -0.41,
+        "price": 97.6,
+        "change": -2.54,
         "tier": 3,
-        "rank": 248,
+        "rank": 227,
         "pattern": "석별형",
         "desc": "강력한 고점 반전 3봉 패턴"
-      },
-      {
-        "ticker": "MDT",
-        "name": "메드트로닉",
-        "price": 74.47,
-        "change": -1.46,
-        "tier": 4,
-        "rank": 256,
-        "pattern": "하락 장악형",
-        "desc": "강력한 매도세로 추세 반전"
       },
       {
         "ticker": "DIS",
         "name": "월트 디즈니",
-        "price": 102.53,
-        "change": -1.16,
-        "tier": 4,
-        "rank": 263,
+        "price": 101.83,
+        "change": -1.83,
+        "tier": 3,
+        "rank": 229,
         "pattern": "석별형",
         "desc": "강력한 고점 반전 3봉 패턴"
       },
       {
+        "ticker": "MAR",
+        "name": "메리어트 인터내셔널",
+        "price": 375.6,
+        "change": -2.63,
+        "tier": 3,
+        "rank": 232,
+        "pattern": "석별형",
+        "desc": "강력한 고점 반전 3봉 패턴"
+      },
+      {
+        "ticker": "LUV",
+        "name": "사우스웨스트 항공",
+        "price": 42.95,
+        "change": -0.83,
+        "tier": 4,
+        "rank": 264,
+        "pattern": "유성형",
+        "desc": "상승 추세에서 고점 반전 신호"
+      },
+      {
+        "ticker": "MDT",
+        "name": "메드트로닉",
+        "price": 73.81,
+        "change": -2.33,
+        "tier": 4,
+        "rank": 275,
+        "pattern": "하락 장악형",
+        "desc": "강력한 매도세로 추세 반전"
+      },
+      {
         "ticker": "WMT",
         "name": "월마트",
-        "price": 115.36,
-        "change": -2.98,
+        "price": 115.75,
+        "change": -2.65,
         "tier": 4,
-        "rank": 267,
+        "rank": 276,
+        "pattern": "석별형",
+        "desc": "강력한 고점 반전 3봉 패턴"
+      },
+      {
+        "ticker": "CAH",
+        "name": "카디널 헬스",
+        "price": 196.8,
+        "change": -1.53,
+        "tier": 4,
+        "rank": 297,
+        "pattern": "하락 장악형",
+        "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "PG",
+        "name": "P&G",
+        "price": 143.56,
+        "change": -1.61,
+        "tier": 4,
+        "rank": 304,
+        "pattern": "석별형",
+        "desc": "강력한 고점 반전 3봉 패턴"
+      },
+      {
+        "ticker": "FAST",
+        "name": "패스널",
+        "price": 44.2,
+        "change": -1.25,
+        "tier": 4,
+        "rank": 318,
         "pattern": "석별형",
         "desc": "강력한 고점 반전 3봉 패턴"
       },
       {
         "ticker": "GM",
         "name": "제너럴 모터스",
-        "price": 83.47,
-        "change": -1.04,
+        "price": 83.24,
+        "change": -1.32,
         "tier": 4,
-        "rank": 289,
+        "rank": 319,
         "pattern": "하락 장악형",
         "desc": "강력한 매도세로 추세 반전"
-      },
-      {
-        "ticker": "POOL",
-        "name": "풀",
-        "price": 182.7,
-        "change": -1.08,
-        "tier": 4,
-        "rank": 313,
-        "pattern": "유성형",
-        "desc": "상승 추세에서 고점 반전 신호"
-      },
-      {
-        "ticker": "ECL",
-        "name": "에코랩",
-        "price": 256.85,
-        "change": -1.31,
-        "tier": 4,
-        "rank": 316,
-        "pattern": "석별형",
-        "desc": "강력한 고점 반전 3봉 패턴"
-      },
-      {
-        "ticker": "PG",
-        "name": "P&G",
-        "price": 144.42,
-        "change": -1.02,
-        "tier": 4,
-        "rank": 321,
-        "pattern": "석별형",
-        "desc": "강력한 고점 반전 3봉 패턴"
-      },
-      {
-        "ticker": "SMCI",
-        "name": "슈퍼 마이크로 컴퓨터",
-        "price": 45.42,
-        "change": 9.98,
-        "tier": 4,
-        "rank": 324,
-        "pattern": "유성형",
-        "desc": "상승 추세에서 고점 반전 신호"
       },
       {
         "ticker": "ROK",
         "name": "로크웰 오토메이션",
-        "price": 452.73,
-        "change": -0.46,
+        "price": 451.06,
+        "change": -0.82,
         "tier": 4,
-        "rank": 325,
+        "rank": 327,
         "pattern": "하락 장악형",
         "desc": "강력한 매도세로 추세 반전"
       },
       {
-        "ticker": "CAH",
-        "name": "카디널 헬스",
-        "price": 197.12,
-        "change": -1.37,
+        "ticker": "ECL",
+        "name": "에코랩",
+        "price": 256.0,
+        "change": -1.63,
         "tier": 4,
-        "rank": 330,
-        "pattern": "하락 장악형",
-        "desc": "강력한 매도세로 추세 반전"
+        "rank": 338,
+        "pattern": "석별형",
+        "desc": "강력한 고점 반전 3봉 패턴"
       },
       {
-        "ticker": "ABBV",
-        "name": "애브비",
-        "price": 215.67,
-        "change": -1.35,
+        "ticker": "MDLZ",
+        "name": "몬덜리즈 인터내셔널",
+        "price": 61.17,
+        "change": -1.96,
         "tier": 4,
-        "rank": 332,
+        "rank": 343,
+        "pattern": "석별형",
+        "desc": "강력한 고점 반전 3봉 패턴"
+      },
+      {
+        "ticker": "STT",
+        "name": "스테이트 스트리트",
+        "price": 155.64,
+        "change": -1.25,
+        "tier": 4,
+        "rank": 361,
         "pattern": "하락 장악형",
         "desc": "강력한 매도세로 추세 반전"
       },
       {
         "ticker": "NWS",
         "name": "뉴스 코퍼레이션 B",
-        "price": 29.93,
-        "change": -1.35,
+        "price": 29.82,
+        "change": -1.71,
         "tier": 4,
-        "rank": 346,
+        "rank": 369,
         "pattern": "하락 장악형",
         "desc": "강력한 매도세로 추세 반전"
       },
       {
-        "ticker": "STT",
-        "name": "스테이트 스트리트",
-        "price": 156.7,
-        "change": -0.58,
+        "ticker": "HUM",
+        "name": "휴매나",
+        "price": 305.42,
+        "change": -1.06,
         "tier": 4,
-        "rank": 352,
+        "rank": 373,
         "pattern": "하락 장악형",
         "desc": "강력한 매도세로 추세 반전"
       },
       {
-        "ticker": "FAST",
-        "name": "패스널",
-        "price": 44.59,
-        "change": -0.38,
+        "ticker": "IFF",
+        "name": "인터내셔널 플레이버스 앤 프래그런스",
+        "price": 76.05,
+        "change": -2.54,
         "tier": 4,
-        "rank": 357,
+        "rank": 399,
+        "pattern": "하락 장악형",
+        "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "ABT",
+        "name": "애보트",
+        "price": 85.6,
+        "change": -0.81,
+        "tier": 5,
+        "rank": 414,
+        "pattern": "하락 장악형",
+        "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "CL",
+        "name": "콜게이트 팜올리브",
+        "price": 90.13,
+        "change": -1.67,
+        "tier": 5,
+        "rank": 434,
         "pattern": "석별형",
         "desc": "강력한 고점 반전 3봉 패턴"
       },
       {
+        "ticker": "HRL",
+        "name": "호멜 푸즈",
+        "price": 23.23,
+        "change": -1.53,
+        "tier": 5,
+        "rank": 441,
+        "pattern": "유성형",
+        "desc": "상승 추세에서 고점 반전 신호"
+      },
+      {
         "ticker": "KHC",
         "name": "크래프트 하인즈",
-        "price": 24.19,
-        "change": -1.12,
+        "price": 24.01,
+        "change": -1.88,
         "tier": 5,
-        "rank": 445,
+        "rank": 442,
+        "pattern": "석별형",
+        "desc": "강력한 고점 반전 3봉 패턴"
+      },
+      {
+        "ticker": "SWKS",
+        "name": "스카이웍스 솔루션즈",
+        "price": 77.85,
+        "change": -4.37,
+        "tier": 5,
+        "rank": 458,
+        "pattern": "하락 장악형",
+        "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "BF.B",
+        "name": "브라운 포먼 B",
+        "price": 25.72,
+        "change": -0.92,
+        "tier": 5,
+        "rank": 465,
+        "pattern": "유성형",
+        "desc": "상승 추세에서 고점 반전 신호"
+      },
+      {
+        "ticker": "CSGP",
+        "name": "코스타 그룹",
+        "price": 32.2,
+        "change": -0.31,
+        "tier": 5,
+        "rank": 466,
+        "pattern": "하락 장악형",
+        "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "SJM",
+        "name": "JM 스머커",
+        "price": 103.2,
+        "change": -1.04,
+        "tier": 5,
+        "rank": 489,
+        "pattern": "하락 장악형",
+        "desc": "강력한 매도세로 추세 반전"
+      },
+      {
+        "ticker": "EL",
+        "name": "에스티 로더",
+        "price": 88.95,
+        "change": -2.11,
+        "tier": 5,
+        "rank": 497,
         "pattern": "석별형",
         "desc": "강력한 고점 반전 3봉 패턴"
       }
     ],
     "volume_spike": [
       {
-        "ticker": "MU",
-        "name": "마이크론 테크놀로지",
-        "price": 951.7,
-        "change": 3.05,
+        "ticker": "INCY",
+        "name": "인사이트",
+        "price": 96.74,
+        "change": -0.78,
         "tier": 1,
-        "rank": 3,
-        "score": 4.5
+        "rank": 2,
+        "score": 4.0
       },
       {
         "ticker": "CTRA",
@@ -2773,683 +3172,692 @@
       {
         "ticker": "GEV",
         "name": "GE 버노바",
-        "price": 953.22,
-        "change": -4.3,
+        "price": 968.32,
+        "change": -2.78,
         "tier": 1,
         "rank": 7,
-        "score": 4.7
-      },
-      {
-        "ticker": "EME",
-        "name": "엠코 그룹",
-        "price": 823.86,
-        "change": -2.9,
-        "tier": 1,
-        "rank": 8,
-        "score": 4.3
+        "score": 4.6
       },
       {
         "ticker": "PTC",
         "name": "PTC",
-        "price": 137.98,
-        "change": -0.59,
+        "price": 138.73,
+        "change": -0.04,
         "tier": 1,
         "rank": 10,
-        "score": 4.7
+        "score": 4.6
       },
       {
-        "ticker": "BALL",
-        "name": "볼",
-        "price": 55.45,
-        "change": -1.4,
+        "ticker": "ALL",
+        "name": "올스테이트",
+        "price": 206.09,
+        "change": -0.57,
         "tier": 1,
-        "rank": 14,
-        "score": 4.1
+        "rank": 11,
+        "score": 4.4
       },
       {
         "ticker": "GOOG",
         "name": "알파벳 C(구글)",
-        "price": 378.95,
-        "change": -1.86,
+        "price": 376.43,
+        "change": -2.51,
         "tier": 1,
-        "rank": 16,
-        "score": 4.3
+        "rank": 13,
+        "score": 4.8
       },
       {
-        "ticker": "GOOGL",
-        "name": "알파벳 A(구글)",
-        "price": 382.13,
-        "change": -2.05,
+        "ticker": "NOC",
+        "name": "노스롭 그루먼",
+        "price": 563.68,
+        "change": 0.78,
         "tier": 1,
-        "rank": 17,
-        "score": 4.1
+        "rank": 15,
+        "score": 4.7
       },
       {
-        "ticker": "SYF",
-        "name": "싱크로니 파이낸셜",
-        "price": 72.08,
-        "change": 0.86,
+        "ticker": "ACGL",
+        "name": "아치 캐피털 그룹",
+        "price": 89.34,
+        "change": -1.47,
         "tier": 1,
-        "rank": 21,
-        "score": 4.0
-      },
-      {
-        "ticker": "CRH",
-        "name": "CRH(ADR)",
-        "price": 110.07,
-        "change": 3.1,
-        "tier": 2,
-        "rank": 28,
-        "score": 4.0
-      },
-      {
-        "ticker": "AVGO",
-        "name": "브로드컴",
-        "price": 435.23,
-        "change": 2.03,
-        "tier": 2,
-        "rank": 30,
-        "score": 4.2
-      },
-      {
-        "ticker": "MSFT",
-        "name": "마이크로소프트",
-        "price": 442.53,
-        "change": 3.64,
-        "tier": 2,
-        "rank": 31,
+        "rank": 19,
         "score": 4.6
       },
       {
-        "ticker": "MKC",
-        "name": "맥코믹 앤 컴퍼니",
-        "price": 47.84,
-        "change": 2.16,
+        "ticker": "CB",
+        "name": "처브",
+        "price": 311.73,
+        "change": -1.42,
         "tier": 2,
-        "rank": 32,
-        "score": 4.5
-      },
-      {
-        "ticker": "CFG",
-        "name": "시티즌스 파이낸셜 그룹",
-        "price": 61.9,
-        "change": -0.82,
-        "tier": 2,
-        "rank": 35,
-        "score": 4.4
-      },
-      {
-        "ticker": "FRT",
-        "name": "페더럴 리얼티 인베스트먼트 트러스트",
-        "price": 120.18,
-        "change": -0.69,
-        "tier": 2,
-        "rank": 36,
-        "score": 4.2
-      },
-      {
-        "ticker": "FSLR",
-        "name": "퍼스트 솔라",
-        "price": 300.37,
-        "change": -0.99,
-        "tier": 2,
-        "rank": 38,
-        "score": 4.9
+        "rank": 25,
+        "score": 4.7
       },
       {
         "ticker": "REGN",
         "name": "리제네론 파마슈티컬스",
-        "price": 615.54,
-        "change": -0.96,
+        "price": 614.78,
+        "change": -1.08,
         "tier": 2,
-        "rank": 40,
-        "score": 4.4
+        "rank": 30,
+        "score": 4.7
       },
       {
-        "ticker": "HII",
-        "name": "헌팅턴 잉걸스 인더스트리스",
-        "price": 310.51,
-        "change": -3.24,
+        "ticker": "MSFT",
+        "name": "마이크로소프트",
+        "price": 450.24,
+        "change": 5.45,
         "tier": 2,
-        "rank": 43,
-        "score": 4.1
+        "rank": 32,
+        "score": 4.7
       },
       {
-        "ticker": "RMD",
-        "name": "레즈메드",
-        "price": 194.84,
-        "change": -4.22,
+        "ticker": "FSLR",
+        "name": "퍼스트 솔라",
+        "price": 306.79,
+        "change": 1.12,
         "tier": 2,
-        "rank": 57,
-        "score": 4.6
+        "rank": 33,
+        "score": 4.8
+      },
+      {
+        "ticker": "GILD",
+        "name": "길리어드 사이언스",
+        "price": 134.43,
+        "change": -1.31,
+        "tier": 2,
+        "rank": 47,
+        "score": 4.8
       },
       {
         "ticker": "ROST",
         "name": "로스 스토어스",
-        "price": 230.13,
-        "change": 1.29,
+        "price": 231.73,
+        "change": 1.99,
         "tier": 2,
-        "rank": 58,
-        "score": 4.0
+        "rank": 51,
+        "score": 4.9
       },
       {
-        "ticker": "VLTO",
-        "name": "버럴토",
-        "price": 83.46,
-        "change": -0.02,
+        "ticker": "GRMN",
+        "name": "가민",
+        "price": 233.92,
+        "change": -1.03,
         "tier": 2,
-        "rank": 59,
-        "score": 4.0
+        "rank": 54,
+        "score": 4.1
       },
       {
         "ticker": "D",
         "name": "도미니언 에너지",
-        "price": 66.91,
-        "change": -0.7,
+        "price": 66.94,
+        "change": -0.65,
+        "tier": 2,
+        "rank": 60,
+        "score": 4.2
+      },
+      {
+        "ticker": "KEYS",
+        "name": "키사이트 테크놀로지스",
+        "price": 338.33,
+        "change": -0.24,
         "tier": 2,
         "rank": 61,
-        "score": 4.0
+        "score": 4.2
+      },
+      {
+        "ticker": "RMD",
+        "name": "레즈메드",
+        "price": 190.57,
+        "change": -6.32,
+        "tier": 2,
+        "rank": 62,
+        "score": 4.4
+      },
+      {
+        "ticker": "NTRS",
+        "name": "노던 트러스트",
+        "price": 165.45,
+        "change": -1.72,
+        "tier": 2,
+        "rank": 63,
+        "score": 4.6
+      },
+      {
+        "ticker": "REG",
+        "name": "리젠시 센터스",
+        "price": 77.35,
+        "change": -1.49,
+        "tier": 2,
+        "rank": 65,
+        "score": 4.4
+      },
+      {
+        "ticker": "FITB",
+        "name": "피프스 서드 뱅코프",
+        "price": 49.93,
+        "change": 0.1,
+        "tier": 2,
+        "rank": 67,
+        "score": 4.1
       },
       {
         "ticker": "ICE",
         "name": "인터컨티넨탈 익스체인지",
-        "price": 149.55,
-        "change": 0.84,
+        "price": 147.85,
+        "change": -0.3,
         "tier": 2,
-        "rank": 65,
-        "score": 4.8
+        "rank": 70,
+        "score": 4.7
+      },
+      {
+        "ticker": "OKE",
+        "name": "원오크",
+        "price": 83.94,
+        "change": -3.54,
+        "tier": 2,
+        "rank": 72,
+        "score": 4.3
+      },
+      {
+        "ticker": "MPWR",
+        "name": "모놀리식 파워 시스템즈",
+        "price": 1566.21,
+        "change": -4.1,
+        "tier": 2,
+        "rank": 73,
+        "score": 4.0
       },
       {
         "ticker": "CBRE",
         "name": "CBRE 그룹",
-        "price": 126.18,
-        "change": -0.19,
+        "price": 125.04,
+        "change": -1.09,
         "tier": 2,
-        "rank": 67,
-        "score": 4.7
+        "rank": 76,
+        "score": 4.1
       },
       {
         "ticker": "PLTR",
         "name": "팔란티어 테크놀로지스",
-        "price": 155.82,
-        "change": 8.71,
+        "price": 156.54,
+        "change": 9.21,
         "tier": 2,
-        "rank": 69,
-        "score": 4.8
+        "rank": 80,
+        "score": 4.5
       },
       {
-        "ticker": "UNP",
-        "name": "유니온 퍼시픽",
-        "price": 262.25,
-        "change": -1.78,
+        "ticker": "VZ",
+        "name": "버라이즌 커뮤니케이션스",
+        "price": 47.81,
+        "change": -0.42,
         "tier": 2,
         "rank": 83,
-        "score": 4.4
+        "score": 4.0
       },
       {
-        "ticker": "SCHW",
-        "name": "찰스 슈왑",
-        "price": 87.33,
-        "change": 2.32,
-        "tier": 3,
-        "rank": 101,
+        "ticker": "T",
+        "name": "AT&T",
+        "price": 24.8,
+        "change": -0.32,
+        "tier": 2,
+        "rank": 95,
         "score": 4.3
       },
       {
-        "ticker": "JKHY",
-        "name": "잭 헨리 앤드 어소시에이츠",
-        "price": 136.62,
-        "change": 0.3,
-        "tier": 3,
-        "rank": 103,
-        "score": 4.3
+        "ticker": "TRMB",
+        "name": "트림블",
+        "price": 56.41,
+        "change": 2.71,
+        "tier": 2,
+        "rank": 99,
+        "score": 4.8
       },
       {
         "ticker": "ATO",
         "name": "애트모스 에너지",
-        "price": 170.26,
-        "change": -1.6,
+        "price": 169.13,
+        "change": -2.25,
         "tier": 3,
-        "rank": 108,
-        "score": 4.5
+        "rank": 101,
+        "score": 5.0
+      },
+      {
+        "ticker": "JKHY",
+        "name": "잭 헨리 앤드 어소시에이츠",
+        "price": 136.32,
+        "change": 0.07,
+        "tier": 3,
+        "rank": 102,
+        "score": 4.4
       },
       {
         "ticker": "EA",
         "name": "일렉트로닉 아츠",
-        "price": 201.9,
-        "change": 0.38,
+        "price": 201.72,
+        "change": 0.28,
         "tier": 3,
-        "rank": 110,
-        "score": 4.0
-      },
-      {
-        "ticker": "COR",
-        "name": "센코라",
-        "price": 268.1,
-        "change": 0.15,
-        "tier": 3,
-        "rank": 118,
+        "rank": 106,
         "score": 4.3
       },
       {
         "ticker": "PNR",
         "name": "펜테어",
-        "price": 71.93,
-        "change": 0.84,
+        "price": 70.84,
+        "change": -0.69,
         "tier": 3,
-        "rank": 121,
-        "score": 4.6
+        "rank": 131,
+        "score": 4.0
       },
       {
-        "ticker": "APP",
-        "name": "앱러빈",
-        "price": 610.29,
-        "change": 1.73,
+        "ticker": "TXN",
+        "name": "텍사스 인스트루먼츠",
+        "price": 305.68,
+        "change": -3.25,
         "tier": 3,
-        "rank": 127,
-        "score": 4.1
+        "rank": 133,
+        "score": 4.2
+      },
+      {
+        "ticker": "CSCO",
+        "name": "시스코 시스템즈",
+        "price": 120.42,
+        "change": 1.5,
+        "tier": 3,
+        "rank": 135,
+        "score": 4.2
       },
       {
         "ticker": "COST",
         "name": "코스트코",
-        "price": 950.16,
-        "change": -4.53,
+        "price": 956.32,
+        "change": -3.91,
         "tier": 3,
-        "rank": 133,
+        "rank": 136,
         "score": 4.9
-      },
-      {
-        "ticker": "ADBE",
-        "name": "어도비",
-        "price": 256.11,
-        "change": 6.07,
-        "tier": 3,
-        "rank": 135,
-        "score": 4.4
       },
       {
         "ticker": "DELL",
         "name": "델 테크놀로지스",
-        "price": 407.06,
-        "change": 28.39,
+        "price": 420.91,
+        "change": 32.76,
         "tier": 3,
-        "rank": 140,
+        "rank": 137,
         "score": 5.0
       },
       {
-        "ticker": "NEE",
-        "name": "넥스트에라 에너지",
-        "price": 86.21,
-        "change": -1.2,
+        "ticker": "ADBE",
+        "name": "어도비",
+        "price": 259.21,
+        "change": 7.36,
         "tier": 3,
-        "rank": 148,
-        "score": 4.0
+        "rank": 141,
+        "score": 4.1
+      },
+      {
+        "ticker": "FFIV",
+        "name": "F5",
+        "price": 383.45,
+        "change": 0.01,
+        "tier": 3,
+        "rank": 157,
+        "score": 4.2
+      },
+      {
+        "ticker": "PGR",
+        "name": "프로그레시브",
+        "price": 190.4,
+        "change": -2.11,
+        "tier": 3,
+        "rank": 158,
+        "score": 4.6
       },
       {
         "ticker": "FIX",
         "name": "컴포트 시스템즈 USA",
-        "price": 1803.2,
-        "change": -2.8,
+        "price": 1828.21,
+        "change": -1.45,
         "tier": 3,
-        "rank": 153,
+        "rank": 161,
+        "score": 4.3
+      },
+      {
+        "ticker": "KVUE",
+        "name": "켄뷰",
+        "price": 17.28,
+        "change": -2.04,
+        "tier": 3,
+        "rank": 162,
         "score": 4.0
       },
       {
         "ticker": "AZO",
         "name": "오토존",
-        "price": 2959.9,
-        "change": -1.57,
+        "price": 2935.19,
+        "change": -2.39,
         "tier": 3,
-        "rank": 157,
-        "score": 4.8
-      },
-      {
-        "ticker": "KVUE",
-        "name": "켄뷰",
-        "price": 17.58,
-        "change": -0.37,
-        "tier": 3,
-        "rank": 164,
-        "score": 4.4
-      },
-      {
-        "ticker": "AMP",
-        "name": "아메리프라이즈 파이낸셜",
-        "price": 447.99,
-        "change": 1.85,
-        "tier": 3,
-        "rank": 165,
-        "score": 4.7
-      },
-      {
-        "ticker": "CHTR",
-        "name": "차터 커뮤니케이션스",
-        "price": 142.16,
-        "change": -3.46,
-        "tier": 3,
-        "rank": 169,
-        "score": 4.1
-      },
-      {
-        "ticker": "CRM",
-        "name": "세일즈포스",
-        "price": 192.82,
-        "change": 9.45,
-        "tier": 3,
-        "rank": 170,
-        "score": 4.8
-      },
-      {
-        "ticker": "UBER",
-        "name": "우버 테크놀로지스",
-        "price": 72.04,
-        "change": 1.58,
-        "tier": 3,
-        "rank": 172,
-        "score": 4.6
-      },
-      {
-        "ticker": "PGR",
-        "name": "프로그레시브",
-        "price": 192.41,
-        "change": -1.08,
-        "tier": 3,
-        "rank": 173,
-        "score": 4.0
-      },
-      {
-        "ticker": "INTU",
-        "name": "인튜이트",
-        "price": 328.96,
-        "change": 5.1,
-        "tier": 3,
-        "rank": 178,
-        "score": 4.8
-      },
-      {
-        "ticker": "BSX",
-        "name": "보스턴 사이언티픽",
-        "price": 48.37,
-        "change": -1.51,
-        "tier": 3,
-        "rank": 181,
-        "score": 4.8
-      },
-      {
-        "ticker": "ORCL",
-        "name": "오라클",
-        "price": 222.21,
-        "change": 9.09,
-        "tier": 3,
-        "rank": 184,
-        "score": 4.7
-      },
-      {
-        "ticker": "CBOE",
-        "name": "CBOE 글로벌 마켓",
-        "price": 336.04,
-        "change": -2.38,
-        "tier": 3,
-        "rank": 196,
-        "score": 4.2
+        "rank": 171,
+        "score": 4.5
       },
       {
         "ticker": "UDR",
         "name": "UDR",
-        "price": 37.41,
-        "change": -1.24,
+        "price": 36.9,
+        "change": -2.59,
         "tier": 3,
-        "rank": 198,
-        "score": 4.5
-      },
-      {
-        "ticker": "CDW",
-        "name": "CDW",
-        "price": 123.77,
-        "change": 6.55,
-        "tier": 3,
-        "rank": 205,
-        "score": 4.9
-      },
-      {
-        "ticker": "MLM",
-        "name": "마틴 마리에타 머티리얼스",
-        "price": 586.71,
-        "change": 2.01,
-        "tier": 3,
-        "rank": 206,
+        "rank": 180,
         "score": 4.7
       },
       {
-        "ticker": "QCOM",
-        "name": "퀄컴",
-        "price": 252.85,
-        "change": 3.93,
+        "ticker": "INTU",
+        "name": "인튜이트",
+        "price": 331.53,
+        "change": 5.92,
         "tier": 3,
-        "rank": 207,
-        "score": 4.2
+        "rank": 181,
+        "score": 4.5
+      },
+      {
+        "ticker": "CRM",
+        "name": "세일즈포스",
+        "price": 191.1,
+        "change": 8.47,
+        "tier": 3,
+        "rank": 184,
+        "score": 4.0
+      },
+      {
+        "ticker": "TTD",
+        "name": "트레이드 데스크",
+        "price": 21.56,
+        "change": 1.94,
+        "tier": 3,
+        "rank": 187,
+        "score": 4.3
+      },
+      {
+        "ticker": "IDXX",
+        "name": "아이덱스 래버러토리스",
+        "price": 563.53,
+        "change": -0.79,
+        "tier": 3,
+        "rank": 188,
+        "score": 4.5
+      },
+      {
+        "ticker": "CBOE",
+        "name": "CBOE 글로벌 마켓",
+        "price": 333.56,
+        "change": -3.1,
+        "tier": 3,
+        "rank": 194,
+        "score": 4.1
+      },
+      {
+        "ticker": "BSX",
+        "name": "보스턴 사이언티픽",
+        "price": 48.31,
+        "change": -1.63,
+        "tier": 3,
+        "rank": 198,
+        "score": 4.0
+      },
+      {
+        "ticker": "SLB",
+        "name": "슐럼버거",
+        "price": 54.55,
+        "change": -1.03,
+        "tier": 3,
+        "rank": 200,
+        "score": 4.4
       },
       {
         "ticker": "CMS",
         "name": "CMS 에너지",
-        "price": 72.25,
-        "change": -1.26,
+        "price": 72.57,
+        "change": -0.82,
         "tier": 3,
-        "rank": 209,
+        "rank": 210,
         "score": 4.3
       },
       {
-        "ticker": "AON",
-        "name": "에이온",
-        "price": 317.12,
-        "change": -0.37,
+        "ticker": "MLM",
+        "name": "마틴 마리에타 머티리얼스",
+        "price": 581.64,
+        "change": 1.13,
         "tier": 3,
-        "rank": 210,
-        "score": 4.6
+        "rank": 211,
+        "score": 4.1
       },
       {
         "ticker": "ROL",
         "name": "롤린스",
-        "price": 47.7,
-        "change": -3.48,
+        "price": 47.6,
+        "change": -3.68,
         "tier": 3,
-        "rank": 211,
+        "rank": 213,
         "score": 4.9
       },
       {
         "ticker": "XEL",
         "name": "엑셀 에너지",
-        "price": 79.11,
-        "change": -0.19,
+        "price": 79.5,
+        "change": 0.3,
         "tier": 3,
-        "rank": 216,
-        "score": 4.6
+        "rank": 214,
+        "score": 4.8
       },
       {
-        "ticker": "COHR",
-        "name": "Coherent Corp.",
-        "price": 345.18,
-        "change": -8.43,
+        "ticker": "ORLY",
+        "name": "오릴리 오토모티브",
+        "price": 86.88,
+        "change": -2.63,
         "tier": 3,
-        "rank": 223,
-        "score": 4.1
-      },
-      {
-        "ticker": "CPRT",
-        "name": "코파트",
-        "price": 33.03,
-        "change": -0.75,
-        "tier": 3,
-        "rank": 235,
-        "score": 4.5
-      },
-      {
-        "ticker": "IBKR",
-        "name": "인터랙티브 브로커스 그룹",
-        "price": 86.61,
-        "change": 4.21,
-        "tier": 3,
-        "rank": 240,
+        "rank": 220,
         "score": 4.2
       },
       {
-        "ticker": "CTSH",
-        "name": "코그니전트 테크놀로지 솔루션즈",
-        "price": 55.75,
-        "change": 3.53,
+        "ticker": "ED",
+        "name": "컨솔리데이티드 에디슨",
+        "price": 105.63,
+        "change": -0.63,
         "tier": 3,
-        "rank": 245,
-        "score": 4.6
+        "rank": 223,
+        "score": 4.9
       },
       {
         "ticker": "KMB",
         "name": "킴벌리 클라크",
-        "price": 99.73,
-        "change": -0.41,
+        "price": 97.6,
+        "change": -2.54,
         "tier": 3,
-        "rank": 248,
-        "score": 4.1
+        "rank": 227,
+        "score": 4.3
       },
       {
-        "ticker": "MDT",
-        "name": "메드트로닉",
-        "price": 74.47,
-        "change": -1.46,
+        "ticker": "CDW",
+        "name": "CDW",
+        "price": 125.45,
+        "change": 8.0,
+        "tier": 3,
+        "rank": 228,
+        "score": 4.8
+      },
+      {
+        "ticker": "CPRT",
+        "name": "코파트",
+        "price": 32.77,
+        "change": -1.53,
+        "tier": 3,
+        "rank": 233,
+        "score": 4.5
+      },
+      {
+        "ticker": "EXC",
+        "name": "엑셀론",
+        "price": 45.64,
+        "change": 0.13,
+        "tier": 3,
+        "rank": 247,
+        "score": 4.0
+      },
+      {
+        "ticker": "RSG",
+        "name": "리퍼블릭 서비스",
+        "price": 200.44,
+        "change": -1.6,
+        "tier": 3,
+        "rank": 248,
+        "score": 4.5
+      },
+      {
+        "ticker": "CTSH",
+        "name": "코그니전트 테크놀로지 솔루션즈",
+        "price": 55.76,
+        "change": 3.54,
         "tier": 4,
-        "rank": 256,
-        "score": 4.3
+        "rank": 250,
+        "score": 4.6
+      },
+      {
+        "ticker": "CME",
+        "name": "CME 그룹",
+        "price": 273.54,
+        "change": -1.4,
+        "tier": 4,
+        "rank": 253,
+        "score": 4.5
+      },
+      {
+        "ticker": "GEN",
+        "name": "젠 디지털",
+        "price": 25.79,
+        "change": 5.05,
+        "tier": 4,
+        "rank": 254,
+        "score": 4.1
       },
       {
         "ticker": "GDDY",
         "name": "고대디",
-        "price": 88.14,
-        "change": 2.61,
+        "price": 85.83,
+        "change": -0.08,
         "tier": 4,
-        "rank": 266,
+        "rank": 262,
         "score": 4.2
       },
       {
         "ticker": "WMT",
         "name": "월마트",
-        "price": 115.36,
-        "change": -2.98,
+        "price": 115.75,
+        "change": -2.65,
         "tier": 4,
-        "rank": 267,
-        "score": 4.8
+        "rank": 276,
+        "score": 4.6
       },
       {
         "ticker": "ADSK",
         "name": "오토데스크",
-        "price": 230.12,
-        "change": -4.49,
+        "price": 231.31,
+        "change": -4.0,
         "tier": 4,
-        "rank": 272,
-        "score": 4.9
+        "rank": 277,
+        "score": 4.8
+      },
+      {
+        "ticker": "CAT",
+        "name": "캐터필러",
+        "price": 875.87,
+        "change": -1.33,
+        "tier": 4,
+        "rank": 279,
+        "score": 4.6
       },
       {
         "ticker": "DLTR",
         "name": "달러 트리",
-        "price": 115.75,
-        "change": 2.43,
+        "price": 116.44,
+        "change": 3.04,
         "tier": 4,
-        "rank": 280,
-        "score": 4.8
-      },
-      {
-        "ticker": "GM",
-        "name": "제너럴 모터스",
-        "price": 83.47,
-        "change": -1.04,
-        "tier": 4,
-        "rank": 289,
-        "score": 4.7
-      },
-      {
-        "ticker": "SPGI",
-        "name": "S&P 글로벌",
-        "price": 425.8,
-        "change": 1.95,
-        "tier": 4,
-        "rank": 296,
-        "score": 4.0
-      },
-      {
-        "ticker": "TMO",
-        "name": "써모 피셔 사이언티픽",
-        "price": 498.76,
-        "change": 2.37,
-        "tier": 4,
-        "rank": 297,
+        "rank": 299,
         "score": 4.3
-      },
-      {
-        "ticker": "MSCI",
-        "name": "MSCI",
-        "price": 638.51,
-        "change": 1.91,
-        "tier": 4,
-        "rank": 302,
-        "score": 4.2
-      },
-      {
-        "ticker": "KR",
-        "name": "크로거",
-        "price": 62.08,
-        "change": -2.48,
-        "tier": 4,
-        "rank": 307,
-        "score": 4.4
-      },
-      {
-        "ticker": "BBY",
-        "name": "베스트 바이",
-        "price": 76.94,
-        "change": 2.94,
-        "tier": 4,
-        "rank": 311,
-        "score": 4.7
       },
       {
         "ticker": "HSIC",
         "name": "헨리 셰인",
-        "price": 77.54,
-        "change": 1.6,
+        "price": 76.58,
+        "change": 0.34,
         "tier": 4,
-        "rank": 317,
+        "rank": 300,
         "score": 4.1
+      },
+      {
+        "ticker": "LIN",
+        "name": "린데",
+        "price": 497.69,
+        "change": -0.85,
+        "tier": 4,
+        "rank": 305,
+        "score": 4.4
       },
       {
         "ticker": "COO",
         "name": "쿠퍼",
-        "price": 61.61,
-        "change": 0.93,
+        "price": 61.21,
+        "change": 0.28,
         "tier": 4,
-        "rank": 318,
-        "score": 4.2
+        "rank": 306,
+        "score": 4.5
+      },
+      {
+        "ticker": "ZBRA",
+        "name": "지브라 테크놀로지스",
+        "price": 243.63,
+        "change": -1.72,
+        "tier": 4,
+        "rank": 310,
+        "score": 4.9
+      },
+      {
+        "ticker": "VRSN",
+        "name": "베리사인",
+        "price": 285.38,
+        "change": -3.63,
+        "tier": 4,
+        "rank": 311,
+        "score": 4.4
+      },
+      {
+        "ticker": "FTV",
+        "name": "포티브",
+        "price": 58.32,
+        "change": -1.44,
+        "tier": 4,
+        "rank": 316,
+        "score": 4.8
+      },
+      {
+        "ticker": "FIS",
+        "name": "피델리티 내셔널 인포메이션 서비시스",
+        "price": 42.99,
+        "change": 1.82,
+        "tier": 4,
+        "rank": 323,
+        "score": 4.6
       },
       {
         "ticker": "SMCI",
         "name": "슈퍼 마이크로 컴퓨터",
-        "price": 45.42,
-        "change": 9.98,
+        "price": 46.09,
+        "change": 11.6,
         "tier": 4,
         "rank": 324,
-        "score": 4.9
+        "score": 4.7
       },
       {
         "ticker": "F",
         "name": "포드",
-        "price": 17.62,
-        "change": 5.81,
-        "tier": 4,
-        "rank": 327,
-        "score": 4.9
-      },
-      {
-        "ticker": "NVR",
-        "name": "NVR",
-        "price": 6125.46,
-        "change": -0.57,
+        "price": 17.44,
+        "change": 4.74,
         "tier": 4,
         "rank": 333,
         "score": 4.8
@@ -3457,200 +3865,227 @@
       {
         "ticker": "NTAP",
         "name": "넷앱",
-        "price": 179.87,
-        "change": 26.31,
+        "price": 174.29,
+        "change": 22.39,
         "tier": 4,
-        "rank": 343,
+        "rank": 339,
         "score": 5.0
       },
       {
-        "ticker": "NWS",
-        "name": "뉴스 코퍼레이션 B",
-        "price": 29.93,
-        "change": -1.35,
+        "ticker": "NVR",
+        "name": "NVR",
+        "price": 6104.8,
+        "change": -0.9,
         "tier": 4,
-        "rank": 346,
-        "score": 4.6
+        "rank": 341,
+        "score": 4.5
+      },
+      {
+        "ticker": "AFL",
+        "name": "애플랙",
+        "price": 112.42,
+        "change": -0.19,
+        "tier": 4,
+        "rank": 354,
+        "score": 4.8
       },
       {
         "ticker": "SRE",
         "name": "셈프라",
-        "price": 88.82,
-        "change": -1.34,
+        "price": 89.13,
+        "change": -1.0,
         "tier": 4,
-        "rank": 348,
-        "score": 4.8
-      },
-      {
-        "ticker": "TSCO",
-        "name": "트랙터 서플라이",
-        "price": 31.32,
-        "change": -0.16,
-        "tier": 4,
-        "rank": 364,
+        "rank": 357,
         "score": 4.4
       },
       {
-        "ticker": "TYL",
-        "name": "타일러 테크놀로지스",
-        "price": 311.89,
-        "change": 1.91,
+        "ticker": "CLX",
+        "name": "크로락스",
+        "price": 90.02,
+        "change": -6.42,
         "tier": 4,
-        "rank": 366,
-        "score": 4.7
+        "rank": 364,
+        "score": 4.2
       },
       {
-        "ticker": "HPE",
-        "name": "휴렛 패커드 엔터프라이즈",
-        "price": 42.65,
-        "change": 11.62,
+        "ticker": "DOC",
+        "name": "헬스피크 프로퍼티스",
+        "price": 19.15,
+        "change": -1.85,
         "tier": 4,
         "rank": 367,
         "score": 5.0
       },
       {
+        "ticker": "HPE",
+        "name": "휴렛 패커드 엔터프라이즈",
+        "price": 43.04,
+        "change": 12.64,
+        "tier": 4,
+        "rank": 370,
+        "score": 4.9
+      },
+      {
+        "ticker": "AWK",
+        "name": "아메리칸 워터 웍스",
+        "price": 123.27,
+        "change": 0.75,
+        "tier": 4,
+        "rank": 371,
+        "score": 4.9
+      },
+      {
+        "ticker": "TSCO",
+        "name": "트랙터 서플라이",
+        "price": 31.53,
+        "change": 0.51,
+        "tier": 4,
+        "rank": 372,
+        "score": 4.4
+      },
+      {
+        "ticker": "ODFL",
+        "name": "올드 도미니언 프레이트 라인",
+        "price": 225.15,
+        "change": 1.94,
+        "tier": 4,
+        "rank": 380,
+        "score": 4.0
+      },
+      {
         "ticker": "SNPS",
         "name": "시놉시스",
-        "price": 476.02,
-        "change": -0.96,
+        "price": 475.62,
+        "change": -1.04,
         "tier": 4,
-        "rank": 369,
-        "score": 4.5
+        "rank": 381,
+        "score": 4.1
       },
       {
-        "ticker": "CLX",
-        "name": "크로락스",
-        "price": 92.42,
-        "change": -3.93,
+        "ticker": "DE",
+        "name": "디어 앤드 컴퍼니",
+        "price": 542.18,
+        "change": 0.59,
         "tier": 4,
-        "rank": 378,
+        "rank": 384,
         "score": 4.2
-      },
-      {
-        "ticker": "MTD",
-        "name": "메틀러 톨레도 인터내셔널",
-        "price": 1179.84,
-        "change": 1.4,
-        "tier": 4,
-        "rank": 387,
-        "score": 4.5
       },
       {
         "ticker": "A",
         "name": "애질런트 테크놀로지스",
-        "price": 137.46,
-        "change": 1.54,
+        "price": 135.53,
+        "change": 0.11,
         "tier": 4,
-        "rank": 391,
-        "score": 4.4
-      },
-      {
-        "ticker": "PANW",
-        "name": "팔로알토 네트웍스",
-        "price": 276.5,
-        "change": 7.27,
-        "tier": 4,
-        "rank": 397,
+        "rank": 385,
         "score": 4.5
       },
       {
         "ticker": "IFF",
         "name": "인터내셔널 플레이버스 앤 프래그런스",
-        "price": 77.19,
-        "change": -1.08,
+        "price": 76.05,
+        "change": -2.54,
         "tier": 4,
         "rank": 399,
         "score": 4.9
       },
       {
-        "ticker": "WDAY",
-        "name": "워크데이",
-        "price": 145.13,
-        "change": 11.63,
+        "ticker": "J",
+        "name": "제이콥스 솔루션즈",
+        "price": 119.86,
+        "change": 0.76,
         "tier": 5,
         "rank": 401,
-        "score": 4.7
+        "score": 4.2
+      },
+      {
+        "ticker": "PANW",
+        "name": "팔로알토 네트웍스",
+        "price": 281.69,
+        "change": 9.28,
+        "tier": 5,
+        "rank": 406,
+        "score": 4.3
+      },
+      {
+        "ticker": "MTD",
+        "name": "메틀러 톨레도 인터내셔널",
+        "price": 1180.58,
+        "change": 1.47,
+        "tier": 5,
+        "rank": 408,
+        "score": 4.0
+      },
+      {
+        "ticker": "WDAY",
+        "name": "워크데이",
+        "price": 146.19,
+        "change": 12.45,
+        "tier": 5,
+        "rank": 413,
+        "score": 4.4
+      },
+      {
+        "ticker": "IT",
+        "name": "가트너",
+        "price": 162.2,
+        "change": 0.63,
+        "tier": 5,
+        "rank": 416,
+        "score": 4.9
       },
       {
         "ticker": "IBM",
         "name": "IBM",
-        "price": 289.21,
-        "change": 9.46,
+        "price": 297.8,
+        "change": 12.71,
         "tier": 5,
-        "rank": 409,
-        "score": 5.0
-      },
-      {
-        "ticker": "MGM",
-        "name": "MGM 리조트 인터내셔널",
-        "price": 44.19,
-        "change": 2.95,
-        "tier": 5,
-        "rank": 422,
-        "score": 4.3
-      },
-      {
-        "ticker": "DDOG",
-        "name": "데이터독",
-        "price": 241.09,
-        "change": 7.03,
-        "tier": 5,
-        "rank": 444,
-        "score": 4.2
+        "rank": 417,
+        "score": 4.9
       },
       {
         "ticker": "HRL",
         "name": "호멜 푸즈",
-        "price": 23.82,
-        "change": 0.95,
+        "price": 23.23,
+        "change": -1.53,
         "tier": 5,
-        "rank": 450,
-        "score": 4.4
+        "rank": 441,
+        "score": 5.0
+      },
+      {
+        "ticker": "DDOG",
+        "name": "데이터독",
+        "price": 247.35,
+        "change": 9.82,
+        "tier": 5,
+        "rank": 447,
+        "score": 4.1
       },
       {
         "ticker": "HPQ",
         "name": "HP",
-        "price": 27.11,
-        "change": 8.42,
+        "price": 27.04,
+        "change": 8.12,
         "tier": 5,
-        "rank": 455,
-        "score": 4.9
+        "rank": 457,
+        "score": 4.7
       },
       {
         "ticker": "HOOD",
         "name": "로빈후드 마켓",
-        "price": 92.85,
-        "change": 9.44,
+        "price": 94.3,
+        "change": 11.15,
         "tier": 5,
-        "rank": 457,
-        "score": 4.9
+        "rank": 460,
+        "score": 4.6
       },
       {
         "ticker": "APTV",
         "name": "앱티브",
-        "price": 67.67,
-        "change": 6.28,
-        "tier": 5,
-        "rank": 465,
-        "score": 4.6
-      },
-      {
-        "ticker": "COIN",
-        "name": "코인베이스",
-        "price": 190.3,
-        "change": 4.41,
+        "price": 67.94,
+        "change": 6.71,
         "tier": 5,
         "rank": 467,
-        "score": 4.1
-      },
-      {
-        "ticker": "NOW",
-        "name": "서비스나우",
-        "price": 123.42,
-        "change": 13.51,
-        "tier": 5,
-        "rank": 469,
-        "score": 5.0
+        "score": 4.3
       },
       {
         "ticker": "DAY",
@@ -3662,226 +4097,206 @@
         "score": 5.0
       },
       {
-        "ticker": "RVTY",
-        "name": "레비티",
-        "price": 103.57,
-        "change": 2.32,
+        "ticker": "NOW",
+        "name": "서비스나우",
+        "price": 124.37,
+        "change": 14.38,
         "tier": 5,
-        "rank": 476,
-        "score": 4.3
+        "rank": 472,
+        "score": 4.7
       },
       {
         "ticker": "TTWO",
         "name": "테이크 투 인터랙티브 소프트웨어",
-        "price": 225.75,
-        "change": 3.62,
+        "price": 224.16,
+        "change": 2.89,
         "tier": 5,
-        "rank": 477,
-        "score": 4.5
-      },
-      {
-        "ticker": "NKE",
-        "name": "나이키",
-        "price": 46.62,
-        "change": -1.59,
-        "tier": 5,
-        "rank": 479,
-        "score": 4.1
-      },
-      {
-        "ticker": "SATS",
-        "name": "EchoStar",
-        "price": 127.32,
-        "change": -2.86,
-        "tier": 5,
-        "rank": 481,
-        "score": 4.6
-      },
-      {
-        "ticker": "WAT",
-        "name": "워터스",
-        "price": 384.32,
-        "change": 4.81,
-        "tier": 5,
-        "rank": 483,
-        "score": 4.4
-      },
-      {
-        "ticker": "CRWD",
-        "name": "크라우드스트라이크 홀딩스",
-        "price": 725.86,
-        "change": 8.18,
-        "tier": 5,
-        "rank": 491,
-        "score": 4.5
+        "rank": 473,
+        "score": 4.7
       }
     ],
     "price_surge": [
       {
-        "ticker": "PLTR",
-        "name": "팔란티어 테크놀로지스",
-        "price": 155.82,
-        "change": 8.71,
-        "tier": 2,
-        "rank": 69
+        "ticker": "MU",
+        "name": "마이크론 테크놀로지",
+        "price": 971.0,
+        "change": 5.14,
+        "tier": 1,
+        "rank": 6
       },
       {
-        "ticker": "ADBE",
-        "name": "어도비",
-        "price": 256.11,
-        "change": 6.07,
-        "tier": 3,
-        "rank": 135
+        "ticker": "MSFT",
+        "name": "마이크로소프트",
+        "price": 450.24,
+        "change": 5.45,
+        "tier": 2,
+        "rank": 32
+      },
+      {
+        "ticker": "PLTR",
+        "name": "팔란티어 테크놀로지스",
+        "price": 156.54,
+        "change": 9.21,
+        "tier": 2,
+        "rank": 80
       },
       {
         "ticker": "DELL",
         "name": "델 테크놀로지스",
-        "price": 407.06,
-        "change": 28.39,
+        "price": 420.91,
+        "change": 32.76,
         "tier": 3,
-        "rank": 140
+        "rank": 137
       },
       {
-        "ticker": "CRM",
-        "name": "세일즈포스",
-        "price": 192.82,
-        "change": 9.45,
+        "ticker": "ADBE",
+        "name": "어도비",
+        "price": 259.21,
+        "change": 7.36,
         "tier": 3,
-        "rank": 170
+        "rank": 141
       },
       {
         "ticker": "INTU",
         "name": "인튜이트",
-        "price": 328.96,
-        "change": 5.1,
+        "price": 331.53,
+        "change": 5.92,
         "tier": 3,
-        "rank": 178
+        "rank": 181
       },
       {
-        "ticker": "ORCL",
-        "name": "오라클",
-        "price": 222.21,
-        "change": 9.09,
+        "ticker": "CRM",
+        "name": "세일즈포스",
+        "price": 191.1,
+        "change": 8.47,
         "tier": 3,
         "rank": 184
       },
       {
         "ticker": "CDW",
         "name": "CDW",
-        "price": 123.77,
-        "change": 6.55,
+        "price": 125.45,
+        "change": 8.0,
         "tier": 3,
-        "rank": 205
+        "rank": 228
+      },
+      {
+        "ticker": "ORCL",
+        "name": "오라클",
+        "price": 225.78,
+        "change": 10.84,
+        "tier": 3,
+        "rank": 231
+      },
+      {
+        "ticker": "GEN",
+        "name": "젠 디지털",
+        "price": 25.79,
+        "change": 5.05,
+        "tier": 4,
+        "rank": 254
       },
       {
         "ticker": "SMCI",
         "name": "슈퍼 마이크로 컴퓨터",
-        "price": 45.42,
-        "change": 9.98,
+        "price": 46.09,
+        "change": 11.6,
         "tier": 4,
         "rank": 324
       },
       {
-        "ticker": "F",
-        "name": "포드",
-        "price": 17.62,
-        "change": 5.81,
-        "tier": 4,
-        "rank": 327
-      },
-      {
         "ticker": "NTAP",
         "name": "넷앱",
-        "price": 179.87,
-        "change": 26.31,
+        "price": 174.29,
+        "change": 22.39,
         "tier": 4,
-        "rank": 343
-      },
-      {
-        "ticker": "FTNT",
-        "name": "포티넷",
-        "price": 136.45,
-        "change": 5.2,
-        "tier": 4,
-        "rank": 358
+        "rank": 339
       },
       {
         "ticker": "HPE",
         "name": "휴렛 패커드 엔터프라이즈",
-        "price": 42.65,
-        "change": 11.62,
+        "price": 43.04,
+        "change": 12.64,
         "tier": 4,
-        "rank": 367
+        "rank": 370
+      },
+      {
+        "ticker": "FTNT",
+        "name": "포티넷",
+        "price": 137.97,
+        "change": 6.38,
+        "tier": 4,
+        "rank": 383
       },
       {
         "ticker": "PANW",
         "name": "팔로알토 네트웍스",
-        "price": 276.5,
-        "change": 7.27,
-        "tier": 4,
-        "rank": 397
+        "price": 281.69,
+        "change": 9.28,
+        "tier": 5,
+        "rank": 406
       },
       {
         "ticker": "WDAY",
         "name": "워크데이",
-        "price": 145.13,
-        "change": 11.63,
+        "price": 146.19,
+        "change": 12.45,
         "tier": 5,
-        "rank": 401
+        "rank": 413
       },
       {
         "ticker": "IBM",
         "name": "IBM",
-        "price": 289.21,
-        "change": 9.46,
+        "price": 297.8,
+        "change": 12.71,
         "tier": 5,
-        "rank": 409
+        "rank": 417
       },
       {
         "ticker": "DDOG",
         "name": "데이터독",
-        "price": 241.09,
-        "change": 7.03,
+        "price": 247.35,
+        "change": 9.82,
         "tier": 5,
-        "rank": 444
+        "rank": 447
       },
       {
         "ticker": "HPQ",
         "name": "HP",
-        "price": 27.11,
-        "change": 8.42,
-        "tier": 5,
-        "rank": 455
-      },
-      {
-        "ticker": "HOOD",
-        "name": "로빈후드 마켓",
-        "price": 92.85,
-        "change": 9.44,
+        "price": 27.04,
+        "change": 8.12,
         "tier": 5,
         "rank": 457
       },
       {
+        "ticker": "HOOD",
+        "name": "로빈후드 마켓",
+        "price": 94.3,
+        "change": 11.15,
+        "tier": 5,
+        "rank": 460
+      },
+      {
         "ticker": "APTV",
         "name": "앱티브",
-        "price": 67.67,
-        "change": 6.28,
+        "price": 67.94,
+        "change": 6.71,
         "tier": 5,
-        "rank": 465
+        "rank": 467
       },
       {
         "ticker": "NOW",
         "name": "서비스나우",
-        "price": 123.42,
-        "change": 13.51,
+        "price": 124.37,
+        "change": 14.38,
         "tier": 5,
-        "rank": 469
+        "rank": 472
       },
       {
         "ticker": "CRWD",
         "name": "크라우드스트라이크 홀딩스",
-        "price": 725.86,
-        "change": 8.18,
+        "price": 731.0,
+        "change": 8.94,
         "tier": 5,
         "rank": 491
       }
@@ -3896,12 +4311,12 @@
         "rank": 4
       },
       {
-        "ticker": "COHR",
-        "name": "Coherent Corp.",
-        "price": 345.18,
-        "change": -8.43,
-        "tier": 3,
-        "rank": 223
+        "ticker": "RMD",
+        "name": "레즈메드",
+        "price": 190.57,
+        "change": -6.32,
+        "tier": 2,
+        "rank": 62
       },
       {
         "ticker": "PAYC",
@@ -3910,16 +4325,32 @@
         "change": -6.03,
         "tier": 3,
         "rank": 251
+      },
+      {
+        "ticker": "CLX",
+        "name": "크로락스",
+        "price": 90.02,
+        "change": -6.42,
+        "tier": 4,
+        "rank": 364
+      },
+      {
+        "ticker": "INTC",
+        "name": "인텔",
+        "price": 114.68,
+        "change": -5.14,
+        "tier": 5,
+        "rank": 476
       }
     ],
     "earnings_coming": [
       {
         "ticker": "HPE",
         "name": "휴렛 패커드 엔터프라이즈",
-        "price": 42.65,
-        "change": 11.62,
+        "price": 43.04,
+        "change": 12.64,
         "tier": 4,
-        "rank": 367,
+        "rank": 370,
         "date": "2026-06-01",
         "d_day": 3
       }
@@ -3928,10 +4359,10 @@
       {
         "ticker": "BALL",
         "name": "볼",
-        "price": 55.45,
-        "change": -1.4,
+        "price": 54.67,
+        "change": -2.79,
         "tier": 1,
-        "rank": 14,
+        "rank": 20,
         "date": "2026-06-01",
         "d_day": 3,
         "yield": 1.42
@@ -3939,10 +4370,10 @@
       {
         "ticker": "HIG",
         "name": "하트포드 파이낸셜 서비시스 그룹",
-        "price": 128.22,
-        "change": -0.58,
+        "price": 127.13,
+        "change": -1.43,
         "tier": 2,
-        "rank": 29,
+        "rank": 37,
         "date": "2026-06-01",
         "d_day": 3,
         "yield": 1.82
@@ -3950,43 +4381,54 @@
       {
         "ticker": "HII",
         "name": "헌팅턴 잉걸스 인더스트리스",
-        "price": 310.51,
-        "change": -3.24,
+        "price": 308.17,
+        "change": -3.97,
         "tier": 2,
-        "rank": 43,
+        "rank": 57,
         "date": "2026-05-29",
         "d_day": 0,
         "yield": 1.74
       },
       {
-        "ticker": "HUBB",
-        "name": "허벨",
-        "price": 468.32,
-        "change": -1.18,
-        "tier": 2,
-        "rank": 45,
-        "date": "2026-05-29",
-        "d_day": 0,
-        "yield": 1.17
-      },
-      {
         "ticker": "D",
         "name": "도미니언 에너지",
-        "price": 66.91,
-        "change": -0.7,
+        "price": 66.94,
+        "change": -0.65,
         "tier": 2,
-        "rank": 61,
+        "rank": 60,
         "date": "2026-05-29",
         "d_day": 0,
         "yield": 3.97
       },
       {
+        "ticker": "HUBB",
+        "name": "허벨",
+        "price": 473.61,
+        "change": -0.07,
+        "tier": 2,
+        "rank": 69,
+        "date": "2026-05-29",
+        "d_day": 0,
+        "yield": 1.17
+      },
+      {
+        "ticker": "JKHY",
+        "name": "잭 헨리 앤드 어소시에이츠",
+        "price": 136.32,
+        "change": 0.07,
+        "tier": 3,
+        "rank": 102,
+        "date": "2026-06-01",
+        "d_day": 3,
+        "yield": 1.75
+      },
+      {
         "ticker": "UNP",
         "name": "유니온 퍼시픽",
-        "price": 262.25,
-        "change": -1.78,
-        "tier": 2,
-        "rank": 83,
+        "price": 262.64,
+        "change": -1.63,
+        "tier": 3,
+        "rank": 104,
         "date": "2026-05-29",
         "d_day": 0,
         "yield": 1.98
@@ -3994,32 +4436,21 @@
       {
         "ticker": "CSX",
         "name": "CSX",
-        "price": 45.24,
-        "change": -1.24,
-        "tier": 2,
-        "rank": 99,
+        "price": 45.26,
+        "change": -1.2,
+        "tier": 3,
+        "rank": 109,
         "date": "2026-05-29",
         "d_day": 0,
         "yield": 1.19
       },
       {
-        "ticker": "JKHY",
-        "name": "잭 헨리 앤드 어소시에이츠",
-        "price": 136.62,
-        "change": 0.3,
-        "tier": 3,
-        "rank": 103,
-        "date": "2026-06-01",
-        "d_day": 3,
-        "yield": 1.75
-      },
-      {
         "ticker": "EXPD",
         "name": "익스피다이터스 인터내셔널 오브 워싱턴",
-        "price": 159.89,
-        "change": 0.59,
+        "price": 157.99,
+        "change": -0.61,
         "tier": 3,
-        "rank": 105,
+        "rank": 115,
         "date": "2026-06-01",
         "d_day": 3,
         "yield": 1.0
@@ -4027,10 +4458,10 @@
       {
         "ticker": "MCK",
         "name": "매케슨",
-        "price": 743.96,
-        "change": -1.72,
+        "price": 742.44,
+        "change": -1.92,
         "tier": 3,
-        "rank": 116,
+        "rank": 123,
         "date": "2026-06-01",
         "d_day": 3,
         "yield": 43.0
@@ -4038,10 +4469,10 @@
       {
         "ticker": "DOV",
         "name": "도버",
-        "price": 211.68,
-        "change": -0.39,
+        "price": 211.36,
+        "change": -0.54,
         "tier": 3,
-        "rank": 132,
+        "rank": 126,
         "date": "2026-05-29",
         "d_day": 0,
         "yield": 0.97
@@ -4049,54 +4480,43 @@
       {
         "ticker": "MTB",
         "name": "M&T 뱅크",
-        "price": 215.85,
-        "change": 0.72,
+        "price": 216.11,
+        "change": 0.84,
         "tier": 3,
-        "rank": 138,
+        "rank": 130,
         "date": "2026-06-01",
         "d_day": 3,
         "yield": 2.79
       },
       {
-        "ticker": "RF",
-        "name": "리전스 파이낸셜",
-        "price": 28.04,
-        "change": 0.75,
-        "tier": 3,
-        "rank": 180,
-        "date": "2026-06-01",
-        "d_day": 3,
-        "yield": 3.77
-      },
-      {
-        "ticker": "EBAY",
-        "name": "이베이",
-        "price": 108.25,
-        "change": -3.46,
-        "tier": 3,
-        "rank": 182,
-        "date": "2026-05-29",
-        "d_day": 0,
-        "yield": 1.12
-      },
-      {
         "ticker": "HAS",
         "name": "해즈브로",
-        "price": 86.79,
-        "change": 0.47,
+        "price": 86.17,
+        "change": -0.24,
         "tier": 3,
-        "rank": 188,
+        "rank": 149,
         "date": "2026-06-01",
         "d_day": 3,
         "yield": 3.18
       },
       {
+        "ticker": "RF",
+        "name": "리전스 파이낸셜",
+        "price": 28.0,
+        "change": 0.61,
+        "tier": 3,
+        "rank": 151,
+        "date": "2026-06-01",
+        "d_day": 3,
+        "yield": 3.77
+      },
+      {
         "ticker": "CBOE",
         "name": "CBOE 글로벌 마켓",
-        "price": 336.04,
-        "change": -2.38,
+        "price": 333.56,
+        "change": -3.1,
         "tier": 3,
-        "rank": 196,
+        "rank": 194,
         "date": "2026-05-29",
         "d_day": 0,
         "yield": 0.83
@@ -4104,32 +4524,32 @@
       {
         "ticker": "MLM",
         "name": "마틴 마리에타 머티리얼스",
-        "price": 586.71,
-        "change": 2.01,
+        "price": 581.64,
+        "change": 1.13,
         "tier": 3,
-        "rank": 206,
+        "rank": 211,
         "date": "2026-06-01",
         "d_day": 3,
         "yield": 0.58
       },
       {
-        "ticker": "IBKR",
-        "name": "인터랙티브 브로커스 그룹",
-        "price": 86.61,
-        "change": 4.21,
+        "ticker": "EBAY",
+        "name": "이베이",
+        "price": 109.27,
+        "change": -2.55,
         "tier": 3,
-        "rank": 240,
-        "date": "2026-06-01",
-        "d_day": 3,
-        "yield": 43.0
+        "rank": 218,
+        "date": "2026-05-29",
+        "d_day": 0,
+        "yield": 1.12
       },
       {
         "ticker": "LH",
         "name": "랩코프 홀딩스",
-        "price": 262.04,
-        "change": -0.27,
-        "tier": 4,
-        "rank": 255,
+        "price": 260.06,
+        "change": -1.02,
+        "tier": 3,
+        "rank": 244,
         "date": "2026-05-29",
         "d_day": 0,
         "yield": 1.12
@@ -4137,21 +4557,32 @@
       {
         "ticker": "TPL",
         "name": "텍사스 퍼시픽 랜드",
-        "price": 395.95,
-        "change": -1.34,
+        "price": 393.0,
+        "change": -2.07,
         "tier": 4,
-        "rank": 262,
+        "rank": 267,
         "date": "2026-06-01",
         "d_day": 3,
         "yield": 0.59
       },
       {
+        "ticker": "IBKR",
+        "name": "인터랙티브 브로커스 그룹",
+        "price": 86.97,
+        "change": 4.64,
+        "tier": 4,
+        "rank": 286,
+        "date": "2026-06-01",
+        "d_day": 3,
+        "yield": 43.0
+      },
+      {
         "ticker": "SPGI",
         "name": "S&P 글로벌",
-        "price": 425.8,
-        "change": 1.95,
+        "price": 424.0,
+        "change": 1.51,
         "tier": 4,
-        "rank": 296,
+        "rank": 321,
         "date": "2026-05-29",
         "d_day": 0,
         "yield": 0.93
@@ -4159,43 +4590,43 @@
       {
         "ticker": "LMT",
         "name": "록히드 마틴",
-        "price": 531.67,
-        "change": -1.03,
+        "price": 530.45,
+        "change": -1.26,
         "tier": 4,
-        "rank": 347,
+        "rank": 355,
         "date": "2026-06-01",
         "d_day": 3,
         "yield": 2.6
       },
       {
-        "ticker": "DOW",
-        "name": "다우",
-        "price": 33.69,
-        "change": -3.09,
-        "tier": 5,
-        "rank": 411,
-        "date": "2026-05-29",
-        "d_day": 0,
-        "yield": 4.06
-      },
-      {
         "ticker": "PFG",
         "name": "프린시플 파이낸셜 그룹",
-        "price": 104.73,
-        "change": 1.36,
+        "price": 103.62,
+        "change": 0.29,
         "tier": 5,
-        "rank": 430,
+        "rank": 407,
         "date": "2026-06-01",
         "d_day": 3,
         "yield": 3.14
       },
       {
+        "ticker": "DOW",
+        "name": "다우",
+        "price": 33.75,
+        "change": -2.93,
+        "tier": 5,
+        "rank": 427,
+        "date": "2026-05-29",
+        "d_day": 0,
+        "yield": 4.06
+      },
+      {
         "ticker": "FDS",
         "name": "팩트셋 리서치 시스템즈",
-        "price": 248.21,
-        "change": 3.89,
+        "price": 245.47,
+        "change": 2.75,
         "tier": 5,
-        "rank": 463,
+        "rank": 468,
         "date": "2026-05-29",
         "d_day": 0,
         "yield": 1.97
@@ -4203,8 +4634,8 @@
       {
         "ticker": "BAX",
         "name": "박스터 인터내셔널",
-        "price": 18.92,
-        "change": -1.74,
+        "price": 18.78,
+        "change": -2.44,
         "tier": 5,
         "rank": 490,
         "date": "2026-05-29",
@@ -4214,10 +4645,10 @@
       {
         "ticker": "EL",
         "name": "에스티 로더",
-        "price": 90.06,
-        "change": -0.9,
+        "price": 88.95,
+        "change": -2.11,
         "tier": 5,
-        "rank": 496,
+        "rank": 497,
         "date": "2026-05-29",
         "d_day": 0,
         "yield": 1.54
