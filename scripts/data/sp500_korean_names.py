@@ -192,6 +192,7 @@ SP500_KOREAN_NAMES = {
     "FCX": "프리포트 맥모란",
     "FDS": "팩트셋 리서치 시스템즈",
     "FDX": "페덱스",
+    "FDXF": "FedEx Freight",
     "FE": "퍼스트에너지",
     "FFIV": "F5",
     "FICO": "페어 아이작",

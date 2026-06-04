@@ -192,6 +192,7 @@ SP500_ENGLISH_NAMES = {
     "FCX": "Freeport-McMoRan",
     "FDS": "FactSet",
     "FDX": "FedEx",
+    "FDXF": "FedEx Freight",
     "FE": "FirstEnergy",
     "FFIV": "F5 Networks",
     "FICO": "Fair Isaac",
