@@ -160,6 +160,7 @@ SP500_ENGLISH_NAMES = {
     "DXCM": "DexCom",
     "EA": "Electronic Arts",
     "EBAY": "eBay",
+    "ECHO": "EchoStar",
     "ECL": "Ecolab",
     "ED": "Consolidated Edison",
     "EFX": "Equifax",

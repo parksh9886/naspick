@@ -160,6 +160,7 @@ SP500_KOREAN_NAMES = {
     "DXCM": "덱스콤",
     "EA": "일렉트로닉 아츠",
     "EBAY": "이베이",
+    "ECHO": "EchoStar",
     "ECL": "에코랩",
     "ED": "컨솔리데이티드 에디슨",
     "EFX": "에퀴팩스",
