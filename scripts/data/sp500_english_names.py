@@ -237,6 +237,7 @@ SP500_ENGLISH_NAMES = {
     "HLT": "Hilton",
     "HOLX": "Hologic",
     "HON": "Honeywell",
+    "HONA": "Honeywell Aerospace",
     "HOOD": "Robinhood",
     "HPE": "Hewlett Packard Enterprise",
     "HPQ": "HP Inc.",

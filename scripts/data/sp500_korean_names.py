@@ -237,6 +237,7 @@ SP500_KOREAN_NAMES = {
     "HLT": "힐튼 월드와이드 홀딩스",
     "HOLX": "홀로직",
     "HON": "허니웰 인터내셔널",
+    "HONA": "Honeywell Aerospace",
     "HOOD": "로빈후드 마켓",
     "HPE": "휴렛 패커드 엔터프라이즈",
     "HPQ": "HP",
