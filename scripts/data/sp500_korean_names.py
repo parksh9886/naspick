@@ -195,6 +195,7 @@ SP500_KOREAN_NAMES = {
     "FDX": "페덱스",
     "FDXF": "FedEx Freight",
     "FE": "퍼스트에너지",
+    "FERG": "Ferguson Enterprises",
     "FFIV": "F5",
     "FICO": "페어 아이작",
     "FIS": "피델리티 내셔널 인포메이션 서비시스",

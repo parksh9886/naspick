@@ -195,6 +195,7 @@ SP500_ENGLISH_NAMES = {
     "FDX": "FedEx",
     "FDXF": "FedEx Freight",
     "FE": "FirstEnergy",
+    "FERG": "Ferguson Enterprises",
     "FFIV": "F5 Networks",
     "FICO": "Fair Isaac",
     "FIS": "Fidelity National",
