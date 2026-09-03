@@ -1,7 +1,7 @@
 {
   "last_update": "2026-09-03",
   "cash": 10394.74,
-  "total_value": 399462.32,
+  "total_value": 419398.66,
   "holdings": {
     "MU": 74,
     "NVDA": 82,
@@ -20,7 +20,7 @@
     "CF": 172,
     "ALL": 77,
     "PEG": 269,
-    "APH": 245
+    "APH": 490
   },
   "note": "Synced with Backtest v3.1 (Total Return) on 2026-01-19",
   "action_history": [
@@ -261,6 +261,14 @@
       "type": "DIVIDEND",
       "amount": 83.16,
       "per_share": 1.08
+    },
+    {
+      "date": "2026-09-03",
+      "ticker": "APH",
+      "type": "SPLIT",
+      "ratio": 2.0,
+      "old_qty": 245,
+      "new_qty": 490
     }
   ]
 }
