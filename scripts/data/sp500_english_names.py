@@ -365,6 +365,7 @@ SP500_ENGLISH_NAMES = {
     "O": "Realty Income",
     "ODFL": "Old Dominion Freight",
     "OKE": "ONEOK",
+    "OKTA": "Okta, Inc.",
     "OMC": "Omnicom",
     "ON": "ON Semiconductor",
     "ORCL": "Oracle",
