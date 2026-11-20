@@ -1,12 +1,12 @@
 {
   "last_update": "2026-11-20",
   "cash": 9714.01,
-  "total_value": 334473.36,
+  "total_value": 308100.55,
   "holdings": {
     "MU": 74,
     "NVDA": 82,
     "CTRA": 493,
-    "SNDK": 13,
+    "SNDK": 104,
     "WDC": 39,
     "CINF": 108,
     "CF": 172,
@@ -367,6 +367,14 @@
       "type": "DIVIDEND",
       "amount": 99.75,
       "per_share": 1.33
+    },
+    {
+      "date": "2026-11-20",
+      "ticker": "SNDK",
+      "type": "SPLIT",
+      "ratio": 8.0,
+      "old_qty": 13,
+      "new_qty": 104
     }
   ]
 }
