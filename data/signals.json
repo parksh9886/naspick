@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-26 23:49:36",
+  "updated_at": "2026-11-27 03:38:13",
   "market_status": "open",
   "signals": {
     "tier_up": [],
@@ -13,15 +13,6 @@
         "tier": 3,
         "rank": 140,
         "diff": 64
-      },
-      {
-        "ticker": "HPQ",
-        "name": "HP",
-        "price": 31.15,
-        "change": 11.49,
-        "tier": 3,
-        "rank": 155,
-        "diff": 59
       },
       {
         "ticker": "PAYC",
@@ -42,24 +33,6 @@
         "tier": 4,
         "rank": 281,
         "diff": -101
-      },
-      {
-        "ticker": "TPL",
-        "name": "텍사스 퍼시픽 랜드",
-        "price": 261.37,
-        "change": 3.97,
-        "tier": 4,
-        "rank": 284,
-        "diff": -55
-      },
-      {
-        "ticker": "WDAY",
-        "name": "워크데이",
-        "price": 180.44,
-        "change": 0.68,
-        "tier": 4,
-        "rank": 363,
-        "diff": -202
       },
       {
         "ticker": "MOH",
@@ -218,18 +191,18 @@
         "rank": 278
       },
       {
-        "ticker": "HSY",
-        "name": "허쉬",
-        "price": 182.57,
-        "change": 3.4,
-        "tier": 4,
-        "rank": 286
-      },
-      {
         "ticker": "HUBB",
         "name": "허벨",
         "price": 428.74,
         "change": 1.57,
+        "tier": 4,
+        "rank": 286
+      },
+      {
+        "ticker": "HSY",
+        "name": "허쉬",
+        "price": 182.57,
+        "change": 3.4,
         "tier": 4,
         "rank": 287
       },
@@ -976,7 +949,7 @@
         "price": 428.74,
         "change": 1.57,
         "tier": 4,
-        "rank": 287,
+        "rank": 286,
         "pattern": "상승 장악형",
         "desc": "강력한 매수세로 추세 반전"
       },
@@ -1892,7 +1865,7 @@
         "price": 182.57,
         "change": 3.4,
         "tier": 4,
-        "rank": 286,
+        "rank": 287,
         "score": 4.7
       },
       {
@@ -2358,62 +2331,6 @@
       }
     ],
     "earnings_coming": [],
-    "dividend_ex": [
-      {
-        "ticker": "NEE",
-        "name": "넥스트에라 에너지",
-        "price": 85.41,
-        "change": 0.98,
-        "tier": 3,
-        "rank": 190,
-        "date": "2026-11-27",
-        "d_day": 1,
-        "yield": 2.92
-      },
-      {
-        "ticker": "FTV",
-        "name": "포티브",
-        "price": 66.11,
-        "change": 0.52,
-        "tier": 3,
-        "rank": 209,
-        "date": "2026-11-27",
-        "d_day": 1,
-        "yield": 42.0
-      },
-      {
-        "ticker": "YUM",
-        "name": "염 브랜즈",
-        "price": 167.12,
-        "change": 0.47,
-        "tier": 3,
-        "rank": 239,
-        "date": "2026-11-27",
-        "d_day": 1,
-        "yield": 1.8
-      },
-      {
-        "ticker": "HII",
-        "name": "헌팅턴 잉걸스 인더스트리스",
-        "price": 299.34,
-        "change": 2.23,
-        "tier": 4,
-        "rank": 253,
-        "date": "2026-11-27",
-        "d_day": 1,
-        "yield": 1.88
-      },
-      {
-        "ticker": "BAX",
-        "name": "박스터 인터내셔널",
-        "price": 27.26,
-        "change": 1.04,
-        "tier": 4,
-        "rank": 351,
-        "date": "2026-11-27",
-        "d_day": 1,
-        "yield": 15.0
-      }
-    ]
+    "dividend_ex": []
   }
 }
